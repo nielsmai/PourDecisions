@@ -1,4 +1,4 @@
-package com.vodkabulary.vodkabulary;
+package com.vodkabulary;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;

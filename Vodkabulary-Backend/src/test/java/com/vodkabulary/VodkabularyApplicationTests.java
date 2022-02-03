@@ -1,4 +1,4 @@
-package com.vodkabulary.vodkabulary;
+package com.vodkabulary;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
