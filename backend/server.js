@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
 // connect to MongoDB
 const uri = process.env.ATLAS_URI;

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // euh not sure what a drink should have
 const drinkSchema = new Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
     recipe: { type: String, required: true }, // maybe need to change this
     rating: { type: Number, required: true },
     date: { type: Date, required: true },
