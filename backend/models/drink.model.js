@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 // euh not sure what a drink should have
@@ -11,4 +11,5 @@ const drinkSchema = new Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model('Drink', drinkSchema);
+// module.exports = mongoose.model('Drink', drinkSchema);
+export default mongoose.model('Drink', drinkSchema);
