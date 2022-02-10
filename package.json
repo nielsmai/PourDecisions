@@ -6,8 +6,8 @@
   "scripts": {
     "start": "cd ./backend/ && npm install && node server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd ./frontend/ && npm install && npm run build",
-    "backend": "cd ./backend/ && npm install && nodemon server.js",
-    "frontend": "cd ./frontend/ && npm install && npm run start",
+    "backend": "cd ./backend/ && nodemon server.js",
+    "frontend": "cd ./frontend/ && npm run start",
     "backend-test": "cd ./backend/ && cucumber-js test",
     "frontend-test": "cd ./frontend/ && npm run test"
   },
