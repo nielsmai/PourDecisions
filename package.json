@@ -1,0 +1,24 @@
+{
+  "name": "pour-decisions",
+  "version": "1.0.0",
+  "description": "An app to discover and create new drinks!",
+  "main": "/backend/server.js",
+  "scripts": {
+    "start": "cd ./backend/ && npm install && node server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd ./frontend/ && npm install && npm run build",
+    "backend": "cd ./backend/ && nodemon server.js",
+    "frontend": "cd ./frontend/ npm run start",
+    "backend-test": "cd ./backend/ && cucumber-js test",
+    "frontend-test": "cd ./frontend/ && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ballofsunshine/PourDecisions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ballofsunshine/PourDecisions/issues"
+  },
+  "homepage": "https://github.com/ballofsunshine/PourDecisions#readme"
+}
