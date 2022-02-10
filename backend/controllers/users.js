@@ -1,15 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
-var bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 var SALT_WORK_FACTOR = 10;
 
-import userModel from '../models/user.model';
+import User from '../models/user.model.js';
 
 const router = express.Router();
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await userModel.find();
+        const users = await User.find();
         
         res.status(200).json(users);
     } catch (error) {
@@ -20,7 +20,7 @@ export const getAllUsers = async (req, res) => {
 export const createUser = async (req, res) => {
     
     const { username, password } = req.body;  
-    const newUser = new userModel({username, password});
+    const newUser = new User({username, password});
     
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -37,3 +37,4 @@ export const createUser = async (req, res) => {
 
 }
 
+export default router;

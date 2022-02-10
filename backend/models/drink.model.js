@@ -12,4 +12,5 @@ const drinkSchema = new Schema({
 });
 
 // module.exports = mongoose.model('Drink', drinkSchema);
-export default mongoose.model('Drink', drinkSchema);
+var Drink = mongoose.model('Drink', drinkSchema);
+export default Drink; 

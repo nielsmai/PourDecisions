@@ -1,5 +1,5 @@
 import express from 'express'; 
-import {createDrink, getAllDrinks} from '../controllers/drinks';
+import { createDrink, getAllDrinks } from '../controllers/drinks.js';
 
 const router = express.Router();
 

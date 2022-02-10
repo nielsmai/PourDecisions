@@ -1,19 +1,20 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+import usersRouter from './routes/users.js';
+import drinksRouter from './routes/drinks.js';
 
 const app = express();
 
-require('dotenv').config(); // allows to store env variables in file
+dotenv.config(); // allows to store env variables in file
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 // routing
-const usersRouter = require('./routes/users');
-const drinksRouter = require('./routes/drinks');
-
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 
@@ -25,7 +26,7 @@ connection.once('open', () => {
     console.log("Connected to MongoDB succesfully.");
 })
 
-mongoose.set('useFindAndModify', false); // for some deprecation things 
+// mongoose.set('useFindAndModify', false); // for some deprecation things 
 
 const PORT = process.env.PORT || 5000; 
 
