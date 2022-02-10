@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import usersRouter from './routes/users.js';
 import drinksRouter from './routes/drinks.js';
@@ -28,7 +29,17 @@ connection.once('open', () => {
 
 // mongoose.set('useFindAndModify', false); // for some deprecation things 
 
-// if (process.env.NODE_ENV === "production"){}
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send("API running.");
+    });
+}
 
 const PORT = process.env.PORT; 
 
