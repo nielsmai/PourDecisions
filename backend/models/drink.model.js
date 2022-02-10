@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 // euh not sure what a drink should have
 const drinkSchema = new Schema({
     name: { type: String, required: true, trim: true },
-    recipe: { type: String, required: true }, // maybe need to change this
+    public: { type: Boolean, required: true },
     rating: { type: Number, required: true },
-    date: { type: Date, required: true },
+    //recipe: { type: String, required: true }, // maybe need to change this
+    // needed: recipe, tag, creator
 }, {
     timestamps: true,
 });
