@@ -28,7 +28,9 @@ connection.once('open', () => {
 
 // mongoose.set('useFindAndModify', false); // for some deprecation things 
 
-const PORT = process.env.PORT || 5000; 
+// if (process.env.NODE_ENV === "production"){}
+
+const PORT = process.env.PORT; 
 
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
