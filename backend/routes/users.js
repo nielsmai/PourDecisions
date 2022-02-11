@@ -10,4 +10,5 @@ router.get('/', getAllUsers);
 // route to add new user (post)
 router.post('/', createUser);
 
+
 export default router;
