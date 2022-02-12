@@ -15,9 +15,9 @@ export const getAllDrinks = async (req, res) => {
 }
 
 export const createDrink = async (req, res) => {
-    const {name, recipe, rating, date} = req.body;  
+    const drink = req.body;  
 
-    const newDrink = new Drink({name, recipe, rating, date});
+    const newDrink = new Drink(drink);
 
     try {
         await newDrink.save();

@@ -32,9 +32,19 @@ export const createUser = async (req, res) => {
             .catch(err => res.status(409).json({ message: err.message }));
         });
     });
-    
-    
-
 }
+
+export const updateUser = async (req, res) => {
+    
+    const { username, password, newPassword } = req.body;
+    const updatedUser = User({username, password});
+
+    // Not exactly how the hashing works here so leaving blank
+}
+
+export const logIn = async (req, res) => {}
+
+export const logOut = async (req, res) => {}
+
 
 export default router;
