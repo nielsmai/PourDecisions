@@ -19,16 +19,14 @@ Background:
 
 Scenario: View Drink Recipes in alphabetical order (UG3)
 	When the User "User1" requests to view the drinks in alphabetical order
-    Then the list of drinks are displayed in alphabetical order 
+    Then the list of drinks is displayed in alphabetical order 
 
 Scenario: View Drink Recipes by Newest Added option (UG5)
-	When the User <user> or Guest <guest> clicks on the "View Drink Catalogue" button
-    And the User <user> or Guest <guest> selects "Newest Added" filter
-    Then the User <user> or Guest <guest> is redirected to the drink catalogue page
-    And the list of drinks are displayed by newest date
+	When the User "User1" requests to view drinks by newest
+    Then the list of drinks is displayed in order of their creation
 
-Scenario: View Drink Recipes by like count (UG7)
-	When the User "User1" requests to view drinks by their like count
-    Then the list of drinks "<drinks>" is displayed in descending order of like count
+Scenario: View Drink Recipes by rating (UG7)
+	When the User "User1" requests to view drinks by their rating
+    Then the list of drinks is displayed in descending order of their rating
 
     
