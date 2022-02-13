@@ -1,41 +1,8 @@
 <!DOCTYPE html>
 <html>
-<body style="background-color:#F8F3E7;">
 <head>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            .topnav {
-                overflow: hidden;
-                background-color: #EFEADE;
-            }
-            .topnav a {
-                float: right;
-                color:black;
-                text_align: center;
-                padding: 14px 16px;
-                font-size: 17px;
-            }
-            .topnav a:hover {
-                background-color: #8b4f6d;
-            }
-            .topnav a.active {
-                color:#7E003F;
-            }
-            .topnav b {
-                float: left;
-                color:#7E003F;
-                text_align: center;
-                padding: 14px 16px;
-                font-size: 17px;
-            }
-            .topnav b:hover {
-                background-color: #8b4f6d;
-            }
-            .topnav b.active {
-                color:#7E003F;
-            }
-        </style>
-    </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <body>
        <div class="topnav">
@@ -60,7 +27,7 @@
 <th>
 <p style="font-size:25px; color: #7E003E;"><b>Username</b></p>
 </th>
-<td style="padding-left:200px">
+<td style="padding-left:200px;text-align:center;">
 <p class="dark" style="font-size:25px"><b>Anika</b></p>
 </td>
 </tr>
@@ -69,13 +36,9 @@
 <th>
 <p style="font-size:25px; color: #7E003E;"><b>Password</b></p>
 </th>
-<td style="padding-left:50px">
+<td style="padding-left: 200px">
 <input v-model="oldPass" placeholder="Old Password">
-</td>
-<td>
 <input v-model="newPass" placeholder="New Password">
-</td>
-<td>
 <input v-model="confirmPass" placeholder="Confirm New Password">
 </td>
 </tr>
@@ -84,60 +47,18 @@
 <th>
 <p style="font-size:25px; color: #7E003E;"><b>Email</b></p>
 </th>
-<td style="padding-left:200px">
+<td style="padding-left:200px; text-align:center;">
 <p class="dark" style="font-size:25px"><b>anika@gmail.com</b></p>
 </td>
 </tr>
 </table>
 </div>
-<div style="text-align:right">
+<div style="text-align:center;padding-left:160px">
 <a class = "button">Apply Changes</a>
 </div>
 
-
-<div id="like_button_container"></div>
-
-  <!-- Load React. -->
-  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-
-  <!-- Load our React component. -->
-  <script src="UserProfile.js"></script>
-
 </body>
-<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-li {
-  float: left;
-  font-size: 30px;
-}
-a {
-  display: block;
-  padding-right: 90px;
-  padding-left: 90px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.button {
-  background-color: #7E003E;
-  border: none;
-  color: #F8F3E7;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
-  Border-radius:10px;
-}
-.dark{
-  color: #4E003E;
-}
-</style>
-);
-}
+
+<link rel="stylesheet" href="changePasswordAccount.css">
+
 </html>
