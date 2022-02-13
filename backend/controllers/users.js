@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 var SALT_WORK_FACTOR = 10;
 
-import User from '../models/user.js';
+import User from '../models/user.model.js';
 
 const router = express.Router();
 
