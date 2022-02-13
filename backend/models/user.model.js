@@ -9,10 +9,16 @@ import bcrypt from 'bcrypt';
 
 var Schema = mongoose.Schema;
 var SALT_WORK_FACTOR = 10;
-     
+
 var UserSchema = new Schema({
+
+    // ObjectId: special type for unique identifiers (made of 24-character hexa String), use that instead of int / Number type
+    userID: Schema.Types.ObjectId,
+    
     username: { type: String, required: true, index: { unique: true }, minlength: 4, trim: true },
-    password: { type: String, required: true, minlength: 8 }
+    password: { type: String, required: true, minlength: 8 },
+    email: { type: String, required: true },
+    isAdmin : { type: Boolean }
 },{
     timestamps: true
 });
