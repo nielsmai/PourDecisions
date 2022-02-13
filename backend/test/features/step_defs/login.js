@@ -10,29 +10,29 @@ var loggedIn = false;
 Given('the following account exists in the system:', function(dataTable) {
     const username = dataTable.username;
     const password = dataTable.password;
-    assert(username == "User1");
-    assert(password == "userpassword01");
+    assert.equal(username, "User1");
+    assert.equal(password, "userpassword01");
     return 'pending';
 });
 Given('the following account exists in the system:', function (dataTable) {
     // Write code here that turns the phrase above into concrete actions
     const username = dataTable.username;
     const password = dataTable.password;
-    assert(username == "User1");
-    assert(password == "userpassword01");
+    assert.equal(username, "User1");
+    assert.equal(password, "userpassword01");
     return 'pending';
   });
 When('the user logs in using username {stringName} and password {userPassword}', function(dataTable) {
     const username = dataTable.username;
     const password = dataTable.password;
     loggedIn = login(username, password);
-    assert(loggedIn == true);
+    assert.equal(loggedIn, true);
 })
 Then('the user shall be logged in', function(dataTable) {
     const username = dataTable.username;
     const password = dataTable.password;
     loggedIn = login(username, password);
-    assert(loggedIn == true);
+    assert.equal(loggedIn, true);
 })
 
 //Scenario: Unsuccessful login
@@ -41,10 +41,10 @@ When('the user logs in using username {username} and password {password}', funct
         const username = dataTable.username;
         const password = dataTable.password
         loggedIn = login(username, password);
-        assert(loggedIn == false);
+        assert.equal(loggedIn, false);
     }
     catch(error){
-        assert(loggedIn == false);
+        assert.equal(loggedIn, false);
     }
 })
 Then('the user is not logged in', function(dataTable) {
@@ -52,10 +52,10 @@ Then('the user is not logged in', function(dataTable) {
         const username = dataTable.username;
         const password = dataTable.password
         loggedIn = login(username, password);
-        assert(loggedIn == false);
+        assert.equal(loggedIn, false);
     }
     catch(error){
-        assert(loggedIn == false);
+        assert.equal(loggedIn, false);
     }
 })
 And('an error message {error} shall be raised', function(dataTable) {
@@ -63,7 +63,7 @@ And('an error message {error} shall be raised', function(dataTable) {
         const username = dataTable.username;
         const password = dataTable.password
         loggedIn = login(username, password);
-        assert(loggedIn == false);
+        assert.equal(loggedIn, false);
     }
     catch(error){
         errorMsg += error.message;
