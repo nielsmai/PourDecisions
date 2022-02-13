@@ -1,4 +1,4 @@
-Feature: Modify recipe of custom drinks 
+Feature: View recipe of custom drinks 
 
 As a user, I want to be able to view a list of all of my public and private custom made drink recipes so that I have an easy access to all of my custom made recipes, like a personal recipe book
 

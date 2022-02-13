@@ -56,5 +56,14 @@ export const getAllDrinksRating = async (req,res) => {
     }
 }
 
+export const getPersonalCustomDrinks = async (req,res) => {
+    try {
+        const drinks = await Drink.find( {author: req});
+            res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
 export default router;
 
