@@ -2,11 +2,11 @@ import mongoose from 'mongoose';
 
 var Schema = mongoose.Schema;
 // Equivalent of adding enum strings in Java
-const listOfIngredientTypes = ['Liquor', 'Fruit', 'Soda', 'Herb', 'Veggie', 'Other'];
+const listOfIngredientType = ['Liquor', 'Fruit', 'Soda', 'Herb', 'Veggie', 'Other'];
 
 var ingredientSchema = new Schema({
     ingredientName: { type: String, required: true, trim: true },
-    ingredientType: { type: String, enum: listOfIngredientTypes, default: 'Other', required: true },
+    ingredientType: { type: String, enum: listOfIngredientType, default: 'Other', required: true },
 }, {
     timestamps: true,
 });

@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import Drink from '../models/drink.model.js';
+import Drink from '../models/drink.js';
 
 const router = express.Router();
 
