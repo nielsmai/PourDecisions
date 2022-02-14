@@ -32,10 +32,10 @@ Scenario Outline: user unsuccessfully creates a new drink
     |          | rum,citrus juice,sugar | CREATE-DRINK-NAME-EMPTY        |
     | Daiquiri |                        | CREATE-DRINK-INGREDIENTS-EMPTY |
   
-Scenario: A user views a randomly generated Drink Recipe from the catalogue 
-	Given User "user1" is logged into their account
-  When User "user1" generates a new recipe
-  Then there shall be 1 more recipe in the system
+# Scenario: A user views a randomly generated Drink Recipe from the catalogue 
+# 	Given User "user1" is logged into their account
+#   When User "user1" generates a new recipe
+#   Then there shall be 1 more recipe in the system
 
   #Not sure what to check in this case
 
