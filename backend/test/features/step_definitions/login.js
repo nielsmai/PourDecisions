@@ -1,7 +1,12 @@
-import assert from 'assert';
-import { Given, When, Then }  from '@cucumber/cucumber';
-import { createUser } from '../../../controllers/users';
-import { login } from '../../../controllers/login';
+// import assert from 'assert';
+// import { Given, When, Then }  from '@cucumber/cucumber';
+// import { createUser } from '../../../controllers/users';
+// import { login } from '../../../controllers/login';
+
+const assert = require('assert');
+const { Given, When, Then } = require('@cucumber/cucumber');
+const { createUser } = require('../../../controllers/users');
+const { login } = require('../../../controllers/login');
 
 var errorMsg = "";
 var loggedIn = false;
