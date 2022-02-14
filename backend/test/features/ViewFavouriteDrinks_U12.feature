@@ -3,27 +3,29 @@ Feature: View Favourites
 As a user I want to view all drink recipes that I marked as favourites so 
 that I can have easy access to favourite recipes
 
-Given the following account exists in the system:
-        | username   | password   |
-        | <username> | <password> |
+Background:
+        Given the following account exists in the system:
+                | username  | password  |
+                | username1 | password1 |
+                | user1     | pass1     |
+        Given the following drinks exist in the system:
+                |name       | ingredients                          | rating | author | status |
+                |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
+        Given the user "username1" is logged in
         
-Scenario: View favourites when empty
+Scenario: View favourites successfully
 
-I should not be able to view my favourites
+        I should be able to view my favourites
 
-Given I am logged in as <user>
-But My favourites is empty
-When I click "My Favourites"
-Then I should see an error message 
+        Given that the user "username1" has favourited the drink "<drink>"
+        When the user requests to view their favourites
+        Then the drink "<drink>" shall be displayed
+        Examples:
+                |drink      |
+                |Mint Julep | 
 
-Scenario: View favourites when it has at least one item
+Scenario: View favourites unsuccessfully when it has no items
 
-I should  be able to view all my favourites
-
-Given I am logged in as <user>
-And My favourites is not empty
-When I click "My Favourites"
-Then I should see 
-                    |drink       | 
-			        |Margarita   | 
-			        |Kiwi Mojito | 
+        When the users requests to view their favourites
+        Then no drinks shall be displayed.
+              
