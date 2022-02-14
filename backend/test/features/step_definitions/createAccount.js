@@ -1,7 +1,13 @@
-import assert from 'assert';
-import { Given, When, Then }  from '@cucumber/cucumber';
+// import assert from 'assert';
+// import { Given, When, Then }  from '@cucumber/cucumber';
 
-import { createUser, getAllUsers, logIn } from '../../../controllers/users';
+// import { createUser, getAllUsers, logIn } from '../../../controllers/users';
+
+const assert = require('assert');
+const { Given, When, Then } = require('@cucumber/cucumber');
+const { createUser } = require('../../../controllers/users');
+const { login } = require('../../../controllers/login');
+const { getAllUsers } = require('../../../controllers/users');
 
 let initialusers;
 let errorMessage;
@@ -17,6 +23,7 @@ When ('I create a user account with username {string} and password {string2}', f
 	} catch (e) {
 		errorMessage = e.message;
 	}
+	return `pending`;
 });
 
 Then ('a new user account shall be created', function () {
@@ -36,7 +43,7 @@ Then ('I should be logged in as {string}', function (string) {
 	const user = getAllUsers()[getAllUsers.length-1];
 	const username = user.username;
 	const password = user.password;
-	logIn(username,password);
+	login(username,password);
 });
 
 

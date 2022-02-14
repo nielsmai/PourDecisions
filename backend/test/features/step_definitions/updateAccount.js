@@ -1,7 +1,13 @@
-import assert from 'assert';
-import { Given, When, Then , And}  from '@cucumber/cucumber';
+// import assert from 'assert';
+// import { Given, When, Then , And}  from '@cucumber/cucumber';
 
-import { createUser, getAllUsers, updateUser, logIn } from '../../../controllers/users';
+// import { createUser, getAllUsers, updateUser, logIn } from '../../../controllers/users';
+
+const assert = require('assert');
+const { Given, When, Then } = require('@cucumber/cucumber'); // And?
+const { createUser } = require('../../../controllers/users');
+const { updateUser } = require('../../../controllers/users');
+const { getAllUsers } = require('../../../controllers/users');
 
 let errorMessage;
 
@@ -13,7 +19,8 @@ Given ('the following account exists in the system:', function (dataTable) {
     createUser({"username": "User1", "password": "userpassword1"});    
 });
 
-And ('the user is logged into an account with username "User1"', function () {
+//And
+Given ('the user is logged into an account with username "User1"', function () {
 	logIn("User1","userpassword1");
 });
 
