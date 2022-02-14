@@ -1,7 +1,10 @@
-import express from 'express';
-import mongoose from 'mongoose';
+// import express from 'express';
+// import mongoose from 'mongoose';
+const express = require('express');
+const mongoose = requre('mongoose');
 
-import User from '../models/user.model.js';
+// import User from '../models/user.model.js';
+const User = require('../models/user.model');
 
 const router = express.Router();
 
@@ -12,4 +15,5 @@ function logout(username) {
     else throw 'LOGOUT-INVALID';
 }
 
-export default router;
+// export default router;
+module.exports = router;
