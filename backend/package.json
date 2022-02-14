@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "cucumber-js test",
+    "test": "cucumber-js test --publish-quiet --format progress-bar",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

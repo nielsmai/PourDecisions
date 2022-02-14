@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import Drink from '../models/drink.model.js';
+import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
 
 const router = express.Router();
 
@@ -26,6 +26,20 @@ export const createDrink = async (req, res) => {
         res.status(409).json({ message: err.message });
     }
     
+}
+
+export const createIngredient = (req, res) => {
+    const ingredient = req.body;
+    const newIngredient = new Ingredient(ingredient);
+
+    return newIngredient;
+}
+
+export const createRecipe = (req, res) => {
+    const recipe = req.body;
+    const newRecipe = new Recipe(recipe);
+
+    return newRecipe;
 }
 
 export default router;

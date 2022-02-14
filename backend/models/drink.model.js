@@ -1,17 +1,61 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-// euh not sure what a drink should have
+const ingredientSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    ingredientType: {
+        type: String,
+        enum: ['LIQUOR', 'FRUIT', 'VEGGIE', 'SODA', 'HERB', 'OTHER'],
+        default: 'OTHER'
+    }
+})
+
+const recipeSchema = new Schema({
+    ingredients: [ingredientSchema],
+    garnish: [{type: String}], // I think this should be an ingredient with type garnish instead
+    instructions: {
+        type: String, 
+    }
+})
+
+
 const drinkSchema = new Schema({
-    name: { type: String, required: true, trim: true },
-    public: { type: Boolean, required: true },
-    rating: { type: Number, required: true },
-    //recipe: { type: String, required: true }, // maybe need to change this
-    // needed: recipe, tag, creator
+    name: { 
+        type: String,
+        required: true,
+        trim: true
+    },
+    tag: { 
+        type: String,
+        enum: ['ALCOHOLIC', 'MOCKTAIL', 'CUSTOM', 'CLASSIC'],
+        default: 'CUSTOM',
+        required: true
+    },
+    public_status: {
+        type: Boolean,
+        default: true,
+        required: true
+    },
+    author: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    rating: { 
+        type: Number,
+        required: true
+    },
+    recipe: recipeSchema
+    
 }, {
     timestamps: true,
 });
 
-// module.exports = mongoose.model('Drink', drinkSchema);
 var Drink = mongoose.model('Drink', drinkSchema);
-export default Drink; 
+var Recipe = mongoose.model('Recipe', recipeSchema);
+var Ingredient = mongoose.model('Ingredient', ingredientSchema);
+
+export { Drink, Recipe, Ingredient }; 

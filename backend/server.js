@@ -20,7 +20,12 @@ app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
 
 // connect to MongoDB
-const CONNECTION_URL = process.env.ATLAS_URI;
+var CONNECTION_URL;
+if (process.env.NODE_ENV === "production"){
+    CONNECTION_URL = process.env.ATLAS_URI;
+}else{
+    CONNECTION_URL = process.env.DEV_URI;
+}
 mongoose.connect(CONNECTION_URL, {}); 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -34,11 +39,11 @@ const __dirname = path.resolve();
 if (process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-    app.get('*', (req, res) => {
+    app.get('*', (_req, res) => {
         res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
     });
 } else {
-    app.get('/', (req, res) => {
+    app.get('/', (_req, res) => {
         res.send("API running.");
     });
 }
@@ -48,3 +53,4 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 });
+

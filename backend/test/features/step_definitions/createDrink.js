@@ -12,6 +12,7 @@ Given('the following account exists in the system:', function (dataTable) {
     // createUser({"username": "User1", "password": "userpassword1"});    
 });
 
+
 Given('the following drink recipes exist in the system:', function (dataTable) {
     const name = "Fireball";
     const tag = "ALCOHOLIC";
@@ -45,10 +46,10 @@ Given("the user is logged into an account with username {string}", function (str
     return pending;
 })
 
-When ("the user creates a new drink recipe with the name {string} and the ingredients {string2}])", function (string, string2) {
+When ("the user creates a new drink recipe with the name {string} and the ingredients {string}])", function (string, string2) {
     return pending;
 })
 
 Then ("the new drink recipe is added to the system", function () {
-    
+    return pending;    
 })
