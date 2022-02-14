@@ -50,10 +50,11 @@ const drinkSchema = new Schema({
         required: true
     },
     recipe: recipeSchema
-    
+
 }, {
     timestamps: true,
 });
+
 
 var Drink = mongoose.model('Drink', drinkSchema);
 var Recipe = mongoose.model('Recipe', recipeSchema);
