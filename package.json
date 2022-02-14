@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ballofsunshine/PourDecisions/issues"
   },
-  "homepage": "https://github.com/ballofsunshine/PourDecisions#readme"
+  "homepage": "https://github.com/ballofsunshine/PourDecisions#readme",
+  "dependencies": {
+    "mongoose": "^6.2.1"
+  }
 }

@@ -1,0 +1,17 @@
+table.drinks{
+    overflow-y:scroll; 
+   height:100px; 
+   display:block;  
+   border:1px solid red;  
+   margin-top:50px;    
+   }th{
+   width:75px; 
+    position:fixed; 
+   background:white;    
+   }th:nth-of-type(2){
+    left:75px;   
+   }td{
+   width:75px;    
+   }tr.individual{
+     height:80px; 
+   }
