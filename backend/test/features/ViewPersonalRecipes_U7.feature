@@ -20,7 +20,7 @@ Background:
 
 	Given the user is logged into an account with username "<username>" and password "<password>"
 	When the user displays the list of custom drinks
-	Then the custom drinks <"customdrinklist"> with author "<username>" shall be displayed
+	Then the custom drinks "<customdrinklist>" with author "<username>" shall be displayed
 	
 Examples:
 	| username | password      | customdrinklist |

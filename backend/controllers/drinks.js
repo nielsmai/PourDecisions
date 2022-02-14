@@ -36,10 +36,11 @@ export const getAllDrinksAlpha = async (req,res) => {
         res.status(404).json({ message: err.message });
     }
 }
+
 export const getAllDrinksNewest = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {timestamps : -1});
+            [ {author: req}, {status: public } ] } ).sort( {timestamps : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
