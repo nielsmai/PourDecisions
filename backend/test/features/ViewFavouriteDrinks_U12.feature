@@ -24,7 +24,7 @@ Scenario: View favourites successfully
                 |drink      |
                 |Mint Julep | 
 
-Scenario: View favourites uncessfully when it has no items
+Scenario: View favourites unsuccessfully when it has no items
 
         When the users requests to view their favourites
         Then no drinks shall be displayed.
