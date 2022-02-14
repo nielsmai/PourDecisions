@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "test": "cucumber-js test --publish-quiet --format progress-bar",
     "start": "node server.js",

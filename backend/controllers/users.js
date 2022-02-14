@@ -1,13 +1,18 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+// import express from 'express';
+// import mongoose from 'mongoose';
+// import bcrypt from 'bcrypt';
+// var SALT_WORK_FACTOR = 10;
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
-import User from '../models/user.model.js';
+// import User from '../models/user.model.js';
+const User = require('../models/user.model');
 
 const router = express.Router();
 
-export const getAllUsers = async (req, res) => {
+module.exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
         
@@ -17,7 +22,7 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
-export const createUser = async (req, res) => {
+module.exports.createUser = async (req, res) => {
     
     const { username, password } = req.body;  
     const newUser = new User({username, password});
@@ -34,7 +39,7 @@ export const createUser = async (req, res) => {
     });
 }
 
-export const updateUser = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
     
     const { username, password, newPassword } = req.body;
     const updatedUser = User({username, password});
@@ -42,9 +47,10 @@ export const updateUser = async (req, res) => {
     // Not exactly how the hashing works here so leaving blank
 }
 
-export const logIn = async (req, res) => {}
+module.exports.logIn = async (req, res) => {}
 
-export const logOut = async (req, res) => {}
+module.exports.logOut = async (req, res) => {}
 
 
-export default router;
+// export default router;
+module.exports = router;

@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ingredientSchema = new Schema({
@@ -58,4 +59,5 @@ var Drink = mongoose.model('Drink', drinkSchema);
 var Recipe = mongoose.model('Recipe', recipeSchema);
 var Ingredient = mongoose.model('Ingredient', ingredientSchema);
 
-export { Drink, Recipe, Ingredient }; 
+// export { Drink, Recipe, Ingredient }; 
+module.exports = { Drink, Recipe, Ingredient };
