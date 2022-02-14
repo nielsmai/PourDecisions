@@ -10,7 +10,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-// const path = require('path');
+const path = require('path');
 
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
