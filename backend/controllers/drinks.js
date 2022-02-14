@@ -30,7 +30,7 @@ module.exports.createDrink = async (req, res) => {
     }
 }
 
-export const getAllDrinksAlpha = async (req,res) => {
+module.exports.getAllDrinksAlpha = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
             [ {author: req}, {status: public } ] } ).sort( {name : 1});
@@ -40,7 +40,7 @@ export const getAllDrinksAlpha = async (req,res) => {
     }
 }
 
-export const getAllDrinksNewest = async (req,res) => {
+module.exports.getAllDrinksNewest = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
             [ {author: req}, {status: public } ] } ).sort( {timestamps : 'desc'});
@@ -50,7 +50,7 @@ export const getAllDrinksNewest = async (req,res) => {
     }
 }
 
-export const getAllDrinksRating = async (req,res) => {
+module.exports.getAllDrinksRating = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
             [ {author: req}, {status: public } ] } ).sort( {rating : -1});
@@ -60,7 +60,7 @@ export const getAllDrinksRating = async (req,res) => {
     }
 }
 
-export const getPersonalCustomDrinks = async (req,res) => {
+module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
         const drinks = await Drink.find( {author: req});
             res.status(200).json(drinks);

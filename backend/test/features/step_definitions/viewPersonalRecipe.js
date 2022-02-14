@@ -1,5 +1,5 @@
-import assert from 'assert';
-import { Given, When, Then }  from '@cucumber/cucumber';
+const assert = require('assert');
+const { Given, When, Then, DataTable } = require('@cucumber/cucumber');
 
 Given('the following account exists in the system:', function (dataTable) {
     // Write code here that turns the phrase above into concrete actions
