@@ -7,3 +7,147 @@
 body {
   background-color: #f7f3e7;
 }
+
+/*logInAccount CSS  */
+.boxLogInAccount {
+  background-color: #f4ebe1;
+  border-radius: 12px;
+  padding-bottom: 50px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
+}
+
+.row {
+  display: flex;
+  margin-top: 2%;
+}
+
+.columnLeft {
+  flex: 50%;
+}
+
+.columnRight {
+  flex: 50%;
+  text-align: left;
+}
+
+.loginTitle {
+  color: #664e4c !important;
+  text-align: left;
+  font-size: 50px;
+  margin-top: 10%;
+}
+
+.username {
+  text-align: left;
+  color: black;
+}
+
+.password {
+  text-align: left;
+  color: black;
+}
+
+.formBottom {
+  margin-top: 5%
+}
+
+.loginButton {
+  margin-top: 10%;
+  text-align: center;
+  width: 85%;
+}
+
+.loginConfirm {
+  background-color: #7e003f;
+  color: #e1c3d2;
+  border: none;
+  padding: 15px 32px;
+  font-size: 16px;
+  width: 25%;
+  border-radius: 12px;
+}
+
+.forgetAccount {
+  text-align: left;
+  margin-top: 10%;
+  color: black;
+}
+
+input[type="text"] {
+  width: 80%;
+  height: 30px;
+  border: none;
+}
+
+/* viewDrinks CSS  */
+.pageTitle {
+  text-align: left;
+  color: #664e4c;
+}
+
+.rowViewDrinks {
+  display: flex;
+  margin-top: 2%;
+  margin-left: 10%;
+}
+
+.columnLeftViewDrinks {
+  margin-right: 10%;
+}
+
+.columnRightViewDrinks {
+  
+}
+
+.likeCount {
+  color: #664e4c;
+}
+
+.ingredientsList {
+  text-align: left;
+  margin-left: 10%;
+  color: #664e4c;
+}
+
+.garnishList {
+  text-align: left;
+  margin-left: 10%;
+  color: #664e4c;
+}
+
+.instructionsList {
+  text-align: left;
+  margin-left: 10%;
+  color: #664e4c;
+}
+
+.addToFavouritesConfirm {
+  background-color: #7e003f;
+  color: #e1c3d2;
+  border: none;
+  padding: 15px 32px;
+  font-size: 16px;
+  width: 12%;
+  border-radius: 12px;
+  margin-top: 2%;
+}
+
+.viewDrinksContainer {
+  margin-left: 10%;
+  margin-right: 20%;
+}
+
+.drinksTag {
+  text-align: right;
+  color: #993362 !important;
+  border-radius: 12px !important;
+}
+
+.alcoholicTag {
+  display: inline;
+  background-color: #e0c1c5;
+  border: 5px solid #993362;
+  border-radius: 12px;
+}
