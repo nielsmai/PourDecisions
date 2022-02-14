@@ -69,10 +69,18 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
     }
 }
 
+module.exports.getAllDrinksAboveRating = async (req,res) => {
+    try {
+        const drinks = await Drink.find( {rating: {$gt: req}});
+            res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
 module.exports.createIngredient = (req, res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
-
     return newIngredient;
 }
 
@@ -82,6 +90,7 @@ module.exports.createRecipe = (req, res) => {
 
     return newRecipe;
 }
+
 
 // export default router;
 module.exports = router;

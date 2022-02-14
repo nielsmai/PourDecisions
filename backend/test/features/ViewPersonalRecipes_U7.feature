@@ -13,7 +13,6 @@ Background:
 		| Fireball | Canadian whisky,sweetener,cinnamon flavouring | User1  |
 		| Mojitos  | white rum, sugar,lime juice,soda water,mint   | User2  |
 	
-	
 	Scenario: User view all of their custom drink recipes
 	
 	The list of custom drink, private and public, is displayed

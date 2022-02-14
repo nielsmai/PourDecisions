@@ -20,22 +20,18 @@ Background:
     | Lemime                         | 20    | Lime juice, Lemon Juice| fruit-based                |
     | Orange & Lemon Crystal Martini | 60    | Orange, Lemon, Vodka   | fruit-based                |            
     
-  Given a User or Guest is on the drink catalogue page
-
 Scenario: Search Drink Recipes by Name as a User or Guest(UG1)
 
   Given User "user1" is logged into their account
-	When User "user1" inputs the name of a Drink "martini" in the search bar
-    And User "user1" clicks on the search button
-    Then User "user1" is redirected to the Drink's "martini" recipe page
+	When User provides the drink name "martini"
+  Then the drink with name "martini", likes "60" shall be returned
 
 Scenario: Search Drink Recipes by invalid Name as User or Guest (Error flow)
 
   Given User "user1" is logged into their account
 	When User "user1" inputs the name of a Drink <invalidDrink> in the search bar
-    And User <clicks on the search button
-    Then a "RECIPE-NOT-FOUND" error message is found
-    And User "user1" will remain on the drink catalogue page
+  And User <clicks on the search button
+  Then a "RECIPE-NOT-FOUND" error message is found
 
   Examples:
     | invalidDrink        |

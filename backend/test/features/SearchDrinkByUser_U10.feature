@@ -18,10 +18,10 @@ I should be able to view all drinks created by the searched user with their rati
 			|Margarita   | 7 likes  |
 			|Kiwi Mojito | 12 likes |
 
-Scenario: Search a custom drink with an user which does not exist
+Scenario: Search a custom drink with a user which does not exist
 
 I should not be able to view all drinks created by the user which does not exist
 
 	Given I am logged in as <user>
 	When I search a drink with <user>
-	Then I should receive an error message
+	Then an error message "SEARCH-INVALID-USER"
