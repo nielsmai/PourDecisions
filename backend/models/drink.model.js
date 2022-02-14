@@ -1,41 +1,64 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
-// Equivalent of adding enum strings in Java
-const listOfTag = ['Alcoholic', 'Mocktail', 'Custom', 'Classic'];
-const listOfIngredientType = ['Liquor', 'Fruit', 'Soda', 'Herb', 'Veggie', 'Other'];
+const ingredientSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    ingredientType: {
+        type: String,
+        enum: ['LIQUOR', 'FRUIT', 'VEGGIE', 'SODA', 'HERB', 'OTHER'],
+        default: 'OTHER'
+    }
+})
 
-var drinkSchema = new Schema({
-    drinkID: Schema.Types.ObjectId,
-    drinkName: { type: String, required: true, trim: true },
-    tag: { type: String, enum: listOfTag, default: 'Classic', required: true },
-    public: { type: Boolean, required: true },
-    creator: { type: String, required: true, trim: true },
-    rating: { type: Number, required: true }
+const recipeSchema = new Schema({
+    ingredients: [ingredientSchema],
+    garnish: [{type: String}], // I think this should be an ingredient with type garnish instead
+    instructions: {
+        type: String, 
+    }
+})
+
+
+const drinkSchema = new Schema({
+    name: { 
+        type: String,
+        required: true,
+        trim: true
+    },
+    tag: { 
+        type: String,
+        enum: ['ALCOHOLIC', 'MOCKTAIL', 'CUSTOM', 'CLASSIC'],
+        default: 'CUSTOM',
+        required: true
+    },
+    public_status: {
+        type: Boolean,
+        default: true,
+        required: true
+    },
+    author: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    rating: { 
+        type: Number,
+        required: true
+    },
+    recipe: recipeSchema
 
 }, {
     timestamps: true,
 });
 
-/** 
-Separated Recipe and Ingredient in different files as they are represented as classes in class diagram.
-If we decide to describe them as objects of the class Drink, then uncomment everything below.
 
-var recipeSchema = new Schema({
-    garnish: { type: [String] },
-    instruction: { type: String, required: true },
-}, {
-    timestamps: true,
-});
-
-var ingredientSchema = new Schema({
-    ingredientName: { type: String, required: true, trim: true },
-    ingredientType: { type: String, enum: listOfIngredientType, default: 'Other', required: true },
-}, {
-    timestamps: true,
-});
-*/
-
-// module.exports = mongoose.model('Drink', drinkSchema);
 var Drink = mongoose.model('Drink', drinkSchema);
-export default Drink; 
+var Recipe = mongoose.model('Recipe', recipeSchema);
+var Ingredient = mongoose.model('Ingredient', ingredientSchema);
+
+// export { Drink, Recipe, Ingredient }; 
+module.exports = { Drink, Recipe, Ingredient };

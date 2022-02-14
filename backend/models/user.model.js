@@ -1,9 +1,15 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+// taken from https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
+// import mongoose from 'mongoose';
+// import bcrypt from 'bcrypt';
 
-var Schema = mongoose.Schema;
-var SALT_WORK_FACTOR = 10;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    bcrypt = require('bcrypt'),
+    SALT_WORK_FACTOR = 10;
 
+// var Schema = mongoose.Schema;
+// var SALT_WORK_FACTOR = 10;
+     
 var UserSchema = new Schema({
 
     // ObjectId: special type for unique identifiers (made of 24-character hexa String), use that instead of int / Number type
@@ -47,4 +53,5 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
      
 // module.exports = mongoose.model('User', UserSchema);
 var User = mongoose.model('User', UserSchema);
-export default User;
+// export default User;
+module.exports = User;
