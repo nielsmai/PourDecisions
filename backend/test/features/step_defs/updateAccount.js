@@ -20,7 +20,7 @@ And ('the user is logged into an account with username "User1"', function () {
 // Scenario #1
 When ('the user inputs the old password "userpassword1", inputs the new password "userpassword2" and confirms the new password "userpassword2"', function() {
 	try {
-		//updateUser();	
+		updateUser({"username":"User1","password":"userpassword1","newPassword":"userpassword2"});	
 	} catch (e) {
 		errorMessage = e.message;
 	}
