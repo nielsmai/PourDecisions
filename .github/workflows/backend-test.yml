@@ -34,6 +34,6 @@ jobs:
       run: npm ci
     - name: Run Cucumber tests and Check coverage
       run: |
-        npm test | tail -3 | if [[ $(grep -e 'undefined|failed|skipped') ]]; then exit; else echo "all tests passed!"; fi;  
+        npm test | tail -3 | if [[ $(grep -E 'undefined|failed|skipped') ]]; then exit; else echo "all tests passed!"; fi;  
 
       
