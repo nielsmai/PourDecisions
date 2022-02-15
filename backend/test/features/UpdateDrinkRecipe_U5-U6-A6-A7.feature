@@ -8,11 +8,12 @@ As an admin I want to be able to delete recipes from the drink catalogue.
 #This combines U5 and U6
 
 Background: 
-	Given the following account exists in the system:
+	Given the following accounts exist in the system:
 		| username | password      |
 		| User1    | userpassword1 | 
-  		|Admin1    | adpassword1   |
-	Given the following drink recipes exist in the system:
+  		| Admin1    | adpassword1   |
+    Given the user "Admin1" with password "adpassword1" is an admin
+	Given the following drinks exist in the system:
 		| name       | ingredients                                     | author | status |
 		| Fireball   | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
 		| Mint Julep | Bourbon, Simple syrup, mint, whiskey            | User1  | private|
@@ -22,7 +23,7 @@ Scenario Outline: User successfully changes status of the recipe
 	
 	The recipe should be private and should not be able to be seen by other
 
-	Given the user is logged into an account with username "User1"
+	Given the user "User1" with password "userpassword1" is logged into their account
 	When the user changes the recipe's status
 	Then the recipe status shall be <status> and a confirmation message <confirmation> shall be raised
 
@@ -35,7 +36,7 @@ Scenario Outline: User successfully adds an ingredient to the recipe
 	
 	The ingredients list is updated
 
-	Given the user is logged into an account with username "User1"
+	Given the user "User1" with password "userpassword1" is logged into their account
 	When the user modifies the drink <name> by adding "<newingredient>"
 	Then the "<newingredient>" shall be added to "<ingredients>"
 	Then the "<newingredientlist>" shall be displayed
@@ -46,7 +47,7 @@ Scenario Outline: User successfully adds an ingredient to the recipe
     | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime	       | white rum, sugar,lime juice,soda water,mint,lime   |
 
 Scenario Outline: User adds duplicate ingredient to the recipe
-  Given the user is logged into an account with username "User1"
+	Given the user "User1" with password "userpassword1" is logged into their account
 	When the user modifies the drink <name> by adding "<newingredient>"
 	Then the new ingredient shall not be added
   And the error message <error> shall be raised
@@ -59,7 +60,7 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
 	
 	The ingredients list is updated
 
-	Given the user is logged into an account with username "User1"
+  Given the user is logged into an account with username "User1"
 	When the user modifies the drink <"name"> by adding "<oldingredient>"
 	Then the "<oldingredient>" shall be removed from "<ingredients>"
 	Then the "<newingredientlist>" shall be displayed
@@ -71,7 +72,7 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
     
 
 Scenario: Admin deletes a drink recipe
-   Given the user is logged into an admin account with username "Admin1"
+	Given the user "Admin1" with password "adpassword1" is logged into their account
    When the user presses the delete button on a drink recipe
    Then there shall be 1 less drink recipe in the system
 
