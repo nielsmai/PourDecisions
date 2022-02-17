@@ -11,8 +11,8 @@ Background:
 Scenario: Successful login with correct credential
 	
 	User should be logged in their account
-	
-	When the user logs in using <username> and <password>
+
+	When the user logs in using "<username>" and "<password>"
 	Then the user shall be logged in
     
     Example: 
@@ -23,9 +23,9 @@ Scenario Outline: Unsuccessful login with incorrect or missing credentials
 
 	User should not be logged in their account
 
-	When the user logs in using <username> and <password>
+	When the user logs in using "<username>" and "<password>"
 	Then the user is not logged in 
-	And an error message <error> shall be raised
+	And an error message "<error>" shall be raised
 
   Example: 
     | username | password      | error             |

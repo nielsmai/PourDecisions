@@ -20,7 +20,7 @@ Scenario: Successful password modification
 Scenario Outline: Unsuccessful password modification
 	
 	When the user inputs the wrong old password "<oldpassword>",inputs the new password "<newpassword>" and confirms the new password "<newpasswordconfirm>"
-	Then an error message "<error>" is raised
+	Then an error message "<error>" shall be raised
 
   Examples:
 	  | oldpassword   | newpassword   | newpasswordconfirm | error                            |

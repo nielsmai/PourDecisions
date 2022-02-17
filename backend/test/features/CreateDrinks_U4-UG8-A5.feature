@@ -10,20 +10,22 @@ Background:
 	Given the following drinks exist in the system:
 		| name     | likes | ingredients | author |
 		| Fireball | 0     | Canadian whisky, sweetener, cinnamon flavouring | User1  |
+	Given the user "User1" with password "userpassword1" is logged into their account
 	
 Scenario: User successfully creates a new drink recipe
 	
 	Drink shall be successfully created
 
-	Given the user "User1" is logged into their account
-	When the user creates a new drink recipe with the name "Mojitos" and the ingredients "white rum, sugar,lime juice,soda water,mint"
-	Then the new drink recipe is added to the system
+	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
+	Then the new drink "<name>" is added to the system
+
+	| name     | ingredients            				     | 
+    | Mojitos  | white rum, sugar,lime juice,soda water,mint | 
 	
-Scenario Outline: user unsuccessfully creates a new drink
+Scenario Outline: User unsuccessfully creates a new drink
 
 	Drink shall not be successfully created
 
-	Given the user "User1" is logged into their account
 	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
 	Then an error message "<error>" shall be raised
 

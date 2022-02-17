@@ -21,14 +21,13 @@ Background:
     
 Scenario: Search Drink Recipes by Name as a User or Guest(UG1)
 
-	When the user provides the drink name "martini"
+	When the user "user1" provides the drink name "martini"
   Then the drink with name "martini", likes "60" shall be returned
 
 Scenario: Search Drink Recipes by invalid Name as User or Guest (Error flow)
 
-	When the user "user1" inputs the name of a Drink <invalidDrink> in the search bar
-  And the user <clicks on the search button
-  Then a "RECIPE-NOT-FOUND" error message is found
+	When the user "user1" provides the drink name "<invalidDrink>"
+  Then an error message "RECIPE-NOT-FOUND" shall be raised 
 
   Examples:
     | invalidDrink        |
@@ -36,19 +35,17 @@ Scenario: Search Drink Recipes by invalid Name as User or Guest (Error flow)
 
 Scenario: Search Drink Recipes by list of Ingredients (UG2)
 #Needs more examples
-	When the user "user1" inputs a list of ingredients <listOfIngredients>
-    And the user "user1" clicks on the search button
-    Then the drink catalogue page is filtered
-    And lists all drink recipes <drinks> containing a combination of the inputted ingredients
+	When the user "user1" provides a list of ingredients "<listOfIngredients>"
+    And the user "user1" requests to view the drinks
+    Then the list of drinks shall be "<drinks>"
   Examples:
 	  | listOfIngredients                                            | drinks                                         |
     | Lemon, lime juice, lemonade, soda water, lemon juice, orange | Jogger, Lemime, Orange & Lemon Crystal Martini |
    
 Scenario: Search Drink Recipes by Criteria (UG4)
-	When the user "user1" inputs a list of restrictions <listOfRestrictions>
-  And the user "user1" clicks on the search button
-  Then the drink catalogue page is filtered
-  And lists all drink recipes <drinks> matching the inputted restrictions
+	When the user "user1" provides a list of restrictions "<listOfRestrictions>"
+  And the user "user1" requests to view the drinks
+  Then the list of drinks shall be "<drinks>"
     
   Examples:
     | listOfRestrictions         | drinks                                         |
@@ -59,9 +56,9 @@ Scenario: Search Drink Recipes by Criteria (UG4)
 
 Scenario: Search Drink Recipes by like count as a User (UG6)
 
-	When the user "user1" selects a range of like counts <range>
-  Then the drink catalogue page is filtered
-  And displays all the drink recipes <drinks> within that range <range>
+	When the user "user1" provides a like range of "<range>"
+  And the user "user1" requests to view the drinks
+  Then the list of drinks shall be "<drinks>"
   
   Examples:
     | range | drinks                         |

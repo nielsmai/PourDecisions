@@ -26,6 +26,6 @@ Scenario: View favourites successfully
 
 Scenario: View favourites unsuccessfully when it has no items
 
-        When the users requests to view their favourites
+        When the user requests to view their favourites
         Then no drinks shall be displayed.
               
