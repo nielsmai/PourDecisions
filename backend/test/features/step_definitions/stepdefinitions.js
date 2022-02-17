@@ -1,5 +1,8 @@
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
+const login = require('../../../controllers/login.js');
+
+var errorMsg = "";
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
@@ -20,8 +23,8 @@ Given('the following drinks exist in the system:', function (dataTable) {
 });
 
 Then('an error message {string} shall be raised', function (string) {
+  assertEquals(errorMsg, string);
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
 });
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// CREATE ACCCOUNT ///////////////////////////////////////////
@@ -75,18 +78,24 @@ Then('the new drink {string} is added to the system', function (string, dataTabl
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user logs in using {string} and {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  try{
+    var loginTest = login.login(string, string2);
+    assertEquals(true, loginTest);
+  }
+  catch(err){
+    errorMsg = err.message
+  }
+  // Write code here that turns the phrase above into concrete 
 });
 
 Then('the user shall be logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assertNotEqual(null, sessionStorage.getItem('status'));
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assertEquals(null, sessionStorage.getItem('status'));
 });
 
 /////////////////////////////////////////////////////////////////////////////

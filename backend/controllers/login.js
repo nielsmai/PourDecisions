@@ -26,7 +26,8 @@ function checkPassword(password) {
         return false;
     }
 }
-function login(username,password) {
+
+module.exports.login = function(username,password) {
     if (password == null){
         throw 'LOGIN-FIELD-EMPTY';
     }
@@ -43,8 +44,9 @@ function login(username,password) {
             throw 'LOGIN-INVALID';
         }
     }
+    sessionStorage.setItem('status', 'loggedIn');
     return true;
-}
+};
 
 // export default router;
 module.exports = router;
