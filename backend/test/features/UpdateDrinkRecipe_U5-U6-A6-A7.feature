@@ -25,7 +25,7 @@ Scenario Outline: User successfully changes status of the recipe
 
 	Given the user "User1" with password "userpassword1" is logged into their account
 	When the user changes the recipe's status
-	Then the recipe status shall be <status> and a confirmation message <confirmation> shall be raised
+	Then the recipe status shall be "<status>" and a confirmation message "<confirmation>" shall be raised
 
 	Examples:
     | recipe     | status | confirmation         |
@@ -37,9 +37,9 @@ Scenario Outline: User successfully adds an ingredient to the recipe
 	The ingredients list is updated
 
 	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user modifies the drink <name> by adding "<newingredient>"
-	Then the "<newingredient>" shall be added to "<ingredients>"
-	Then the "<newingredientlist>" shall be displayed
+	When the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
+	Then the new ingredient "<newingredient>" shall be added to drink "<name>"
+	Then the new ingredients list "<newingredientlist>" shall be displayed
 	
 	Examples:
     | name     | ingredients                                   | newingredient | newingredientlist                                  |
@@ -48,9 +48,9 @@ Scenario Outline: User successfully adds an ingredient to the recipe
 
 Scenario Outline: User adds duplicate ingredient to the recipe
 	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user modifies the drink <name> by adding "<newingredient>"
-	Then the new ingredient shall not be added
-  And the error message <error> shall be raised
+	When the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
+	Then the new ingredient "<newingredient>" shall not be added to drink "<name>"
+  	And an error message "<error>" shall be raised
 
   Examples:
     | name    | ingredients                                 | newingredient | newingredientlist                                | error                   |
@@ -60,10 +60,9 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
 	
 	The ingredients list is updated
 
-  Given the user is logged into an account with username "User1"
-	When the user modifies the drink <"name"> by adding "<oldingredient>"
-	Then the "<oldingredient>" shall be removed from "<ingredients>"
-	Then the "<newingredientlist>" shall be displayed
+  	Given the user "User1" with password "userpassword1" is logged into their account
+	When the user modifies the drink "<name>" by removing the ingredient "<oldingredient>"
+	Then the ingredient "<oldingredient>" shall be removed from the drink "<name>"
 
 	Examples:
     | name     | ingredients                                   | oldingredient | newingredientlist                   |
@@ -73,8 +72,8 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
 
 Scenario: Admin deletes a drink recipe
 	Given the user "Admin1" with password "adpassword1" is logged into their account
-   When the user presses the delete button on a drink recipe
-   Then there shall be 1 less drink recipe in the system
+   	When the admin "Admin" deletes the drink "Fireball"
+   	Then there shall be "1" less drink recipe in the system
 
 
 

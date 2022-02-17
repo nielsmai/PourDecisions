@@ -27,7 +27,7 @@ Scenario: Rate an existing drink
 I should be able to rate an existing drink successfully
 
 	When the user "username" favourites the drink "Fireball"
-  Then the drink "Fireball" shall have 1 more like
+  Then the drink "Fireball" shall have "1" more like
 
 
 

@@ -19,16 +19,12 @@ Scenario: Search a custom drink with an existing user
 
 I should be able to view all drinks created by the searched user with their ratings successfully
 
-
 	When the user searches a drink made by "user1"
-	Then they should see these results 
-			|drink       | rating   |
-			|Margarita   | 7 likes  |
-			|Kiwi Mojito | 12 likes |
+	Then the list of drinks shall be "Margarita, Kiwi Mojito"
 
 Scenario: Search a custom drink with a user which does not exist
 
 I should not be able to view all drinks created by the user which does not exist
 
 	When the user searches a drink made by "nonexistentuser"
-	Then an error message "SEARCH-INVALID-USER"
+	Then an error message "SEARCH-INVALID-USER" shall be raised

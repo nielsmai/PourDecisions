@@ -7,11 +7,10 @@ Scenario: Create a user account with a unique username and password.
 
 #I should be able to create a user account successfully 
 
-	Given the username <username> does not already exist 
-	When I create a user account with username <username> and password <password>
-  Then a new user account shall be created
-  Then the account shall have username <username> and password <password>
-	Then I should be logged in as <user>
+	Given the username "<username>" does not already exist 
+	When I create a user account with username "<username>" and password "<password>"
+  Then the account shall have username "<username>" and password "<password>"
+	Then I should be logged in as user "<username>"
 
 Examples:
 | username | password |
@@ -22,19 +21,19 @@ Scenario: Create a user account with an existing username and unique password.
 #This doesnt make sense ???
 #I should be able to create a user account successfully 
 
-	Given the username <username> does not already exist 
-	When I create a user account with username <username> and password <password>
-	Then I should be logged in as <username>
+	Given the username "<username>" does not already exist 
+	When I create a user account with username "<username>" and password "<password>"
+	Then I should be logged in as user "<username>"
 
 
 Scenario: Create a user account with a existing username.
 
 #I should not be able to create a user account with a username which exists 
 
-	Given the username "Johnson" already exists 
-	When I create a user account with username <username> and password <password>
-  Then no new user account shall be created
-	Then an error message <error> shall be raised
+	Given the account with the username "<username>" and password "<password>" already exists 
+	When I create a user account with username "<username>" and password "<password>"
+  Then no new account shall be created
+	And an error message "<error>" shall be raised
 
  Examples:
     | username | password | error                 |
@@ -46,10 +45,10 @@ Scenario: Create a user account with a unique username and existing password.
 #I do not think this is a necessary feature -Loc
 #I should not be able to create a user account with a username which exists 
 
-	Given the username <username> already exists
-	When I create a user account with username <username> and password <password>
-  Then no new user account shall be created
-	Then an error message <error> shall be raised
+	Given the account with the username "<username>" and password "<password>" already exists
+	When I create a user account with username "<username>" and password "<password>"
+  Then no new account shall be created
+	Then an error message "<error>" shall be raised
 
 Example: 
 
@@ -58,9 +57,9 @@ Example:
 
 #Might be useful
 Scenario: Create a new user account with an incomplete form.
-  When I provide a new username <username> and a password <password>
+  When I create a user account with username "<username>" and password "<password>"
   Then no new account shall be created
-  Then an error message <error> shall be raised
+  Then an error message "<error>" shall be raised
 
   Examples:
     | username | password | error                     |
