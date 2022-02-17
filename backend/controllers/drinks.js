@@ -62,7 +62,7 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const drinks = await Drink.find( {creator: req});
+        const drinks = await Drink.find( {author: req});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -80,7 +80,7 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{creator:req}, {status: public}]})
+        const drinks = await Drink.find({$and: [{author:req}, {status: public}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -114,13 +114,13 @@ module.exports.getDrinkByIngredients = async (req,res) => {
 }
 
 
-module.exports.createIngredient = (req, res) => {
+module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
 
-module.exports.createRecipe = (req, res) => {
+module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
     const newRecipe = new Recipe(recipe);
     return newRecipe;
