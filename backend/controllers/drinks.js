@@ -43,7 +43,7 @@ module.exports.getAllDrinksAlpha = async (req,res) => {
 module.exports.getAllDrinksNewest = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {timestamps : 'desc'});
+            [ {author: req}, {status: public} ] } ).sort( {timestamps : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -72,22 +72,57 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
 module.exports.getAllDrinksAboveRating = async (req,res) => {
     try {
         const drinks = await Drink.find( {rating: {$gt: req}});
-            res.status(200).json(drinks);
+        res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
     }
 }
 
-module.exports.createIngredient = (req, res) => {
+module.exports.getDrinkByUser = async (req,res) => {
+    try {
+        const drinks = await Drink.find({$and: [{author:req}, {status: public}]})
+        res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({message: err.message})
+    }
+}
+module.exports.getDrinkByName = async (req,res) => {
+    try {
+        const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
+        res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({message: "RECIPE-NOT-FOUND"})
+    }
+}
+
+module.exports.getDrinkByTag = async (req,res) => {
+    try {
+        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {status: public}]})
+        res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({message: err.message})
+    }
+}
+
+module.exports.getDrinkByIngredients = async (req,res) => {
+    try {
+        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {status: public}]})
+        res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({message: err.message})
+    }
+}
+
+
+module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
 
-module.exports.createRecipe = (req, res) => {
+module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
     const newRecipe = new Recipe(recipe);
-
     return newRecipe;
 }
 
