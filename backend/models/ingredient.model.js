@@ -15,7 +15,6 @@ const ingredientSchema = new Schema({
         type: String, 
         enum: listOfIngredientType, 
         default: 'OTHER', 
-        required: true 
     },
 }, {
     timestamps: true,

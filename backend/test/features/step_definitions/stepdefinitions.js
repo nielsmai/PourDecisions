@@ -1,6 +1,8 @@
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 
+const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
+const { status } = require('express/lib/response');
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -60,14 +62,46 @@ Then('no new account shall be created', function () {
 ///////////////// CREATE DRINK //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2) {
+When('the user {string} creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    try {
+        const author = string; 
+        const name = string2;
+
+        const ingredientStringList = string3.split(",");
+        const ingredientList = [];
+        for (let i = 0; i < ingredientStringList.length; i++){
+            ingredientList[i] = createIngredient({
+                "ingredientName": ingredientStringList[i]
+            });
+        }
+
+        const recipe = createRecipe({
+            "ingredients": ingredientList
+        });
+
+        createDrink({
+            "name": name,
+            "author": author,
+            "recipe": recipe
+        });
+
+    } catch (err) {
+        console.log("bruh");         
+    }
+
 });
 
-Then('the new drink {string} is added to the system', function (string, dataTable) {
+Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    getDrinkByName(string)
+    .then(res => res.json())
+    .then(data =>{
+            // assert(data.status.ok);
+            console.log(data.status.ok);
+            assert(data.name === string);
+        } 
+    )
 });
 
 /////////////////////////////////////////////////////////////////////////////

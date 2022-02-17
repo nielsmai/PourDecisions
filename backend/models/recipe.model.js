@@ -8,8 +8,8 @@ var recipeSchema = new Schema({
     ingredients: [ingredientSchema],    // Imported from ingredient.model.js
     garnish: [{ type: String }],        // ingredient with type garnish instead?
     instruction: { 
-        type: String, 
-        required: true },
+        type: String, // not requiring instructions makes sense? just a list of ingredients
+    },
 }, {
     timestamps: true,
 });

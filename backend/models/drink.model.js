@@ -14,12 +14,10 @@ var drinkSchema = new Schema({
         type: String,
         enum: ['ALCOHOLIC', 'MOCKTAIL', 'CUSTOM', 'CLASSIC'],
         default: 'CUSTOM',
-        required: true
     },
     public_status: {
         type: Boolean,
         default: true,
-        required: true
     },
     author: {
         type: String,
@@ -28,7 +26,7 @@ var drinkSchema = new Schema({
     },
     rating: { 
         type: Number,
-        required: true
+        default: 0,
     },
     recipe: recipeSchema
 

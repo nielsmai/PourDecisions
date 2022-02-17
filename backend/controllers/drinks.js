@@ -78,13 +78,13 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
     }
 }
 
-module.exports.createIngredient = (req, res) => {
+module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
 
-module.exports.createRecipe = (req, res) => {
+module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
     const newRecipe = new Recipe(recipe);
 
