@@ -10,7 +10,7 @@ const router = express.Router();
 
 module.exports.logout = function () {
     sessionStorage.clear;
-    if (sessionStorage.getItem('status') != null) {
+    if (sessionStorage.getItem('status') == null) {
         return "LOGOUT-SUCCESSFUL";
     }
     else {
