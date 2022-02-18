@@ -4,7 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
-const { Drink, Recipe, Ingredient } = require('../models/drink.model');
+const Drink  = require('../models/drink.model');
+const Recipe = require('../models/recipe.model');
+const Ingredient = require('../models/ingredient.model');
 
 const router = express.Router();
 

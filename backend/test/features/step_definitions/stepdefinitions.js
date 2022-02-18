@@ -1,27 +1,47 @@
+const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { login } = require('../../../controllers/login.js');
 const { logout } = require('../../../controllers/logout.js');
 
+// idk, i'll use this for now
+require('dotenv').config({path:__dirname+'/./../../../.env'});
+const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || process.env.API_HOST + ':' + process.env.API_PORT;
+const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT;
 
 var errorMsg = "";
 var confirmMsg = "";
 
+const AXIOS = axios.create({
+    baseUrl: backendUrl,
+    headers: {'Access-Control-Allow-Origin': frontendUrl}
+});
+
 // const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
 const drinkController = require('../../../controllers/drinks');
 const userController = require('../../../controllers/users');
+
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-Given('the user {string} with password {string} is logged into their account', function (string, string2) {
+Given('the user {string} with password {string} is logged into their account', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     const username = string;
     const password = string2;
     const email = "test-email@mail.com"; // using this for now cause lol
     
     // TODO create user using route 
-
-    login(username, password); 
+    try {
+        let res = await AXIOS.post('/users', {
+            username: username,
+            password: password,
+            email: email
+        });
+        console.log(res.status);
+        // login(username, password); 
+    } catch (err) {
+        
+    }
 
 });
 

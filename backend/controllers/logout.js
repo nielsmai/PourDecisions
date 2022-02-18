@@ -8,6 +8,8 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 
+module.exports = router;
+
 module.exports.logout = function () {
     sessionStorage.clear;
     if (sessionStorage.getItem('status') == null) {
@@ -19,4 +21,3 @@ module.exports.logout = function () {
 }
 
 // export default router;
-module.exports = router;

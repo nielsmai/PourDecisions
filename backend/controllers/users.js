@@ -26,10 +26,11 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
     
-    const { email, username, password } = req.body;  
-    const newUser = new User({email, username, password});
+    const { username, password, email } = req.body;  
+    const newUser = new User({username, password, email});
     
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+        if (newUser.password === undefined) throw new Error("Undefined password");
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
@@ -49,9 +50,19 @@ module.exports.updateUser = async (req, res) => {
     // Not exactly how the hashing works here so leaving blank
 }
 
-module.exports.logIn = async (req, res) => {}
+module.exports.deleteAll = async (req, res) => {
+    try {
+        const del = await User.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+    
+}
 
-module.exports.logOut = async (req, res) => {}
+// module.exports.logIn = async (req, res) => {}
+
+// module.exports.logOut = async (req, res) => {}
 
 
 // export default router;

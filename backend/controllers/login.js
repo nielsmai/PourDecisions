@@ -8,6 +8,7 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 
+module.exports = router;
 
 module.exports.login = function(username,password) {
     if (password == null){
@@ -31,4 +32,3 @@ module.exports.login = function(username,password) {
 };
 
 // export default router;
-module.exports = router;

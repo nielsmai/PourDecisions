@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.2",
+    "axios": "^0.26.0",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   }
 }
