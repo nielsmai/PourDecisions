@@ -8,25 +8,6 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 
-function checkUsername(id) {
-    var valid = User.findById(id).exec();
-    if (valid != null) {
-        return true;
-    }
-    else return false;
-}
-
-function checkPassword(password) {
-    var valid = User.findById(id).exec();
-    var upassword = valid.password;
-    if (password == upassword){
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
 
 module.exports.login = function(username,password) {
     if (password == null){
