@@ -12,6 +12,8 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 
+module.exports = router;
+
 module.exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -24,8 +26,8 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
     
-    const { username, password } = req.body;  
-    const newUser = new User({username, password});
+    const { email, username, password } = req.body;  
+    const newUser = new User({email, username, password});
     
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -53,4 +55,3 @@ module.exports.logOut = async (req, res) => {}
 
 
 // export default router;
-module.exports = router;

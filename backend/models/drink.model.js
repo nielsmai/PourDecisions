@@ -28,7 +28,10 @@ var drinkSchema = new Schema({
         type: Number,
         default: 0,
     },
-    recipe: recipeSchema
+    recipe: {
+        type: recipeSchema,
+        required: true,
+    }
 
 }, {
     timestamps: true,

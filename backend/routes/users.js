@@ -5,21 +5,23 @@ const { getAllUsers, createUser, updateUser } = require('../controllers/users');
 
 const router = express.Router();
 
+
 // this is supposed to get info once we go to root
-// router.get('/', getAllUsers);
-router.get('/', function(req,res){
-    getAllUsers;
-})
+router.get('/', getAllUsers);
+// router.get('/', function(req,res){
+//     getAllUsers();
+// })
+
 
 // route to add new user (post)
-// router.post('/', createUser);
-router.post('/', function(req,res){
-    createUser;
-});
+router.post('/', createUser);
+// router.post('/', function(req,res){
+//     createUser;
+// });
 
-router.put('/', function(req,res){
-    updateUser;
-})
+// router.put('/', function(req,res){
+//     updateUser;
+// })
 
 // export default router;
 module.exports = router;

@@ -8,6 +8,8 @@ const { Drink, Recipe, Ingredient } = require('../models/drink.model');
 
 const router = express.Router();
 
+module.exports = router;
+
 module.exports.getAllDrinks = async (req, res) => {
     try {
         const drinks = await Drink.find();
@@ -19,8 +21,10 @@ module.exports.getAllDrinks = async (req, res) => {
 
 module.exports.createDrink = async (req, res) => {
     const drink = req.body;  
+    // const { name, author, recipe, tag, public_status, rating } = req.body;
 
     const newDrink = new Drink(drink);
+    // const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
 
     try {
         await newDrink.save();
@@ -91,6 +95,7 @@ module.exports.getDrinkByName = async (req,res) => {
     try {
         const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
         res.status(200).json(drinks);
+        return drinks;
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
     }
@@ -128,5 +133,4 @@ module.exports.createRecipe = (req, _res) => {
 
 
 // export default router;
-module.exports = router;
 
