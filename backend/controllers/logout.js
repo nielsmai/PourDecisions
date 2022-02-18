@@ -8,11 +8,14 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 
-function logout(username) {
-    if (username != "Guest"){
+module.exports.logout = function () {
+    sessionStorage.clear;
+    if (sessionStorage.getItem('status') == null) {
         return "LOGOUT-SUCCESSFUL";
     }
-    else throw 'LOGOUT-INVALID';
+    else {
+        return "LOGOUT-FAILURE";
+    }
 }
 
 // export default router;
