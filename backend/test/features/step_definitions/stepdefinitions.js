@@ -1,5 +1,11 @@
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
+const login = require('../../../controllers/login.js');
+const logout = require('../../../controllers/logout.js');
+
+
+var errorMsg = "";
+var confirmMsg = "";
 
 const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
 const { status } = require('express/lib/response');
@@ -22,8 +28,8 @@ Given('the following drinks exist in the system:', function (dataTable) {
 });
 
 Then('an error message {string} shall be raised', function (string) {
+  assert.equal(errorMsg,string);
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
 });
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// CREATE ACCCOUNT ///////////////////////////////////////////
@@ -109,18 +115,24 @@ Then('the new drink {string} is added to the system', function (string) {
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user logs in using {string} and {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  try{
+    var loginTest = login.login(string, string2);
+    assert.equal(true, loginTest);
+  }
+  catch(err){
+    errorMsg = err.message
+  }
+  // Write code here that turns the phrase above into concrete 
 });
 
 Then('the user shall be logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.notEqual(null, sessionStorage.getItem('status'));
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.equal(null, sessionStorage.getItem('status'));
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -128,12 +140,14 @@ Then('the user is not logged in', function () {
 /////////////////////////////////////////////////////////////////////////////
 When('the user logs out', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  var logoutTest = logout.logout();
+  confirmMsg = logoutTest;
 });
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.equal(null, sessionStorage.getItem('status'));
+  assert.equal(string, confirmMsg);
 });
 
 
