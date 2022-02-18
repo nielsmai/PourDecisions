@@ -27,7 +27,14 @@ function checkPassword(password) {
     }
 }
 
-module.exports.checkLogin = function(username, password) {
+
+module.exports.login = function(username,password) {
+    if (password == null){
+        throw 'LOGIN-FIELD-EMPTY';
+    }
+    if (username == null){
+        throw 'LOGIN-FIELD-EMPTY';
+    }
     User.findOne({username}, function(err, user) {
         if (err) {
             throw 'LOGIN-INVALID'
@@ -40,17 +47,6 @@ module.exports.checkLogin = function(username, password) {
             return true;
         }
     })
-}
-
-module.exports.login = function(username,password) {
-    if (password == null){
-        throw 'LOGIN-FIELD-EMPTY';
-    }
-    if (username == null){
-        throw 'LOGIN-FIELD-EMPTY';
-    }
-    var loggedIn = checkLogin(username, password);
-    return loggedIn;
 };
 
 // export default router;
