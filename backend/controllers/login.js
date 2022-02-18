@@ -27,6 +27,21 @@ function checkPassword(password) {
     }
 }
 
+module.exports.checkLogin = function(username, password) {
+    User.findOne({username}, function(err, user) {
+        if (err) {
+            throw 'LOGIN-INVALID'
+        }
+        else if (user.password != password) {
+            throw 'LOGIN-INVALID';
+        }
+        else {
+            sessionStorage.setItem('status', 'loggedIn');
+            return true;
+        }
+    })
+}
+
 module.exports.login = function(username,password) {
     if (password == null){
         throw 'LOGIN-FIELD-EMPTY';
@@ -34,18 +49,8 @@ module.exports.login = function(username,password) {
     if (username == null){
         throw 'LOGIN-FIELD-EMPTY';
     }
-    var validU = checkUsername(username);
-    if (validU == false) {
-        throw 'LOGIN-INVALID';
-    }
-    else {
-        var validP = checkPassword(password);
-        if (validP == false) {
-            throw 'LOGIN-INVALID';
-        }
-    }
-    sessionStorage.setItem('status', 'loggedIn');
-    return true;
+    var loggedIn = checkLogin(username, password);
+    return loggedIn;
 };
 
 // export default router;

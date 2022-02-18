@@ -26,7 +26,7 @@ Given('the following drinks exist in the system:', function (dataTable) {
 });
 
 Then('an error message {string} shall be raised', function (string) {
-  assertEquals(errorMsg, string);
+  assert.equal(errorMsg,string);
   // Write code here that turns the phrase above into concrete actions
 });
 /////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ Then('the new drink {string} is added to the system', function (string, dataTabl
 When('the user logs in using {string} and {string}', function (string, string2) {
   try{
     var loginTest = login.login(string, string2);
-    assertEquals(true, loginTest);
+    assert.equal(true, loginTest);
   }
   catch(err){
     errorMsg = err.message
@@ -93,12 +93,12 @@ When('the user logs in using {string} and {string}', function (string, string2) 
 
 Then('the user shall be logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  assertNotEqual(null, sessionStorage.getItem('status'));
+  assert.notEqual(null, sessionStorage.getItem('status'));
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  assertEquals(null, sessionStorage.getItem('status'));
+  assert.equal(null, sessionStorage.getItem('status'));
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -112,8 +112,8 @@ When('the user logs out', function () {
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  assertEquals(null, sessionStorage.getItem('status'));
-  assertEquals(string, confirmMsg);
+  assert.equal(null, sessionStorage.getItem('status'));
+  assert.equal(string, confirmMsg);
 });
 
 

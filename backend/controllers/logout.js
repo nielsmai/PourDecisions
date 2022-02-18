@@ -10,7 +10,12 @@ const router = express.Router();
 
 module.exports.logout = function () {
     sessionStorage.clear;
-    return "LOGOUT-SUCCESSFUL";
+    if (sessionStorage.getItem('status') != null) {
+        return "LOGOUT-SUCCESSFUL";
+    }
+    else {
+        return "LOGOUT-FAILURE";
+    }
 }
 
 // export default router;
