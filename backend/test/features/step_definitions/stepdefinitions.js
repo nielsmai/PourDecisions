@@ -9,13 +9,13 @@ require('dotenv').config({path:__dirname+'/./../../../.env'});
 const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || process.env.API_HOST + ':' + process.env.API_PORT;
 const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT;
 
-var errorMsg = "";
-var confirmMsg = "";
-
 const AXIOS = axios.create({
     baseUrl: backendUrl,
     headers: {'Access-Control-Allow-Origin': frontendUrl}
 });
+
+var errorMsg = "";
+var confirmMsg = "";
 
 // const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
 const drinkController = require('../../../controllers/drinks');
@@ -37,8 +37,10 @@ Given('the user {string} with password {string} is logged into their account', a
             password: password,
             email: email
         });
-        console.log(res.status);
-        // login(username, password); 
+        console.log(res.status); // for now 
+        
+        login(username, password);
+     
     } catch (err) {
         
     }
@@ -49,10 +51,16 @@ Given('the following accounts exist in the system:', function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
     // TODO
     // iterate through table
+    for (let i in dataTable.rows) {
+        let row = table.rows[i];
+        assert(row.cells[0] == "bbbb")
+        assert(row.cells[1] == "aaaa")
+    }
+
     // get all username/password
 
     // check if they exist
-      return pending;
+      // return 'pending';
 });
 
 Given('the following drinks exist in the system:', function (dataTable) {
@@ -61,7 +69,7 @@ Given('the following drinks exist in the system:', function (dataTable) {
     // iterate through table
     // look at each name
     // check if each exist
-    return pending;
+    return 'pending';
 });
 
 Then('an error message {string} shall be raised', function (string) {

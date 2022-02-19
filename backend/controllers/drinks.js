@@ -121,17 +121,49 @@ module.exports.getDrinkByIngredients = async (req,res) => {
     }
 }
 
+// temporary for testing 
+module.exports.deleteAllDrinks = async (req, res) => {
+    try {
+        const del = await Drink.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
+
+// TODO MOVE THESE TO ANOTHER FILE
 module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
 
+// // temporary for testing 
+// module.exports.deleteAllIngredients = async (req, res) => {
+//     try {
+//         const del = await Ingredient.deleteMany({});
+//         res.status(200).json({del});
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     } 
+// }
+
 module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
     const newRecipe = new Recipe(recipe);
     return newRecipe;
 }
+
+// // temporary for testing 
+// module.exports.deleteAllRecipes = async (req, res) => {
+//     try {
+//         const del = await Recipe.deleteMany({});
+//         res.status(200).json({del});
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     } 
+// }
+
 
 
 // export default router;
