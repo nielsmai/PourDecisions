@@ -4,7 +4,7 @@
 // var SALT_WORK_FACTOR = 10;
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
 // import User from '../models/user.model.js';
@@ -26,20 +26,21 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
     
+    console.log(req.body) 
     const { username, password, email } = req.body;  
-    const newUser = new User({username, password, email});
+
+    let newUser = await User.findOne({username});
+
+    if (newUser) {
+        // add more stuff if this works
+        console.log("User already exists");
+        return res.redirect('/register'); // for now
+    }
+
+    newUser = new User({username, password, email});
     
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-        if (newUser.password === undefined) throw new Error("Undefined password");
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            // save them to database
-            newUser.save()
-            .then(() => res.json(newUser))
-            .catch(err => res.status(409).json({ message: err.message }));
-        });
-    });
+    newUser.save()
+    .then(() => res.json(newUser));
 }
 
 module.exports.updateUser = async (req, res) => {

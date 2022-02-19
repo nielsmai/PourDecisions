@@ -9,19 +9,22 @@ const router = express.Router();
 console.log(getAllDrinks)
 
 // this is supposed to get info once we go to root
-router.get('/', getAllDrinks);
-// router.get('/', function (req,res) {
-//     getAllDrinks;
-// })
+// router.get('/', getAllDrinks);
+router.get('/', function (req,res) {
+    getAllDrinks(req,res);
+})
 
 
 // route to add new drinks (post)
-router.post('/', createDrink);
-// router.post('/', function (req,res) {
-//     createDrink;
-// })
+// router.post('/', createDrink);
+router.post('/', function (req,res) {
+    createDrink(req,res);
+})
 
-router.delete('/', deleteAllDrinks);
+// router.delete('/', deleteAllDrinks);
+router.delete('/', function (req,res) {
+    deleteAllDrinks(req, res);
+})
 
 
 // export default router;

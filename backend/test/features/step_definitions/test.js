@@ -11,11 +11,11 @@
 //         headers: { 'Access-Control-Allow-Origin': frontendUrl}
 //     });
 //     try{
-//         let response = await AXIOS.post('/users', {
-//             username: "te21stss",
-//             password: "fasdf",
-//             email: "asdf@dfsgdf.vom"
-//         })
+//         // let response = await AXIOS.post('/users', {
+//         //     username: "te21stss",
+//         //     password: "fasdf",
+//         //     email: "asdf@dfsgdf.vom"
+//         // })
 //         await AXIOS.delete('/users');
 
 //     }catch (err) {
@@ -27,4 +27,5 @@
 
 // }
 // test()
+
 

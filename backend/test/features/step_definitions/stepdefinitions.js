@@ -32,11 +32,16 @@ Given('the user {string} with password {string} is logged into their account', a
     
     // TODO create user using route 
     try {
-        let res = await AXIOS.post('/users', {
-            username: username,
-            password: password,
-            email: email
-        });
+        // let res = await AXIOS.post('/users/register', {
+        //     username: username,
+        //     password: password,
+        //     email: email
+        // });
+        createUser({
+            "username": username,
+            "password": password,
+            "email": email
+        })
         console.log(res.status); // for now 
         
         login(username, password);
