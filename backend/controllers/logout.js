@@ -10,14 +10,32 @@ const router = express.Router();
 
 module.exports = router;
 
-module.exports.logout = function () {
-    sessionStorage.clear;
-    if (sessionStorage.getItem('status') == null) {
-        return "LOGOUT-SUCCESSFUL";
+module.exports.logout = function (req, res) {
+    if (req.session) {
+        console.log(req.session.isLoggedIn);
+        req.session.isLoggedIn = false; 
+        req.session = null;
+        res.redirect('/login'); //for now
+        // req.session.destroy ( (err) => {
+        //     if (err) res.status(400).send('LOGOUT-FAILURE')
+        //     else {
+        //         req.session = null;
+        //         res.clearCookie();
+        //         res.status(200).send('LOGOUT-SUCCESSFUL')
+        //     }
+        // })
+    } else {
+        console.log("NO-SESSION")
+        res.end()
     }
-    else {
-        return "LOGOUT-FAILURE";
-    }
+
+    // sessionStorage.clear;
+    // if (sessionStorage.getItem('status') == null) {
+    //     return "LOGOUT-SUCCESSFUL";
+    // }
+    // else {
+    //     return "LOGOUT-FAILURE";
+    // }
 }
 
 // export default router;

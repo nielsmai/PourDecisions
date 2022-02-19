@@ -23,6 +23,8 @@ module.exports.login = async function(req, res) {
             res.status(400).json("LOGIN-INVALID");
         }
         else {
+            // prob need to add something to check if they're already logged in
+            res.locals.username = username
             user.comparePassword(password, (err, isMatch) => {
                 if (err) {
                     res.status(400).json(err);
@@ -33,6 +35,7 @@ module.exports.login = async function(req, res) {
                 else {
                     console.log("Logged in successful");
                     req.session.isLoggedIn = true;
+                    req.session.username = res.locals.username; 
                     res.status(200).json("LOGGED-IN");
                 }
             })
