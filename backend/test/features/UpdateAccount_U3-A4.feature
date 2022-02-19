@@ -3,10 +3,10 @@ Feature: Change password
 As a user, I want to be able to change the password of my user account so that I can I can change to an easier or more complicated password
 
 Background: 
-	Given the following account exists in the system:
+	Given the following accounts exist in the system:
 		| username | password      |
 		| User1    | userpassword1 | 
-	And the user is logged into an account with username "User1"
+    Given the user "User1" with password "userpassword1" is logged into their account
 
 	
 Scenario: Successful password modification
@@ -20,7 +20,7 @@ Scenario: Successful password modification
 Scenario Outline: Unsuccessful password modification
 	
 	When the user inputs the wrong old password "<oldpassword>",inputs the new password "<newpassword>" and confirms the new password "<newpasswordconfirm>"
-	Then an error message "<error>" is raised
+	Then an error message "<error>" shall be raised
 
   Examples:
 	  | oldpassword   | newpassword   | newpasswordconfirm | error                            |

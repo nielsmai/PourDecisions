@@ -4,26 +4,28 @@ As a user, I want to be able to create a custom drink recipe so that I can I can
 As a user or guest, I would like to generate drink recipes, so that I can recreate them
 
 Background: 
-	Given the following account exists in the system:
+	Given the following accounts exist in the system:
 		| username | password      |
 		| User1    | userpassword1 | 
-	Given the following drink recipes exist in the system:
+	Given the following drinks exist in the system:
 		| name     | likes | ingredients | author |
 		| Fireball | 0     | Canadian whisky, sweetener, cinnamon flavouring | User1  |
+	Given the user "User1" with password "userpassword1" is logged into their account
 	
 Scenario: User successfully creates a new drink recipe
 	
 	Drink shall be successfully created
 
-	Given the user is logged into an account with username "User1"
-	When the user creates a new drink recipe with the name "Mojitos" and the ingredients "white rum, sugar,lime juice,soda water,mint"
-	Then the new drink recipe is added to the system
+	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
+	Then the new drink "<name>" is added to the system
+
+	| name     | ingredients            				     | 
+    | Mojitos  | white rum, sugar,lime juice,soda water,mint | 
 	
-Scenario Outline: user unsuccessfully creates a new drink
+Scenario Outline: User unsuccessfully creates a new drink
 
 	Drink shall not be successfully created
 
-	Given the user is logged into an account with username "User1"
 	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
 	Then an error message "<error>" shall be raised
 

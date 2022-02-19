@@ -4,14 +4,14 @@ As a user I want to view all drink recipes that I marked as favourites so
 that I can have easy access to favourite recipes
 
 Background:
-        Given the following account exists in the system:
+        Given the following accounts exist in the system:
                 | username  | password  |
                 | username1 | password1 |
                 | user1     | pass1     |
         Given the following drinks exist in the system:
                 |name       | ingredients                          | rating | author | status |
                 |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
-        Given the user "username1" is logged in
+        Given the user "username1" with password "password1" is logged into their account
         
 Scenario: View favourites successfully
 
@@ -26,6 +26,6 @@ Scenario: View favourites successfully
 
 Scenario: View favourites unsuccessfully when it has no items
 
-        When the users requests to view their favourites
+        When the user requests to view their favourites
         Then no drinks shall be displayed.
               

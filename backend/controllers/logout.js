@@ -1,15 +1,22 @@
-import express from 'express';
-import mongoose from 'mongoose';
+// import express from 'express';
+// import mongoose from 'mongoose';
+const express = require('express');
+const mongoose = require('mongoose');
 
-import User from '../models/user.model.js';
+// import User from '../models/user.model.js';
+const User = require('../models/user.model');
 
 const router = express.Router();
 
-function logout(username) {
-    if (username != "Guest"){
+module.exports.logout = function () {
+    sessionStorage.clear;
+    if (sessionStorage.getItem('status') == null) {
         return "LOGOUT-SUCCESSFUL";
     }
-    else throw 'LOGOUT-INVALID';
+    else {
+        return "LOGOUT-FAILURE";
+    }
 }
 
-export default router;
+// export default router;
+module.exports = router;

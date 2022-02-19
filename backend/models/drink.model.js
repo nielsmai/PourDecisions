@@ -1,29 +1,10 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
+const recipeSchema = require('./recipe.model');
 
-const ingredientSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    ingredientType: {
-        type: String,
-        enum: ['LIQUOR', 'FRUIT', 'VEGGIE', 'SODA', 'HERB', 'OTHER'],
-        default: 'OTHER'
-    }
-})
-
-const recipeSchema = new Schema({
-    ingredients: [ingredientSchema],
-    garnish: [{type: String}], // I think this should be an ingredient with type garnish instead
-    instructions: {
-        type: String, 
-    }
-})
-
-
-const drinkSchema = new Schema({
+// var Schema, assuming that content of Drink can be modified
+var drinkSchema = new Schema({
     name: { 
         type: String,
         required: true,
@@ -57,8 +38,6 @@ const drinkSchema = new Schema({
 
 
 var Drink = mongoose.model('Drink', drinkSchema);
-var Recipe = mongoose.model('Recipe', recipeSchema);
-var Ingredient = mongoose.model('Ingredient', ingredientSchema);
 
 // export { Drink, Recipe, Ingredient }; 
-module.exports = { Drink, Recipe, Ingredient };
+module.exports = { Drink };

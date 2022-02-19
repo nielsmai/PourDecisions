@@ -1,16 +1,27 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
 // Equivalent of adding enum strings in Java
-const listOfIngredientType = ['Liquor', 'Fruit', 'Soda', 'Herb', 'Veggie', 'Other'];
+const listOfIngredientType = ['LIQUOR', 'FRUIT', 'SODA', 'HERB', 'VEGGIE', 'OTHER'];
 
-var ingredientSchema = new Schema({
-    ingredientName: { type: String, required: true, trim: true },
-    ingredientType: { type: String, enum: listOfIngredientType, default: 'Other', required: true },
+// const Schema, assuming that content of Ingredient cannot be changed
+const ingredientSchema = new Schema({
+    ingredientName: { 
+        type: String, 
+        required: true, 
+    },
+    ingredientType: { 
+        type: String, 
+        enum: listOfIngredientType, 
+        default: 'OTHER', 
+        required: true 
+    },
 }, {
     timestamps: true,
 });
 
 // module.exports = mongoose.model('Ingredient', ingredientSchema);
 var Ingredient = mongoose.model('Ingredient', ingredientSchema);
-export default Ingredient; 
+module.exports = { Ingredient }; 
+module.exports.ingredientSchema = ingredientSchema; // For recipe.model.js

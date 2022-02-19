@@ -1,7 +1,7 @@
 // import express from 'express';
 // import { getAllUsers, createUser } from '../controllers/users.js';
 const express = require('express');
-const { getAllUsers, createUser } = require('../controllers/users');
+const { getAllUsers, createUser, updateUser } = require('../controllers/users');
 
 const router = express.Router();
 
@@ -17,6 +17,9 @@ router.post('/', function(req,res){
     createUser;
 });
 
+router.put('/', function(req,res){
+    updateUser;
+})
 
 // export default router;
 module.exports = router;

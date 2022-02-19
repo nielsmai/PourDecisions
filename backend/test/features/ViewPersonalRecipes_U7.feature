@@ -3,12 +3,12 @@ Feature: View recipe of custom drinks
 As a user, I want to be able to view a list of all of my public and private custom made drink recipes so that I have an easy access to all of my custom made recipes, like a personal recipe book
 
 Background: 
-	Given the following account exists in the system:
+	Given the following accounts exist in the system:
 		| username | password      |
 		| User1    | userpassword1 |
 		| User2    | userpassword2 |
 		| User3    | userpassword3 |
-	Given the following drink recipes exist in the system:
+	Given the following drinks exist in the system:
 		| name     | ingredients           	                       | author |
 		| Fireball | Canadian whisky,sweetener,cinnamon flavouring | User1  |
 		| Mojitos  | white rum, sugar,lime juice,soda water,mint   | User2  |
@@ -17,7 +17,7 @@ Background:
 	
 	The list of custom drink, private and public, is displayed
 
-	Given the user is logged into an account with username "<username>" and password "<password>"
+    Given the user "<username>" with password "<password>" is logged into their account
 	When the user displays the list of custom drinks
 	Then the custom drinks "<customdrinklist>" with author "<username>" shall be displayed
 	
