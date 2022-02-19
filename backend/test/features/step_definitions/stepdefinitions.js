@@ -6,6 +6,7 @@ const logout = require('../../../controllers/logout.js');
 
 var errorMsg = "";
 var confirmMsg = "";
+var listDrinks = [];
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
@@ -126,8 +127,6 @@ When('the user {string} provides the drink name {string}', function (string, str
   return 'pending';
 });
 
-
-
 When('the user {string} provides a list of ingredients {string}', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -143,11 +142,6 @@ When('the user {string} provides a like range of {string}', function (string, st
   return 'pending';
 });
 
-When('the user {string} requests to view the drinks', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
 When('the user searches a drink made by {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -159,8 +153,17 @@ Then('the drink with name {string}, likes {string} shall be returned', function 
 });
 
 Then('the list of drinks shall be {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  var resultList = string.split(",");
+  var match = true;
+  for(var i = 0; i < resultList.length; i++)
+  {
+    if (resultList[i] != listDrinks[i])
+    {
+      match = false;
+      break;
+    }
+  }
+  assert.ok(match);
 });
 
 /////////////////////////////////////////////////////////////////////////////

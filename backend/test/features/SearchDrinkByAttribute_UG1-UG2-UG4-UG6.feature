@@ -36,8 +36,7 @@ Scenario: Search Drink Recipes by invalid Name as User or Guest (Error flow)
 Scenario: Search Drink Recipes by list of Ingredients (UG2)
 #Needs more examples
 	When the user "user1" provides a list of ingredients "<listOfIngredients>"
-    And the user "user1" requests to view the drinks
-    Then the list of drinks shall be "<drinks>"
+  Then the list of drinks shall be "<drinks>"
   Examples:
 	  | listOfIngredients                                            | drinks                                         |
     | Lemon, lime juice, lemonade, soda water, lemon juice, orange | Jogger, Lemime, Orange & Lemon Crystal Martini |
