@@ -123,13 +123,11 @@ Then('the user is logged out of the system with a confirmation message {string}'
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user {string} provides the drink name {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getDrinkByName(string2);
 });
 
 When('the user {string} provides a list of ingredients {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getDrinkByIngredients(string.split(","));
 });
 
 When('the user {string} provides a list of restrictions {string}', function (string, string2) {
@@ -138,18 +136,15 @@ When('the user {string} provides a list of restrictions {string}', function (str
 });
 
 When('the user {string} provides a like range of {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getAllDrinksAboveRating(parseInt(string2));
 });
 
 When('the user searches a drink made by {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getDrinkByUser(string);
 });
 
 Then('the drink with name {string}, likes {string} shall be returned', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.ok(listDrinks[0]['name'] === string && listDrinks[0]['rating'] === parseInt(string2));
 });
 
 Then('the list of drinks shall be {string}', function (string) {
@@ -264,8 +259,7 @@ Then('the new ingredient {string} shall not be added to drink {string}', functio
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user {string} requests to view the drinks in alphabetical order', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getAllDrinksAlpha(string);
 });
 
 Then('the list of drinks is displayed in alphabetical order', function () {
@@ -274,8 +268,7 @@ Then('the list of drinks is displayed in alphabetical order', function () {
 });
 
 When('the user {string} requests to view drinks by newest', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getAllDrinksNewest(string);
 });
 
 Then('the list of drinks is displayed in order of their creation', function () {
@@ -284,16 +277,10 @@ Then('the list of drinks is displayed in order of their creation', function () {
 });
 
 When('the user {string} requests to view drinks by their rating', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  listDrinks = drinks.getAllDrinksRating(string);
 });
 
 Then('the list of drinks is displayed in descending order of their rating', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
-When('the user {string} requests to view drinks from a given rating', function (string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
@@ -302,12 +289,6 @@ Given('that the user {string} has favourited the drink {string}', function (stri
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
-
-Then('the list of drinks within the given range is displayed', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
 When('the user requests to view their favourites', function () {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -319,13 +300,11 @@ Then('the drink {string} shall be displayed', function (string) {
 });
 
 Then('no drinks shall be displayed.', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.ok(listDrinks.length === 0);
 });
 
-When('the user displays the list of custom drinks', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('the user {string} displays the list of custom drinks', function () {
+  listDrinks = drinks.getDrinksCustom(string);
 });
 
 Then('the custom drinks {string} with author {string} shall be displayed', function (string, string2) {        
