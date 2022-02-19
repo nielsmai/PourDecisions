@@ -3,6 +3,7 @@
 const express = require('express');
 const { getAllUsers, createUser, updateUser, deleteAll } = require('../controllers/users');
 const { login } = require('../controllers/login');
+const { logout } = require('../controllers/logout');
 
 const router = express.Router();
 
@@ -26,6 +27,10 @@ router.post('/login', function (req, res) {
 // router.put('/', function(req,res){
 //     updateUser;
 // })
+
+router.delete('/logout', function (req, res) {
+    logout(req, res);
+})
 
 router.delete('/', deleteAll);
 

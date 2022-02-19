@@ -11,19 +11,16 @@ const router = express.Router();
 module.exports = router;
 
 module.exports.logout = function (req, res) {
+    console.log(req.session)
     if (req.session) {
-        console.log(req.session.isLoggedIn);
-        req.session.isLoggedIn = false; 
-        req.session = null;
-        res.redirect('/login'); //for now
-        // req.session.destroy ( (err) => {
-        //     if (err) res.status(400).send('LOGOUT-FAILURE')
-        //     else {
-        //         req.session = null;
-        //         res.clearCookie();
-        //         res.status(200).send('LOGOUT-SUCCESSFUL')
-        //     }
-        // })
+        req.session.destroy ( (err) => {
+            if (err) res.status(400).send('LOGOUT-FAILURE')
+            else {
+                req.session = null;
+                res.clearCookie('Object');
+                res.status(200).send('LOGOUT-SUCCESSFUL')
+            }
+        })
     } else {
         console.log("NO-SESSION")
         res.end()

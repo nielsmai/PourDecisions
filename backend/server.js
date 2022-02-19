@@ -4,7 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 const session = require('express-session');
-const MongoDBSession = require('connect-mongodb-session')(session)
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser');
 
 const usersRouter = require('./routes/users');
 const drinksRouter = require('./routes/drinks');
@@ -28,16 +29,15 @@ connection.once('open', () => {
     console.log("Connected to MongoDB succesfully.");
 })
 
-const store = new MongoDBSession({
-    uri: CONNECTION_URL,
-    collection: 'sessions',
-})
-
+app.use(cookieParser());
 app.use(session({
     secret: "somekey",
     resave: false,
     saveUninitialized: false,
-    store: store,
+    cookie: { maxAge: 1000 * 60 * 60 * 12 },
+    store: MongoStore.create({ 
+        mongoUrl: CONNECTION_URL
+    })
 }));
  
 // routing

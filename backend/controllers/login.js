@@ -12,7 +12,6 @@ const router = express.Router();
 module.exports = router;
 
 module.exports.login = async function(req, res) {
-    console.log(req.body);
     const { username, password } = req.body;
 
     if (password == null || username == null){
@@ -24,6 +23,7 @@ module.exports.login = async function(req, res) {
         }
         else {
             // prob need to add something to check if they're already logged in
+            console.log(req.session)
             res.locals.username = username
             user.comparePassword(password, (err, isMatch) => {
                 if (err) {
