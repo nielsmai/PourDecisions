@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 
 const router = express.Router();
+// export default router;
+module.exports = router;
 
 module.exports.logout = function () {
     sessionStorage.clear;
@@ -18,5 +20,4 @@ module.exports.logout = function () {
     }
 }
 
-// export default router;
-module.exports = router;
+

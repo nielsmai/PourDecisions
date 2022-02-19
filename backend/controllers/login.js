@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 
 const router = express.Router();
+// export default router;
+module.exports = router;
 
 
 module.exports.login = function(username,password) {
@@ -30,5 +32,4 @@ module.exports.login = function(username,password) {
     })
 };
 
-// export default router;
-module.exports = router;
+

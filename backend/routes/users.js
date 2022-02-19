@@ -8,7 +8,7 @@ const router = express.Router();
 // this is supposed to get info once we go to root
 // router.get('/', getAllUsers);
 router.get('/', function(req,res){
-    getAllUsers;
+    getAllUsers(req, res);
 })
 
 // route to add new user (post)
