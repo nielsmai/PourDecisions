@@ -1,35 +1,29 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-const express = require('express');
-const mongoose = require('mongoose');
+const passport = require('passport')
 
-// import User from '../models/user.model.js';
-const User = require('../models/user.model');
+module.exports.login = function (req, res, next) {
+    // passport.authenticate('local', {
+    //     successRedirect: '/',
+    //     failureRedirect: '/users/login',
+    //     failureFlash: true }) (req, res, next)
+    passport.authenticate('local', (err, user) => {
 
-const router = express.Router();
-// export default router;
-module.exports = router;
-
-
-module.exports.login = function(username,password) {
-    if (password == null){
-        throw 'LOGIN-FIELD-EMPTY';
-    }
-    if (username == null){
-        throw 'LOGIN-FIELD-EMPTY';
-    }
-    User.findOne({username}, function(err, user) {
         if (err) {
-            throw 'LOGIN-INVALID'
+            console.log('some error before log in attempt: ', err)
+            return err
         }
-        else if (user.password != password) {
-            throw 'LOGIN-INVALID';
+        console.log('User: ', user)
+        if (!user) {
+            req.flash('error_msg', 'LOGIN-INVALID')
+            return res.redirect('/users/login') 
         }
-        else {
-            sessionStorage.setItem('status', 'loggedIn');
-            return true;
-        }
-    })
-};
+        req.logIn(user, (err) => {
+            if (err) {
+                console.log('some error during log in attempt: ', err)
+            }
+            req.flash('success_msg', 'LOGGED-IN')
+            req.session.save(() => res.redirect('/'))
+        })
 
+    }) (req, res, next)
+}
 

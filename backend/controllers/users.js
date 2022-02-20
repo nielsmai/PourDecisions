@@ -4,7 +4,7 @@
 // var SALT_WORK_FACTOR = 10;
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
 // import User from '../models/user.model.js';
@@ -12,6 +12,8 @@ const User = require('../models/user.model');
 
 const router = express.Router();
 // export default router;
+module.exports = router;
+
 module.exports = router;
 
 module.exports.getAllUsers = async (req, res) => {
@@ -26,19 +28,21 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
     
-    const { username, password } = req.body;  
-    const newUser = new User({username, password});
+    console.log(req.body) 
+    const { username, password, email } = req.body;  
+
+    let newUser = await User.findOne({username});
+
+    if (newUser) {
+        // add more stuff if this works
+        console.log("User already exists");
+        return res.redirect('/register'); // for now
+    }
+
+    newUser = new User({username, password, email});
     
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            // save them to database
-            newUser.save()
-            .then(() => res.json(newUser))
-            .catch(err => res.status(409).json({ message: err.message }));
-        });
-    });
+    newUser.save()
+    .then(() => res.json(newUser));
 }
 
 module.exports.updateUser = async (req, res) => {
@@ -49,8 +53,18 @@ module.exports.updateUser = async (req, res) => {
     // Not exactly how the hashing works here so leaving blank
 }
 
-module.exports.logIn = async (req, res) => {}
+module.exports.deleteAll = async (req, res) => {
+    try {
+        const del = await User.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+    
+}
 
-module.exports.logOut = async (req, res) => {}
+// module.exports.logIn = async (req, res) => {}
+
+// module.exports.logOut = async (req, res) => {}
 
 
