@@ -1,28 +1,80 @@
+const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
-const login = require('../../../controllers/login.js');
-const logout = require('../../../controllers/logout.js');
+const { login } = require('../../../controllers/login.js');
+const { logout } = require('../../../controllers/logout.js');
 
+// idk, i'll use this for now
+require('dotenv').config({path:__dirname+'/./../../../.env'});
+const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || process.env.API_HOST + ':' + process.env.API_PORT;
+const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT;
+
+const AXIOS = axios.create({
+    baseUrl: backendUrl,
+    headers: {'Access-Control-Allow-Origin': frontendUrl}
+});
 
 var errorMsg = "";
 var confirmMsg = "";
 
+// const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
+const drinkController = require('../../../controllers/drinks');
+const userController = require('../../../controllers/users');
+
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-Given('the user {string} with password {string} is logged into their account', function (string, string2) {
+Given('the user {string} with password {string} is logged into their account', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    const username = string;
+    const password = string2;
+    const email = "test-email@mail.com"; // using this for now cause lol
+    
+    // TODO create user using route 
+    try {
+        // let res = await AXIOS.post('/users/register', {
+        //     username: username,
+        //     password: password,
+        //     email: email
+        // });
+        createUser({
+            "username": username,
+            "password": password,
+            "email": email
+        })
+        console.log(res.status); // for now 
+        
+        login(username, password);
+     
+    } catch (err) {
+        
+    }
+
 });
 
 Given('the following accounts exist in the system:', function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // TODO
+    // iterate through table
+    for (let i in dataTable.rows) {
+        let row = table.rows[i];
+        assert(row.cells[0] == "bbbb")
+        assert(row.cells[1] == "aaaa")
+    }
+
+    // get all username/password
+
+    // check if they exist
+      // return 'pending';
 });
 
 Given('the following drinks exist in the system:', function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // TODO
+    // iterate through table
+    // look at each name
+    // check if each exist
+    return 'pending';
 });
 
 Then('an error message {string} shall be raised', function (string) {
@@ -66,14 +118,51 @@ Then('no new account shall be created', function () {
 ///////////////// CREATE DRINK //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2) {
+When('the user {string} creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // this does not work 
+    try {
+        const author = string; 
+        const name = string2;
+
+        const ingredientStringList = string3.split(",");
+        const ingredientList = [];
+        for (let i = 0; i < ingredientStringList.length; i++){
+            // TODO create a route for ingredients
+            ingredientList[i] = drinkController.createIngredient({
+                "ingredientName": ingredientStringList[i]
+            });
+        }
+
+        // TODO create a route for recipe
+        const recipe = drinkController.createRecipe({
+            "ingredients": ingredientList
+        });
+
+        // TODO use route to create drink
+        drinkController.createDrink({
+            "name": name,
+            "author": author,
+            "recipe": recipe
+        });
+
+    } catch (err) {
+        console.log("bruh");         
+    }
+
 });
 
-Then('the new drink {string} is added to the system', function (string, dataTable) {
+Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // TODO get route 
+    drinkController.getDrinkByName(string)
+    .then(res => res.json())
+    .then(data =>{
+            // assert(data.status.ok);
+            console.log(data.status.ok);
+            assert(data.name === string);
+        } 
+    )
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,7 +171,7 @@ Then('the new drink {string} is added to the system', function (string, dataTabl
 
 When('the user logs in using {string} and {string}', function (string, string2) {
   try{
-    var loginTest = login.login(string, string2);
+    var loginTest = login(string, string2);
     assert.equal(true, loginTest);
   }
   catch(err){

@@ -4,9 +4,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
-const { Drink, Recipe, Ingredient } = require('../models/drink.model');
+const Drink  = require('../models/drink.model');
+const Recipe = require('../models/recipe.model');
+const Ingredient = require('../models/ingredient.model');
 
 const router = express.Router();
+
+module.exports = router;
 
 module.exports.getAllDrinks = async (req, res) => {
     try {
@@ -19,8 +23,10 @@ module.exports.getAllDrinks = async (req, res) => {
 
 module.exports.createDrink = async (req, res) => {
     const drink = req.body;  
+    // const { name, author, recipe, tag, public_status, rating } = req.body;
 
     const newDrink = new Drink(drink);
+    // const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
 
     try {
         await newDrink.save();
@@ -86,10 +92,12 @@ module.exports.getDrinkByUser = async (req,res) => {
         res.status(404).json({message: err.message})
     }
 }
+
 module.exports.getDrinkByName = async (req,res) => {
     try {
         const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
         res.status(200).json(drinks);
+        return drinks;
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
     }
@@ -113,12 +121,32 @@ module.exports.getDrinkByIngredients = async (req,res) => {
     }
 }
 
+// temporary for testing 
+module.exports.deleteAllDrinks = async (req, res) => {
+    try {
+        const del = await Drink.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
 
+// TODO MOVE THESE TO ANOTHER FILE
 module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
+
+// // temporary for testing 
+// module.exports.deleteAllIngredients = async (req, res) => {
+//     try {
+//         const del = await Ingredient.deleteMany({});
+//         res.status(200).json({del});
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     } 
+// }
 
 module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
@@ -126,7 +154,17 @@ module.exports.createRecipe = (req, _res) => {
     return newRecipe;
 }
 
+// // temporary for testing 
+// module.exports.deleteAllRecipes = async (req, res) => {
+//     try {
+//         const del = await Recipe.deleteMany({});
+//         res.status(200).json({del});
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     } 
+// }
+
+
 
 // export default router;
-module.exports = router;
 

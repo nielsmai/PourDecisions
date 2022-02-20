@@ -16,17 +16,14 @@ Scenario: User successfully creates a new drink recipe
 	
 	Drink shall be successfully created
 
-	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
+	When the user "User1" creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
 	Then the new drink "<name>" is added to the system
-
-	| name     | ingredients            				     | 
-    | Mojitos  | white rum, sugar,lime juice,soda water,mint | 
 	
 Scenario Outline: User unsuccessfully creates a new drink
 
 	Drink shall not be successfully created
 
-	When the user creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
+	When the user "User1" creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
 	Then an error message "<error>" shall be raised
 
   Example: 

@@ -15,7 +15,6 @@ const ingredientSchema = new Schema({
         type: String, 
         enum: listOfIngredientType, 
         default: 'OTHER', 
-        required: true 
     },
 }, {
     timestamps: true,
@@ -23,5 +22,5 @@ const ingredientSchema = new Schema({
 
 // module.exports = mongoose.model('Ingredient', ingredientSchema);
 var Ingredient = mongoose.model('Ingredient', ingredientSchema);
-module.exports = { Ingredient }; 
+module.exports =  Ingredient ; 
 module.exports.ingredientSchema = ingredientSchema; // For recipe.model.js
