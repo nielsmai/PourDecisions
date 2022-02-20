@@ -3,6 +3,8 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const login = require('../../../controllers/login.js');
 const logout = require('../../../controllers/logout.js');
 const { createUser, getAllUsers, updateUser } = require('../../../controllers/users.js');
+const User = require('../../../models/user.model.js');
+const { find } = require('../../../models/user.model.js');
 
 
 var errorMsg = "";
@@ -36,26 +38,35 @@ Then('an error message {string} shall be raised', function (string) {
 
 Given('the username {string} does not already exist', function (string) {
   let exists=false;
-  // Write code here that turns the phrase above into concrete actions
+  User.find({username:string});
   assert.equal(exists,false);
   return 'pending';
 });
 
 Given('the account with the username {string} and password {string} already exists', function (string, string2) {
   let exists=false;
-  // Write code here that turns the phrase above into concrete actions
+  User.find({username:string,password:string2});
   assert.equal(exists,true);
   return 'pending';
 });
 
 When('I create a user account with username {string} and password {string}', function (string, string2) {           // Write code here that turns the phrase above into concrete actions
+  const email = string+'@email.com'
   try {
-    let newUser = createUser(string,string2);
+        // let res = await AXIOS.post('/users/register', {
+        //     username: username,
+        //     password: password,
+        //     email: email
+        // });
+        createUser({
+          "username": string,
+          "password": string2,
+          "email": email
+      })
+      console.log(res.status); // for now 
   } catch (err) {
     errorMsg=err.message;
   }
-  //assert.equal();
-  //assert.equal();
   return 'pending';
 });
 

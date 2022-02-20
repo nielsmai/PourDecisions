@@ -24,19 +24,21 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
     
-    const { username, password } = req.body;  
-    const newUser = new User({username, password});
+    console.log(req.body) 
+    const { username, password, email } = req.body;  
+
+    let newUser = await User.findOne({username});
+
+    if (newUser) {
+        // add more stuff if this works
+        console.log("User already exists");
+        return res.redirect('/register'); // for now
+    }
+
+    newUser = new User({username, password, email});
     
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            // save them to database
-            newUser.save()
-            .then(() => res.json(newUser))
-            .catch(err => res.status(409).json({ message: err.message }));
-        });
-    });
+    newUser.save()
+    .then(() => res.json(newUser));
 }
 
 module.exports.updateUser = async (req, res) => {
