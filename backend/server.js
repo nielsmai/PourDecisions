@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
@@ -30,12 +30,15 @@ connection.once('open', () => {
 })
 
 // Express session
-app.use(cookieParser());
+app.use(cookieParser('ecse428'));
 app.use(session({
-    secret: "somekey",
+    secret: "ecse428",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 }, // 1 minute
+    cookie: { 
+        maxAge: 1000 * 60, // 1 minute
+        secure: Boolean (process.env.NODE_ENV === 'production'),
+    }, 
     store: MongoStore.create({ 
         mongoUrl: CONNECTION_URL,
         autoRemove: 'interval',
@@ -56,7 +59,6 @@ app.use(function (req, res, next) {
     res.locals.success_msg = req.flash('success_msg') 
     res.locals.error_msg = req.flash('error_msg') 
     res.locals.error = req.flash('error') 
-    res.locals.user.username = req.username
 
     next(); 
 });
