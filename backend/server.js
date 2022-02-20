@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
 const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const flash = require('connect-flash');
 
-const usersRouter = require('./routes/users');
-const drinksRouter = require('./routes/drinks');
+require('dotenv').config();
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-// connect to MongoDB
+// Connect to MongoDB
 var CONNECTION_URL;
 if (process.env.NODE_ENV === "production"){
     CONNECTION_URL = process.env.ATLAS_URI;
@@ -29,20 +29,46 @@ connection.once('open', () => {
     console.log("Connected to MongoDB succesfully.");
 })
 
+// Express session
 app.use(cookieParser());
 app.use(session({
     secret: "somekey",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 12 },
+    cookie: { maxAge: 1000 * 60 }, // 1 minute
     store: MongoStore.create({ 
-        mongoUrl: CONNECTION_URL
+        mongoUrl: CONNECTION_URL,
+        autoRemove: 'interval',
+        autoRemoveInterval: 1 // 1 minute
     })
 }));
  
-// routing
+// Passport
+require('./controllers/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function (req, res, next) {
+    res.locals.success_msg = req.flash('success_msg') 
+    res.locals.error_msg = req.flash('error_msg') 
+    res.locals.error = req.flash('error') 
+    res.locals.user.username = req.username
+
+    next(); 
+});
+
+// Routing
+const usersRouter = require('./routes/users');
+const drinksRouter = require('./routes/drinks');
+
 app.use('/users', usersRouter);
 app.use('/drinks', drinksRouter);
+
+
 
 if (process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, '../frontend/build')));
