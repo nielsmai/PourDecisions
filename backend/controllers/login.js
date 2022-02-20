@@ -1,46 +1,28 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-const express = require('express');
-const { type } = require('express/lib/response');
-const mongoose = require('mongoose');
-// import User from '../models/user.model.js';
-const User = require('../models/user.model');
-const { comparePassword } = require('../models/user.model')
+const passport = require('passport')
 
-const router = express.Router();
+module.exports.login = function (req, res, next) {
+    // passport.authenticate('local', {
+    //     successRedirect: '/',
+    //     failureRedirect: '/users/login',
+    //     failureFlash: true }) (req, res, next)
 
-module.exports = router;
-
-module.exports.login = async function(req, res) {
-    const { username, password } = req.body;
-
-    if (password == null || username == null){
-        res.status(400).json('LOGIN-FIELD-EMPTY');
-    }
-    User.findOne({username}, async function(err, user) {
+    passport.authenticate('local', (err, user) => {
         if (err) {
-            res.status(400).json("LOGIN-INVALID");
+            console.log('some error before log in attempt: ', err)
+            return err
         }
-        else {
-            // prob need to add something to check if they're already logged in
-            console.log(req.session)
-            res.locals.username = username
-            user.comparePassword(password, (err, isMatch) => {
-                if (err) {
-                    res.status(400).json(err);
-                } 
-                else if (!isMatch) {
-                    res.status(400).json("LOGIN-INVALID")
-                }
-                else {
-                    console.log("Logged in successful");
-                    req.session.isLoggedIn = true;
-                    req.session.username = res.locals.username; 
-                    res.status(200).json("LOGGED-IN");
-                }
-            })
+        console.log('User: ', user)
+        if (!user) {
+            req.flash('error_msg', 'LOGIN-INVALID')
+            return res.redirect('/users/login') 
         }
-    })
-};
+        req.logIn(user, (err) => {
+            if (err) {
+                console.log('some error during log in attempt: ', err)
+            }
+            req.flash('success_msg', 'LOGGED-IN')
+            req.session.save(() => res.redirect('/'))
+        })
 
-// export default router;
+    }) (req, res, next)
+}
