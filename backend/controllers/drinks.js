@@ -32,8 +32,9 @@ module.exports.createDrink = async (req, res) => {
 
 module.exports.getAllDrinksAlpha = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {name : 1});
+            [ {author: author}, {status: public } ] } ).sort( {name : 1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -42,8 +43,9 @@ module.exports.getAllDrinksAlpha = async (req,res) => {
 
 module.exports.getAllDrinksNewest = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public} ] } ).sort( {createdAt : 'desc'});
+            [ {author: author}, {status: public} ] } ).sort( {createdAt : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -52,8 +54,9 @@ module.exports.getAllDrinksNewest = async (req,res) => {
 
 module.exports.getAllDrinksRating = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {public_status : true} ] } ).sort( {rating : -1});
+            [ {author: author}, {public_status : true} ] } ).sort( {rating : -1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -62,7 +65,8 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const drinks = await Drink.find( {$and: [{author: req},{tag: CUSTOM }]});
+        const user = req.body
+        const drinks = await Drink.find( {$and: [{author: user},{tag: CUSTOM}]});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -71,7 +75,8 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
 
 module.exports.getAllDrinksAboveRating = async (req,res) => {
     try {
-        const drinks = await Drink.find( {$and: [{rating: {$gt: req}}, {public_status : true}]});
+        const drinks = await Drink.find( {$and: [{rating: {$gt: req}}, { $or: 
+            [ {author: author}, {public_status : true} ] }]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -80,6 +85,7 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find({$and: [{author:req}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
@@ -88,7 +94,8 @@ module.exports.getDrinkByUser = async (req,res) => {
 }
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{name:req}, {public_status : true}]})
+        const {user,name} = req.body
+        const drinks = await Drink.find({$and: [{name:name}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
@@ -97,7 +104,8 @@ module.exports.getDrinkByName = async (req,res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {public_status : true}]})
+        const {user,tags} = req.body
+        const drinks = await Drink.find({$and: [{tag: {$in: tags}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -106,13 +114,13 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {public_status : true}]})
+        const{user,ingredients} = req.body
+        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: ingredients}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
     }
 }
-
 
 module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;

@@ -126,7 +126,7 @@ When('the user {string} provides the drink name {string}', function (string, str
   try {
     let res = await AXIOS.get('/drinks/' + string2 + '/name', {
       user: string,
-      rating: parseInt(string2)
+      name: string2
     })
   } catch (error) {}
   listDrinks = res.data
@@ -165,7 +165,7 @@ When('the user {string} provides a like range of {string}', function (string, st
 When('the user searches a drink made by {string}', function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
-      user: string
+      author: string
     })
   } catch (error) {}
   listDrinks = res.data
