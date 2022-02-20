@@ -11,6 +11,8 @@ var SALT_WORK_FACTOR = 10;
 const User = require('../models/user.model');
 
 const router = express.Router();
+// export default router;
+module.exports = router;
 
 module.exports = router;
 
@@ -66,4 +68,3 @@ module.exports.deleteAll = async (req, res) => {
 // module.exports.logOut = async (req, res) => {}
 
 
-// export default router;

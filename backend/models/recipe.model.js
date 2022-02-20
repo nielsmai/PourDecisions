@@ -1,10 +1,10 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
-const {ingredientSchema} = require('./ingredient.model.js');
+const {ingredientSchema} = require('./ingredient.model');
 var Schema = mongoose.Schema;
 
 // var Schema, assuming that content of Recipe can be changed
-var recipeSchema = new Schema({
+const recipeSchema = new Schema({
     ingredients: [ingredientSchema],    // Imported from ingredient.model.js
     garnish: [{ type: String }],        // ingredient with type garnish instead?
     instruction: { 
@@ -14,7 +14,9 @@ var recipeSchema = new Schema({
     timestamps: true,
 });
 
-// module.exports = mongoose.model('recipe', recipeSchema);
 var Recipe = mongoose.model('Recipe', recipeSchema);
-module.exports =  Recipe ; 
-module.exports = recipeSchema;
+module.exports = {
+  Recipe,
+  recipeSchema
+}
+

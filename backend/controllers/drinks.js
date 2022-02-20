@@ -3,10 +3,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 // import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
-const Drink  = require('../models/drink.model');
-const Recipe = require('../models/recipe.model');
-const Ingredient = require('../models/ingredient.model');
+const  Drink  = require('../models/drink.model');
+const { Recipe } = require('../models/recipe.model');
+const { Ingredient } = require('../models/ingredient.model');
 
 const router = express.Router();
 
@@ -130,16 +131,30 @@ module.exports.getDrinkByIngredients = async (req,res) => {
     }
 }
 
-module.exports.createIngredient = (req, _res) => {
-    const ingredient = req.body;
+module.exports.createIngredient = async (req, res) => {
+    const ingredient = req.body;  
+
     const newIngredient = new Ingredient(ingredient);
-    return newIngredient;
+
+    try {
+        await newIngredient.save();
+        res.status(201).json(newIngredient);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
 }
 
-module.exports.createRecipe = (req, _res) => {
-    const recipe = req.body;
+module.exports.createRecipe = async (req, res) => {
+    const recipe = req.body
+
     const newRecipe = new Recipe(recipe);
-    return newRecipe;
+
+    try {
+        await newRecipe.save();
+        res.status(201).json(newRecipe);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
 }
 
 router.get('/', function(req,res){
@@ -182,8 +197,4 @@ router.get('/ingredients', function(req,res){
     getDrinkByTag(req,res)
 })
 
-
-
-
-// export default router;
 

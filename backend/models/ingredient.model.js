@@ -1,6 +1,6 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 // Equivalent of adding enum strings in Java
 const listOfIngredientType = ['LIQUOR', 'FRUIT', 'SODA', 'HERB', 'VEGGIE', 'OTHER'];
