@@ -254,7 +254,7 @@ When('the user {string} provides a like range of {string}', function (string, st
 When('the user searches a drink made by {string}', function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
-      author: string
+      username: string
     })
   } catch (error) {}
   listDrinks = res.data
@@ -378,7 +378,6 @@ Then('the new ingredient {string} shall not be added to drink {string}', functio
 When('the user {string} requests to view the drinks in alphabetical order', function (string) {
   try {
     let res = await AXIOS.get('/drinks/a', {
-      user: string
     })
   } catch (error) {}
   listDrinks = res.data
@@ -392,7 +391,6 @@ Then('the list of drinks is displayed in alphabetical order', function () {
 When('the user {string} requests to view drinks by newest', function (string) {
   try {
     let res = await AXIOS.get('/drinks/n', {
-      user: string
     })
   } catch (error) {}
   listDrinks = res.data
@@ -406,7 +404,6 @@ Then('the list of drinks is displayed in order of their creation', function () {
 When('the user {string} requests to view drinks by their rating', function (string) {
   try {
     let res = await AXIOS.get('/drinks/r', {
-      user: string
     })
   } catch (error) {}
   listDrinks = res.data
@@ -438,7 +435,7 @@ Then('no drinks shall be displayed.', function () {
 When('the user {string} displays the list of custom drinks', function () {
   try {
     let res = await AXIOS.get('/drinks/' + string + '/custom', {
-      user: string
+      username: string
     })
   } catch (error) {}
   listDrinks = res.data
