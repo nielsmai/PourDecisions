@@ -38,8 +38,9 @@ module.exports.createDrink = async (req, res) => {
 
 module.exports.getAllDrinksAlpha = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {name : 1});
+            [ {author: author}, {status: public } ] } ).sort( {name : 1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -48,8 +49,9 @@ module.exports.getAllDrinksAlpha = async (req,res) => {
 
 module.exports.getAllDrinksNewest = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public} ] } ).sort( {timestamps : 'desc'});
+            [ {author: author}, {status: public} ] } ).sort( {createdAt : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -58,8 +60,9 @@ module.exports.getAllDrinksNewest = async (req,res) => {
 
 module.exports.getAllDrinksRating = async (req,res) => {
     try {
+        const author = req.body
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {rating : -1});
+            [ {author: author}, {public_status : true} ] } ).sort( {rating : -1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -68,7 +71,8 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const drinks = await Drink.find( {author: req});
+        const user = req.body
+        const drinks = await Drink.find( {$and: [{author: user},{tag: CUSTOM}]});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -77,7 +81,8 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
 
 module.exports.getAllDrinksAboveRating = async (req,res) => {
     try {
-        const drinks = await Drink.find( {rating: {$gt: req}});
+        const drinks = await Drink.find( {$and: [{rating: {$gt: req}}, { $or: 
+            [ {author: author}, {public_status : true} ] }]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -86,7 +91,8 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{author:req}, {status: public}]})
+        const author = req.body
+        const drinks = await Drink.find({$and: [{author:req}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -95,7 +101,8 @@ module.exports.getDrinkByUser = async (req,res) => {
 
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
+        const {user,name} = req.body
+        const drinks = await Drink.find({$and: [{name:name}, {public_status : true}]})
         res.status(200).json(drinks);
         return drinks;
     } catch (err) {
@@ -105,7 +112,8 @@ module.exports.getDrinkByName = async (req,res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {status: public}]})
+        const {user,tags} = req.body
+        const drinks = await Drink.find({$and: [{tag: {$in: tags}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -114,39 +122,19 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {status: public}]})
+        const{user,ingredients} = req.body
+        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: ingredients}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
     }
 }
 
-// temporary for testing 
-module.exports.deleteAllDrinks = async (req, res) => {
-    try {
-        const del = await Drink.deleteMany({});
-        res.status(200).json({del});
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    } 
-}
-
-// TODO MOVE THESE TO ANOTHER FILE
 module.exports.createIngredient = (req, _res) => {
     const ingredient = req.body;
     const newIngredient = new Ingredient(ingredient);
     return newIngredient;
 }
-
-// // temporary for testing 
-// module.exports.deleteAllIngredients = async (req, res) => {
-//     try {
-//         const del = await Ingredient.deleteMany({});
-//         res.status(200).json({del});
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     } 
-// }
 
 module.exports.createRecipe = (req, _res) => {
     const recipe = req.body;
@@ -154,15 +142,46 @@ module.exports.createRecipe = (req, _res) => {
     return newRecipe;
 }
 
-// // temporary for testing 
-// module.exports.deleteAllRecipes = async (req, res) => {
-//     try {
-//         const del = await Recipe.deleteMany({});
-//         res.status(200).json({del});
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     } 
-// }
+router.get('/', function(req,res){
+    getAllDrinks(req,res)
+})
+
+router.get('/:user/a', function(req,res){
+    getAllDrinksAlpha(req,res)
+})
+
+router.get('/:user/n', function(req,res){
+    getAllDrinksNewest(req,res)
+})
+
+router.get('/:user/r', function(req,res){
+    getAllDrinksRating(req,res)
+})
+
+router.get('/:user/custom', function(req,res){
+    getPersonalCustomDrinks(req,res)
+})
+
+router.get('/:user/ra', function(req,res){
+    getAllDrinksAboveRating(req,res)
+})
+
+router.get('/:user', function(req,res){
+    getDrinkByUser(req,res)
+})
+
+router.get('/:name/name', function(req,res){
+    getDrinkByName(req,res)
+})
+
+router.get('/tags', function(req,res){
+    getDrinkByTag(req,res)
+})
+
+router.get('/ingredients', function(req,res){
+    getDrinkByTag(req,res)
+})
+
 
 
 

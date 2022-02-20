@@ -18,7 +18,7 @@ Background:
 	The list of custom drink, private and public, is displayed
 
     Given the user "<username>" with password "<password>" is logged into their account
-	When the user displays the list of custom drinks
+	When the user "<username>" displays the list of custom drinks
 	Then the custom drinks "<customdrinklist>" with author "<username>" shall be displayed
 	
 Examples:
