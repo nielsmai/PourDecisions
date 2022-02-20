@@ -4,9 +4,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
-const { Drink, Recipe, Ingredient } = require('../models/drink.model');
+const Drink  = require('../models/drink.model');
+const Recipe = require('../models/recipe.model');
+const Ingredient = require('../models/ingredient.model');
 
 const router = express.Router();
+
+module.exports = router;
 
 module.exports.getAllDrinks = async (req, res) => {
     try {
@@ -19,8 +23,10 @@ module.exports.getAllDrinks = async (req, res) => {
 
 module.exports.createDrink = async (req, res) => {
     const drink = req.body;  
+    // const { name, author, recipe, tag, public_status, rating } = req.body;
 
     const newDrink = new Drink(drink);
+    // const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
 
     try {
         await newDrink.save();
@@ -92,11 +98,13 @@ module.exports.getDrinkByUser = async (req,res) => {
         res.status(404).json({message: err.message})
     }
 }
+
 module.exports.getDrinkByName = async (req,res) => {
     try {
         const {user,name} = req.body
         const drinks = await Drink.find({$and: [{name:name}, {public_status : true}]})
         res.status(200).json(drinks);
+        return drinks;
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
     }
@@ -176,6 +184,6 @@ router.get('/ingredients', function(req,res){
 
 
 
+
 // export default router;
-module.exports = router;
 

@@ -1,25 +1,31 @@
-// import express from 'express';
-// import { getAllUsers, createUser } from '../controllers/users.js';
 const express = require('express');
-const { getAllUsers, createUser, updateUser } = require('../controllers/users');
+const passport = require('passport')
+
+const { getAllUsers, createUser, updateUser, deleteAll } = require('../controllers/users');
+const { login } = require('../controllers/login');
+const { logout } = require('../controllers/logout');
+
+const { ensureAuth, forwardAuth } = require('../controllers/auth');
 
 const router = express.Router();
 
-// this is supposed to get info once we go to root
-// router.get('/', getAllUsers);
-router.get('/', function(req,res){
-    getAllUsers;
+// TODO ensureAuth is here for test, remove later
+router.get('/', ensureAuth, (req,res) => {
+    getAllUsers(req,res);
 })
 
-// route to add new user (post)
-// router.post('/', createUser);
-router.post('/', function(req,res){
-    createUser;
+router.post('/register', (req,res) => {
+    createUser(req, res);
 });
 
-router.put('/', function(req,res){
-    updateUser;
+router.post('/login', forwardAuth, (req, res, next) => {
+    login(req,res,next);
 })
 
-// export default router;
+router.get('/logout', ensureAuth, (req, res) => {
+    logout(req, res)
+})
+
+router.delete('/', deleteAll);
+
 module.exports = router;
