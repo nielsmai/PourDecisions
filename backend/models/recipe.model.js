@@ -16,5 +16,10 @@ var recipeSchema = new Schema({
 
 // module.exports = mongoose.model('recipe', recipeSchema);
 var Recipe = mongoose.model('Recipe', recipeSchema);
-module.exports =  Recipe ; 
-module.exports = recipeSchema;
+// module.exports =  Recipe ; 
+// module.exports = recipeSchema;
+
+module.exports = {
+    Recipe,
+    recipeSchema
+}

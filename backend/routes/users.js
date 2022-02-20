@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport')
 
 const { getAllUsers, createUser, updateUser, deleteAll } = require('../controllers/users');
 const { login } = require('../controllers/login');

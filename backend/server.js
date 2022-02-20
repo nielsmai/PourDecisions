@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "production"){
 }else{
     CONNECTION_URL = process.env.DEV_URI;
 }
+
 mongoose.connect(CONNECTION_URL, {}); 
 const connection = mongoose.connection;
 connection.once('open', () => {

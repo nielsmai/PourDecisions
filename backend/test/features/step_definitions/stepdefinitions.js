@@ -1,8 +1,13 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
-const { login } = require('../../../controllers/login.js');
-const { logout } = require('../../../controllers/logout.js');
+// const { login } = require('../../../controllers/login.js');
+// const { logout } = require('../../../controllers/logout.js');
+
+const User = require('../../../models/user.model');
+const Drink = require('../../../models/drink.model')
+const Recipe = require('../../../models/recipe.model')
+const Ingredient = require('../../../models/ingredient.model')
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -18,8 +23,8 @@ var errorMsg = "";
 var confirmMsg = "";
 
 // const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
-const drinkController = require('../../../controllers/drinks');
-const userController = require('../../../controllers/users');
+// const drinkController = require('../../../controllers/drinks');
+// const userController = require('../../../controllers/users');
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
@@ -32,53 +37,75 @@ Given('the user {string} with password {string} is logged into their account', a
     
     // TODO create user using route 
     try {
-        // let res = await AXIOS.post('/users/register', {
-        //     username: username,
-        //     password: password,
-        //     email: email
-        // });
-        createUser({
-            "username": username,
-            "password": password,
-            "email": email
+        // create user
+        let res = await AXIOS.post('/users/register', {
+            username: username,
+            password: password,
+            email: email
         })
-        console.log(res.status); // for now 
+       
+        assert(res.body.username == username)
+
+        // login user
+        res = await AXIOS.post('/users/login', {
+            username: username,
+            password: password
+        })
+
+        assert(res.locals.success_msg === 'LOGGED-IN')
         
-        login(username, password);
-     
-    } catch (err) {
-        
+    } catch (err) { 
     }
 
 });
 
-Given('the following accounts exist in the system:', function (dataTable) {
+Given('the following accounts exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
     // TODO
     // iterate through table
     for (let i in dataTable.rows) {
-        let row = table.rows[i];
-        assert(row.cells[0] == "bbbb")
-        assert(row.cells[1] == "aaaa")
+        let row = table.rows[i]
+        const username = row.cells[0]
+        const password = row.cells[1]
+        const email = "test-email@mail.com"; // using this for now cause lol
+
+        // create user
+        let res = await AXIOS.post('/users/register', {
+            username: username,
+            password: password,
+            email: email
+        })
+
+        assert(res.body.username == username)
     }
 
-    // get all username/password
-
-    // check if they exist
-      // return 'pending';
 });
 
-Given('the following drinks exist in the system:', function (dataTable) {
+Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
-    // TODO
-    // iterate through table
-    // look at each name
-    // check if each exist
-    return 'pending';
+    for (let i in dataTable.rows) {
+        let row = table.rows[i]
+        
+        const name = row.cells[0]
+        const likes = row.cells[1]
+        const ingredients = row.cells[2].split(",")
+        const author = row.cells[3]
+        
+
+        // const ingredientList = [];
+        // for (let i = 0; i < ingredientStringList.length; i++){
+        //     // TODO create a route for ingredients
+        //     ingredientList[i] = drinkController.createIngredient({
+        //         "ingredientName": ingredientStringList[i]
+        //     });
+        // }
+
+
+    }
 });
 
 Then('an error message {string} shall be raised', function (string) {
-  assert.equal(errorMsg,string);
+  assert.equal(errorMsg, string);
   // Write code here that turns the phrase above into concrete actions
 });
 /////////////////////////////////////////////////////////////////////////////
@@ -121,48 +148,50 @@ Then('no new account shall be created', function () {
 When('the user {string} creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
     // this does not work 
-    try {
-        const author = string; 
-        const name = string2;
+    // try {
+    //     const author = string; 
+    //     const name = string2;
 
-        const ingredientStringList = string3.split(",");
-        const ingredientList = [];
-        for (let i = 0; i < ingredientStringList.length; i++){
-            // TODO create a route for ingredients
-            ingredientList[i] = drinkController.createIngredient({
-                "ingredientName": ingredientStringList[i]
-            });
-        }
+    //     const ingredientStringList = string3.split(",");
+    //     const ingredientList = [];
+    //     for (let i = 0; i < ingredientStringList.length; i++){
+    //         // TODO create a route for ingredients
+    //         ingredientList[i] = drinkController.createIngredient({
+    //             "ingredientName": ingredientStringList[i]
+    //         });
+    //     }
 
-        // TODO create a route for recipe
-        const recipe = drinkController.createRecipe({
-            "ingredients": ingredientList
-        });
+    //     // TODO create a route for recipe
+    //     const recipe = drinkController.createRecipe({
+    //         "ingredients": ingredientList
+    //     });
 
-        // TODO use route to create drink
-        drinkController.createDrink({
-            "name": name,
-            "author": author,
-            "recipe": recipe
-        });
+    //     // TODO use route to create drink
+    //     drinkController.createDrink({
+    //         "name": name,
+    //         "author": author,
+    //         "recipe": recipe
+    //     });
 
-    } catch (err) {
-        console.log("bruh");         
-    }
+    // } catch (err) {
+    //     console.log("bruh");         
+    // }
+    return 'pending';
 
 });
 
 Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
     // TODO get route 
-    drinkController.getDrinkByName(string)
-    .then(res => res.json())
-    .then(data =>{
-            // assert(data.status.ok);
-            console.log(data.status.ok);
-            assert(data.name === string);
-        } 
-    )
+    // drinkController.getDrinkByName(string)
+    // .then(res => res.json())
+    // .then(data =>{
+    //         // assert(data.status.ok);
+    //         console.log(data.status.ok);
+    //         assert(data.name === string);
+    //     } 
+    // )
+    return 'pending';
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -170,24 +199,27 @@ Then('the new drink {string} is added to the system', function (string) {
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user logs in using {string} and {string}', function (string, string2) {
-  try{
-    var loginTest = login(string, string2);
-    assert.equal(true, loginTest);
-  }
-  catch(err){
-    errorMsg = err.message
-  }
+  // try{
+  //   var loginTest = login(string, string2);
+  //   assert.equal(true, loginTest);
+  // }
+  // catch(err){
+  //   errorMsg = err.message
+  // }
   // Write code here that turns the phrase above into concrete 
+  return 'pending';
 });
 
 Then('the user shall be logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  assert.notEqual(null, sessionStorage.getItem('status'));
+  // assert.notEqual(null, sessionStorage.getItem('status'));
+  return 'pending';
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
-  assert.equal(null, sessionStorage.getItem('status'));
+  // assert.equal(null, sessionStorage.getItem('status'));
+  return 'pending';
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -195,14 +227,16 @@ Then('the user is not logged in', function () {
 /////////////////////////////////////////////////////////////////////////////
 When('the user logs out', function () {
   // Write code here that turns the phrase above into concrete actions
-  var logoutTest = logout.logout();
-  confirmMsg = logoutTest;
+  // var logoutTest = logout.logout();
+  // confirmMsg = logoutTest;
+  return 'pending';
 });
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  assert.equal(null, sessionStorage.getItem('status'));
-  assert.equal(string, confirmMsg);
+  // assert.equal(null, sessionStorage.getItem('status'));
+  // assert.equal(string, confirmMsg);
+  return 'pending';
 });
 
 
@@ -263,8 +297,8 @@ When('the user inputs the old password {string}, inputs the new password {string
 
 When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
             // Write code here that turns the phrase above into concrete actions
-            return 'pending';
-          });
+    return 'pending';
+});
 
 Then('the user\'s new password is now {string} and a confirmation message {string} is raised', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
