@@ -11,13 +11,9 @@
 //         headers: { 'Access-Control-Allow-Origin': frontendUrl}
 //     });
 //     try{
-//         // let response = await AXIOS.post('/users', {
-//         //     username: "te21stss",
-//         //     password: "fasdf",
-//         //     email: "asdf@dfsgdf.vom"
-//         // })
-//         await AXIOS.delete('/users');
-
+//         let res = await AXIOS.get('/drinks/' + 'Rum_and_Coke' + '/name', {
+//           })
+//         console.log(res)
 //     }catch (err) {
 //         console.log(err);
 //     }
