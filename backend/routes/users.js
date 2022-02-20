@@ -13,7 +13,7 @@ router.get('/', function(req,res){
 
 // route to add new user (post)
 // router.post('/', createUser);
-router.post('/', function(req,res){
+router.post('/add', function(req,res){
     createUser;
 });
 

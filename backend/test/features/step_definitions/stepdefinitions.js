@@ -2,6 +2,7 @@ const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const login = require('../../../controllers/login.js');
 const logout = require('../../../controllers/logout.js');
+const { createUser, getAllUsers, updateUser } = require('../../../controllers/users.js');
 
 
 var errorMsg = "";
@@ -34,16 +35,27 @@ Then('an error message {string} shall be raised', function (string) {
 /////////////////////////////////////////////////////////////////////////////
 
 Given('the username {string} does not already exist', function (string) {
+  let exists=false;
   // Write code here that turns the phrase above into concrete actions
+  assert.equal(exists,false);
   return 'pending';
 });
 
 Given('the account with the username {string} and password {string} already exists', function (string, string2) {
+  let exists=false;
   // Write code here that turns the phrase above into concrete actions
+  assert.equal(exists,true);
   return 'pending';
 });
 
 When('I create a user account with username {string} and password {string}', function (string, string2) {           // Write code here that turns the phrase above into concrete actions
+  try {
+    let newUser = createUser(string,string2);
+  } catch (err) {
+    errorMsg=err.message;
+  }
+  //assert.equal();
+  //assert.equal();
   return 'pending';
 });
 
@@ -168,17 +180,22 @@ Then('the list of drinks shall be {string}', function (string) {
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user inputs the old password {string}, inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
-  // Write code here that turns the phrase above into concrete actions
+  // updateUser();
   return 'pending';
 });
 
 When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
-            // Write code here that turns the phrase above into concrete actions
-            return 'pending';
-          });
+  try {
+   //updateUser();
+  } catch (err) {
+    errorMsg=err.message;
+  }
+  return 'pending';
+ });
 
 Then('the user\'s new password is now {string} and a confirmation message {string} is raised', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
+  //assert.equal(password,string);
+  //assert.equal(message,string2);
   return 'pending';
 });
 
