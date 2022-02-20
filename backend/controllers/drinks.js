@@ -126,6 +126,25 @@ module.exports.createRecipe = (req, _res) => {
     return newRecipe;
 }
 
+router.get('/', function(req,res){
+    getAllDrinks(req,res)
+})
+
+router.get('/:user/a', function(req,res){
+    getAllDrinksAlpha(req,res)
+})
+
+router.get('/:user/n', function(req,res){
+    getAllDrinksNewest(req,res)
+})
+
+router.get('/:user/r', function(req,res){
+    getAllDrinksRating(req,res)
+})
+
+router.get('/', function(req,res){
+    get
+})
 
 // export default router;
 module.exports = router;
