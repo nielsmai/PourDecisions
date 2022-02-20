@@ -43,7 +43,7 @@ module.exports.getAllDrinksAlpha = async (req,res) => {
 module.exports.getAllDrinksNewest = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public} ] } ).sort( {timestamps : 'desc'});
+            [ {author: req}, {status: public} ] } ).sort( {createdAt : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -53,7 +53,7 @@ module.exports.getAllDrinksNewest = async (req,res) => {
 module.exports.getAllDrinksRating = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {rating : -1});
+            [ {author: req}, {public_status : true} ] } ).sort( {rating : -1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -62,7 +62,7 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const drinks = await Drink.find( {author: req});
+        const drinks = await Drink.find( {$and: [{author: req},{tag: CUSTOM }]});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -71,7 +71,7 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
 
 module.exports.getAllDrinksAboveRating = async (req,res) => {
     try {
-        const drinks = await Drink.find( {rating: {$gt: req}});
+        const drinks = await Drink.find( {$and: [{rating: {$gt: req}}, {public_status : true}]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -80,7 +80,7 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{author:req}, {status: public}]})
+        const drinks = await Drink.find({$and: [{author:req}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -88,7 +88,7 @@ module.exports.getDrinkByUser = async (req,res) => {
 }
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
+        const drinks = await Drink.find({$and: [{name:req}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
@@ -97,7 +97,7 @@ module.exports.getDrinkByName = async (req,res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {status: public}]})
+        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -106,7 +106,7 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {status: public}]})
+        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -142,9 +142,31 @@ router.get('/:user/r', function(req,res){
     getAllDrinksRating(req,res)
 })
 
-router.get('/', function(req,res){
-    get
+router.get('/:user/custom', function(req,res){
+    getPersonalCustomDrinks(req,res)
 })
+
+router.get('/:user/ra', function(req,res){
+    getAllDrinksAboveRating(req,res)
+})
+
+router.get('/:user', function(req,res){
+    getDrinkByUser(req,res)
+})
+
+router.get('/:name/name', function(req,res){
+    getDrinkByName(req,res)
+})
+
+router.get('/tags', function(req,res){
+    getDrinkByTag(req,res)
+})
+
+router.get('/ingredients', function(req,res){
+    getDrinkByTag(req,res)
+})
+
+
 
 // export default router;
 module.exports = router;

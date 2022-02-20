@@ -123,24 +123,52 @@ Then('the user is logged out of the system with a confirmation message {string}'
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user {string} provides the drink name {string}', function (string, string2) {
-  listDrinks = drinks.getDrinkByName(string2);
+  try {
+    let res = await AXIOS.get('/drinks/' + string2 + '/name', {
+      user: string,
+      rating: parseInt(string2)
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 When('the user {string} provides a list of ingredients {string}', function (string, string2) {
-  listDrinks = drinks.getDrinkByIngredients(string.split(","));
+  try {
+    let res = await AXIOS.get('/drinks/ingredients', {
+      user: string,
+      ingredients : string2.split(",")
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
-When('the user {string} provides a list of restrictions {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('the user {string} provides a list of tags {string}', function (string, string2) {
+  try {
+    let res = await AXIOS.get('/drinks/tags', {
+      user: string,
+      tags : string2.split(",")
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
-When('the user {string} provides a like range of {string}', function (string, string2) {
-  listDrinks = drinks.getAllDrinksAboveRating(parseInt(string2));
+When('the user {string} provides a like range of {string}', function (string, string2) { 
+  try {
+    let res = await AXIOS.get('/drinks/' + string +'/ra', {
+      user: string,
+      rating: parseInt(string2)
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 When('the user searches a drink made by {string}', function (string) {
-  listDrinks = drinks.getDrinkByUser(string);
+  try {
+    let res = await AXIOS.get('/drinks/' + string, {
+      user: string
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 Then('the drink with name {string}, likes {string} shall be returned', function (string, string2) {
@@ -259,7 +287,12 @@ Then('the new ingredient {string} shall not be added to drink {string}', functio
 /////////////////////////////////////////////////////////////////////////////
 
 When('the user {string} requests to view the drinks in alphabetical order', function (string) {
-  listDrinks = drinks.getAllDrinksAlpha(string);
+  try {
+    let res = await AXIOS.get('/drinks/a', {
+      user: string
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 Then('the list of drinks is displayed in alphabetical order', function () {
@@ -268,7 +301,12 @@ Then('the list of drinks is displayed in alphabetical order', function () {
 });
 
 When('the user {string} requests to view drinks by newest', function (string) {
-  listDrinks = drinks.getAllDrinksNewest(string);
+  try {
+    let res = await AXIOS.get('/drinks/n', {
+      user: string
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 Then('the list of drinks is displayed in order of their creation', function () {
@@ -277,7 +315,12 @@ Then('the list of drinks is displayed in order of their creation', function () {
 });
 
 When('the user {string} requests to view drinks by their rating', function (string) {
-  listDrinks = drinks.getAllDrinksRating(string);
+  try {
+    let res = await AXIOS.get('/drinks/r', {
+      user: string
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 Then('the list of drinks is displayed in descending order of their rating', function () {
@@ -304,7 +347,12 @@ Then('no drinks shall be displayed.', function () {
 });
 
 When('the user {string} displays the list of custom drinks', function () {
-  listDrinks = drinks.getDrinksCustom(string);
+  try {
+    let res = await AXIOS.get('/drinks/' + string + '/custom', {
+      user: string
+    })
+  } catch (error) {}
+  listDrinks = res.data
 });
 
 Then('the custom drinks {string} with author {string} shall be displayed', function (string, string2) {        
