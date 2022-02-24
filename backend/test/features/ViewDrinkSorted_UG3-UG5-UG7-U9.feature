@@ -28,6 +28,6 @@ Scenario: View Drink Recipes by descending ratings (UG7)
 	When the user "User1" requests to view drinks by their rating
     Then the list of drinks is displayed in descending order of their rating
 
-Scenario: View Drink Recipes by rating threshold (U9)
-    When the user "User1" requests to view drinks from a given rating
-    Then the list of drinks within the given range is displayed
+# Scenario: View Drink Recipes by rating threshold (U9)
+#     When the user "User1" requests to view drinks from a given rating
+#     Then the list of drinks within the given range is displayed

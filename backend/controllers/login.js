@@ -5,8 +5,8 @@ module.exports.login = function (req, res, next) {
     //     successRedirect: '/',
     //     failureRedirect: '/users/login',
     //     failureFlash: true }) (req, res, next)
-
     passport.authenticate('local', (err, user) => {
+
         if (err) {
             console.log('some error before log in attempt: ', err)
             return err
@@ -25,3 +25,4 @@ module.exports.login = function (req, res, next) {
 
     }) (req, res, next)
 }
+
