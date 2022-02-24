@@ -10,3 +10,4 @@ module.exports.logout = function (req, res) {
         res.redirect('/users/login')
     }
 }
+
