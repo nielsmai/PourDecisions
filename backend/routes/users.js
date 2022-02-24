@@ -17,11 +17,11 @@ router.post('/register', (req,res) => {
     createUser(req, res);
 });
 
-router.post('/login', forwardAuth, (req, res, next) => {
+router.post('/login', (req, res, next) => {
     login(req,res,next);
 })
 
-router.get('/logout', ensureAuth, (req, res) => {
+router.get('/logout', (req, res) => {
     logout(req, res)
 })
 

@@ -1,7 +1,7 @@
 // import express from 'express'; 
 // import { createDrink, getAllDrinks } from '../controllers/drinks.js';
 const express = require('express');
-const { createDrink, getAllDrinks, deleteAllDrinks, deleteAllRecipes, deleteAllIngredients } = require('../controllers/drinks');
+const { createDrink, getAllDrinks, deleteAllDrinks, deleteAllRecipes, deleteAllIngredients, createIngredient, createRecipe } = require('../controllers/drinks');
 // const drinkController = require('../controllers/drinks');
 
 const router = express.Router();
@@ -17,8 +17,16 @@ router.get('/', (req,res) => {
 
 // route to add new drinks (post)
 // router.post('/', createDrink);
-router.post('/', (req,res) => {
+router.post('/add', (req,res) => {
     createDrink(req,res);
+})
+
+router.post('/add/ingredient', (req, res) => {
+    createIngredient(req, res)
+})
+
+router.post('/add/recipe', (req, res) => {
+    createRecipe(req, res);
 })
 
 // router.delete('/', deleteAllDrinks);

@@ -36,6 +36,7 @@ module.exports.createDrink = async (req, res) => {
     }
 }
 
+
 module.exports.getAllDrinksAlpha = async (req,res) => {
     try {
         const drinks = await Drink.find( { $or: 
@@ -132,10 +133,22 @@ module.exports.deleteAllDrinks = async (req, res) => {
 }
 
 // TODO MOVE THESE TO ANOTHER FILE
-module.exports.createIngredient = (req, _res) => {
-    const ingredient = req.body;
+// module.exports.createIngredient = (req, _res) => {
+//     const ingredient = req.body;
+//     const newIngredient = new Ingredient(ingredient);
+//     return newIngredient;
+// }
+module.exports.createIngredient = async (req, res) => {
+    const ingredient = req.body;  
+
     const newIngredient = new Ingredient(ingredient);
-    return newIngredient;
+
+    try {
+        await newIngredient.save();
+        res.status(201).json(newIngredient);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
 }
 
 // // temporary for testing 
@@ -148,11 +161,26 @@ module.exports.deleteAllIngredients = async (req, res) => {
     } 
 }
 
-module.exports.createRecipe = (req, _res) => {
-    const recipe = req.body;
+// module.exports.createRecipe = (req, _res) => {
+//     const recipe = req.body;
+//     const newRecipe = new Recipe(recipe);
+//     return newRecipe;
+// }
+module.exports.createRecipe = async (req, res) => {
+    const recipe = req.body
+
     const newRecipe = new Recipe(recipe);
-    return newRecipe;
+
+    try {
+        await newRecipe.save();
+        res.status(201).json(newRecipe);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
 }
+
+
+
 
 // // temporary for testing 
 module.exports.deleteAllRecipes = async (req, res) => {

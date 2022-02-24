@@ -7,14 +7,14 @@ So that I can see the details of each cocktail
 Background:
     Given the following accounts exist in the system:
         | username | password |
-        | User1    | pass1    |
-        | User2    | pass2    |
+        | User1    | password1    |
+        | User2    | password2    |
     Given the following drinks exist in the system:
 		| name     | ingredients           	                      |rating  | author | status |
 		| Fireball | Canadian whisky,sweetener,cinnamon flavouring| 50     | User1  | public |
 		| Mojitos  | white rum, sugar,lime juice,soda water,mint  | 100    | User2  | private|
         | Mojitos  | white rum, sugar,lime juice,soda water,mint  | 200    | User2  | private|
-	Given the user "User1" with password "pass1" is logged into their account
+	Given the user "User1" with password "password1" is logged into their account
 
 Scenario: View Drink Recipes in alphabetical order (UG3)
 	When the user "User1" requests to view the drinks in alphabetical order

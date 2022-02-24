@@ -22,7 +22,7 @@ Background:
 Scenario: Search Drink Recipes by Name as a User or Guest(UG1)
 
 	When the user "user1" provides the drink name "martini"
-  Then the drink with name "martini", likes "60" shall be returned
+    Then the drink with name "martini", likes "60" shall be returned
 
 Scenario: Search Drink Recipes by invalid Name as User or Guest (Error flow)
 

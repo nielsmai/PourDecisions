@@ -10,14 +10,33 @@ console.log(backendUrl)
 BeforeAll(function (callback) {
     const AXIOS = axios.create({
         baseURL: backendUrl,
-        headers: { 'Access-Control-Allow-Origin': frontendUrl}
+        headers: {
+            'Access-Control-Allow-Origin': frontendUrl
+        }
     });
-    AXIOS.delete('/users');
-    AXIOS.delete('/drinks');
-    AXIOS.delete('/drinks/ingredients');
-    AXIOS.delete('/drinks/recipes');
+    // AXIOS.delete('/users').then(() => console.log("users wiped"));
+    // AXIOS.delete('/drinks').then(() => console.log("drinks wiped"));
+    // AXIOS.delete('/drinks/ingredients').then(() => console.log("ingredients wiped"));
+    // AXIOS.delete('/drinks/recipes').then(() => console.log("recipes wiped")).then(
+    // () => callback())
+    AXIOS.delete('/users')
+    .then(() => {
+        console.log("users wiped")
+        AXIOS.delete('/drinks')
+        .then(() => {
+            console.log("drinks wiped")
+            AXIOS.delete('/drinks/ingredients')
+            .then(() => {
+                console.log("ingredients wiped")
+                AXIOS.delete('/drinks/recipes')
+                .then(() => {
+                    console.log("recipes wiped")
+                    callback()
+                })
+            })
 
-    callback();
-
+        })
+    })
+    // callback()
 })
 

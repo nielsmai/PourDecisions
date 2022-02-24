@@ -7,7 +7,7 @@ Background:
         Given the following accounts exist in the system:
                 | username  | password  |
                 | username1 | password1 |
-                | user1     | pass1     |
+                | user1     | password11|
         Given the following drinks exist in the system:
                 |name       | ingredients                          | rating | author | status |
                 |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          

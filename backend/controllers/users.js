@@ -40,7 +40,8 @@ module.exports.createUser = async (req, res) => {
     newUser = new User({username, password, email});
     
     newUser.save()
-    .then(() => res.json(newUser));
+    .then(() => res.status(200).json(newUser))
+    .catch( err => res.status(400).json(err));
 }
 
 module.exports.updateUser = async (req, res) => {
