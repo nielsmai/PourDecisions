@@ -10,6 +10,7 @@ const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_P
 const AXIOS = axios.create({
     baseURL: backendUrl,
     headers: {
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': frontendUrl
     }
 });
@@ -21,11 +22,13 @@ const AXIOS = axios.create({
 Given('the following accounts exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
     // iterate through table
+    let wipe = await AXIOS.delete('/users/')
     try {
-        for (let i in dataTable.rows) {
-            let row = table.rows[i]
-            const username = row.cells[0]
-            const password = row.cells[1]
+        const table = dataTable.rows()
+        for (var i in table) {
+            var row = table[i]
+            const username = row[0]
+            const password = row[1]
             const email = username+"@email.com"; // using this for now cause lol
 
             // create user
@@ -34,32 +37,37 @@ Given('the following accounts exist in the system:', async function (dataTable) 
                 password: password,
                 email: email
             })
-            console.log("USER SHOULD HAVE BEEN CREATED")
+            
 
         }
+        // console.log(dataTable)
+
             
+        // const table = dataTable.rows()
+        // for (var i in table){
+            // console.log("YO ", table[i][0], table[i][1])
+
+        // } 
     } catch (err) {
-        console.log("from given users exist: ", err)
+        console.log("from given users exist: ", err.response.data.message)
     }
 
 });
-Given('the user {string} with password {string} is logged into their account', async function (string, string2) {
+When('the user {string} with password {string} is logged into their account', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     const username = string;
     const password = string2;
 
-    // let res = await AXIOS.get('/users')
-    // console.log("users in the system", res.data)
-    
     try {
         // login user
         let res = await AXIOS.post('/users/login', {
             username: username,
             password: password
         })
-        assert.equal(res.data.message, "LOGGED-IN")
 
     } catch (err) {
+    let res = await AXIOS.get('/users')
+        // console.log("users in the system", res.data)
         console.log("from given logged in: ", err.response.data.message)
     }
 
@@ -69,18 +77,24 @@ Given('the user {string} with password {string} is logged into their account', a
 Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actionsj
     try {
-        for (let i in dataTable.rows) {
-            let row = table.rows[i]
-            const name = row.cells[0]
-            const likes = row.cells[1]
-            var ingredients = row.cells[2].split(",")
-            const author = row.cells[3]
+        const table = dataTable.rows()
+        for (let i in table) {
+            let row = table[i]
+            const name = row[0]
+            const likes = row[1]
+            var ingredients = row[2]
+            const author = row[3]
+            // const public_status = row[4]
+            var public_status = true
+            if (row[4] != "public"){
+                public_status = false
+            }
 
             // create ingredients
             var ingredientsList = ingredients.split(',')
             ingredients = []
             for (let j = 0; j < ingredientsList.length; j++){
-                let res = await AXIOS.post('/drinks/add/ingredient', {
+                var res = await AXIOS.post('/drinks/add/ingredient', {
                     ingredientName: ingredientsList[j]
                 })
                 ingredients.push(res.data)
@@ -88,17 +102,18 @@ Given('the following drinks exist in the system:', async function (dataTable) {
 
             let recipe = {}; 
             // create recipe from ingredients 
-            let res = AXIOS.post('/drinks/add/recipe', {
+            var res = await AXIOS.post('/drinks/add/recipe', {
                 ingredients: ingredients,
                 instructions: "placeholder"
             })
             recipe = res.data
 
             // create drink from recipe
-            AXIOS.post('/drinks/add', {
+            var res = await AXIOS.post('/drinks/add', {
                 name: name,
                 author: author,
                 rating: likes,
+                public_status: public_status,
                 recipe: recipe 
             })
 
@@ -106,6 +121,7 @@ Given('the following drinks exist in the system:', async function (dataTable) {
         }
     
     } catch (err) {
+        // console.log ("ERROR MESSAGE: ", err)
        this.errorMsg = err.response.data.message 
     }
     // for (let i in dataTable.rows) {

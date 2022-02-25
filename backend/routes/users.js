@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport')
-const { getAllUsers, createUser, updateUser, deleteAll } = require('../controllers/users');
+const { getAllUsers, createUser, updateUser, deleteAll, getUserByUsername } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
@@ -18,9 +18,9 @@ router.post('/register', (req,res) => {
 });
 
 // add forwardAuth 
-// router.post('/login', (req, res, next) => {
-//     login(req,res,next);
-// })
+router.post('/login', (req, res, next) => {
+    login(req,res,next);
+})
 
 router.post('/login', (req, res, next) => {
  login (req, res, next)
@@ -39,6 +39,13 @@ router.get('/profile', (req, res, next) => {
         return res.json({ user: null })
     }
 })
-router.delete('/', deleteAll);
+
+router.get('/:user', (req, res) => {
+    getUserByUsername(req,res)
+    
+}) 
+router.delete('/', (req, res) => {
+    deleteAll(req,res)
+});
 
 module.exports = router;
