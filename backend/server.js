@@ -48,9 +48,9 @@ app.use(session({
 }));
  
 // Passport
-require('./controllers/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+require('./controllers/passport')(passport);
 
 // Connect flash
 app.use(flash());

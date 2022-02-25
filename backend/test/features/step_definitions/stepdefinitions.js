@@ -1,13 +1,6 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
-// const { login } = require('../../../controllers/login.js');
-// const { logout } = require('../../../controllers/logout.js');
-
-// const User = require('../../../models/user.model');
-// const Drink = require('../../../models/drink.model')
-// const Recipe = require('../../../models/recipe.model')
-// const Ingredient = require('../../../models/ingredient.model');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -21,31 +14,25 @@ const AXIOS = axios.create({
     }
 });
 
-// var errorMsg = "";
-// var confirmMsg = "";
-// var listDrinks = [];
-
-
-// const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
-// const drinkController = require('../../../controllers/drinks');
-// const userController = require('../../../controllers/users');
-
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-Given('the user {string} with password {string} is logged into their account', function (string, string2) {
+Given('the user {string} with password {string} is logged into their account', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     const username = string;
     const password = string2;
+    
+    try {
+        // login user
+        let res = await AXIOS.post('/users/login', {
+            username: username,
+            password: password
+        })
+        assert.equal(res.data.message, "LOGGED-IN")
 
-    // login user
-    AXIOS.post('/users/login', {
-        username: username,
-        password: password
-    })
-    // .then(res => console.log(res.locals.success_msg))
-    .then ( res => console.log(""))
-    .catch(err => {return}) // lol login does not work 
+    } catch (err) {
+        console.log(err.message)
+    }
 
     // return 'pending'
 });
@@ -66,7 +53,7 @@ Given('the following accounts exist in the system:', function (dataTable) {
             password: password,
             email: email
         })
-        .then(res => assert(res.status == 200))
+        .then(res => assert.equal(res.status, 200))
         .catch(err => console.log("haha following accounts exists error"))
 
     }
@@ -324,18 +311,17 @@ Then('the user is not logged in', function () {
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// LOGOUT ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-When('the user logs out', function () {
+When('the user logs out', async function () {
   // Write code here that turns the phrase above into concrete actions
-  // var logoutTest = logout.logout();
-  // confirmMsg = logoutTest;
-  return 'pending';
+    let res = await AXIOS.get('/users/logout')
+    this.confirmMsg = res.data.message 
 });
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
   // assert.equal(null, sessionStorage.getItem('status'));
   // assert.equal(string, confirmMsg);
-  return 'pending';
+    assert.equal(this.confirmMsg, string)
 });
 
 
