@@ -1,12 +1,39 @@
 import React, { useState } from 'react';
+import ReactDOM from "react-dom";
 
 function logInAccount() {
+    //Handle User Login
+    const database = [
+        {
+            username: "user1",
+            password: "pass1"
+        }
+    ];
+    const errors = {
+        name: "Invalid username",
+        pass: "Invalid password"
+    };
+    //Handle form submission
+    const handleSubmit = (event) => {
+        //Prevent the page form reloading
+        event.preventDefault();
+        
+        var {name, pass} = document.forms[0];
+    }
+    //React States
+    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
+    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
-
-
-
-    return (
-        <div>
+    //Code for error message
+    const renderErrorMessage = (name) =>
+        name == errorMessages.name && (
+            <div className="error">{errorMessages.message}</div>
+        );
+    //Code for Login Form
+    const renderForm = (
+        <div className="login">
+            <form onSubmit={handleSubmit}>
+            <div>
             <div class="boxLogInAccount">
             <div class="row">
             <div class="columnLeft">
@@ -23,7 +50,8 @@ function logInAccount() {
                              <h4 class="username">Username</h4>
                             </div>
 
-                            <input type="text" name="name" />
+                            <input type="text" name="name" required/>
+                            {renderErrorMessage("name")}
                             
                         </form>
                     </div>
@@ -33,12 +61,13 @@ function logInAccount() {
                             Password
                         </h4>
                         </div>
-                        <input type="text" name="name" />
+                        <input type="password" name="pass" required/>
+                        {renderErrorMessage("pass")}
                         </form>
                     </div>
 
                     <div class="loginButton">
-                        <button type="button" class="loginConfirm">Login</button>
+                        <button type="submit" class="loginConfirm">Login</button>
                     </div>
 
                     <div class="forgetAccount">
@@ -58,12 +87,17 @@ function logInAccount() {
         </div>
         </div>
         </div>
+        </form>
+        </div>
+    );
 
-
-
-
-
-
+    return (
+        <div className="app">
+      <div className="login-form">
+        <div className="title">Sign In</div>
+        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+      </div>
+    </div>
     );
 
 
