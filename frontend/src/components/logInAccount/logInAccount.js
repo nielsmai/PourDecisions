@@ -19,6 +19,7 @@ export default function LogInAccount() {
         const GetData = async () => {
             try {
                 const url = 'http:localhost:3030/login/'+ loginUsername +'/' + loginPassword;
+                const output = await ( await fetch(url) ).json()
                 setIsSubmitted(true);
             }
             catch(err) {
