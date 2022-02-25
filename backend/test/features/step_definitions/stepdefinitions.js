@@ -17,10 +17,39 @@ const AXIOS = axios.create({
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
+Given('the following accounts exist in the system:', async function (dataTable) {
+  // Write code here that turns the phrase above into concrete actions
+    // iterate through table
+    try {
+        for (let i in dataTable.rows) {
+            let row = table.rows[i]
+            const username = row.cells[0]
+            const password = row.cells[1]
+            const email = username+"@email.com"; // using this for now cause lol
+
+            // create user
+           let res = await AXIOS.post('/users/register', {
+                username: username,
+                password: password,
+                email: email
+            })
+            console.log("USER SHOULD HAVE BEEN CREATED")
+
+        }
+            
+    } catch (err) {
+        console.log("from given users exist: ", err)
+    }
+
+});
 Given('the user {string} with password {string} is logged into their account', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     const username = string;
     const password = string2;
+
+    // let res = await AXIOS.get('/users')
+    // console.log("users in the system", res.data)
     
     try {
         // login user
@@ -31,33 +60,10 @@ Given('the user {string} with password {string} is logged into their account', a
         assert.equal(res.data.message, "LOGGED-IN")
 
     } catch (err) {
-        console.log(err.message)
+        console.log("from given logged in: ", err.response.data.message)
     }
 
     // return 'pending'
-});
-
-Given('the following accounts exist in the system:', function (dataTable) {
-  // Write code here that turns the phrase above into concrete actions
-    // TODO
-    // iterate through table
-    for (let i in dataTable.rows) {
-        let row = table.rows[i]
-        const username = row.cells[0]
-        const password = row.cells[1]
-        // const email = username+"@email.com"; // using this for now cause lol
-
-        // create user
-       AXIOS.post('/users/register', {
-            username: username,
-            password: password,
-            email: email
-        })
-        .then(res => assert.equal(res.status, 200))
-        .catch(err => console.log("haha following accounts exists error"))
-
-    }
-
 });
 
 Given('the following drinks exist in the system:', async function (dataTable) {

@@ -7,7 +7,7 @@ const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || 
 const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + '+' + process.env.CLIENT_PORT;
 
 // console.log(backendUrl)
-AfterAll(function (callback) {
+BeforeAll(function (callback) {
 
     const AXIOS = axios.create({
         baseURL: backendUrl,
