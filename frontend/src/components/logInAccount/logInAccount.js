@@ -41,27 +41,21 @@ export default function LogInAccount() {
             </div>
             <div class="columnRight">
                 <div>
-
                     <h1 class="loginTitle">Login</h1>
-
                     <div>
                         <form>
                             <div>
                              <h4 class="username">Username</h4>
                             </div>
-
                             <input type="text" name="name" required/>
                             {renderErrorMessage("name")}
-                            
                         </form>
                     </div>
-
                     <div class="formBottom"><form>
-                        <div><h4 class="password">
-                            Password
-                        </h4>
+                        <div>
+                            <h4 class="password">Password</h4>
                         </div>
-                        <input type="password" name="pass" required/>
+                        <input type="text" name="pass" required/>
                         {renderErrorMessage("pass")}
                         </form>
                     </div>
@@ -71,11 +65,12 @@ export default function LogInAccount() {
                     </div>
 
                     <div class="forgetAccount">
-                        <label>Don't have an account?</label>
+                        <label><b>Don't have an account?</b></label>
                     </div>
 
                     <div class="signUp">
-                        <label>Sign Up</label>
+                        {/* Add the correct link here */}
+                        <a href="http://localhost:3000/">sign up</a>
                     </div>
 
                     
@@ -92,15 +87,14 @@ export default function LogInAccount() {
     );
 
     return (
-    //     <div className="app">
-    //   <div className="login-form">
-    //     <div className="title">Sign In</div>
-    //     {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-    //   </div>
-    // </div>
-    <div>
-        <h1>TEST</h1>
+        <div className="app">
+      <div className="login-form">
+        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+      </div>
     </div>
+    // <div>
+    //     <h1>TEST</h1>
+    // </div>
     );
 
 
