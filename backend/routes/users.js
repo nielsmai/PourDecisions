@@ -10,7 +10,7 @@ const { ensureAuth, forwardAuth } = require('../controllers/auth');
 const router = express.Router();
 
 // TODO ensureAuth is here for test, remove later
-router.get('/', ensureAuth, (req,res) => {
+router.get('/', (req,res) => {
     getAllUsers(req,res);
 })
 
@@ -18,11 +18,13 @@ router.post('/register', (req,res) => {
     createUser(req, res);
 });
 
-router.post('/login', forwardAuth, (req, res, next) => {
+// add forwardAuth 
+router.post('/login', (req, res, next) => {
     login(req,res,next);
 })
 
-router.get('/logout', ensureAuth, (req, res) => {
+// add ensureAuth
+router.get('/logout', (req, res) => {
     logout(req, res)
 })
 
