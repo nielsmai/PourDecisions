@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 
+
 export default function LogInAccount() {
+    const [token, setToken] = useState();
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     //Handle User Login
-    const database = [
-        {
-            username: "user1",
-            password: "pass1"
-        }
-    ];
     const errors = {
         name: "Invalid username",
         pass: "Invalid password"
@@ -17,8 +15,20 @@ export default function LogInAccount() {
     const handleSubmit = (event) => {
         //Prevent the page form reloading
         event.preventDefault();
-        
-        var {name, pass} = document.forms[0];
+        //Check login?
+        const GetData = async () => {
+            try {
+                const url = 'http:localhost:3030/login/'+ loginUsername +'/' + loginPassword;
+                setIsSubmitted(true);
+            }
+            catch(err) {
+                setIsSubmitted(false);
+                console.log(err);
+            }
+        }
+
+        //If this is uncommented, it will always show a login
+        // setIsSubmitted(true);
     }
     //React States
     const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
@@ -47,7 +57,10 @@ export default function LogInAccount() {
                             <div>
                              <h4 class="username">Username</h4>
                             </div>
-                            <input type="text" name="name" required/>
+                            <input type="text" name="name" required
+                                placeholder="username"
+                                onChange={ (e) => setLoginUsername(e.target.value)}
+                            />
                             {renderErrorMessage("name")}
                         </form>
                     </div>
@@ -55,7 +68,10 @@ export default function LogInAccount() {
                         <div>
                             <h4 class="password">Password</h4>
                         </div>
-                        <input type="text" name="pass" required/>
+                        <input type="text" name="pass" required
+                            placeholder="password"
+                            onChange={(e) => setLoginPassword(e.target.value)}
+                        />
                         {renderErrorMessage("pass")}
                         </form>
                     </div>
@@ -89,7 +105,7 @@ export default function LogInAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {isSubmitted ? window.location.href = "http://localhost:3000/" : renderForm}
       </div>
     </div>
     // <div>
