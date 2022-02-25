@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 
-function logInAccount() {
+export default function LogInAccount() {
     //Handle User Login
     const database = [
         {
@@ -92,11 +92,14 @@ function logInAccount() {
     );
 
     return (
-        <div className="app">
-      <div className="login-form">
-        <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-      </div>
+    //     <div className="app">
+    //   <div className="login-form">
+    //     <div className="title">Sign In</div>
+    //     {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+    //   </div>
+    // </div>
+    <div>
+        <h1>TEST</h1>
     </div>
     );
 
@@ -105,4 +108,4 @@ function logInAccount() {
 
 
 
-} export default logInAccount
+}
