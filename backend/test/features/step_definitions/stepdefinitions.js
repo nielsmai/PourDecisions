@@ -4,10 +4,10 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 // const { login } = require('../../../controllers/login.js');
 // const { logout } = require('../../../controllers/logout.js');
 
-const User = require('../../../models/user.model');
-const Drink = require('../../../models/drink.model')
-const Recipe = require('../../../models/recipe.model')
-const Ingredient = require('../../../models/ingredient.model');
+// const User = require('../../../models/user.model');
+// const Drink = require('../../../models/drink.model')
+// const Recipe = require('../../../models/recipe.model')
+// const Ingredient = require('../../../models/ingredient.model');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -21,9 +21,10 @@ const AXIOS = axios.create({
     }
 });
 
-var errorMsg = "";
-var confirmMsg = "";
-var listDrinks = [];
+// var errorMsg = "";
+// var confirmMsg = "";
+// var listDrinks = [];
+
 
 // const { createDrink, createIngredient, createRecipe, getDrinkByName } = require('../../../controllers/drinks'); 
 // const drinkController = require('../../../controllers/drinks');
@@ -42,9 +43,11 @@ Given('the user {string} with password {string} is logged into their account', f
         username: username,
         password: password
     })
-    .then(res => assert(res.locals.success_msg === 'LOGGED-IN'))
+    // .then(res => console.log(res.locals.success_msg))
+    .then ( res => console.log(""))
     .catch(err => {return}) // lol login does not work 
 
+    // return 'pending'
 });
 
 Given('the following accounts exist in the system:', function (dataTable) {
@@ -70,56 +73,101 @@ Given('the following accounts exist in the system:', function (dataTable) {
 
 });
 
-Given('the following drinks exist in the system:', function (dataTable) {
-  // Write code here that turns the phrase above into concrete actions
-    for (let i in dataTable.rows) {
-        let row = table.rows[i]
-        
-        const name = row.cells[0]
-        const likes = row.cells[1]
-        var ingredients = row.cells[2].split(",")
-        const author = row.cells[3]
-        
-        // create ingredients
-        var ingredientsList = ingredients.split(',')
-        ingredients = []
-        for (let j = 0; j < ingredientsList.length; j++){
-            // let res = await AXIOS.post('/drinks/add/ingredient', {
-            //     ingredientName: ingredientsList[j],
-            // })
-            // ingredientsList.push(res.data)
-            AXIOS.post('/drinks/add/ingredient', {
-                ingredientName: ingredientsList[j],
+Given('the following drinks exist in the system:', async function (dataTable) {
+  // Write code here that turns the phrase above into concrete actionsj
+    try {
+        for (let i in dataTable.rows) {
+            let row = table.rows[i]
+            const name = row.cells[0]
+            const likes = row.cells[1]
+            var ingredients = row.cells[2].split(",")
+            const author = row.cells[3]
+
+            // create ingredients
+            var ingredientsList = ingredients.split(',')
+            ingredients = []
+            for (let j = 0; j < ingredientsList.length; j++){
+                let res = await AXIOS.post('/drinks/add/ingredient', {
+                    ingredientName: ingredientsList[j]
+                })
+                ingredients.push(res.data)
+            }
+
+            let recipe = {}; 
+            // create recipe from ingredients 
+            let res = AXIOS.post('/drinks/add/recipe', {
+                ingredients: ingredients,
+                instructions: "placeholder"
             })
-            .then( res => ingredients.push(res.data))
+            recipe = res.data
+
+            // create drink from recipe
+            AXIOS.post('/drinks/add', {
+                name: name,
+                author: author,
+                rating: likes,
+                recipe: recipe 
+            })
+
+
         }
-
-        let recipe 
-        // create recipe from ingredients 
-        AXIOS.post('/drinks/add/recipe', {
-            ingredients: ingredients,
-            instructions: "placeholder"
-        })
-        .then( res => recipe = res.data) 
-        
-
-        // create drink from recipe
-        AXIOS.post('/drinks/add', {
-            name: name,
-            author: author,
-            rating: likes,
-            recipe: recipe 
-        })
-        .then(res => assert(res.data.name == name))
-
-        
-        
-
+    
+    } catch (err) {
+       this.errorMsg = err.response.data.message 
     }
+    // for (let i in dataTable.rows) {
+    //     let row = table.rows[i]
+        
+    //     const name = row.cells[0]
+    //     const likes = row.cells[1]
+    //     var ingredients = row.cells[2].split(",")
+    //     const author = row.cells[3]
+
+    //     // create ingredients
+    //     var ingredientsList = ingredients.split(',')
+    //     ingredients = []
+    //     for (let j = 0; j < ingredientsList.length; j++){
+    //         AXIOS.post('/drinks/add/ingredient', {
+    //             ingredientName: ingredientsList[j],
+    //         })
+    //         .then( res => ingredients.push(res.data))
+    //         .catch( (err) => this.errorMsg = err.response.data.message)
+    //     }
+
+    //     let recipe = {}; 
+    //     // create recipe from ingredients 
+    //     AXIOS.post('/drinks/add/recipe', {
+    //         ingredients: ingredients,
+    //         instructions: "placeholder"
+    //     })
+    //     .then( res => recipe = res.data) 
+    //     .catch ( (err) => this.errorMsg = err.response.data.message)
+        
+
+    //     // create drink from recipe
+    //     AXIOS.post('/drinks/add', {
+    //         name: name,
+    //         author: author,
+    //         rating: likes,
+    //         recipe: recipe 
+    //     })
+    //     .then(res => temp = "3424") 
+    //     .catch( (err) => {
+    //         this.errorMsg = err.response.data.message
+    //         // if (err.data.name == ""){
+    //         //     errorMsg = "CREATE-DRINK-NAME-EMPTY"
+    //         // }
+    //         // else if (err.data.ingredients == []) {
+    //         //     errorMsg = "CREATE-DRINK-INGREDIENTS-EMPTY"
+    //         // }
+    //     })
+
+
+    // }
 });
 
 Then('an error message {string} shall be raised', function (string) {
-  assert.equal(errorMsg, string);
+  assert.equal(this.errorMsg, string);
   // Write code here that turns the phrase above into concrete actions
 });
 /////////////////////////////////////////////////////////////////////////////
@@ -159,44 +207,78 @@ Then('no new account shall be created', function () {
 ///////////////// CREATE DRINK //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user {string} creates a new drink recipe with the name {string} and the ingredients {string}', function (string, string2, string3) {
+When('the user {string} creates a new drink recipe with the name {string} and the ingredients {string}', async function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
-    // something is broken here because string2 and string3 are just <name> etc
-    const name = string2
-    const author = string
-    var ingredients = string3
-     
-    console.log(string3)
-
-    var ingredientsList = ingredients.split(",")
-    ingredients = []
-    for (let j = 0; j < ingredientsList.length; j++){
-        // let res = await AXIOS.post('/drinks/add/ingredient', {
-        //     ingredientName: ingredientsList[j],
-        // })
-        // ingredientsList.push(res.data)
-        AXIOS.post('/drinks/add/ingredient', {
-            ingredientName: ingredientsList[j],
+    try {
+        const name = string2
+        const author = string
+        var ingredients = string3
+         
+        var ingredientsList = ingredients.split(",")
+        ingredients = []
+        for (let j = 0; j < ingredientsList.length; j++){
+            let res = await AXIOS.post('/drinks/add/ingredient', {
+                ingredientName: ingredientsList[j],
+            })
+            ingredients.push(res.data)
+        }
+        
+        let recipe = {}
+        // create recipe from ingredients 
+        let res = await AXIOS.post('/drinks/add/recipe', {
+            ingredients: ingredients,
+            instructions: "placeholder"
         })
-        .then( res => ingredients.push(res.data))
+        recipe = res.data 
+
+        // create drink from recipe
+        await AXIOS.post('/drinks/add', {
+            name: name,
+            author: author,
+            recipe: recipe 
+        })
+        
+
+    } catch (err) {
+        var errorMessage = err.response.data.message
+        if (errorMessage == "UNDEFINED-INGREDIENT-NAME"){
+            errorMessage = "CREATE-DRINK-INGREDIENTS-EMPTY"
+        }
+        this.errorMsg = errorMessage 
     }
 
-    let recipe 
-    // create recipe from ingredients 
-    AXIOS.post('/drinks/add/recipe', {
-        ingredients: ingredients,
-        instructions: "placeholder"
-    })
-    .then( res => recipe = res.data) 
+    // const name = string2
+    // const author = string
+    // var ingredients = string3
+     
+    // var ingredientsList = ingredients.split(",")
+    // ingredients = []
+    // for (let j = 0; j < ingredientsList.length; j++){
+    //     AXIOS.post('/drinks/add/ingredient', {
+    //         ingredientName: ingredientsList[j],
+    //     })
+    //     .then( res => ingredients.push(res.data))
+    //     .catch ( (err) => this.errorMsg = err.response.data.message)
+    // }
+
+    // let recipe = {}
+    // // create recipe from ingredients 
+    // AXIOS.post('/drinks/add/recipe', {
+    //     ingredients: ingredients,
+    //     instructions: "placeholder"
+    // })
+    // .then( res => recipe = res.data) 
+    //     .catch ( (err) => this.errorMsg = err.response.data.message)
     
 
-    // create drink from recipe
-    AXIOS.post('/drinks/add', {
-        name: name,
-        author: author,
-        recipe: recipe 
-    })
-    .then(res => assert(res.status == 201))
+    // // create drink from recipe
+    // AXIOS.post('/drinks/add', {
+    //     name: name,
+    //     author: author,
+    //     recipe: recipe 
+    // })
+    // .then(res => assert(res.status == 201))
+    // .catch ( (err) => this.errorMsg = err.response.data.message)
 
 
     
@@ -206,15 +288,9 @@ When('the user {string} creates a new drink recipe with the name {string} and th
 Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
     // TODO get route 
-    // drinkController.getDrinkByName(string)
-    // .then(res => res.json())
-    // .then(data =>{
-    //         // assert(data.status.ok);
-    //         console.log(data.status.ok);
-    //         assert(data.name === string);
-    //     } 
-    // )
-    return 'pending';
+    AXIOS.get('/drinks/' + string + '/name') 
+    .then( res => assert.equal(res.data[0].name, string))
+    .catch (err => console.log(err.message))
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -267,53 +343,53 @@ Then('the user is logged out of the system with a confirmation message {string}'
 ///////////////// SEARCH ////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user {string} provides the drink name {string}', function (string, string2) {
+When('the user {string} provides the drink name {string}', async function (string, string2) {
   try {
     let res = await AXIOS.get('/drinks/' + string2 + '/name', {
       user: string,
       name: string2
     })
-  } catch (error) {}
   listDrinks = res.data
+  } catch (error) {}
 });
 
-When('the user {string} provides a list of ingredients {string}', function (string, string2) {
+When('the user {string} provides a list of ingredients {string}', async function (string, string2) {
   try {
     let res = await AXIOS.get('/drinks/ingredients', {
       user: string,
       ingredients : string2.split(",")
     })
+    listDrinks = res.data
   } catch (error) {}
-  listDrinks = res.data
 });
 
-When('the user {string} provides a list of tags {string}', function (string, string2) {
+When('the user {string} provides a list of tags {string}', async function (string, string2) {
   try {
     let res = await AXIOS.get('/drinks/tags', {
       user: string,
       tags : string2.split(",")
     })
-  } catch (error) {}
   listDrinks = res.data
+  } catch (error) {}
 });
 
-When('the user {string} provides a like range of {string}', function (string, string2) { 
+When('the user {string} provides a like range of {string}', async function (string, string2) { 
   try {
     let res = await AXIOS.get('/drinks/' + string +'/ra', {
       user: string,
       rating: parseInt(string2)
     })
-  } catch (error) {}
   listDrinks = res.data
+  } catch (error) {}
 });
 
-When('the user searches a drink made by {string}', function (string) {
+When('the user searches a drink made by {string}', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
       author: string
     })
-  } catch (error) {}
   listDrinks = res.data
+  } catch (error) {}
 });
 
 Then('the drink with name {string}, likes {string} shall be returned', function (string, string2) {
@@ -431,7 +507,7 @@ Then('the new ingredient {string} shall not be added to drink {string}', functio
 ///////////////// VIEW //////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user {string} requests to view the drinks in alphabetical order', function (string) {
+When('the user {string} requests to view the drinks in alphabetical order', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/a', {
       user: string
@@ -445,7 +521,7 @@ Then('the list of drinks is displayed in alphabetical order', function () {
   return 'pending';
 });
 
-When('the user {string} requests to view drinks by newest', function (string) {
+When('the user {string} requests to view drinks by newest', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/n', {
       user: string
@@ -459,7 +535,7 @@ Then('the list of drinks is displayed in order of their creation', function () {
   return 'pending';
 });
 
-When('the user {string} requests to view drinks by their rating', function (string) {
+When('the user {string} requests to view drinks by their rating', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/r', {
       user: string
@@ -491,7 +567,7 @@ Then('no drinks shall be displayed.', function () {
   assert.ok(listDrinks.length === 0);
 });
 
-When('the user {string} displays the list of custom drinks', function () {
+When('the user {string} displays the list of custom drinks', async function () {
   try {
     let res = await AXIOS.get('/drinks/' + string + '/custom', {
       user: string

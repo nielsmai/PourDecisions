@@ -23,17 +23,25 @@ module.exports.getAllDrinks = async (req, res) => {
 }
 
 module.exports.createDrink = async (req, res) => {
-    const drink = req.body;  
-    // const { name, author, recipe, tag, public_status, rating } = req.body;
+    // const drink = req.body;  
+    const { name, author, recipe, tag, public_status, rating } = req.body;
 
-    const newDrink = new Drink(drink);
-    // const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
+    // const newDrink = new Drink(drink);
+    const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
 
     try {
         await newDrink.save();
         res.status(201).json(newDrink);
     } catch (err) {
-        res.status(409).json({ message: err.message });
+        var errorMessage = err.message
+        if (name == undefined || name == ""){
+            errorMessage = "CREATE-DRINK-NAME-EMPTY"
+        }else if (author == undefined || author == ""){
+            errorMessage = "CREATE-DRINK-AUTHOR-EMPTY"
+        }else if (recipe.ingredients == []){
+            errorMessage = "CREATE-DRINK-INGREDIENTS-EMPTY"
+        } 
+        res.status(409).json({ message: errorMessage});
     }
 }
 
@@ -62,7 +70,7 @@ module.exports.getAllDrinksNewest = async (req,res) => {
 
 module.exports.getAllDrinksRating = async (req,res) => {
     try {
-        const author = req.body
+        const author = req.params
         const drinks = await Drink.find( { $or: 
             [ {author: author}, {public_status : true} ] } ).sort( {rating : -1});
             res.status(200).json(drinks);
@@ -73,7 +81,7 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const user = req.body
+        const user = req.params
         const drinks = await Drink.find( {$and: [{author: user},{tag: CUSTOM}]});
             res.status(200).json(drinks);
     } catch (err) {
@@ -93,8 +101,8 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
-        const author = req.body
-        const drinks = await Drink.find({$and: [{author:req}, {public_status : true}]})
+        const { user } = req.params
+        const drinks = await Drink.find({$and: [{author:user}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -103,7 +111,7 @@ module.exports.getDrinkByUser = async (req,res) => {
 
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const {user,name} = req.body
+        const { name } = req.params
         const drinks = await Drink.find({$and: [{name:name}, {public_status : true}]})
         res.status(200).json(drinks);
         return drinks;
@@ -114,7 +122,7 @@ module.exports.getDrinkByName = async (req,res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const {user,tags} = req.body
+        const {tags} = req.params
         const drinks = await Drink.find({$and: [{tag: {$in: tags}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
@@ -124,7 +132,7 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const{user,ingredients} = req.body
+        const{ingredients} = req.params
         const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: ingredients}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
@@ -133,19 +141,33 @@ module.exports.getDrinkByIngredients = async (req,res) => {
 }
 
 module.exports.createIngredient = async (req, res) => {
-    const ingredient = req.body;  
+    // const ingredient = req.body;  
+    const { ingredientName, ingredientType } = req.body
 
-    const newIngredient = new Ingredient(ingredient);
+    const newIngredient = new Ingredient({ingredientName, ingredientType});
 
     try {
         await newIngredient.save();
         res.status(201).json(newIngredient);
     } catch (err) {
-        res.status(409).json({ message: err.message });
+        var errorMessage = err.message
+        if (ingredientName == undefined || ingredientName == ""){
+            errorMessage = "UNDEFINED-INGREDIENT-NAME"
+        }
+        res.status(409).json({ message: errorMessage });
     }
 }
 
 // // temporary for testing 
+module.exports.deleteAllDrinks = async (req, res) => {
+    try {
+        const del = await Drink.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
+
 module.exports.deleteAllIngredients = async (req, res) => {
     try {
         const del = await Ingredient.deleteMany({});
