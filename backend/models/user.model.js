@@ -17,7 +17,7 @@ var UserSchema = new Schema({
     username: { type: String, required: true, unique: true, minlength: 4, trim: true },
     password: { type: String, required: true, minlength: 8 },
     email: { type: String, required: true, unique: true },
-    isAdmin : { type: Boolean }
+    isAdmin : { type: Boolean, default: false }
 },{
     timestamps: true
 });

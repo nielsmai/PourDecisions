@@ -127,33 +127,84 @@ Then('an error message {string} shall be raised', function (string) {
 ///////////////// CREATE ACCCOUNT ///////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-Given('the username {string} does not already exist', function (string) {
+Given('the username {string} does not already exist', async function (string) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // let wipe = await AXIOS.delete('/users/')
+   try {
+        const username = string
+        let res = await AXIOS.get('/users/' + username)
+        assert.fail()
+   } catch (err) {
+       assert.equal("NO-USER", err.response.data.message)
+   }
 });
 
-Given('the account with the username {string} and password {string} already exists', function (string, string2) {
+Given('the account with the username {string} and password {string} already exists', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    // let wipe = await AXIOS.delete('/users/')
+    try {
+        const username = string
+        const password = string2
+        const email = string + '@email.com'
+
+        let res = await AXIOS.post('/users/register', {
+            username: username,
+            password: password,
+            email: email
+        })
+
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
+
 });
 
-When('I create a user account with username {string} and password {string}', function (string, string2) {           // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('I create a user account with username {string} and password {string}', async function (string, string2) {           // Write code here that turns the phrase above into concrete actions
+    try {
+        const username = string
+        const password = string2
+        const email = string + "@email.com"
+
+        let res = await AXIOS.post('/users/register', {
+            username: username,
+            password: password,
+            email: email
+        })
+        // maybe add something to pass info 
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
-Then('the account shall have username {string} and password {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('the account shall have username {string} and password {string}', async function (string, string2) {
+    try {
+        const username = string
+        const password = string2 
+
+         let res = await AXIOS.post('/users/login', {
+             username: username,
+             password: password
+         })
+       this.confirmMsg = {
+           message: res.data.message,
+           username: username
+       } 
+
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
+
 });
 
 Then('I should be logged in as user {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert.equal(this.confirmMsg.message, "LOGIN-SUCCESSFUL")
+    assert.equal(this.confirmMsg.username, string)
 });
 
 Then('no new account shall be created', function () {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert(this.errorMsg != "" || this.errorMsg != undefined)
 });
 
 /////////////////////////////////////////////////////////////////////////////
