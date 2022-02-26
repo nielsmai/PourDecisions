@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
+import axios from "axios"
+
+
+var AXIOS = axios.create({
+    baseUrl: 'http:localhost:5000'
+})
 
 
 export default function LogInAccount() {
@@ -17,22 +23,37 @@ export default function LogInAccount() {
         event.preventDefault();
         //Check login?
         console.log("BTS")
-        const GetData = async () => {
-            try {
+        const PostData = async () => {
+            let res = await AXIOS.post('http:localhost:5000/login', {
+                username: loginUsername,
+                password: loginPassword
+            })
+            .then(response => {
                 console.log("B")
-                const url = 'http:localhost:5000/login/'+ loginUsername +'/' + loginPassword;
-                console.log("T")
-                // const output = await ( await fetch(url) ).json()
-                console.log("S")
                 setIsSubmitted(true);
-            }
-            catch(err) {
-                setIsSubmitted(false);
+            })
+            .catch(e => {
                 console.log("SAVE ME PLS")
-                console.log(err);
-            }
+                console.log(e)
+            })
         }
-        GetData()
+        PostData()
+        // const GetData = async () => {
+        //     try {
+        //         console.log("B")
+        //         const url = 'http:localhost:5000/login/'+ loginUsername +'/' + loginPassword;
+        //         console.log("T")
+        //         // const output = await ( await fetch(url) ).json()
+        //         console.log("S")
+        //         setIsSubmitted(true);
+        //     }
+        //     catch(err) {
+        //         setIsSubmitted(false);
+        //         console.log("SAVE ME PLS")
+        //         console.log(err);
+        //     }
+        // }
+        // GetData()
 
         //If this is uncommented, it will always show a login
         // setIsSubmitted(true);
