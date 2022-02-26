@@ -63,7 +63,53 @@ module.exports.createUser = async (req, res) => {
 module.exports.updateUser = async (req, res) => {
     
     const { username, password, newPassword } = req.body;
+    const userID = req.user.id;
+    let errors =[];
+
+    // Check required fields
+    if (!password || !newPassword){
+        errors.push({msg: "Missing fields."});
+    }    
+
+    // Check passwords length
+    if(newPassword.length < 8) {
+        errors.push({msg:"Password should be at least eight characters."});
+    }
+
+    if(errors.length > 0){
+        res.render("updateUser", {
+            errors,
+            name: req.user.name,
+        });
+    } else {
+        User.findOne({_id: userID }).then(user => {
+            //encrypt newly submitted password
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) throw err;
+                if (isMatch) {
+                    // updating password for user with new password
+                    bcrypt.genSalt(10, (err, salt) =>
+                        bcrypt.hash(newPassword, salt, (err, hash) => {
+                            if (err) throw err;
+                            user.password = hash;
+                            user.save();
+                        })
+                    );
+                    req.flash("success_msg", "Password successfully updated!");
+                    res.redirect("/login");
+                } else {
+                    //Password doesn't match
+                    errors.push({msg: "Current password is not a match."});
+                    res.render("updateUser", {
+                        errors,
+                        name: req.user.name,
+                    });
+                }
+            });
+        });
+    }
     const updatedUser = User({username, password});
+
 
     // Not exactly how the hashing works here so leaving blank
 }

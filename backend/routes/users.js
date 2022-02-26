@@ -31,6 +31,10 @@ router.get('/logout', (req, res) => {
     logout(req, res)
 })
 
+router.post('/updateUser', (req, res) => {
+    updateUser(req, res)
+})
+
 // for testing
 router.get('/profile', (req, res, next) => {
     if (req.user) {
