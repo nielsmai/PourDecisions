@@ -31,7 +31,7 @@ router.get('/logout', (req, res) => {
     logout(req, res)
 })
 
-router.post('/updateUser', (req, res) => {
+router.put('/updateUser', (req, res) => {
     updateUser(req, res)
 })
 
