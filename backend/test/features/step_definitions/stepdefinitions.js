@@ -41,7 +41,8 @@ Given('the following accounts exist in the system:', async function (dataTable) 
 
         }
     } catch (err) {
-        console.log("from given users exist: ", err.response.data.message)
+        // this.errorMsg = err.response.data.message
+        console.log(err)
     }
 
 });
@@ -57,10 +58,11 @@ When('the user {string} with password {string} is logged into their account', as
             password: password
         })
 
+        this.confirmMsg = res.data.message
+
     } catch (err) {
-    let res = await AXIOS.get('/users')
-        // console.log("users in the system", res.data)
-        console.log("from given logged in: ", err.response.data.message)
+        // console.log("from given logged in: ", err.response.data.message)
+        this.errorMsg = err.response.data.message
     }
 
     // return 'pending'
@@ -113,58 +115,8 @@ Given('the following drinks exist in the system:', async function (dataTable) {
         }
     
     } catch (err) {
-        // console.log ("ERROR MESSAGE: ", err)
        this.errorMsg = err.response.data.message 
     }
-    // for (let i in dataTable.rows) {
-    //     let row = table.rows[i]
-        
-    //     const name = row.cells[0]
-    //     const likes = row.cells[1]
-    //     var ingredients = row.cells[2].split(",")
-    //     const author = row.cells[3]
-
-    //     // create ingredients
-    //     var ingredientsList = ingredients.split(',')
-    //     ingredients = []
-    //     for (let j = 0; j < ingredientsList.length; j++){
-    //         AXIOS.post('/drinks/add/ingredient', {
-    //             ingredientName: ingredientsList[j],
-    //         })
-    //         .then( res => ingredients.push(res.data))
-    //         .catch( (err) => this.errorMsg = err.response.data.message)
-    //     }
-
-    //     let recipe = {}; 
-    //     // create recipe from ingredients 
-    //     AXIOS.post('/drinks/add/recipe', {
-    //         ingredients: ingredients,
-    //         instructions: "placeholder"
-    //     })
-    //     .then( res => recipe = res.data) 
-    //     .catch ( (err) => this.errorMsg = err.response.data.message)
-        
-
-    //     // create drink from recipe
-    //     AXIOS.post('/drinks/add', {
-    //         name: name,
-    //         author: author,
-    //         rating: likes,
-    //         recipe: recipe 
-    //     })
-    //     .then(res => temp = "3424") 
-    //     .catch( (err) => {
-    //         this.errorMsg = err.response.data.message
-    //         // if (err.data.name == ""){
-    //         //     errorMsg = "CREATE-DRINK-NAME-EMPTY"
-    //         // }
-    //         // else if (err.data.ingredients == []) {
-    //         //     errorMsg = "CREATE-DRINK-INGREDIENTS-EMPTY"
-    //         // }
-    //     })
-
-
-    // }
 });
 
 Then('an error message {string} shall be raised', function (string) {
@@ -254,35 +206,37 @@ Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
     AXIOS.get('/drinks/' + string + '/name') 
     .then( res => assert.equal(res.data[0].name, string))
-    .catch (err => console.log(err.message))
+    .catch (err => this.errorMsg = err.message)
 });
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// LOGIN /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user logs in using {string} and {string}', function (string, string2) {
-  // try{
-  //   var loginTest = login(string, string2);
-  //   assert.equal(true, loginTest);
-  // }
-  // catch(err){
-  //   errorMsg = err.message
-  // }
-  // Write code here that turns the phrase above into concrete 
-  return 'pending';
+When('the user logs in using {string} and {string}', async function (string, string2) {
+    try {
+        let res = await AXIOS.post("/users/login", {
+            username: string,
+            password: string2
+        })
+        this.confirmMsg = res.data.message
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
+
 });
 
 Then('the user shall be logged in', function () {
   // Write code here that turns the phrase above into concrete actions
   // assert.notEqual(null, sessionStorage.getItem('status'));
-  return 'pending';
+  // return 'pending';
+     assert.equal(this.confirmMsg, "LOGIN-SUCCESSFUL")
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
   // assert.equal(null, sessionStorage.getItem('status'));
-  return 'pending';
+    assert(this.errorMsg != "")
 });
 
 /////////////////////////////////////////////////////////////////////////////
