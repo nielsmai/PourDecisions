@@ -21,7 +21,7 @@ export default function LogInAccount() {
     const handleSubmit = (event) => {
         //Prevent the page form reloading
         event.preventDefault();
-        //Check login?
+        //Check login
         const PostData = async () => {
             let res = await AXIOS.post('users/login', {
                 username: loginUsername,
@@ -36,25 +36,6 @@ export default function LogInAccount() {
             })
         }
         PostData()
-        // const GetData = async () => {
-        //     try {
-        //         console.log("B")
-        //         const url = 'http:localhost:5000/login/'+ loginUsername +'/' + loginPassword;
-        //         console.log("T")
-        //         // const output = await ( await fetch(url) ).json()
-        //         console.log("S")
-        //         setIsSubmitted(true);
-        //     }
-        //     catch(err) {
-        //         setIsSubmitted(false);
-        //         console.log("SAVE ME PLS")
-        //         console.log(err);
-        //     }
-        // }
-        // GetData()
-
-        //If this is uncommented, it will always show a login
-        // setIsSubmitted(true);
     }
     //React States
     const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
