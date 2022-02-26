@@ -13,7 +13,7 @@ Background:
         | Kiwi Mojito | 12     | kiwi         | user1  |
         | Random drink | 23 | blah | notuser1 |
 
-    Given the user "user1" with password "12345678" is logged into their account
+    Given the user "user1" with password "userpassword1" is logged into their account
 
 Scenario: Search a custom drink with an existing user
 

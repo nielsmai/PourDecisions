@@ -14,7 +14,7 @@ Scenario: Successful password modification
 	User's password should have changed
 	
 	When the user inputs the old password "userpassword1", inputs the new password "userpassword2" and confirms the new password "userpassword2"
-	Then the user's new password is now "userpassowrd2" and a confirmation message "PASSWORD-CHANGE-SUCCESSFUl" is raised
+	Then the user's new password is now "userpassword2" and a confirmation message "PASSWORD-CHANGE-SUCCESSFUl" is raised
 
 	
 Scenario Outline: Unsuccessful password modification

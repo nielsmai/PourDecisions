@@ -12,6 +12,7 @@
 #                 |name       | ingredients                          | rating | author | status |
 #                 |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
 #         Given the user "username1" with password "password1" is logged into their account
+
         
 # Scenario: View favourites successfully
 

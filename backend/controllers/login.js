@@ -11,7 +11,6 @@ module.exports.login = function (req, res, next) {
             console.log('some error before log in attempt: ', err)
             return err
         }
-        console.log('User: ', user)
         if (!user) {
             req.flash('error_msg', 'LOGIN-INVALID')
             return res.redirect('/users/login') 

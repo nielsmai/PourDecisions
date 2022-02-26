@@ -20,7 +20,7 @@ Scenario: Favourite an existing drink
   I should be able to favourite an existing drink successfully
 
 	When the user "username" favourites the drink "Fireball"
-	Then the drink "Fireball" shall be in the user "usernames"'s catalogue
+	Then the drink "Fireball" shall be in the user "username"'s catalogue
         
 Scenario: Rate an existing drink 
 
