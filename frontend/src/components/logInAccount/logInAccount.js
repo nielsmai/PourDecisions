@@ -54,7 +54,6 @@ export default function LogInAccount() {
                 <div>
                     <h1 class="loginTitle">Login</h1>
                     <div>
-                        <form>
                             <div>
                              <h4 class="username">Username</h4>
                             </div>
@@ -63,9 +62,8 @@ export default function LogInAccount() {
                                 onChange={ (e) => setLoginUsername(e.target.value)}
                             />
                             {renderErrorMessage("name")}
-                        </form>
                     </div>
-                    <div class="formBottom"><form>
+                    <div class="formBottom">
                         <div>
                             <h4 class="password">Password</h4>
                         </div>
@@ -74,7 +72,6 @@ export default function LogInAccount() {
                             onChange={(e) => setLoginPassword(e.target.value)}
                         />
                         {renderErrorMessage("pass")}
-                        </form>
                     </div>
 
                     <div class="loginButton">
