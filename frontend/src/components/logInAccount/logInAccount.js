@@ -45,17 +45,17 @@ export default function LogInAccount() {
         <div className="login">
             <form onSubmit={handleSubmit}>
             <div>
-            <div class="boxLogInAccount">
-            <div class="row">
-            <div class="columnLeft">
+            <div className="boxLogInAccount">
+            <div className="row">
+            <div className="columnLeft">
                 <h1>Put Image Here</h1>
             </div>
-            <div class="columnRight">
+            <div className="columnRight">
                 <div>
-                    <h1 class="loginTitle">Login</h1>
+                    <h1 className="loginTitle">Login</h1>
                     <div>
                             <div>
-                             <h4 class="username">Username</h4>
+                             <h4 className="username">Username</h4>
                             </div>
                             <input type="text" name="name" required
                                 placeholder="username"
@@ -63,9 +63,9 @@ export default function LogInAccount() {
                             />
                             {renderErrorMessage("name")}
                     </div>
-                    <div class="formBottom">
+                    <div className="formBottom">
                         <div>
-                            <h4 class="password">Password</h4>
+                            <h4 className="password">Password</h4>
                         </div>
                         <input type="text" name="pass" required
                             placeholder="password"
@@ -74,15 +74,15 @@ export default function LogInAccount() {
                         {renderErrorMessage("pass")}
                     </div>
 
-                    <div class="loginButton">
-                        <button type="submit" class="loginConfirm">Login</button>
+                    <div className="loginButton">
+                        <button type="submit" className="loginConfirm">Login</button>
                     </div>
 
-                    <div class="forgetAccount">
+                    <div className="forgetAccount">
                         <label><b>Don't have an account?</b></label>
                     </div>
 
-                    <div class="signUp">
+                    <div className="signUp">
                         {/* Add the correct link here */}
                         <a href="http://localhost:3000/">sign up</a>
                     </div>
