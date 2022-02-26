@@ -18,7 +18,7 @@ export default function LogInAccount() {
         //Check login?
         const GetData = async () => {
             try {
-                const url = 'http:localhost:3030/login/'+ loginUsername +'/' + loginPassword;
+                const url = 'http:localhost:5000/login/'+ loginUsername +'/' + loginPassword;
                 const output = await ( await fetch(url) ).json()
                 setIsSubmitted(true);
             }
