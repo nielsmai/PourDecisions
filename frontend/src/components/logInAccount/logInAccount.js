@@ -16,17 +16,23 @@ export default function LogInAccount() {
         //Prevent the page form reloading
         event.preventDefault();
         //Check login?
+        console.log("BTS")
         const GetData = async () => {
             try {
+                console.log("B")
                 const url = 'http:localhost:5000/login/'+ loginUsername +'/' + loginPassword;
-                const output = await ( await fetch(url) ).json()
+                console.log("T")
+                // const output = await ( await fetch(url) ).json()
+                console.log("S")
                 setIsSubmitted(true);
             }
             catch(err) {
                 setIsSubmitted(false);
+                console.log("SAVE ME PLS")
                 console.log(err);
             }
         }
+        GetData()
 
         //If this is uncommented, it will always show a login
         // setIsSubmitted(true);
@@ -103,7 +109,7 @@ export default function LogInAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? window.location.href = "http://localhost:3000/" : renderForm}
+        {isSubmitted ? window.location.href = "http://localhost:3000" : renderForm}
       </div>
     </div>
     // <div>
