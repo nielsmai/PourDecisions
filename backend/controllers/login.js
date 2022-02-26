@@ -1,28 +1,23 @@
 const passport = require('passport')
 
 module.exports.login = function (req, res, next) {
-    // passport.authenticate('local', {
-    //     successRedirect: '/',
-    //     failureRedirect: '/users/login',
-    //     failureFlash: true }) (req, res, next)
     passport.authenticate('local', (err, user) => {
-
-        if (err) {
-            console.log('some error before log in attempt: ', err)
-            return err
-        }
-        if (!user) {
-            req.flash('error_msg', 'LOGIN-INVALID')
-            return res.redirect('/users/login') 
-        }
+        
         req.logIn(user, (err) => {
+            // console.log("CURRENT USER: ", user)
             if (err) {
-                console.log('some error during log in attempt: ', err)
+                res.status(500).json({message: "LOGIN-INVALID"})
+            } else {
+                res.status(200).json({message: "LOGIN-SUCCESSFUL"})
             }
-            req.flash('success_msg', 'LOGGED-IN')
-            req.session.save(() => res.redirect('/'))
         })
-
     }) (req, res, next)
+
+    // }) (req, res, next)
+    // if (req.user) {
+    //     res.status(200).json({message: "LOGIN-SUCCESSFUL"})
+    // }else {
+    //     res.status(500).json({message: "LOGIN-INVALID"})
+    // }
 }
 

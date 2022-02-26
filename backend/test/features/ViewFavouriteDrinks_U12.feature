@@ -12,11 +12,11 @@
 #                 |name       | ingredients                          | rating | author | status |
 #                 |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
 #         Given the user "username1" with password "password1" is logged into their account
-
         
 # Scenario: View favourites successfully
 
 #         I should be able to view my favourites
+
 
 #         Given that the user "username1" has favourited the drink "<drink>"
 #         When the user requests to view their favourites
@@ -29,4 +29,5 @@
 
 #         When the user requests to view their favourites
 #         Then no drinks shall be displayed.
+
               

@@ -14,8 +14,6 @@ const router = express.Router();
 // export default router;
 module.exports = router;
 
-module.exports = router;
-
 module.exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -26,24 +24,40 @@ module.exports.getAllUsers = async (req, res) => {
     }
 }
 
+module.exports.getUserByUsername = async (req, res) => {
+    try  {
+        const { user } = req.params
+        let userQuery = await User.findOne({username: user})
+        if (userQuery){
+            console.log(userQuery)
+            res.status(200).json(userQuery)
+        }
+        else res.status(400).json({message: "no such user"})
+    }catch (err) {
+        console.log("something went wrong in getUserByUsername")
+    }
+}
+
 module.exports.createUser = async (req, res) => {
     
-    console.log(req.body) 
-    const { username, password, email } = req.body;  
+    try {
+        const { username, password, email } = req.body;  
 
-    let newUser = await User.findOne({username});
+        let newUser = await User.findOne({username:username});
 
-    if (newUser) {
-        // add more stuff if this works
-        console.log("User already exists");
-        return res.redirect('/register'); // for now
+        if (newUser) {
+            // add more stuff if this works
+            res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
+        } else {
+            newUser = new User({username, password, email});
+            await newUser.save()
+            res.status(200).json({message: "USER-CREATED"})
+        }
+
+
+    } catch (err) {
+        res.status(500).json({message: err.message})
     }
-
-    newUser = new User({username, password, email});
-    
-    newUser.save()
-    .then(() => res.status(200).json(newUser))
-    .catch( err => res.status(400).json(err));
 }
 
 module.exports.updateUser = async (req, res) => {

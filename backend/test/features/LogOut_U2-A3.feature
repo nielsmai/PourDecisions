@@ -13,5 +13,5 @@ Scenario: Successful logout of the account
 	User should be logged in their account
     Given the user "User1" with password "userpassword1" is logged into their account
 	When the user logs out
-	Then the user is logged out of the system with a confirmation message "LOGOUT-SUCCESSFUl"     
+	Then the user is logged out of the system with a confirmation message "LOGOUT-SUCCESSFUL"     
 
