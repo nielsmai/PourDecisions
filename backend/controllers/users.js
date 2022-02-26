@@ -1,17 +1,11 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-// import bcrypt from 'bcrypt';
-// var SALT_WORK_FACTOR = 10;
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
-// import User from '../models/user.model.js';
 const User = require('../models/user.model');
 
 const router = express.Router();
-// export default router;
 module.exports = router;
 
 module.exports.getAllUsers = async (req, res) => {
@@ -78,8 +72,5 @@ module.exports.deleteAll = async (req, res) => {
     
 }
 
-// module.exports.logIn = async (req, res) => {}
-
-// module.exports.logOut = async (req, res) => {}
 
 
