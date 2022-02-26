@@ -22,6 +22,7 @@ const AXIOS = axios.create({
 Given('the following accounts exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actions
     // iterate through table
+    // this is temporary, hooks does not seem to be working correctly
     let wipe = await AXIOS.delete('/users/')
     try {
         const table = dataTable.rows()
@@ -37,17 +38,8 @@ Given('the following accounts exist in the system:', async function (dataTable) 
                 password: password,
                 email: email
             })
-            
 
         }
-        // console.log(dataTable)
-
-            
-        // const table = dataTable.rows()
-        // for (var i in table){
-            // console.log("YO ", table[i][0], table[i][1])
-
-        // } 
     } catch (err) {
         console.log("from given users exist: ", err.response.data.message)
     }
@@ -256,47 +248,10 @@ When('the user {string} creates a new drink recipe with the name {string} and th
         this.errorMsg = errorMessage 
     }
 
-    // const name = string2
-    // const author = string
-    // var ingredients = string3
-     
-    // var ingredientsList = ingredients.split(",")
-    // ingredients = []
-    // for (let j = 0; j < ingredientsList.length; j++){
-    //     AXIOS.post('/drinks/add/ingredient', {
-    //         ingredientName: ingredientsList[j],
-    //     })
-    //     .then( res => ingredients.push(res.data))
-    //     .catch ( (err) => this.errorMsg = err.response.data.message)
-    // }
-
-    // let recipe = {}
-    // // create recipe from ingredients 
-    // AXIOS.post('/drinks/add/recipe', {
-    //     ingredients: ingredients,
-    //     instructions: "placeholder"
-    // })
-    // .then( res => recipe = res.data) 
-    //     .catch ( (err) => this.errorMsg = err.response.data.message)
-    
-
-    // // create drink from recipe
-    // AXIOS.post('/drinks/add', {
-    //     name: name,
-    //     author: author,
-    //     recipe: recipe 
-    // })
-    // .then(res => assert(res.status == 201))
-    // .catch ( (err) => this.errorMsg = err.response.data.message)
-
-
-    
-
 });
 
 Then('the new drink {string} is added to the system', function (string) {
   // Write code here that turns the phrase above into concrete actions
-    // TODO get route 
     AXIOS.get('/drinks/' + string + '/name') 
     .then( res => assert.equal(res.data[0].name, string))
     .catch (err => console.log(err.message))
