@@ -20,15 +20,15 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.getUserByUsername = async (req, res) => {
     try  {
-        const { user } = req.params
-        let userQuery = await User.findOne({username: user})
+        const { username } = req.params
+        let userQuery = await User.findOne({username: username})
         if (userQuery){
-            console.log(userQuery)
             res.status(200).json(userQuery)
         }
-        else res.status(400).json({message: "no such user"})
+        else res.status(400).json({message: "NO-USER"})
     }catch (err) {
         console.log("something went wrong in getUserByUsername")
+        // res.status(500).json({message: "Something went wrong when getting user by username"})
     }
 }
 
@@ -37,17 +37,23 @@ module.exports.createUser = async (req, res) => {
     try {
         const { username, password, email } = req.body;  
 
-        let newUser = await User.findOne({username:username});
-
-        if (newUser) {
-            // add more stuff if this works
-            res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
-        } else {
-            newUser = new User({username, password, email});
-            await newUser.save()
-            res.status(200).json({message: "USER-CREATED"})
+        if (username == undefined || username == "") {
+            res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-USER"})
         }
+        else if (password == undefined || password == "") {
+            res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-PASS"})
+        }else{
+            let newUser = await User.findOne({username:username});
 
+            if (newUser) {
+                // add more stuff if this works
+                res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
+            } else {
+                newUser = new User({username, password, email});
+                await newUser.save()
+                res.status(200).json({message: "USER-CREATED"})
+            }
+        }
 
     } catch (err) {
         res.status(500).json({message: err.message})

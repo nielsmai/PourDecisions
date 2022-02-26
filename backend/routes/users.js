@@ -40,7 +40,7 @@ router.get('/profile', (req, res, next) => {
     }
 })
 
-router.get('/:user', (req, res) => {
+router.get('/:username', (req, res) => {
     getUserByUsername(req,res)
     
 }) 
