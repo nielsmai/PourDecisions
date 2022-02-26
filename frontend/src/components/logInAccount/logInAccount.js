@@ -4,7 +4,7 @@ import axios from "axios"
 
 
 var AXIOS = axios.create({
-    baseUrl: 'http:localhost:5000'
+    baseURL: 'http://localhost:5000'
 })
 
 
@@ -22,18 +22,15 @@ export default function LogInAccount() {
         //Prevent the page form reloading
         event.preventDefault();
         //Check login?
-        console.log("BTS")
         const PostData = async () => {
-            let res = await AXIOS.post('http:localhost:5000/login', {
+            let res = await AXIOS.post('users/login', {
                 username: loginUsername,
                 password: loginPassword
             })
             .then(response => {
-                console.log("B")
                 setIsSubmitted(true);
             })
             .catch(e => {
-                console.log("SAVE ME PLS")
                 console.log(e)
             })
         }
