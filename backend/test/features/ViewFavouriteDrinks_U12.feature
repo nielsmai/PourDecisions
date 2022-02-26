@@ -1,31 +1,32 @@
-Feature: View Favourites
+# Feature: View Favourites
 
-As a user I want to view all drink recipes that I marked as favourites so 
-that I can have easy access to favourite recipes
+# As a user I want to view all drink recipes that I marked as favourites so 
+# that I can have easy access to favourite recipes
 
-Background:
-        Given the following accounts exist in the system:
-                | username  | password  |
-                | username1 | password1 |
-                | user1     | password11|
-        Given the following drinks exist in the system:
-                |name       | ingredients                          | rating | author | status |
-                |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
-        Given the user "username1" with password "password1" is logged into their account
+# Background:
+#         Given the following accounts exist in the system:
+#                 | username  | password  |
+#                 | username1 | password1 |
+#                 | user1     | pass1     |
+#         Given the following drinks exist in the system:
+#                 |name       | ingredients                          | rating | author | status |
+#                 |Mint Julep | Bourbon, Simple syrup, mint, whiskey | 50     | User1  | private|          
+#         Given the user "username1" with password "password1" is logged into their account
+
         
-Scenario: View favourites successfully
+# Scenario: View favourites successfully
 
-        I should be able to view my favourites
+#         I should be able to view my favourites
 
-        Given that the user "username1" has favourited the drink "<drink>"
-        When the user requests to view their favourites
-        Then the drink "<drink>" shall be displayed
-        Examples:
-                |drink      |
-                |Mint Julep | 
+#         Given that the user "username1" has favourited the drink "<drink>"
+#         When the user requests to view their favourites
+#         Then the drink "<drink>" shall be displayed
+#         Examples:
+#                 |drink      |
+#                 |Mint Julep | 
 
-Scenario: View favourites unsuccessfully when it has no items
+# Scenario: View favourites unsuccessfully when it has no items
 
-        When the user requests to view their favourites
-        Then no drinks shall be displayed.
+#         When the user requests to view their favourites
+#         Then no drinks shall be displayed.
               

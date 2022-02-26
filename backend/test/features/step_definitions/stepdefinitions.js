@@ -386,14 +386,14 @@ When('the user {string} provides a like range of {string}', async function (stri
 When('the user searches a drink made by {string}', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
-      author: string
+      username: string
     })
   listDrinks = res.data
   } catch (error) {}
 });
 
 Then('the drink with name {string}, likes {string} shall be returned', function (string, string2) {
-  assert.ok(listDrinks[0]['name'] === string && listDrinks[0]['rating'] === parseInt(string2));
+  assert.ok(listDrinks.name === string && listDrinks.rating === parseInt(string2));
 });
 
 Then('the list of drinks shall be {string}', function (string) {
@@ -509,59 +509,53 @@ Then('the new ingredient {string} shall not be added to drink {string}', functio
 
 When('the user {string} requests to view the drinks in alphabetical order', async function (string) {
   try {
-    let res = await AXIOS.get('/drinks/a', {
-      user: string
+    let res = await AXIOS.get('/drinks/' + string +'/a', {
     })
   } catch (error) {}
-  listDrinks = res.data
+  listDrinks = res.data.map(drink => drink.name)
 });
 
 Then('the list of drinks is displayed in alphabetical order', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.ok(!!listDrinks.reduce((n,name) => n !== false && name.localeCompare(n) >= 0 && name))
 });
 
 When('the user {string} requests to view drinks by newest', async function (string) {
   try {
-    let res = await AXIOS.get('/drinks/n', {
-      user: string
+    let res = await AXIOS.get('/drinks/' + string + '/n', {
     })
   } catch (error) {}
-  listDrinks = res.data
+  listDrinks = res.data.map(drink => drink.createdAt)
 });
 
 Then('the list of drinks is displayed in order of their creation', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.ok(!!listDrinks.reduce((n,createdAt) => n !== false && createdAt <= n && createdAt))
 });
 
 When('the user {string} requests to view drinks by their rating', async function (string) {
   try {
-    let res = await AXIOS.get('/drinks/r', {
-      user: string
-    })
+    let res = await AXIOS.get('/drinks' + string + '/r', {
+    }).then()
   } catch (error) {}
-  listDrinks = res.data
+  listDrinks = res.data.map(drink => drink.rating) 
 });
 
 Then('the list of drinks is displayed in descending order of their rating', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  assert.ok(!!listDrinks.reduce((n,rating) => n !== false && rating <= n && rating))
 });
 
-Given('that the user {string} has favourited the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-When('the user requests to view their favourites', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Given('that the user {string} has favourited the drink {string}', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
+// When('the user requests to view their favourites', function () {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
-Then('the drink {string} shall be displayed', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Then('the drink {string} shall be displayed', function (string) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
 Then('no drinks shall be displayed.', function () {
   assert.ok(listDrinks.length === 0);
@@ -570,13 +564,17 @@ Then('no drinks shall be displayed.', function () {
 When('the user {string} displays the list of custom drinks', async function () {
   try {
     let res = await AXIOS.get('/drinks/' + string + '/custom', {
-      user: string
+      username: string
     })
   } catch (error) {}
   listDrinks = res.data
 });
 
-Then('the custom drinks {string} with author {string} shall be displayed', function (string, string2) {        
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('the custom drinks {string} with author {string} shall be displayed', function (string, string2) { 
+  
+  if (string2.length === 0){
+    assert.ok(listDrinks.length === 0)
+  } else {
+    assert.ok(listDrinks.author === string2 && listDrinks.name === string)
+  }
 });
