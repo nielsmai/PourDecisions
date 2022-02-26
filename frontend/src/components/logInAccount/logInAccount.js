@@ -2,10 +2,17 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import axios from "axios"
 
-
+// Connect to MongoDB
+var CONNECTION_URL;
+if (process.env.NODE_ENV === "production"){
+    CONNECTION_URL = process.env.ATLAS_URI;
+}else{
+    CONNECTION_URL = "http://localhost:5000/";
+}
 var AXIOS = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: CONNECTION_URL
 })
+
 
 
 export default function LogInAccount() {
