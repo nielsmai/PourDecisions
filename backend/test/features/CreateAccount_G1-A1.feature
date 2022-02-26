@@ -14,17 +14,21 @@ Scenario: Create a user account with a unique username and password.
 
 Examples:
 | username | password |
-| Fiona    | psd22    |
+| Fiona    | psd22123123    |
 
-Scenario: Create a user account with an existing username and unique password.
+Scenario: Create a user account with a unique username and unique password.
 
 #This doesnt make sense ???
 #I should be able to create a user account successfully 
 
 	Given the username "<username>" does not already exist 
 	When I create a user account with username "<username>" and password "<password>"
+  Then the account shall have username "<username>" and password "<password>"
 	Then I should be logged in as user "<username>"
 
+Examples:
+| username | password |
+| Peterson    | psd22123123    |
 
 Scenario: Create a user account with a existing username.
 
@@ -37,23 +41,23 @@ Scenario: Create a user account with a existing username.
 
  Examples:
     | username | password | error                 |
-    | Johnson  | 1234     | ACCOUNT-CREATE-INVALID|
+    | Johnson  | 12341234     | CREDENTIALS-ALREADY-TAKEN|
 
-Scenario: Create a user account with a unique username and existing password.
+Scenario: Create a user account with an existing username and existing password.
 
 
 #I do not think this is a necessary feature -Loc
 #I should not be able to create a user account with a username which exists 
 
-	Given the account with the username "<username>" and password "<password>" already exists
-	When I create a user account with username "<username>" and password "<password>"
-  Then no new account shall be created
-	Then an error message "<error>" shall be raised
+# 	Given the account with the username "<username>" and password "<password>" already exists
+# 	When I create a user account with username "<username>" and password "<password>"
+#   Then no new account shall be created
+# 	Then an error message "<error>" shall be raised
 
-Example: 
+# Examples: 
 
-| username | password | error |
-| Fiona    | psd22    | "This username already exists. Please enter a new username."|
+# | username | password | error |
+# | Fiona    | psd22123123    | This username already exists. Please enter a new username.|
 
 #Might be useful
 Scenario: Create a new user account with an incomplete form.

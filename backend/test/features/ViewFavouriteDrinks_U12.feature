@@ -17,6 +17,7 @@
 
 #         I should be able to view my favourites
 
+
 #         Given that the user "username1" has favourited the drink "<drink>"
 #         When the user requests to view their favourites
 #         Then the drink "<drink>" shall be displayed
@@ -28,4 +29,5 @@
 
 #         When the user requests to view their favourites
 #         Then no drinks shall be displayed.
+
               

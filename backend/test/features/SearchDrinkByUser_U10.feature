@@ -8,23 +8,23 @@ Background:
         | user1 | userpassword1 |
 		
 	Given the following drinks exist in the system:
-		| name     | likes | ingredients | author |
-        | Margarita| 7     | yep         | user1  |
-        | Kiwi Mojito | 12     | kiwi         | user1  |
-        | Random drink | 23 | blah | notuser1 |
-
-    Given the user "user1" with password "12345678" is logged into their account
+		| name     | likes | ingredients | author | status |
+        | Margarita| 7     | yep         | user1  | public |
+        | Kiwi Mojito | 12     | kiwi         | user1  | public |
+        | Random drink | 23 | blah | notuser1 | public |
 
 Scenario: Search a custom drink with an existing user
 
 I should be able to view all drinks created by the searched user with their ratings successfully
 
-	When the user searches a drink made by "user1"
+    When the user "user1" with password "userpassword1" is logged into their account
+	And the user searches a drink made by "user1"
 	Then the list of drinks shall be "Margarita, Kiwi Mojito"
 
 Scenario: Search a custom drink with a user which does not exist
 
 I should not be able to view all drinks created by the user which does not exist
 
-	When the user searches a drink made by "nonexistentuser"
+    When the user "user1" with password "userpassword1" is logged into their account
+	And the user searches a drink made by "nonexistentuser"
 	Then an error message "SEARCH-INVALID-USER" shall be raised

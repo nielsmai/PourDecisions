@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "production"){
 }else{
     CONNECTION_URL = process.env.DEV_URI;
 }
+
 mongoose.connect(CONNECTION_URL, {}); 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -47,9 +48,9 @@ app.use(session({
 }));
  
 // Passport
-require('./controllers/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+require('./controllers/passport')(passport);
 
 // Connect flash
 app.use(flash());
