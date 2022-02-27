@@ -11,7 +11,7 @@ function App() {
 
 
   return (
-    // ChangePasswordAccount()
+    //ChangePasswordAccount()
     //DrinksPage()
     ViewAccount()
     // <div className="App">
