@@ -59,6 +59,7 @@ When('the user {string} with password {string} is logged into their account', as
         })
 
         this.confirmMsg = res.data.message
+        this.currentUser = username
 
     } catch (err) {
         // console.log("from given logged in: ", err.response.data.message)
@@ -185,10 +186,8 @@ Then('the account shall have username {string} and password {string}', async fun
              username: username,
              password: password
          })
-       this.confirmMsg = {
-           message: res.data.message,
-           username: username
-       } 
+        this.confirmMsg = res.data.message,
+        this.currentUser = username
 
     } catch (err) {
         this.errorMsg = err.response.data.message
@@ -198,8 +197,8 @@ Then('the account shall have username {string} and password {string}', async fun
 
 Then('I should be logged in as user {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-    assert.equal(this.confirmMsg.message, "LOGIN-SUCCESSFUL")
-    assert.equal(this.confirmMsg.username, string)
+    assert.equal(this.confirmMsg, "LOGIN-SUCCESSFUL")
+    assert.equal(this.currentUser, string)
 });
 
 Then('no new account shall be created', function () {
@@ -266,11 +265,15 @@ Then('the new drink {string} is added to the system', function (string) {
 
 When('the user logs in using {string} and {string}', async function (string, string2) {
     try {
+        const username = string
+        const password = string2
+
         let res = await AXIOS.post("/users/login", {
-            username: string,
-            password: string2
+            username: username,
+            password: password
         })
         this.confirmMsg = res.data.message
+        this.currentUser = username
     } catch (err) {
         this.errorMsg = err.response.data.message
     }
@@ -282,12 +285,14 @@ Then('the user shall be logged in', function () {
   // assert.notEqual(null, sessionStorage.getItem('status'));
   // return 'pending';
      assert.equal(this.confirmMsg, "LOGIN-SUCCESSFUL")
+    assert(this.currentUser != "")
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
   // assert.equal(null, sessionStorage.getItem('status'));
     assert(this.errorMsg != "")
+    assert(this.currentUser == "")
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -297,6 +302,7 @@ When('the user logs out', async function () {
   // Write code here that turns the phrase above into concrete actions
     let res = await AXIOS.get('/users/logout')
     this.confirmMsg = res.data.message 
+    this.currentUser = ""
 });
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
@@ -304,6 +310,7 @@ Then('the user is logged out of the system with a confirmation message {string}'
   // assert.equal(null, sessionStorage.getItem('status'));
   // assert.equal(string, confirmMsg);
     assert.equal(this.confirmMsg, string)
+    assert(this.currentUser == "")
 });
 
 
@@ -382,19 +389,33 @@ Then('the list of drinks shall be {string}', function (string) {
 ///////////////// UPDATE ACCOUNT ////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user inputs the old password {string}, inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
+When('the user inputs the old password {string}, inputs the new password {string} and confirms the new password {string}', async function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    try {
+        const password = string
+        const newPassword = string2
+        const confirmNewPassword = string3
+
+        let res = await AXIOS.put('/users/'+ this.currentUser + '/update', {
+            password: password,
+            newPassword: newPassword,
+            confirmNewPassword: confirmNewPassword
+        })
+        this.confirmMsg = res.data.message
+
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
-When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
-            // Write code here that turns the phrase above into concrete actions
-    return 'pending';
-});
+// When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
+    
+
+// });
 
 Then('the user\'s new password is now {string} and a confirmation message {string} is raised', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert.equal(this.confirmMsg, string2)
 });
 
 /////////////////////////////////////////////////////////////////////////////

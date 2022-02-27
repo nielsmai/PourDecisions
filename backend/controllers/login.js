@@ -8,7 +8,6 @@ module.exports.login = function (req, res, next) {
         passport.authenticate('local', (err, user) => {
             
             req.logIn(user, (err) => {
-                // console.log("CURRENT USER: ", user)
                 if (err) {
                     res.status(500).json({message: "LOGIN-INVALID"})
                 } else {
