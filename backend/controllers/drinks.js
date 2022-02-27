@@ -197,6 +197,40 @@ module.exports.changeStatus = async (req, res) => {
 
 }
 
+module.exports.addIngredient = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const { ingredientName, ingredientType } = req.body
+
+    const ingredient = new Ingredient({ingredientName, ingredientType}) 
+
+    try {
+        let update = await Drink.findOneAndUpdate( {
+            "$and": [
+                {
+                    author: author,
+                    name: name,
+                },
+                {
+                    "recipe.ingredients.ingredientName":{
+                        '$nin': [ingredientName]
+                    }
+                }
+            ] 
+
+        },{
+            "$push": {
+                'recipe.ingredients': ingredient
+            }
+        })
+        if (update) res.status(200).json({message: "UPDATE-RECIPE-INGREDIENT"})
+        else res.status(400).json({message: "UPDATE-RECIPE-DUPLICATE"})
+
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {

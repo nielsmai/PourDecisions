@@ -25,7 +25,7 @@ Scenario Outline: User successfully changes status of the recipe
 
 	When the user "User1" with password "userpassword1" is logged into their account
 	And the user changes the "<drink>"'s status to "<status>"
-	Then the recipe status shall be "<status>" and a confirmation message "<confirmation>" shall be raised
+	Then a confirmation message "<confirmation>" shall be raised
 
 	Examples:
     | drink     | status | confirmation         |
@@ -39,12 +39,12 @@ Scenario Outline: User successfully adds an ingredient to the recipe
 	When the user "User1" with password "userpassword1" is logged into their account
 	And the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
 	Then the new ingredient "<newingredient>" shall be added to drink "<name>"
-	Then the new ingredients list "<newingredientlist>" shall be displayed
+	Then a confirmation message "<confirmation>" shall be raised
 	
 	Examples:
-    | name     | ingredients                                   | newingredient | newingredientlist                                  |
-    | Fireball | Canadian whisky,sweetener,cinnamon flavouring | lime          | Canadian whisky,sweetener,cinnamon flavouring,lime |
-    | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime	       | white rum, sugar,lime juice,soda water,mint,lime   |
+    | name     | ingredients                                   | newingredient | confirmation       |
+    | Fireball | Canadian whisky,sweetener,cinnamon flavouring | lime          | UPDATE-RECIPE-INGREDIENT| 
+    | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime	       | UPDATE-RECIPE-INGREDIENT|
 
 Scenario Outline: User adds duplicate ingredient to the recipe
 	When the user "User1" with password "userpassword1" is logged into their account
