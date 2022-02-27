@@ -9,6 +9,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env: 
+  PORT: 5000
+  NODE_ENV: development
+  DEV_URI: mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/test?retryWrites=true&w=majority
+  DEV_API_HOST: http://localhost
+  DEV_API_PORT: 5000
+  DEV_CLIENT_HOST: http://localhost
+  DEV_CLIENT_PORT: 3000 
+    
 defaults:
   run:
     working-directory: backend
@@ -17,15 +26,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env: 
-      PORT: 5000
-      NODE_ENV: development
-      DEV_URI: mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/test?retryWrites=true&w=majority
-      DEV_API_HOST: http://localhost
-      DEV_API_PORT: 5000
-      DEV_CLIENT_HOST: http://localhost
-      DEV_CLIENT_PORT: 3000 
-    
+   
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
