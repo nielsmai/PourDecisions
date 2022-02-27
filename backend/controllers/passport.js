@@ -9,7 +9,7 @@ module.exports = function (passport) {
             if (username == null || password == null) {
                     return done(null, false, { message: "LOGIN-EMPTY-FIELD" })
             }
-            console.log(username)
+            // console.log(username)
             User.findOne({username})
             .then( user => {
                 if (!user) {

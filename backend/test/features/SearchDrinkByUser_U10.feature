@@ -19,7 +19,7 @@ I should be able to view all drinks created by the searched user with their rati
 
     When the user "user1" with password "userpassword1" is logged into their account
 	And the user searches a drink made by "user1"
-	Then the list of drinks shall be "Margarita, Kiwi Mojito"
+	Then the list of drinks shall be "Margarita,Kiwi Mojito"
 
 Scenario: Search a custom drink with a user which does not exist
 

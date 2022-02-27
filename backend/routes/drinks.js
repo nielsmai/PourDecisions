@@ -76,11 +76,11 @@ router.get('/:name/name', function(req,res){
     getDrinkByName(req,res)
 })
 
-router.get('/tags/:tags', function(req,res){
+router.get('/tag/:tag', function(req,res){
     getDrinkByTag(req,res)
 })
 
-router.get('/ingredients', function(req,res){
+router.get('/filter/ingredients', function(req,res){
     getDrinkByIngredients(req,res)
 })
 
@@ -91,47 +91,4 @@ router.delete('/ingredients', (req, res) => {
 router.delete('/recipes', (req, res) => {
     deleteAllRecipes(req, res);
 })
-
-router.get('/', function(req,res){
-    getAllDrinks(req,res)
-})
-
-router.get('/:username/a', function(req,res){
-    getAllDrinksAlpha(req,res)
-})
-
-router.get('/:username/n', function(req,res){
-    getAllDrinksNewest(req,res)
-})
-
-router.get('/:username/r', function(req,res){
-    getAllDrinksRating(req,res)
-})
-
-router.get('/:username/custom', function(req,res){
-    getPersonalCustomDrinks(req,res)
-})
-
-router.get('/:username/ra', function(req,res){
-    getAllDrinksAboveRating(req,res)
-})
-
-router.get('/:username', function(req,res){
-    getDrinkByUser(req,res)
-})
-
-router.get('/:name/name', function(req,res){
-    getDrinkByName(req,res)
-})
-
-router.get('/tags', function(req,res){
-    getDrinkByTag(req,res)
-})
-
-router.get('/ingredients', function(req,res){
-    getDrinkByIngredients(req,res)
-})
-
-
-
 module.exports = router;
