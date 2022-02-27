@@ -1,19 +1,21 @@
 import './App.css';
-import CreateDrink from "./components/createDrink/createDrink.js";
-//<button onClick={<CreateDrink />}>Click</button>
-//<CreateDrink />
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import CreateDrink from "./components/createDrink/createDrink";
+import Home from "./components/home/home"
+import Navbar from './components/navbar/navbar';
 
+function App() { 
   return (
-    <div className="App">
-      
-      <h1>PourDecisions</h1>
-
-      
-    </div>
-    
-  );
+    <Router>
+        <Navbar />
+       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/drinks" element={<CreateDrink />} />
+      </Routes>
+    </Router>
+    );
 }
 
 export default App;

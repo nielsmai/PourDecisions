@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-export default function CreateDrink() {
+export default function createDrink() {
 
-    const [name, setDrink] = useState("");
-    const [pub, setPublic] = useState(false);
-    const [rating, setRating] = useState(0);
+    // const [name, setDrink] = useState("");
+    // const [pub, setPublic] = useState(false);
+    // const [rating, setRating] = useState(0);
 
     return (
         <>
@@ -32,8 +32,7 @@ export default function CreateDrink() {
         <form>
         <input type="text"
                 name="drinkName"
-                placeholder="Drink Name"
-                onChange={(event) => {setDrink(event.target.value)}}>
+                placeholder="Drink Name">
                 </input>
             <br></br>
             <input type="garnish"
@@ -46,8 +45,6 @@ export default function CreateDrink() {
                 <br></br>
             <input type="checkbox" 
                 name="pub"
-                value={pub}
-                onChange={(event) => {setPublic(event.target.checked)}}
                 >
                 </input>
             
@@ -65,6 +62,5 @@ export default function CreateDrink() {
             <input type="submit" value="Submit"></input>
         </form>
         </>
-    );
-
+    )
 }
