@@ -132,9 +132,24 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
+        console.log("INGREDIENTS",req.params)
         const ingredients = req.params.ingredients.split(",")
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$elemMatch: {ingredientName: {$in: 
-            ingredients}}}}, {public_status : true}]})
+        const drinks = await Drink.find({
+            "$and": [
+              {
+                "recipe.ingredients": {
+                  "$elemMatch": {
+                    ingredientName: {
+                      "$in": ingredients
+                    }
+                  }
+                }
+              },
+              {
+                public_status: true
+              }
+            ]
+          })
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})

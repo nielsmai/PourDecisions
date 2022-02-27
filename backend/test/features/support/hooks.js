@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { BeforeAll, After } = require('@cucumber/cucumber');
+const { BeforeAll, After, AfterAll } = require('@cucumber/cucumber');
 
 require('dotenv').config({path:__dirname+'/./../../../.env'});
 
@@ -35,4 +35,16 @@ After(async function () {
         ("After error: ", err.message)
     }
 
+})
+
+AfterAll(async function () {
+
+    try {
+        var res = await AXIOS.delete('/drinks/')
+        var res = await AXIOS.delete('/drinks/ingredients')
+        var res = await AXIOS.delete('/drinks/recipes')
+        var res = await AXIOS.delete('/users/')
+    } catch (err) {
+        ("AfterAll error: ", err.message)
+    }
 })

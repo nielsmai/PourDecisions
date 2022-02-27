@@ -77,12 +77,11 @@ router.get('/:name/name', function(req,res){
 })
 
 router.get('/tag/:tag', function(req,res){
-    console.log("lowball")
     getDrinkByTag(req,res)
 })
 
-router.get('/ingredients', function(req,res){
-    console.log("brickowens")
+router.get('/ingredients/:ingredients', function(req,res){
+    console.log("RESTFUL-INGREDIENTS")
     getDrinkByIngredients(req,res)
 })
 
