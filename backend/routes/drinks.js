@@ -20,8 +20,9 @@ const {
     changeStatus,
     addIngredient,
     removeIngredient,
-    removeDrink
-
+    removeDrink,
+    getAllIngredients,
+    getIngredientByName
 } = require('../controllers/drinks');
 
 const router = express.Router();
@@ -111,4 +112,15 @@ router.delete('/ingredients', (req, res) => {
 router.delete('/recipes', (req, res) => {
     deleteAllRecipes(req, res);
 })
+
+router.get('/ingredients/all', function(req, res){
+    getAllIngredients(req, res)
+})
+
+router.get('ingredients/:ingredientName/name', function(req,res){
+    getIngredientByName(req,res)
+})
+
+
+
 module.exports = router;
