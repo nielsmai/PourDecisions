@@ -49,7 +49,7 @@ export default function ChangePasswordAccount() {
                 </div>
 
                 <div >
-                    <a class = "button" href="http://localhost:3000">Create Account</a>
+                    <a class = "button" href="javascript:location.reload(true)">Create Account</a>
                 </div>
                 <br></br>
                 <br></br>
