@@ -35,7 +35,13 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Log into Docker
+      uses: docker/login-action@v1
+      with:
+        username: pourdecisionsapp
+        password: ECSE428-w2022
+
     - name: Start containers
       run: docker-compose -f "../docker-compose.yml" up -d --build
 
