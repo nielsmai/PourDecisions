@@ -9,6 +9,7 @@ module.exports = function (passport) {
             if (username == null || password == null) {
                     return done(null, false, { message: "LOGIN-EMPTY-FIELD" })
             }
+            // console.log(username)
             User.findOne({username})
             .then( user => {
                 if (!user) {
@@ -29,7 +30,7 @@ module.exports = function (passport) {
 }
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id)
+    done(null, user._id)
 })
 
 passport.deserializeUser(function (id, done) {

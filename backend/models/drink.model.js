@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const {recipeSchema} = require('./recipe.model');
+const { recipeSchema } = require('./recipe.model');
 
 // var Schema, assuming that content of Drink can be modified
 var drinkSchema = new Schema({

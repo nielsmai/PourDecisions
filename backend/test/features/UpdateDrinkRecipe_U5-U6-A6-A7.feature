@@ -14,17 +14,17 @@ Background:
   		| Admin1    | adpassword1   |
     Given the user "Admin1" with password "adpassword1" is an admin
 	Given the following drinks exist in the system:
-		| name       | ingredients                                     | author | status |
-		| Fireball   | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
-		| Mint Julep | Bourbon, Simple syrup, mint, whiskey            | User1  | private|
-		| Mojitos    | white rum, sugar,lime juice,soda water,mint     | User1  | public |
+		| name       | rating | ingredients                                     | author | status |
+		| Fireball   | 0 | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
+		| Mint Julep | 0 |Bourbon, Simple syrup, mint, whiskey            | User1  | private|
+		| Mojitos    | 0 | white rum, sugar,lime juice,soda water,mint     | User1  | public |
 	
 Scenario Outline: User successfully changes status of the recipe
 	
 	The recipe should be private and should not be able to be seen by other
 
-	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user changes the recipe's status
+	When the user "User1" with password "userpassword1" is logged into their account
+	And the user changes the recipe's status
 	Then the recipe status shall be "<status>" and a confirmation message "<confirmation>" shall be raised
 
 	Examples:
@@ -36,8 +36,8 @@ Scenario Outline: User successfully adds an ingredient to the recipe
 	
 	The ingredients list is updated
 
-	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
+	When the user "User1" with password "userpassword1" is logged into their account
+	And the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
 	Then the new ingredient "<newingredient>" shall be added to drink "<name>"
 	Then the new ingredients list "<newingredientlist>" shall be displayed
 	
@@ -47,8 +47,8 @@ Scenario Outline: User successfully adds an ingredient to the recipe
     | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime	       | white rum, sugar,lime juice,soda water,mint,lime   |
 
 Scenario Outline: User adds duplicate ingredient to the recipe
-	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
+	When the user "User1" with password "userpassword1" is logged into their account
+	And the user modifies the drink "<name>" by adding a new ingredient "<newingredient>"
 	Then the new ingredient "<newingredient>" shall not be added to drink "<name>"
   	And an error message "<error>" shall be raised
 
@@ -60,8 +60,8 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
 	
 	The ingredients list is updated
 
-  	Given the user "User1" with password "userpassword1" is logged into their account
-	When the user modifies the drink "<name>" by removing the ingredient "<oldingredient>"
+  	When the user "User1" with password "userpassword1" is logged into their account
+	And the user modifies the drink "<name>" by removing the ingredient "<oldingredient>"
 	Then the ingredient "<oldingredient>" shall be removed from the drink "<name>"
 
 	Examples:
@@ -71,8 +71,8 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
     
 
 Scenario: Admin deletes a drink recipe
-	Given the user "Admin1" with password "adpassword1" is logged into their account
-   	When the admin "Admin" deletes the drink "Fireball"
+	When the user "Admin1" with password "adpassword1" is logged into their account
+   	And the admin "Admin" deletes the drink "Fireball"
    	Then there shall be "1" less drink recipe in the system
 
 

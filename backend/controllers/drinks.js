@@ -215,6 +215,7 @@ module.exports.deleteAllRecipes = async (req, res) => {
     } 
 }
 
+
 module.exports.getAllIngredients = async (req, res) => {
     try {
         const ingredients = await Ingredient.find();
@@ -223,6 +224,7 @@ module.exports.getAllIngredients = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 }
+
 
 // module.exports.getIngredientByName = async (req,res) => {
 //     try {

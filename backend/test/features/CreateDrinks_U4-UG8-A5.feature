@@ -8,25 +8,26 @@ Background:
 		| username | password      |
 		| User1    | userpassword1 | 
 	Given the following drinks exist in the system:
-		| name     | likes | ingredients | author |
-		| Fireball | 0     | Canadian whisky, sweetener, cinnamon flavouring | User1  |
-	Given the user "User1" with password "userpassword1" is logged into their account
+		| name     | likes | ingredients | author | status |
+		| Fireball | 0     | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
 	
 Scenario: User successfully creates a new drink recipe
 	
 	Drink shall be successfully created
 
-	When the user "User1" creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
-	Then the new drink "<name>" is added to the system
+	When the user "User1" with password "userpassword1" is logged into their account
+	And the user "User1" creates a new drink recipe with the name "Daiquiri" and the ingredients "rum,citrus juice,sugar"
+	Then the new drink "Daiquiri" is added to the system
 	
 Scenario Outline: User unsuccessfully creates a new drink
 
 	Drink shall not be successfully created
 
-	When the user "User1" creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
+	When the user "User1" with password "userpassword1" is logged into their account
+	And the user "User1" creates a new drink recipe with the name "<name>" and the ingredients "<ingredients>"
 	Then an error message "<error>" shall be raised
 
-  Example: 
+        Examples: 
     | name     | ingredients            | error                          |
     |          | rum,citrus juice,sugar | CREATE-DRINK-NAME-EMPTY        |
     | Daiquiri |                        | CREATE-DRINK-INGREDIENTS-EMPTY |
