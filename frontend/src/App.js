@@ -4,34 +4,33 @@ import ChangePasswordAccount from "./components/changePasswordAccount/changePass
 import DrinksPage from "./components/viewDrinks/viewDrinks.js"
 import ViewAccount from "./components/viewAccount/viewAccount.js"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CreateDrink, { IngredientsList } from "./components/createDrink/createDrink";
+import Home from "./components/home/home"
+import Navbar from './components/navbar/navbar';
+import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
-//<button onClick={<CreateDrink />}>Click</button>
-//<CreateDrink />
-function App() {
 
-
+function App() { 
   return (
-    //ChangePasswordAccount()
+        //ChangePasswordAccount()
     //DrinksPage()
     ViewAccount()
-    // <div className="App">
-      
-    //   <h1>PourDecisions</h1>
-
-      
-    // </div>
-
-
     // <div className="wrapper">
-    //   <h1>PourDecisions</h1>
-    //   <BrowserRouter>
-    //     <Routes>
+    //   <Router>
+    //       <Navbar />
+    //      <Routes>
+    //       <Route path="/" element={<Home />} />
+    //       <Route path="/drinks" element={<CreateDrink />} />
+    //       <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
+    //       <Route path="/drinks/test" element = {<IngredientsList/>}/>
     //       <Route path="/LogInAccount" element={<LogInAccount/>} />
     //     </Routes>
-    //   </BrowserRouter>
+    //   </Router>
     // </div>
-    
-  );
+    );
 }
 
 export default App;

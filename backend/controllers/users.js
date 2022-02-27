@@ -60,12 +60,68 @@ module.exports.createUser = async (req, res) => {
     }
 }
 
-module.exports.updateUser = async (req, res) => {
+module.exports.updatePassword = async (req, res) => {
     
-    const { username, password, newPassword } = req.body;
-    const updatedUser = User({username, password});
+    try {
+        // given username and old password
+        const username = req.params.username
+        var { password, newPassword, confirmNewPassword } = req.body
+      
+        // check for empty/not matching passwords
+        if (password == "" || password == undefined) {
+            res.status(400).json({message: "PASSWORD-CHANGE-OLD-EMPTY"})
+        }
+        else if (newPassword == "" || newPassword == undefined) {
+            res.status(400).json({message: "PASSWORD-CHANGE-NEW-EMPTY"})
+        }
+        else if (confirmNewPassword== "" || confirmNewPassword == undefined) {
+            res.status(400).json({message: "PASSWORD-CHANGE-CONFIRM-EMPTY"})
+        }
+        else if (newPassword != confirmNewPassword) {
+            res.status(400).json({message: "PASSWORD-CHANGE-CONFIRM-NO-MATCH"})
+        }
+        else {
+            // find user by username
+            let userQuery = await User.findOne({username: username})
+            // if user exists
+            if (userQuery) {
+                // compare passwords
+                userQuery.comparePassword(password, (err, isMatch) => {
+                    if (err) res.status(500).json({message: "Something went wrong."})
+                    // if it's a match
+                    else if (isMatch) {
+                        // hash the password
+                        User.encrypt(newPassword, async (err, hash) => {
+                            if (err) res.status(500).json({message:"Something went wrong."})
 
-    // Not exactly how the hashing works here so leaving blank
+                            // find user and update password
+                            let update = await User.findOneAndUpdate({username: username}, {
+                                password: hash 
+                            })
+                            // success
+                            if (update) {
+                                res.status(200).json({message: "PASSWORD-CHANGE-SUCCESSFUL"})
+                            // failure
+                            } else {
+                                res.status(500).json({message: "Something went wrong."})
+                            }
+                        })
+                    } else {
+                        res.status(400).json({message: "PASSWORD-CHANGE-OLD-INVALID"})
+                    }
+                })
+
+            } else {
+                res.status(400).json({message: "USER-DOES-NOT-EXIST"})
+            }
+
+        }
+
+
+    } catch (err) {
+        res.status(500).json({message: "Something went wrong."})
+    }
+
 }
 
 module.exports.deleteAll = async (req, res) => {

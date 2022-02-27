@@ -28,4 +28,6 @@ var Ingredient = mongoose.model('Ingredient', ingredientSchema);
 module.exports = {
     Ingredient,
     ingredientSchema
+
 }
+

@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { BeforeAll, AfterAll } = require('@cucumber/cucumber');
+const { BeforeAll, After, AfterAll } = require('@cucumber/cucumber');
 
 require('dotenv').config({path:__dirname+'/./../../../.env'});
 
@@ -17,51 +17,34 @@ BeforeAll(async function () {
 
     try {
         var res = await AXIOS.delete('/drinks/')
-        console.log("drinks wiped")
         var res = await AXIOS.delete('/drinks/ingredients')
-        console.log("ingredients wiped")
         var res = await AXIOS.delete('/drinks/recipes')
-        console.log("recipes wiped")
-        // var res = await AXIOS.delete('/users/')
-        // console.log("users wiped")
-
+        var res = await AXIOS.delete('/users/')
     } catch (err) {
-        console.log("BeforeAll error: ", err.message)
+        ("BeforeAll error: ", err.message)
     }
-    // AXIOS.delete('/users/')
-    // .then(() => {
-    //     // console.log("users wiped")
-    //     AXIOS.delete('/drinks/')
-    //     .then(() => {
-    //         // console.log("drinks wiped")
-    //         AXIOS.delete('/drinks/ingredients')
-    //         .then(() => {
-    //             // console.log("ingredients wiped")
-    //             AXIOS.delete('/drinks/recipes')
-    //             .then(() => {
-    //                 // console.log("recipes wiped")
-    //                 callback()
-    //             })
-    //         })
-
-    //     })
-    // })
-    // // callback()
 })
 
-// AfterAll(async function () {
-//     try {
-//         var res = await AXIOS.delete('/drinks/')
-//         console.log("drinks wiped")
-//         var res = await AXIOS.delete('/drinks/ingredients')
-//         console.log("ingredients wiped")
-//         var res = await AXIOS.delete('/drinks/recipes')
-//         console.log("recipes wiped")
-//         var res = await AXIOS.delete('/users/')
-//         console.log("users wiped")
+After(async function () {
+    try {
+        var res = await AXIOS.delete('/drinks/')
+        var res = await AXIOS.delete('/drinks/ingredients')
+        var res = await AXIOS.delete('/drinks/recipes')
+        var res = await AXIOS.delete('/users/')
+    } catch (err) {
+        ("After error: ", err.message)
+    }
 
-//     } catch (err) {
-//         console.log("AfterAll error: ", err.message)
-//     }
+})
 
-// })
+AfterAll(async function () {
+
+    try {
+        var res = await AXIOS.delete('/drinks/')
+        var res = await AXIOS.delete('/drinks/ingredients')
+        var res = await AXIOS.delete('/drinks/recipes')
+        var res = await AXIOS.delete('/users/')
+    } catch (err) {
+        ("AfterAll error: ", err.message)
+    }
+})

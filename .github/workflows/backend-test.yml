@@ -9,6 +9,15 @@ on:
   pull_request:
     branches: [ main ]
 
+env: 
+  PORT: 5000
+  NODE_ENV: development
+  DEV_URI: mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/test?retryWrites=true&w=majority
+  DEV_API_HOST: http://localhost
+  DEV_API_PORT: 5000
+  DEV_CLIENT_HOST: http://localhost
+  DEV_CLIENT_PORT: 3000 
+    
 defaults:
   run:
     working-directory: backend
@@ -17,12 +26,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+   
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+        
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -32,6 +41,8 @@ jobs:
         cache: 'npm'
     - name: Install dependencies 
       run: npm ci
+    - name: Start server
+      run: npm start &
     - name: Run Cucumber tests and Check coverage
       run: |
         npm test | tail -3 | if [[ $(grep -E 'undefined|failed|skipped') ]]; then exit 1; else echo "all tests passed!"; fi;  
