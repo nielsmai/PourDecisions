@@ -81,6 +81,9 @@ router.get('/tag/:tag', function(req,res){
 })
 
 router.get('/ingredients/:ingredients', function(req,res){
+    //yE
+    //sdfasbecause thsi make sense
+    // and sacomfri to resutsl
     console.log("RESTFUL-INGREDIENTS")
     getDrinkByIngredients(req,res)
 })
