@@ -326,7 +326,7 @@ Then('the user is logged out of the system with a confirmation message {string}'
 
 When('the user {string} provides the drink name {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/' + string2 + '/name', {
+    let res = await AXIOS.get('/drinks/' + string2.replaceAll(' ', '_') + '/name', {
     })
     if (res.data.length === 0) {
       this.errorMsg = "RECIPE-NOT-FOUND"
@@ -441,7 +441,7 @@ Then('the user\'s new password is now {string} and a confirmation message {strin
 
 When('the user changes the {string}\'s status to {string}', async function (string, string2) {
     try {
-        const name = string
+        const name = string.replaceAll(' ', '_')
         const public_status = string2 
 
         let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/status', {
@@ -458,7 +458,7 @@ When('the user changes the {string}\'s status to {string}', async function (stri
 When('the user modifies the drink {string} by adding a new ingredient {string}', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     try {
-        const name = string
+        const name = string.replaceAll(' ', '_')
         const ingredientName = string2
 
         let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/ingredient', {
@@ -494,7 +494,7 @@ Then('the new ingredient {string} shall be added to drink {string}', function (s
 When('the admin {string} deletes the drink {string}', async function (string, string2) {
     try{
         const admin = string
-        const name = string2
+        const name = string2.replaceAll(' ', '_')
 
          // would need to query the user's isAdmin normally
         const isAdmin = Boolean(admin.includes("admin"))
@@ -514,7 +514,7 @@ When('the admin {string} deletes the drink {string}', async function (string, st
 
 When('the user modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {
     try{
-        const name = string
+        const name = string.replaceAll(" ", "_")
         const ingredientName = string2
 
         let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/remove/ingredient', {
