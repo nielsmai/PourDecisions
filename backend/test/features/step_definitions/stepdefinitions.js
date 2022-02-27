@@ -1,7 +1,6 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
-const e = require('express');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -71,7 +70,6 @@ When('the user {string} with password {string} is logged into their account', as
 
 Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actionsj
-  
 
     try {
         const table = dataTable.rows()
@@ -436,14 +434,26 @@ Then('the user\'s new password is now {string} and a confirmation message {strin
     
 // });
 
-When('the user {string} favourites the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// When('the user {string} favourites the drink {string}', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
-When('the user changes the recipe\'s status', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('the user changes the {string}\'s status to {string}', async function (string, string2) {
+    try {
+        const name = string
+        const public_status = string2 
+
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/status', {
+            public_status: public_status
+        })
+        this.confirmMsg = {
+            message: res.data.message,
+            newStatus: string2
+        }
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
 When('the user modifies the drink {string} by adding a new ingredient {string}', function (string, string2) {
@@ -451,10 +461,10 @@ When('the user modifies the drink {string} by adding a new ingredient {string}',
   return 'pending';
 });
 
-Then('the drink {string} shall be in the user {string}\'s catalogue', function (string, string2) {      
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Then('the drink {string} shall be in the user {string}\'s catalogue', function (string, string2) {      
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
 Then('the new ingredient {string} shall be added to drink {string}', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
@@ -492,8 +502,8 @@ Then('the drink {string} shall have {string} more like', function (string, strin
 });
 
 Then('the recipe status shall be {string} and a confirmation message {string} shall be raised', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert.equal(this.confirmMsg.newStatus, string)
+    assert.equal(this.confirmMsg.message, string2)
 });
 
 Then('the new ingredient {string} shall not be added to drink {string}', function (string) {

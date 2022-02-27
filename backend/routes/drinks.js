@@ -16,7 +16,8 @@ const {
     getDrinkByName,
     getDrinkByUser,
     getDrinkByTag,
-    getDrinkByIngredients
+    getDrinkByIngredients,
+    changeStatus
 
 } = require('../controllers/drinks');
 
@@ -82,6 +83,10 @@ router.get('/tag/:tag', function(req,res){
 
 router.get('/filter/ingredients', function(req,res){
     getDrinkByIngredients(req,res)
+})
+
+router.put('/:username/:name/update/status', function(req, res) {
+   changeStatus(req, res) 
 })
 
 router.delete('/ingredients', (req, res) => {

@@ -173,6 +173,30 @@ module.exports.createIngredient = async (req, res) => {
     }
 }
 
+module.exports.changeStatus = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const public_status = (req.body.public_status == "public") ? true: false
+
+    
+    try {
+       const update = await Drink.findOneAndUpdate({
+            author: author,
+            name: name
+        },{
+            public_status: public_status 
+        })
+        if (update){
+            res.status(200).json({message: "UPDATE-RECIPE-STATUS"})
+        } else {
+            res.status(400).json({message: "COULD-NOT-UPDATE-STATUS"})
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {

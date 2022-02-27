@@ -24,11 +24,11 @@ Scenario Outline: User successfully changes status of the recipe
 	The recipe should be private and should not be able to be seen by other
 
 	When the user "User1" with password "userpassword1" is logged into their account
-	And the user changes the recipe's status
+	And the user changes the "<drink>"'s status to "<status>"
 	Then the recipe status shall be "<status>" and a confirmation message "<confirmation>" shall be raised
 
 	Examples:
-    | recipe     | status | confirmation         |
+    | drink     | status | confirmation         |
     | Fireball   | private| UPDATE-RECIPE-STATUS |
     | Mint Julep | public | UPDATE-RECIPE-STATUS |
 

@@ -1,7 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-var SALT_WORK_FACTOR = 10;
 
 const User = require('../models/user.model');
 
