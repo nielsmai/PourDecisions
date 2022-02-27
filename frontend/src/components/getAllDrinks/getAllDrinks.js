@@ -1,42 +1,36 @@
 import React, { useState } from 'react';
+import './getAlldrinks.css'
 
-function getAllDrinks() {
+export default function getAllDrinks() {
 
     return (
 
     <div>
-        <div class="searchBar">
-            <Form>
-            <FormControl
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
+        <div class="searchBar" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '40vh'}}>
+           
+            <form action="/" method="get">
+            <label htmlFor="header-search">
+                <span className="visually-hidden">Search</span>
+            </label>
+            <input
+                type="text"
+                id="header-search"
+                placeholder="Search Drinks"
+                name="s" 
             />
-            <button type="button">Search</button>
-            </Form>
+            <a class = "button" href="http://localhost:3000">Search</a>
+            </form>
         </div>
-        <div class="filters">
+
+        <div class="filters" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '0vh'}}>
             <button type="button" class="filters">Alcoholic</button>
             <button type="button" class="filters">Mocktail</button>
             <button type="button" class="filters">Custom</button>
-            <button type="button" class="filters">Newst</button>
+            <button type="button" class="filters">Newest</button>
             <button type="button" class="filters">Popularity</button>
-        </div>
-
-        <div class="filters">
-        <Card>
-        <Card.Header as="h5">Alcoholic</Card.Header>
-        <Card.Body>
-            <Card.Title>Easy Whiskey Sour</Card.Title>
-            <Card.Text>
-            58 Likes
-            Ingredients: Bourbon, Lemon juice, Syrup
-            </Card.Text>
-            <Button variant="primary">View details</Button>
-        </Card.Body>
-        </Card>
-        </div>
+        </div>  
+               
     </div>
     );
 
-} export default getAllDrinks
+}
