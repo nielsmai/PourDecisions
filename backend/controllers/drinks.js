@@ -332,3 +332,24 @@ module.exports.deleteAllRecipes = async (req, res) => {
 }
 
 
+module.exports.getAllIngredients = async (req, res) => {
+    try {
+        const ingredients = await Ingredient.find();
+        res.status(200).json(ingredients);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+
+// module.exports.getIngredientByName = async (req,res) => {
+//     try {
+//         const name = req.params.ingredientName.replaceAll('_',' ')
+//         const ingredients = await Ingredient.find({$and: [{ingredientName: new RegExp(name,'i')}]})
+//             res.status(200).json(ingredients);
+        
+//     } catch (err) {
+//         res.status(500).json({message: err.message})
+//     }
+// }
+
