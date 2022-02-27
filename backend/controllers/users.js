@@ -100,7 +100,7 @@ module.exports.updatePassword = async (req, res) => {
                             })
                             // success
                             if (update) {
-                                res.status(200).json({message: "PASSWORD-CHANGED-SUCCESSFUL"})
+                                res.status(200).json({message: "PASSWORD-CHANGE-SUCCESSFUL"})
                             // failure
                             } else {
                                 res.status(500).json({message: "Something went wrong."})
