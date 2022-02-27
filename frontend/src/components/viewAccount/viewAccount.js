@@ -1,33 +1,13 @@
-import './changePasswordAccount.css'
-import './martini.png'
+import './viewAccount.css'
+//import './martini.png'
 import './arrow.png'
-export default function ChangePasswordAccount() {
+export default function ViewAccount() {
 
-    // function reloadPage() {
-
-    //     const refreshPage = ()=>{
-    //        window.location.reload();
-    //     }
-      
-    //     return (
-    //       <div>
-    //         <h1>{Math.random()}</h1>
-    //         <button onClick={refreshPage}>Refresh</button>
-    //       </div>
-    //     );
-    //   }
-
-    // PasswordChanged : false
-
-    // const printmessage = ()=>{
-    //     window.localStorage.setItem('passwordChangeSuccess', true);
-    //     PasswordChanged : true
-    // };
 
     return (
         <>
             <body>
-                <h1>Enter the following information below</h1>
+                <h1>Account information</h1>
                 
                 <div>
 
@@ -48,11 +28,7 @@ export default function ChangePasswordAccount() {
                             <p ><b>Password</b></p>
                         </th>
                         <td >
-                            <form>
-                                <input v-model="oldPass" placeholder="Old Password"></input>
-                                <input v-model="newPass" placeholder="New Password"></input>
-                                <input v-model="confirmPass" placeholder="Confirm New Password"></input>
-                            </form>
+                            <p class="dark" ><b>PasswordNOW</b></p>
                         </td>
                     </tr>
 
@@ -68,7 +44,7 @@ export default function ChangePasswordAccount() {
                 </div>
 
                 <div >
-                    <a class = "button" href="http://localhost:3000">Apply Changes</a>
+                    <a class = "button" href="http://localhost:3000">Edit</a>
                     {/* <button onClick={printmessage}>Password changed!</button>
                     <p v-if={PasswordChanged} class="dark" ><b>Password Changed Successfully!</b></p> */}
                     

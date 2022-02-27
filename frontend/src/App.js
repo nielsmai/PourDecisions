@@ -1,6 +1,8 @@
 import './App.css';
 import CreateDrink from "./components/createDrink/createDrink.js";
 import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount.js"
+import DrinksPage from "./components/viewDrinks/viewDrinks.js"
+import ViewAccount from "./components/viewAccount/viewAccount.js"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LogInAccount from './components/logInAccount/logInAccount';
 //<button onClick={<CreateDrink />}>Click</button>
@@ -9,7 +11,9 @@ function App() {
 
 
   return (
-    ChangePasswordAccount()
+    // ChangePasswordAccount()
+    //DrinksPage()
+    ViewAccount()
     // <div className="App">
       
     //   <h1>PourDecisions</h1>
