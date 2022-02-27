@@ -132,8 +132,7 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        console.log("INGREDIENTS",req.params)
-        const ingredients = req.params.ingredients.split(",")
+        const ingredients = req.query.ingredients
         const drinks = await Drink.find({
             "$and": [
               {

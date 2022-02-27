@@ -335,7 +335,10 @@ When('the user {string} provides the drink name {string}', async function (strin
 
 When('the user {string} provides a list of ingredients {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/ingredients/' + string2, {
+    let res = await AXIOS.get('/drinks/filter/ingredients', {
+        params:{
+            ingredients: string2.split(',')
+        }
     })
     this.listDrinks = res.data
   } catch (error) {}
