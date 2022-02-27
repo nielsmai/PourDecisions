@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "cucumber-js test --publish-quiet --format progress-bar",
+    "test": "cucumber-js test --publish-quiet",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

@@ -173,6 +173,117 @@ module.exports.createIngredient = async (req, res) => {
     }
 }
 
+module.exports.changeStatus = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const public_status = (req.body.public_status == "public") ? true: false
+
+    
+    try {
+       const update = await Drink.findOneAndUpdate({
+            author: author,
+            name: name
+        },{
+            public_status: public_status 
+        })
+        if (update){
+            res.status(200).json({message: "UPDATE-RECIPE-STATUS"})
+        } else {
+            res.status(400).json({message: "COULD-NOT-UPDATE-STATUS"})
+        }
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+
+}
+
+module.exports.addIngredient = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const { ingredientName, ingredientType } = req.body
+
+    const ingredient = new Ingredient({ingredientName, ingredientType}) 
+
+    try {
+        let update = await Drink.findOneAndUpdate( {
+            "$and": [
+                {
+                    author: author,
+                    name: name,
+                },
+                {
+                    "recipe.ingredients.ingredientName":{
+                        '$nin': [ingredientName]
+                    }
+                }
+            ] 
+
+        },{
+            "$push": {
+                'recipe.ingredients': ingredient
+            }
+        })
+        if (update) res.status(200).json({message: "UPDATE-RECIPE-INGREDIENT"})
+        else res.status(400).json({message: "UPDATE-RECIPE-DUPLICATE"})
+
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
+module.exports.removeIngredient = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const { ingredientName } = req.body
+
+    try {
+        let remove = await Drink.findOneAndUpdate({
+            "$and": [
+                {
+                    author: author,
+                    name: name
+                },
+                {
+                    "recipe.ingredients.ingredientName":{
+                        '$in': [ingredientName]
+                    }
+                    
+                },
+                {
+                    // can only remove an element if more than 1 element
+                    "recipe.ingredients.2": {'$exists': true}
+                }
+            ]
+        },{
+            "$pull":{
+                'recipe.ingredients': {ingredientName: ingredientName}
+            }
+
+        })
+        if (remove) res.status(200).json({message: "UPDATE-RECIPE-REMOVE-INGREDIENT"})
+        else res.status(400).json({message: "UPDATE-RECIPE-REMOVE-INGREDIENT-UNSUCCESSFUL"})
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
+module.exports.removeDrink = async (req, res) => {
+    const name = req.params.name.replaceAll('_',' ')
+    const { isAdmin } = req.body
+
+    try {
+        if (isAdmin) {
+            let del = await Drink.findOneAndDelete({name:name})
+            if (del) res.status(200).json({message: "DRINK-DELETED-SUCCESSFULLY"})
+            else res.status(400).json({message: "DRINK-DOES-NOT-EXIST"})
+        } else {
+            res.status(400).json({message: "NOT-ADMIN"})
+        }
+    } catch (err) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {
