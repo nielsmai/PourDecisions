@@ -481,19 +481,35 @@ Then('the new ingredient {string} shall be added to drink {string}', function (s
     assert(this.confirmMsg != "")
 });
 
-Then('there shall be {string} less drink recipe in the system', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Then('there shall be {string} less drink recipe in the system', function (string) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
 // Then('the new ingredients list {string} shall be displayed', function (string) {
 //   // Write code here that turns the phrase above into concrete actions
 //   return 'pending';
 // });
 
-When('the admin {string} deletes the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('the admin {string} deletes the drink {string}', async function (string, string2) {
+    try{
+        const admin = string
+        const name = string2
+
+         // would need to query the user's isAdmin normally
+        const isAdmin = Boolean(admin.includes("admin"))
+
+        let res = await AXIOS.delete('/drinks/'+name+'/delete', {
+            data:{
+                isAdmin: isAdmin 
+            }
+        })
+
+        this.confirmMsg = res.data.message
+
+    }catch (err) {
+        console.log(this.errorMsg)
+    }
 });
 
 When('the user modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {

@@ -267,6 +267,23 @@ module.exports.removeIngredient = async (req, res) => {
     }
 }
 
+module.exports.removeDrink = async (req, res) => {
+    const name = req.params.name.replaceAll('_',' ')
+    const { isAdmin } = req.body
+
+    try {
+        if (isAdmin) {
+            let del = await Drink.findOneAndDelete({name:name})
+            if (del) res.status(200).json({message: "DRINK-DELETED-SUCCESSFULLY"})
+            else res.status(400).json({message: "DRINK-DOES-NOT-EXIST"})
+        } else {
+            res.status(400).json({message: "NOT-ADMIN"})
+        }
+    } catch (err) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {

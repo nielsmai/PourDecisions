@@ -19,7 +19,8 @@ const {
     getDrinkByIngredients,
     changeStatus,
     addIngredient,
-    removeIngredient
+    removeIngredient,
+    removeDrink
 
 } = require('../controllers/drinks');
 
@@ -97,6 +98,10 @@ router.put('/:username/:name/update/ingredient', function(req, res) {
 
 router.put('/:username/:name/remove/ingredient', function (req, res) {
     removeIngredient(req,res)
+})
+
+router.delete('/:name/delete', function (req, res) {
+    removeDrink(req, res)
 })
 
 router.delete('/ingredients', (req, res) => {

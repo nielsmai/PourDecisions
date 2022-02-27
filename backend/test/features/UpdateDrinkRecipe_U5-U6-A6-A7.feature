@@ -74,7 +74,8 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
 Scenario: Admin deletes a drink recipe
 	When the user "admin" with password "adpassword1" is logged into their account
    	And the admin "admin" deletes the drink "Fireball"
-   	Then there shall be "1" less drink recipe in the system
+	Then a confirmation message "DRINK-DELETED-SUCCESSFULLY" shall be raised
 
-
+    # TODO SPRINT 2
+    # Prob allow users to delete their drinks
 
