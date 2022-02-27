@@ -1,34 +1,28 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-const express = require('express');
-const mongoose = require('mongoose');
+const passport = require('passport')
 
-// import User from '../models/user.model.js';
-const User = require('../models/user.model');
-
-const router = express.Router();
-
-
-module.exports.login = function(username,password) {
-    if (password == null){
-        throw 'LOGIN-FIELD-EMPTY';
+module.exports.login = function (req, res, next) {
+    const { username, password } = req.body
+    if (username == undefined || password == undefined || username == "" || password == ""){
+        res.status(400).json({message: "LOGIN-FIELD-EMPTY"})
+    }else {
+        passport.authenticate('local', (err, user) => {
+            
+            req.logIn(user, (err) => {
+                // console.log("CURRENT USER: ", user)
+                if (err) {
+                    res.status(500).json({message: "LOGIN-INVALID"})
+                } else {
+                    res.status(200).json({message: "LOGIN-SUCCESSFUL"})
+                }
+            })
+        }) (req, res, next)
     }
-    if (username == null){
-        throw 'LOGIN-FIELD-EMPTY';
-    }
-    User.findOne({username}, function(err, user) {
-        if (err) {
-            throw 'LOGIN-INVALID'
-        }
-        else if (user.password != password) {
-            throw 'LOGIN-INVALID';
-        }
-        else {
-            sessionStorage.setItem('status', 'loggedIn');
-            return true;
-        }
-    })
-};
 
-// export default router;
-module.exports = router;
+    // }) (req, res, next)
+    // if (req.user) {
+    //     res.status(200).json({message: "LOGIN-SUCCESSFUL"})
+    // }else {
+    //     res.status(500).json({message: "LOGIN-INVALID"})
+    // }
+}
+

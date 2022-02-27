@@ -1,16 +1,12 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
-// import bcrypt from 'bcrypt';
-// var SALT_WORK_FACTOR = 10;
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 var SALT_WORK_FACTOR = 10;
 
-// import User from '../models/user.model.js';
 const User = require('../models/user.model');
 
 const router = express.Router();
+module.exports = router;
 
 module.exports.getAllUsers = async (req, res) => {
     try {
@@ -22,21 +18,46 @@ module.exports.getAllUsers = async (req, res) => {
     }
 }
 
+module.exports.getUserByUsername = async (req, res) => {
+    try  {
+        const { username } = req.params
+        let userQuery = await User.findOne({username: username})
+        if (userQuery){
+            res.status(200).json(userQuery)
+        }
+        else res.status(400).json({message: "NO-USER"})
+    }catch (err) {
+        console.log("something went wrong in getUserByUsername")
+        // res.status(500).json({message: "Something went wrong when getting user by username"})
+    }
+}
+
 module.exports.createUser = async (req, res) => {
     
-    const { username, password } = req.body;  
-    const newUser = new User({username, password});
-    
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            // save them to database
-            newUser.save()
-            .then(() => res.json(newUser))
-            .catch(err => res.status(409).json({ message: err.message }));
-        });
-    });
+    try {
+        const { username, password, email } = req.body;  
+
+        if (username == undefined || username == "") {
+            res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-USER"})
+        }
+        else if (password == undefined || password == "") {
+            res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-PASS"})
+        }else{
+            let newUser = await User.findOne({username:username});
+
+            if (newUser) {
+                // add more stuff if this works
+                res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
+            } else {
+                newUser = new User({username, password, email});
+                await newUser.save()
+                res.status(200).json({message: "USER-CREATED"})
+            }
+        }
+
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
 }
 
 module.exports.updateUser = async (req, res) => {
@@ -47,10 +68,15 @@ module.exports.updateUser = async (req, res) => {
     // Not exactly how the hashing works here so leaving blank
 }
 
-module.exports.logIn = async (req, res) => {}
+module.exports.deleteAll = async (req, res) => {
+    try {
+        const del = await User.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+    
+}
 
-module.exports.logOut = async (req, res) => {}
 
 
-// export default router;
-module.exports = router;

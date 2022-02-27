@@ -15,7 +15,7 @@ Scenario: Successful login with correct credential
 	When the user logs in using "<username>" and "<password>"
 	Then the user shall be logged in
     
-    Example: 
+    Examples: 
     | username | password      |
     | User1    | userpassword1 |
 
@@ -27,7 +27,7 @@ Scenario Outline: Unsuccessful login with incorrect or missing credentials
 	Then the user is not logged in 
 	And an error message "<error>" shall be raised
 
-  Example: 
+  Examples: 
     | username | password      | error             |
     | User1    |               | LOGIN-FIELD-EMPTY |
     |          | userpassword1 | LOGIN-FIELD-EMPTY |

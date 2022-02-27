@@ -1,12 +1,13 @@
-// import express from 'express';
-// import mongoose from 'mongoose';
 const express = require('express');
 const mongoose = require('mongoose');
 
-// import { Drink, Recipe, Ingredient } from '../models/drink.model.js';
-const { Drink, Recipe, Ingredient } = require('../models/drink.model');
+const Drink = require('../models/drink.model');
+const { Recipe } = require('../models/recipe.model');
+const { Ingredient } = require('../models/ingredient.model');
 
 const router = express.Router();
+
+module.exports = router;
 
 module.exports.getAllDrinks = async (req, res) => {
     try {
@@ -18,22 +19,34 @@ module.exports.getAllDrinks = async (req, res) => {
 }
 
 module.exports.createDrink = async (req, res) => {
-    const drink = req.body;  
+    // const drink = req.body;  
+    const { name, author, recipe, tag, public_status, rating } = req.body;
 
-    const newDrink = new Drink(drink);
+    // const newDrink = new Drink(drink);
+    const newDrink = new Drink({ name, author, recipe, tag, public_status, rating } );
 
     try {
         await newDrink.save();
         res.status(201).json(newDrink);
     } catch (err) {
-        res.status(409).json({ message: err.message });
+        var errorMessage = err.message
+        if (name == undefined || name == ""){
+            errorMessage = "CREATE-DRINK-NAME-EMPTY"
+        }else if (author == undefined || author == ""){
+            errorMessage = "CREATE-DRINK-AUTHOR-EMPTY"
+        }else if (recipe.ingredients == []){
+            errorMessage = "CREATE-DRINK-INGREDIENTS-EMPTY"
+        } 
+        res.status(409).json({ message: errorMessage});
     }
 }
 
+
 module.exports.getAllDrinksAlpha = async (req,res) => {
     try {
+        const author = req.params.username
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {name : 1});
+            [ {author: author}, {public_status : true } ] } ).sort( {name : 1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -42,8 +55,9 @@ module.exports.getAllDrinksAlpha = async (req,res) => {
 
 module.exports.getAllDrinksNewest = async (req,res) => {
     try {
+        const author = req.params.username
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public} ] } ).sort( {timestamps : 'desc'});
+            [ {author: author}, {public_status : true} ] } ).sort( {createdAt : 'desc'});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -52,8 +66,9 @@ module.exports.getAllDrinksNewest = async (req,res) => {
 
 module.exports.getAllDrinksRating = async (req,res) => {
     try {
+        const author = req.params.username
         const drinks = await Drink.find( { $or: 
-            [ {author: req}, {status: public } ] } ).sort( {rating : -1});
+            [ {author: author}, {public_status : true} ] } ).sort( {rating : -1});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -62,7 +77,8 @@ module.exports.getAllDrinksRating = async (req,res) => {
 
 module.exports.getPersonalCustomDrinks = async (req,res) => {
     try {
-        const drinks = await Drink.find( {author: req});
+        const author = req.params.username
+        const drinks = await Drink.find( {$and: [{author: author},{tag: 'CUSTOM'}]});
             res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -71,7 +87,10 @@ module.exports.getPersonalCustomDrinks = async (req,res) => {
 
 module.exports.getAllDrinksAboveRating = async (req,res) => {
     try {
-        const drinks = await Drink.find( {rating: {$gt: req}});
+        const author = req.params.username
+        const rating = parseInt(req.params.rating)
+        const drinks = await Drink.find( {$and: [{rating: {$gt: rating}}, { $or: 
+            [ {author: author}, {public_status : true} ] }]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({ message: err.message });
@@ -80,24 +99,31 @@ module.exports.getAllDrinksAboveRating = async (req,res) => {
 
 module.exports.getDrinkByUser = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{author:req}, {status: public}]})
-        res.status(200).json(drinks);
+        const author = req.params.username
+        const drinks = await Drink.find({$and: [{author: author}, {public_status : true}]})
+        
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: err.message})
+        res.status(500).json({message: err.message})
     }
 }
+
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{name:req}, {status: public}]})
-        res.status(200).json(drinks);
+        const name = req.params.name.replaceAll('_',' ')
+        const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: "RECIPE-NOT-FOUND"})
+        res.status(500).json({message: err.message})
     }
 }
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{tag: {$in: req}}, {status: public}]})
+        const tag = req.params.tag
+        const drinks = await Drink.find({$and: [{tag: tag}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -106,46 +132,87 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: req}}, {status: public}]})
+        const ingredients = req.query.ingredients
+        const drinks = await Drink.find({
+            "$and": [
+              {
+                "recipe.ingredients": {
+                  "$elemMatch": {
+                    ingredientName: {
+                      "$in": ingredients
+                    }
+                  }
+                }
+              },
+              {
+                public_status: true
+              }
+            ]
+          })
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
     }
 }
 
+module.exports.createIngredient = async (req, res) => {
+    // const ingredient = req.body;  
+    const { ingredientName, ingredientType } = req.body
 
-module.exports.createIngredient = (req, _res) => {
-    const ingredient = req.body;
-    const newIngredient = new Ingredient(ingredient);
-    return newIngredient;
+    const newIngredient = new Ingredient({ingredientName, ingredientType});
+
+    try {
+        await newIngredient.save();
+        res.status(201).json(newIngredient);
+    } catch (err) {
+        var errorMessage = err.message
+        if (ingredientName == undefined || ingredientName == ""){
+            errorMessage = "UNDEFINED-INGREDIENT-NAME"
+        }
+        res.status(409).json({ message: errorMessage });
+    }
 }
 
-module.exports.createRecipe = (req, _res) => {
-    const recipe = req.body;
+// // temporary for testing 
+module.exports.deleteAllDrinks = async (req, res) => {
+    try {
+        const del = await Drink.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
+
+module.exports.deleteAllIngredients = async (req, res) => {
+    try {
+        const del = await Ingredient.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
+
+module.exports.createRecipe = async (req, res) => {
+    const recipe = req.body
+
     const newRecipe = new Recipe(recipe);
-    return newRecipe;
+
+    try {
+        await newRecipe.save();
+        res.status(201).json(newRecipe);
+    } catch (err) {
+        res.status(409).json({ message: err.message });
+    }
 }
 
-router.get('/', function(req,res){
-    getAllDrinks(req,res)
-})
+// temporary for testing 
+module.exports.deleteAllRecipes = async (req, res) => {
+    try {
+        const del = await Recipe.deleteMany({});
+        res.status(200).json({del});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+}
 
-router.get('/:user/a', function(req,res){
-    getAllDrinksAlpha(req,res)
-})
-
-router.get('/:user/n', function(req,res){
-    getAllDrinksNewest(req,res)
-})
-
-router.get('/:user/r', function(req,res){
-    getAllDrinksRating(req,res)
-})
-
-router.get('/', function(req,res){
-    get
-})
-
-// export default router;
-module.exports = router;
 

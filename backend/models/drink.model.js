@@ -1,7 +1,7 @@
 // import mongoose from 'mongoose';
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const recipeSchema = require('./recipe.model');
+const { recipeSchema } = require('./recipe.model');
 
 // var Schema, assuming that content of Drink can be modified
 var drinkSchema = new Schema({
@@ -14,12 +14,10 @@ var drinkSchema = new Schema({
         type: String,
         enum: ['ALCOHOLIC', 'MOCKTAIL', 'CUSTOM', 'CLASSIC'],
         default: 'CUSTOM',
-        required: true
     },
     public_status: {
         type: Boolean,
         default: true,
-        required: true
     },
     author: {
         type: String,
@@ -28,9 +26,12 @@ var drinkSchema = new Schema({
     },
     rating: { 
         type: Number,
-        required: true
+        default: 0,
     },
-    recipe: recipeSchema
+    recipe: {
+        type: recipeSchema,
+        required: true,
+    }
 
 }, {
     timestamps: true,
@@ -40,4 +41,4 @@ var drinkSchema = new Schema({
 var Drink = mongoose.model('Drink', drinkSchema);
 
 // export { Drink, Recipe, Ingredient }; 
-module.exports = { Drink };
+module.exports = Drink;
