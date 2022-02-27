@@ -35,25 +35,23 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - name: Install dependencies 
       run: npm ci
-    - name: Docker 
-      run: docker-compose up
+
     - name: Run Cucumber tests and Check coverage
       run: |
         npm test | tail -3 | if [[ $(grep -E 'undefined|failed|skipped') ]]; then exit 1; else echo "all tests passed!"; fi;  
 
-    - name: Delete docker
-      run: |
-        ids=$(docker ps -a -q)
-        for id in $ids
-        do
-          echo "$id"
-          docker stop $id && docker rm $id
-        done
-          
+    - name: Stop containers 
+      if: always() 
+      run: docker-compose -f "docker-compose.yml" down
