@@ -101,10 +101,11 @@ module.exports.getDrinkByUser = async (req,res) => {
     try {
         const author = req.params.username
         const drinks = await Drink.find({$and: [{author: author}, {public_status : true}]})
-
-        res.status(200).json(drinks);
+        
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: 'SEARCH-INVALID-USER'})
+        res.status(500).json({message: err.message})
     }
 }
 
@@ -112,9 +113,10 @@ module.exports.getDrinkByName = async (req,res) => {
     try {
         const name = req.params.name.replaceAll('_',' ')
         const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
-        res.status(200).json(drinks);
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: "RECIPE-NOT-FOUND"})
+        res.status(500).json({message: err.message})
     }
 }
 

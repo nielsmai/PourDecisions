@@ -1,6 +1,7 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
+const e = require('express');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -322,9 +323,13 @@ When('the user {string} provides the drink name {string}', async function (strin
   try {
     let res = await AXIOS.get('/drinks/' + string2 + '/name', {
     })
-  this.listDrinks = res.data
+    if (res.data.length === 0) {
+      this.errorMsg = "RECIPE-NOT-FOUND"
+    } else{
+      this.listDrinks = res.data
+    }
   } catch (error) {
-    this.errorMessage = error.response.data.message
+    this.errorMsg = error.response.data.message
   }
 });
 
@@ -362,9 +367,13 @@ When('the user searches a drink made by {string}', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
     })
-  this.listDrinks = res.data
+    if (res.data.length === 0) {
+      this.errorMsg = "SEARCH-INVALID-USER"
+    } else{
+      this.listDrinks = res.data
+    }
   } catch (error) {
-    this.errorMessage = error.response.data.message
+    this.errorMsg = error.response.data.message
   }
 });
 
