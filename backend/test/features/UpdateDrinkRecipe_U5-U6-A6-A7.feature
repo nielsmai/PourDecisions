@@ -15,9 +15,9 @@ Background:
     # Given the user "admin" with password "adpassword1" is an admin
 	Given the following drinks exist in the system:
 		| name       | rating | ingredients                                     | author | status |
-		| Fireball   | 0 | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
-		| Mint Julep | 0 |Bourbon, Simple syrup, mint, whiskey            | User1  | private|
-		| Mojitos    | 0 | white rum, sugar,lime juice,soda water,mint     | User1  | public |
+		| Fireball   | 0 | Canadian whisky,sweetener,cinnamon flavouring | User1  | public |
+		| Mint Julep | 0 |Bourbon,Simple syrup,mint,whiskey            | User1  | private|
+		| Mojitos    | 0 | white rum,sugar,lime juice,soda water,mint     | User1  | public |
 	
 Scenario Outline: User successfully changes status of the recipe
 	
@@ -63,11 +63,12 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
   	When the user "User1" with password "userpassword1" is logged into their account
 	And the user modifies the drink "<name>" by removing the ingredient "<oldingredient>"
 	Then the ingredient "<oldingredient>" shall be removed from the drink "<name>"
+	Then a confirmation message "<confirmation>" shall be raised
 
 	Examples:
-    | name     | ingredients                                   | oldingredient | newingredientlist                   |
-    | Fireball | Canadian whisky,sweetener,cinnamon flavouring | sweetener     | Canadian whisky,cinnamon flavouring |
-    | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime juice    | white rum, sugar,soda water,mint    |
+    | name     | ingredients                                   | oldingredient | newingredientlist                   | confirmation       |
+    | Fireball | Canadian whisky,sweetener,cinnamon flavouring | sweetener     | Canadian whisky,cinnamon flavouring | UPDATE-RECIPE-REMOVE-INGREDIENT| 
+    | Mojitos  | white rum, sugar,lime juice,soda water,mint   | lime juice    | white rum, sugar,soda water,mint    | UPDATE-RECIPE-REMOVE-INGREDIENT|
     
 
 Scenario: Admin deletes a drink recipe

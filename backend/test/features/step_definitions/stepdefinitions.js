@@ -496,20 +496,31 @@ When('the admin {string} deletes the drink {string}', function (string, string2)
   return 'pending';
 });
 
-When('the user modifies the drink {string} by removing the ingredient {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+When('the user modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {
+    try{
+        const name = string
+        const ingredientName = string2
+
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/remove/ingredient', {
+            ingredientName: ingredientName
+        })
+
+        this.confirmMsg = res.data.message
+
+
+    }catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
 Then('the ingredient {string} shall be removed from the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert(this.confirmMsg != "")
 });
 
-Then('the drink {string} shall have {string} more like', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Then('the drink {string} shall have {string} more like', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
 Then('a confirmation message {string} shall be raised', function (string) {
     assert.equal(this.confirmMsg, string)

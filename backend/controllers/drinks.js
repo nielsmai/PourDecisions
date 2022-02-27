@@ -231,6 +231,42 @@ module.exports.addIngredient = async (req, res) => {
     }
 }
 
+module.exports.removeIngredient = async (req, res) => {
+    const author = req.params.username
+    const name = req.params.name.replaceAll('_',' ')
+    const { ingredientName } = req.body
+
+    try {
+        let remove = await Drink.findOneAndUpdate({
+            "$and": [
+                {
+                    author: author,
+                    name: name
+                },
+                {
+                    "recipe.ingredients.ingredientName":{
+                        '$in': [ingredientName]
+                    }
+                    
+                },
+                {
+                    // can only remove an element if more than 1 element
+                    "recipe.ingredients.2": {'$exists': true}
+                }
+            ]
+        },{
+            "$pull":{
+                'recipe.ingredients': {ingredientName: ingredientName}
+            }
+
+        })
+        if (remove) res.status(200).json({message: "UPDATE-RECIPE-REMOVE-INGREDIENT"})
+        else res.status(400).json({message: "UPDATE-RECIPE-REMOVE-INGREDIENT-UNSUCCESSFUL"})
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {

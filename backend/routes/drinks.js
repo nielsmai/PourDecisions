@@ -18,7 +18,8 @@ const {
     getDrinkByTag,
     getDrinkByIngredients,
     changeStatus,
-    addIngredient
+    addIngredient,
+    removeIngredient
 
 } = require('../controllers/drinks');
 
@@ -92,6 +93,10 @@ router.put('/:username/:name/update/status', function(req, res) {
 
 router.put('/:username/:name/update/ingredient', function(req, res) {
     addIngredient(req,res)
+})
+
+router.put('/:username/:name/remove/ingredient', function (req, res) {
+    removeIngredient(req,res)
 })
 
 router.delete('/ingredients', (req, res) => {
