@@ -104,14 +104,14 @@ module.exports.getDrinkByUser = async (req,res) => {
 
         res.status(200).json(drinks);
     } catch (err) {
-        res.status(404).json({message: err.message})
+        res.status(404).json({message: 'SEARCH-INVALID-USER'})
     }
 }
 
 module.exports.getDrinkByName = async (req,res) => {
     try {
         const name = req.params.name.replaceAll('_',' ')
-        const drinks = await Drink.find({$and: [{name: name}, {public_status : true}]})
+        const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: "RECIPE-NOT-FOUND"})
@@ -120,8 +120,8 @@ module.exports.getDrinkByName = async (req,res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const tags = req.params.tags
-        const drinks = await Drink.find({$and: [{tag: {$in: tags}}, {public_status : true}]})
+        const tag = req.params.tag
+        const drinks = await Drink.find({$and: [{tag: tag}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -130,8 +130,9 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const ingredients = req.params.ingredients
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: ingredients}}, {public_status : true}]})
+        const ingredients = req.params.ingredients.split(",")
+        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$elemMatch: {ingredientName: {$in: 
+            ingredients}}}}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})

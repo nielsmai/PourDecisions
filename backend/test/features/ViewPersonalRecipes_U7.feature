@@ -9,9 +9,9 @@ Background:
 		| User2    | userpassword2 |
 		| User3    | userpassword3 |
 	Given the following drinks exist in the system:
-		| name     | likes | ingredients           	                       | author | status |
-		| Fireball | 0     | Canadian whisky,sweetener,cinnamon flavouring | User1  | public |
-		| Mojitos  | 0     | white rum, sugar,lime juice,soda water,mint   | User2  | public |
+		| name     | likes | ingredients           	                       | author | status | tag |
+		| Fireball | 0     | Canadian whisky,sweetener,cinnamon flavouring | User1  | public |CUSTOM|
+		| Mojitos  | 0     | white rum, sugar,lime juice,soda water,mint   | User2  | public |CUSTOM|
 	
 	Scenario: User view all of their custom drink recipes
 	
