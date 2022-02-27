@@ -7,11 +7,10 @@ import Home from "./components/home/home"
 import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
+import CreateAdmin from './components/createAdmin/createAdmin'
 
 function App() { 
-
   
-
   return (
     <div className="wrapper">
       <Router>
@@ -22,6 +21,7 @@ function App() {
           <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
           <Route path="/drinks/test" element = {<IngredientsList/>}/>
           <Route path="/account/login" element={<LogInAccount/>} />
+          <Route path="/setup" element={<CreateAdmin/>} />
         </Routes>
       </Router>
     </div>
