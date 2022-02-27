@@ -1,6 +1,7 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
+const e = require('express');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -23,7 +24,6 @@ Given('the following accounts exist in the system:', async function (dataTable) 
   // Write code here that turns the phrase above into concrete actions
     // iterate through table
     // this is temporary, hooks does not seem to be working correctly
-    let wipe = await AXIOS.delete('/users/')
     try {
         const table = dataTable.rows()
         for (var i in table) {
@@ -71,6 +71,8 @@ When('the user {string} with password {string} is logged into their account', as
 
 Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actionsj
+  
+
     try {
         const table = dataTable.rows()
         for (let i in table) {
@@ -81,8 +83,14 @@ Given('the following drinks exist in the system:', async function (dataTable) {
             const author = row[3]
             // const public_status = row[4]
             var public_status = true
+            var tag = 'CUSTOM'
+
             if (row[4] != "public"){
                 public_status = false
+            }
+
+            if (row.length === 6){
+              tag = row[5]
             }
 
             // create ingredients
@@ -109,11 +117,11 @@ Given('the following drinks exist in the system:', async function (dataTable) {
                 author: author,
                 rating: likes,
                 public_status: public_status,
-                recipe: recipe 
+                recipe: recipe,
+                tag: tag
             })
-
-
-        }
+          }
+        
     
     } catch (err) {
        this.errorMsg = err.response.data.message 
@@ -321,68 +329,69 @@ Then('the user is logged out of the system with a confirmation message {string}'
 When('the user {string} provides the drink name {string}', async function (string, string2) {
   try {
     let res = await AXIOS.get('/drinks/' + string2 + '/name', {
-      user: string,
-      name: string2
     })
-  listDrinks = res.data
-  } catch (error) {}
+    if (res.data.length === 0) {
+      this.errorMsg = "RECIPE-NOT-FOUND"
+    } else{
+      this.listDrinks = res.data
+    }
+  } catch (error) {
+    this.errorMsg = error.response.data.message
+  }
 });
 
 When('the user {string} provides a list of ingredients {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/ingredients', {
-      user: string,
-      ingredients : string2.split(",")
+    let res = await AXIOS.get('/drinks/filter/ingredients', {
+        params:{
+            ingredients: string2.split(',')
+        }
     })
-    listDrinks = res.data
+    this.listDrinks = res.data
   } catch (error) {}
 });
 
 When('the user {string} provides a list of tags {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/tags', {
-      user: string,
-      tags : string2.split(",")
+    let res = await AXIOS.get('/drinks/tag/' + string2, {
     })
-  listDrinks = res.data
-  } catch (error) {}
+  this.listDrinks = res.data
+  } catch (error) {
+  }
 });
 
 When('the user {string} provides a like range of {string}', async function (string, string2) { 
   try {
-    let res = await AXIOS.get('/drinks/' + string +'/ra', {
-      user: string,
-      rating: parseInt(string2)
+    let res = await AXIOS.get('/drinks/' + string +'/ra/' + string2, {
     })
-  listDrinks = res.data
-  } catch (error) {}
+  this.listDrinks = res.data
+  } catch (error) {
+    console.log("rangerror")
+  }
 });
 
 When('the user searches a drink made by {string}', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string, {
-      username: string
     })
-  listDrinks = res.data
-  } catch (error) {}
+    if (res.data.length === 0) {
+      this.errorMsg = "SEARCH-INVALID-USER"
+    } else{
+      this.listDrinks = res.data
+    }
+  } catch (error) {
+    this.errorMsg = error.response.data.message
+  }
 });
 
 Then('the drink with name {string}, likes {string} shall be returned', function (string, string2) {
-  assert.ok(listDrinks.name === string && listDrinks.rating === parseInt(string2));
+  assert.ok(this.listDrinks[0].name === string && this.listDrinks[0].rating === parseInt(string2));
 });
 
 Then('the list of drinks shall be {string}', function (string) {
   var resultList = string.split(",");
-  var match = true;
-  for(var i = 0; i < resultList.length; i++)
-  {
-    if (resultList[i] != listDrinks[i])
-    {
-      match = false;
-      break;
-    }
-  }
-  assert.ok(match);
+  this.listDrinks = this.listDrinks.map(drink => drink.name)
+  assert.deepStrictEqual(this.listDrinks, resultList);
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -500,36 +509,40 @@ When('the user {string} requests to view the drinks in alphabetical order', asyn
   try {
     let res = await AXIOS.get('/drinks/' + string +'/a', {
     })
+    this.listDrinks = res.data.map(drink => drink.name)
   } catch (error) {}
-  listDrinks = res.data.map(drink => drink.name)
+  
 });
 
 Then('the list of drinks is displayed in alphabetical order', function () {
-  assert.ok(!!listDrinks.reduce((n,name) => n !== false && name.localeCompare(n) >= 0 && name))
+  assert.ok(!!this.listDrinks.reduce((n,name) => n !== false && name.localeCompare(n) >= 0 && name))
 });
 
 When('the user {string} requests to view drinks by newest', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string + '/n', {
     })
+    this.listDrinks = res.data.map(drink => drink.createdAt)
   } catch (error) {}
-  listDrinks = res.data.map(drink => drink.createdAt)
+  
 });
 
 Then('the list of drinks is displayed in order of their creation', function () {
-  assert.ok(!!listDrinks.reduce((n,createdAt) => n !== false && createdAt <= n && createdAt))
+  assert.ok(!!this.listDrinks.reduce((n,createdAt) => n !== false && createdAt <= n && createdAt))
 });
 
 When('the user {string} requests to view drinks by their rating', async function (string) {
   try {
-    let res = await AXIOS.get('/drinks' + string + '/r', {
-    }).then()
+    let res = await AXIOS.get('/drinks/' + string + '/r', {
+    })
+    this.listDrinks = res.data.map(drink => drink.rating) 
   } catch (error) {}
-  listDrinks = res.data.map(drink => drink.rating) 
+  
 });
 
 Then('the list of drinks is displayed in descending order of their rating', function () {
-  assert.ok(!!listDrinks.reduce((n,rating) => n !== false && rating <= n && rating))
+  // console.log("12314", this.listDrinks)
+  assert.ok(!!this.listDrinks.reduce((n,rating) =>  n != false && rating <= n && rating ))
 });
 
 // Given('that the user {string} has favourited the drink {string}', function (string, string2) {
@@ -547,23 +560,24 @@ Then('the list of drinks is displayed in descending order of their rating', func
 // });
 
 Then('no drinks shall be displayed.', function () {
-  assert.ok(listDrinks.length === 0);
+  assert.ok(this.listDrinks.length === 0);
 });
 
-When('the user {string} displays the list of custom drinks', async function () {
+When('the user {string} displays the list of custom drinks', async function (string) {
   try {
     let res = await AXIOS.get('/drinks/' + string + '/custom', {
       username: string
     })
+    this.listDrinks = res.data
   } catch (error) {}
-  listDrinks = res.data
+  
 });
 
 Then('the custom drinks {string} with author {string} shall be displayed', function (string, string2) { 
   
-  if (string2.length === 0){
-    assert.ok(listDrinks.length === 0)
+  if (string.length === 0){
+    assert.ok(this.listDrinks.length === 0)
   } else {
-    assert.ok(listDrinks.author === string2 && listDrinks.name === string)
+    assert.ok(this.listDrinks[0].author === string2 && this.listDrinks[0].name === string)
   }
 });
