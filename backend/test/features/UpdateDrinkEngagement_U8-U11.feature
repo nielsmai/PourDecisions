@@ -1,4 +1,5 @@
-Feature: Favourite and rating drinks
+# Feature: Favourite and rating drinks
+Feature: Rating drinks
 
 As a user I would like to mark a drink recipe as favourite so that
 I can come back to this recipe often, I can save it to my personal catalogue
@@ -14,13 +15,13 @@ Background:
     | name     | likes | ingredients                                     | author | status |
     | Fireball | 50    | Canadian whisky, sweetener, cinnamon flavouring | user2  | public |
 
-Scenario: Favourite an existing drink 
+# Scenario: Favourite an existing drink 
 
-  I should be able to favourite an existing drink successfully
+#   I should be able to favourite an existing drink successfully
 
-    When the user "username" with password "password" is logged into their account
-	And the user "username" favourites the drink "Fireball"
-	Then the drink "Fireball" shall be in the user "username"'s catalogue
+#     When the user "username" with password "password" is logged into their account
+# 	And the user "username" favourites the drink "Fireball"
+# 	Then the drink "Fireball" shall be in the user "username"'s catalogue
         
 Scenario: Rate an existing drink 
 

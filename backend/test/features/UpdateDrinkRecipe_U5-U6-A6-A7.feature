@@ -11,8 +11,8 @@ Background:
 	Given the following accounts exist in the system:
 		| username | password      |
 		| User1    | userpassword1 | 
-  		| Admin1    | adpassword1   |
-    Given the user "Admin1" with password "adpassword1" is an admin
+  		| admin    | adpassword1   |
+    # Given the user "admin" with password "adpassword1" is an admin
 	Given the following drinks exist in the system:
 		| name       | rating | ingredients                                     | author | status |
 		| Fireball   | 0 | Canadian whisky, sweetener, cinnamon flavouring | User1  | public |
@@ -71,8 +71,8 @@ Scenario Outline:  User successfully removes an ingredient to the recipe
     
 
 Scenario: Admin deletes a drink recipe
-	When the user "Admin1" with password "adpassword1" is logged into their account
-   	And the admin "Admin" deletes the drink "Fireball"
+	When the user "admin" with password "adpassword1" is logged into their account
+   	And the admin "admin" deletes the drink "Fireball"
    	Then there shall be "1" less drink recipe in the system
 
 

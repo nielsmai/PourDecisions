@@ -422,10 +422,10 @@ Then('the user\'s new password is now {string} and a confirmation message {strin
 ///////////////// UPDATE DRINK //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-Given('the user {string} with password {string} is an admin', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Given('the user {string} with password {string} is an admin', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+    
+// });
 
 When('the user {string} favourites the drink {string}', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions

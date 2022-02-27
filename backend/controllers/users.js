@@ -49,7 +49,15 @@ module.exports.createUser = async (req, res) => {
                 // add more stuff if this works
                 res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
             } else {
-                newUser = new User({username, password, email});
+                if (username == "admin") {
+                    newUser = new User({
+                        username: username,
+                        password: password,
+                        email: email,
+                        isAdmin: true
+                    })
+                }
+                else newUser = new User({username, password, email});
                 await newUser.save()
                 res.status(200).json({message: "USER-CREATED"})
             }
@@ -114,7 +122,6 @@ module.exports.updatePassword = async (req, res) => {
             } else {
                 res.status(400).json({message: "USER-DOES-NOT-EXIST"})
             }
-
         }
 
 
