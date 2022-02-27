@@ -5,7 +5,7 @@ class CustomWorld extends World {
     errorMsg = ""
     confirmMsg = ""
     listDrinks = []
-
+    currentUser = ""
     constructor(options) {
         super(options)
     }

@@ -42,24 +42,29 @@ UserSchema.pre('save', function(next) {
 
 
 });
-     
+
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     const currentPassword = this.password;
+    console.log("CANDIDATE PW: ", candidatePassword)
+    console.log("CURRENT PW: ", currentPassword)
     bcrypt.compare(candidatePassword, currentPassword, function(err, isMatch) {
         if (err) return cb(err);
+        console.log("IS MATCH?: ", isMatch)
         cb(null, isMatch);
     });
+    
 };
 
-// UserSchema.methods.comparePassword = function(candidatePassword) {
-//     const currentPassword = this.password; 
-//     return new Promise((resolve, reject) => {
-//         bcrypt.compare(candidatePassword, currentPassword, function(err, isMatch) {
-//             if (err) return reject(err);
-//             resolve(isMatch);
-//         });
-//     })
-// }
+UserSchema.statics.encrypt = function(password, cb) {
+    
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) return cb(err);
+        bcrypt.hash(password, salt, function (err, hash) {
+            if (err) return cb(err);
+            cb(null, hash);
+        });
+    });
+}
 
 // module.exports = mongoose.model('User', UserSchema);
 var User = mongoose.model('User', UserSchema);

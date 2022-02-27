@@ -1,6 +1,5 @@
 const express = require('express');
-const passport = require('passport')
-const { getAllUsers, createUser, updateUser, deleteAll, getUserByUsername } = require('../controllers/users');
+const { getAllUsers, createUser, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
@@ -44,6 +43,11 @@ router.get('/:username', (req, res) => {
     getUserByUsername(req,res)
     
 }) 
+
+router.put('/:username/update', (req, res) => {
+    updatePassword(req, res)
+})
+
 router.delete('/', (req, res) => {
     deleteAll(req,res)
 });
