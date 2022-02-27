@@ -14,10 +14,28 @@ var UserSchema = new Schema({
 
     // ObjectId: special type for unique identifiers (made of 24-character hexa String), use that instead of int / Number type
     userID: Schema.Types.ObjectId,
-    username: { type: String, required: true, unique: true, minlength: 4, trim: true },
-    password: { type: String, required: true, minlength: 8 },
-    email: { type: String, required: true, unique: true },
-    isAdmin : { type: Boolean, default: false }
+    username: { 
+        type: String, 
+        required: true, 
+        unique: true, 
+        minlength: 4, 
+        trim: true 
+    },
+    password: { 
+        type: String, 
+        required: true, 
+        minlength: 8 
+    },
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true 
+    },
+    role: {
+        type: String,
+        enum: ["User", "Admin"],
+        default: "User",
+    }
 },{
     timestamps: true
 });
