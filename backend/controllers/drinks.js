@@ -101,27 +101,29 @@ module.exports.getDrinkByUser = async (req,res) => {
     try {
         const author = req.params.username
         const drinks = await Drink.find({$and: [{author: author}, {public_status : true}]})
-
-        res.status(200).json(drinks);
+        
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: err.message})
+        res.status(500).json({message: err.message})
     }
 }
 
 module.exports.getDrinkByName = async (req,res) => {
     try {
         const name = req.params.name.replaceAll('_',' ')
-        const drinks = await Drink.find({$and: [{name: name}, {public_status : true}]})
-        res.status(200).json(drinks);
+        const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
+            res.status(200).json(drinks);
+        
     } catch (err) {
-        res.status(404).json({message: "RECIPE-NOT-FOUND"})
+        res.status(500).json({message: err.message})
     }
 }
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const tags = req.params.tags
-        const drinks = await Drink.find({$and: [{tag: {$in: tags}}, {public_status : true}]})
+        const tag = req.params.tag
+        const drinks = await Drink.find({$and: [{tag: tag}, {public_status : true}]})
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -130,8 +132,23 @@ module.exports.getDrinkByTag = async (req,res) => {
 
 module.exports.getDrinkByIngredients = async (req,res) => {
     try {
-        const ingredients = req.params.ingredients
-        const drinks = await Drink.find({$and: [{ 'recipe.ingredients': {$in: ingredients}}, {public_status : true}]})
+        const ingredients = req.query.ingredients
+        const drinks = await Drink.find({
+            "$and": [
+              {
+                "recipe.ingredients": {
+                  "$elemMatch": {
+                    ingredientName: {
+                      "$in": ingredients
+                    }
+                  }
+                }
+              },
+              {
+                public_status: true
+              }
+            ]
+          })
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -198,4 +215,25 @@ module.exports.deleteAllRecipes = async (req, res) => {
     } 
 }
 
+
+module.exports.getAllIngredients = async (req, res) => {
+    try {
+        const ingredients = await Ingredient.find();
+        res.status(200).json(ingredients);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+
+// module.exports.getIngredientByName = async (req,res) => {
+//     try {
+//         const name = req.params.ingredientName.replaceAll('_',' ')
+//         const ingredients = await Ingredient.find({$and: [{ingredientName: new RegExp(name,'i')}]})
+//             res.status(200).json(ingredients);
+        
+//     } catch (err) {
+//         res.status(500).json({message: err.message})
+//     }
+// }
 

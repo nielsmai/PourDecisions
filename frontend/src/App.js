@@ -1,21 +1,28 @@
 import './App.css';
-import CreateDrink from "./components/createDrink/createDrink.js";
-import CreateAccount from "./components/createAccount/createAccount.js"
-//<button onClick={<CreateDrink />}>Click</button>
-//<CreateDrink />
-function App() {
 
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CreateDrink, { IngredientsList } from "./components/createDrink/createDrink";
+import Home from "./components/home/home"
+import Navbar from './components/navbar/navbar';
+import { CreateIngredient } from './components/createDrink/createDrink';
+import LogInAccount from './components/logInAccount/logInAccount';
 
+function App() { 
   return (
-    CreateAccount()
-    // <div className="App">
-      
-    //   <h1>PourDecisions</h1>
-
-      
-    // </div>
-    
-  );
+    <div className="wrapper">
+      <Router>
+          <Navbar />
+         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/drinks" element={<CreateDrink />} />
+          <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
+          <Route path="/drinks/test" element = {<IngredientsList/>}/>
+          <Route path="/LogInAccount" element={<LogInAccount/>} />
+        </Routes>
+      </Router>
+    </div>
+    );
 }
 
 export default App;
