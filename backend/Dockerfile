@@ -1,5 +1,7 @@
 FROM node:12-alpine
 
+RUN apk update && apk add bash
+
 RUN mkdir -p /usr/src/app/backend
 WORKDIR /usr/src/app/backend
 

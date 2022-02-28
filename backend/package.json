@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "cucumber-js test --publish-quiet",
+    "test-failure": "cucumber-js test --publish-quiet | tail -3 | if [[ $(grep -E 'undefined|failed|skipped') ]]; then exit 1; else echo \"all tests passed!\"; fi;",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
