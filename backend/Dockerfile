@@ -7,7 +7,7 @@ WORKDIR /usr/src/app/backend
 
 COPY package*.json /usr/src/app/backend/
 
-RUN npm install
+RUN npm install --silent
 
 COPY . /usr/src/app/backend/ 
 
