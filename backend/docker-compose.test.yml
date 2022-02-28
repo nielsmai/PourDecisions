@@ -8,7 +8,7 @@ services:
     command:
       bash -c "npm test | tail -3 | if [[ $$(grep -E 'undefined|failed|skipped') ]]; then exit 1; else echo \"all tests passed!\"; fi;"  
     networks:
-      - mern-app
+      - ubuntu-latest 
     environment:
       - PORT=5000
       - ATLAS_URI=mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/deployed?retryWrites=true&w=majority
