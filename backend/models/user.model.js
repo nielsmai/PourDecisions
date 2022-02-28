@@ -31,10 +31,9 @@ var UserSchema = new Schema({
         required: true, 
         unique: true 
     },
-    role: {
-        type: String,
-        enum: ["User", "Admin"],
-        default: "User",
+    isAdmin : { 
+        type: Boolean, 
+        default: false 
     }
 },{
     timestamps: true

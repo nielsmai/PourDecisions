@@ -14,7 +14,7 @@ router.get('/', (req,res) => {
 
 router.post('/register', (req,res) => {
     createUser(req, res);
-});
+})
 
 // add forwardAuth 
 router.post('/login', (req, res, next) => {
@@ -50,6 +50,10 @@ router.put('/:username/update', (req, res) => {
 
 router.delete('/', (req, res) => {
     deleteAll(req,res)
+})
+
+router.post('/registerAdmin', (req, res) =>{
+    createAdmin(req, res);
 });
 
 module.exports = router;
