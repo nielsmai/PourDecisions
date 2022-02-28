@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 
 export default class CreateAdmin extends Component {
     constructor(props) {
@@ -15,7 +15,6 @@ export default class CreateAdmin extends Component {
             redirect: false
         }
     }
-
     onSubmit(e){
         e.preventDefault()
 
@@ -31,11 +30,10 @@ export default class CreateAdmin extends Component {
     }
     setLoginPassword = (e) => this.setState({password: e.target.value})
     setEmail = (e) => this.setState({email: e.target.value})
-    renderErrorMessage = (name) => name && <div className="error">{name}</div>
+    renderErrorMessage = (e) => e.target.value.length < 8 && <div className="error">Field Empty</div>
 
     render () {
-        if (redirect) return <Redirect to='account/login'/>
-
+        if(this.state.redirect)return <Navigate to="/account/login" replace={true}/>
         return (
             <div className="login">
             <form onSubmit={this.onSubmit}>
@@ -60,17 +58,15 @@ export default class CreateAdmin extends Component {
                             <div>
                             <h4 className="password">Email</h4>
                             </div>
-                            <input type="text" name="pass" required placeholder="email" onChange={(e)=> this.setEmail(e)}
+                            <input type="text" name="pass" required placeholder="email" onChange={(e)=> this.setEmail(e) && this.renderErrorMessage(e)}
                             />
-                            {this.renderErrorMessage("pass")}
                         </div>
                         <div className="formBottom">
                             <div>
                             <h4 className="password">Password</h4>
                             </div>
-                            <input type="text" name="pass" required placeholder="password" onChange={(e)=> this.setLoginPassword(e)}
+                            <input type="text" name="pass" required placeholder="password" onChange={(e)=> this.setLoginPassword(e) && this.renderErrorMessage(e)}
                             />
-                            {this.renderErrorMessage("pass")}
                         </div>
                         
                         <div className="loginButton">
