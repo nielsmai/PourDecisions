@@ -17,9 +17,12 @@ const {
     getDrinkByUser,
     getDrinkByTag,
     getDrinkByIngredients,
+    changeStatus,
+    addIngredient,
+    removeIngredient,
+    removeDrink,
     getAllIngredients,
     getIngredientByName
-  
 } = require('../controllers/drinks');
 
 const router = express.Router();
@@ -84,6 +87,22 @@ router.get('/tag/:tag', function(req,res){
 
 router.get('/filter/ingredients', function(req,res){
     getDrinkByIngredients(req,res)
+})
+
+router.put('/:username/:name/update/status', function(req, res) {
+   changeStatus(req, res) 
+})
+
+router.put('/:username/:name/update/ingredient', function(req, res) {
+    addIngredient(req,res)
+})
+
+router.put('/:username/:name/remove/ingredient', function (req, res) {
+    removeIngredient(req,res)
+})
+
+router.delete('/:name/delete', function (req, res) {
+    removeDrink(req, res)
 })
 
 router.delete('/ingredients', (req, res) => {
