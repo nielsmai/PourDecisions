@@ -4,6 +4,7 @@ services:
     container_name: api-test
     build:
       dockerfile: Dockerfile
+      context: .
     command:
       bash -c "npm test | tail -3 | if [[ $$(grep -E 'undefined|failed|skipped') ]]; then exit 1; else echo \"all tests passed!\"; fi;"  
     networks:
@@ -13,16 +14,12 @@ services:
       - ATLAS_URI = mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/deployed?retryWrites=true&w=majority
       - DEV_URI = mongodb+srv://pourdecisions:ecse428@pourdecisions-cluster.bs25h.mongodb.net/test?retryWrites=true&w=majority
       - NODE_ENV = development
-
       - API_HOST = https://pour-decisions-server.herokuapp.com
       - API_PORT = 443
-
       - DEV_API_HOST = http://127.0.0.1
       - DEV_API_PORT = 5000
-
       - CLIENT_HOST = https://pour-decisions-app.herokuapp.com
       - CLIENT_PORT = 443
-
       - DEV_CLIENT_HOST = http://127.0.0.1
       - DEV_CLIENT_PORT = 3000
     ports:
