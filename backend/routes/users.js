@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
+const { getAllUsers, createUser, createAdmin, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
