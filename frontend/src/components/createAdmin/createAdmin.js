@@ -6,32 +6,51 @@ export default class CreateAdmin extends Component {
     constructor(props) {
         super(props)
 
-        this.setLoginPassword = this.setLoginPassword.bind(this)
+        this.setPassword = this.setPassword.bind(this)
         this.setEmail = this.setEmail.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.validate = this.validate.bind(this)
         this.state ={
             password: '',
             email: '',
-            redirect: false
+            redirect: false,
+            emailErr:'',
+            passErr:'',
         }
     }
     onSubmit(e){
         e.preventDefault()
+        if (this.validate()) {
+            const username = 'admin'
+            const email = this.state.email
+            const password = this.state.password
 
-        const username = 'admin'
-        const email = this.state.email
-        const password = this.state.password
-
-        axios.post('http://localhost:5000/users/register',{
-            username : username,
-            password : password,
-            email: email
-        }).then(()=>this.setState({redirect: true}))
+            axios.post('http://localhost:5000/users/register',{
+                username : username,
+                password : password,
+                email: email
+            }).then(()=>this.setState({redirect: true}))  
+        }
+        
     }
-    setLoginPassword = (e) => this.setState({password: e.target.value})
-    setEmail = (e) => this.setState({email: e.target.value})
-    renderErrorMessage = (e) => e.target.value.length < 8 && <div className="error">Field Empty</div>
+    validate(){
+        let emailErr = ''
+        let passErr = ''
+        if (/.+@.+\.[A-Za-z]+$/.test(this.state.email) === false ){
+            emailErr = "Invalid Email"
+        } 
+        if(!this.state.password || this.state.password.length < 8){
+            passErr = "Invalid Password"
+        }
+        if (emailErr || passErr) {
+            this.setState ({emailErr: emailErr,passErr: passErr})
+            return false
+        }
+        return true
+    }
 
+    setPassword = (e) => this.setState({password: e.target.value})
+    setEmail = (e) => this.setState({email: e.target.value})
     render () {
         if(this.state.redirect)return <Navigate to="/account/login" replace={true}/>
         return (
@@ -41,7 +60,7 @@ export default class CreateAdmin extends Component {
                 <div className="boxLogInAccount">
                     <div className="row">
                     <div className="columnLeft">
-                        <h1></h1>
+                        <h1> </h1>
                     </div>
                     <div className="columnRight">
                         <div>
@@ -58,15 +77,17 @@ export default class CreateAdmin extends Component {
                             <div>
                             <h4 className="password">Email</h4>
                             </div>
-                            <input type="text" name="pass" required placeholder="email" onChange={(e)=> this.setEmail(e) && this.renderErrorMessage(e)}
+                            <input type="text" name="pass" required placeholder="email" onChange={(e)=> this.setEmail(e)}
                             />
+                            <span className='error'>{this.state.emailErr}</span>
                         </div>
                         <div className="formBottom">
                             <div>
                             <h4 className="password">Password</h4>
                             </div>
-                            <input type="text" name="pass" required placeholder="password" onChange={(e)=> this.setLoginPassword(e) && this.renderErrorMessage(e)}
+                            <input type="text" name="pass" required placeholder="password" onChange={(e)=> this.setPassword(e)}
                             />
+                            <span className='error'>{this.state.passErr}</span>
                         </div>
                         
                         <div className="loginButton">
