@@ -7,7 +7,8 @@ import Home from "./components/home/home"
 import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
-import CreateAdmin from './components/createAdmin/createAdmin'
+import CreateAdmin from './components/createAdmin/createAdmin';
+import LogOutAccount from './components/logOutAccount/logOutAccount';
 
 function App() { 
   
@@ -22,6 +23,7 @@ function App() {
           <Route path="/drinks/test" element = {<IngredientsList/>}/>
           <Route path="/account/login" element={<LogInAccount/>} />
           <Route path="/setup" element={<CreateAdmin/>} />
+          <Route path="/LogOutAccount" element={<LogOutAccount/>} />
         </Routes>
       </Router>
     </div>

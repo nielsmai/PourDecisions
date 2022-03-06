@@ -111,7 +111,8 @@ module.exports.getDrinkByUser = async (req,res) => {
 
 module.exports.getDrinkByName = async (req,res) => {
     try {
-        const name = req.params.name.replaceAll('_',' ')
+        const paramName = req.params.name
+        const name = paramName.replace(/_/g,' ')
         const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
             res.status(200).json(drinks);
         
@@ -175,7 +176,8 @@ module.exports.createIngredient = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
     const author = req.params.username
-    const name = req.params.name.replaceAll('_',' ')
+    const paramName = req.params.name
+    const name = paramName.replace(/_/g,' ')
     const public_status = (req.body.public_status == "public") ? true: false
 
     
@@ -199,7 +201,8 @@ module.exports.changeStatus = async (req, res) => {
 
 module.exports.addIngredient = async (req, res) => {
     const author = req.params.username
-    const name = req.params.name.replaceAll('_',' ')
+    const paramName = req.params.name
+    const name = paramName.replace(/_/g,' ')
     const { ingredientName, ingredientType } = req.body
 
     const ingredient = new Ingredient({ingredientName, ingredientType}) 
@@ -233,7 +236,8 @@ module.exports.addIngredient = async (req, res) => {
 
 module.exports.removeIngredient = async (req, res) => {
     const author = req.params.username
-    const name = req.params.name.replaceAll('_',' ')
+    const paramName = req.params.name
+    const name = paramName.replace(/_/g,' ')
     const { ingredientName } = req.body
 
     try {
@@ -268,7 +272,8 @@ module.exports.removeIngredient = async (req, res) => {
 }
 
 module.exports.removeDrink = async (req, res) => {
-    const name = req.params.name.replaceAll('_',' ')
+    const paramName = req.params.name
+    const name = paramName.replace(/_/g,' ')
     const { isAdmin } = req.body
 
     try {
