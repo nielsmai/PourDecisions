@@ -84,6 +84,12 @@ input[type="text"] {
   border: none;
 }
 
+input[type="password"] {
+  width: 80%;
+  height: 30px;
+  border: none;
+}
+
 /* viewDrinks CSS  */
 .pageTitle {
   text-align: left;
@@ -153,4 +159,15 @@ input[type="text"] {
   background-color: #e0c1c5;
   border: 5px solid #993362;
   border-radius: 12px;
+}
+
+button[type=submit] {
+  display: flex;
+  padding:5px 15px; 
+  background-color: #7e003f;
+  border:0 none;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; 
+  color: white;
 }

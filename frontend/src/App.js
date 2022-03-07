@@ -8,6 +8,7 @@ import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
 import LogOutAccount from './components/logOutAccount/logOutAccount';
+import { CreateAccount } from './components/createAccount/createAccount';
 
 function App() { 
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/drinks/test" element = {<IngredientsList/>}/>
           <Route path="/LogInAccount" element={<LogInAccount/>} />
           <Route path="/LogOutAccount" element={<LogOutAccount/>} />
+          <Route path="/users/register" element = {<CreateAccount/>} />
         </Routes>
       </Router>
     </div>
