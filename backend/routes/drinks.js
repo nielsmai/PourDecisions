@@ -23,10 +23,7 @@ const {
     removeDrink,
     getAllIngredients,
     getIngredientByName
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 } = require('../controllers/drinks');
 
 const router = express.Router();
