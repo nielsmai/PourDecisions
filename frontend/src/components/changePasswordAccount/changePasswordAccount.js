@@ -39,7 +39,7 @@ export default function ChangePasswordAccount() {
                             <p ><b>Username</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>admin1</b></p>
+                            <p class="dark" ><b>user1</b></p>
                         </td>
                     </tr>
 
@@ -61,7 +61,7 @@ export default function ChangePasswordAccount() {
                             <p ><b>Email</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>admin1@gmail.com</b></p>
+                            <p class="dark" ><b>email@gmail.com</b></p>
                         </td>
                     </tr>
                 </table>

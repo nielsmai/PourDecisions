@@ -19,7 +19,7 @@ export default function ViewAccount() {
                             <p ><b>Username</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>Anika</b></p>
+                            <p class="dark" ><b>user1</b></p>
                         </td>
                     </tr>
 
@@ -28,7 +28,7 @@ export default function ViewAccount() {
                             <p ><b>Password</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>PasswordNOW</b></p>
+                            <p class="dark" ><b>user1password2</b></p>
                         </td>
                     </tr>
 
@@ -37,7 +37,7 @@ export default function ViewAccount() {
                             <p ><b>Email</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>anika@gmail.com</b></p>
+                            <p class="dark" ><b>email@gmail.com</b></p>
                         </td>
                     </tr>
                 </table>
