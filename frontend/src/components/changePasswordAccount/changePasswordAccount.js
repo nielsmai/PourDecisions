@@ -56,8 +56,7 @@ export default function ChangePasswordAccount() {
         //Check password change
         const PostData = async () => {
 
-            let res = await AXIOS.put('users/update', { //CHANGE THE URL HERE FOR THE USERNAME GENRE
-                //NEED USERNAME!!!!!!!!!! 
+            let res = await AXIOS.put('users/update', {
                 username: userUsername,
                 password: userOldPass,
                 newPassword: userNewPass,
@@ -67,7 +66,7 @@ export default function ChangePasswordAccount() {
                 setIsSubmitted(true);
             })
             .catch(e => {
-                console.log(e)
+                console.log(e.response.data.message)
             })
         }
         PostData()

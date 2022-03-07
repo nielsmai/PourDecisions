@@ -116,8 +116,7 @@ module.exports.updatePassword = async (req, res) => {
         }
         else {
             // find user by username
-            // let userQuery = await User.findOne({username: username})
-            let userQuery = await User.findOne(username)
+            let userQuery = await User.findOne({username: username})
             // if user exists
             if (userQuery) {
                 // compare passwords
@@ -153,7 +152,7 @@ module.exports.updatePassword = async (req, res) => {
 
 
     } catch (err) {
-        res.status(500).json({message: "Something went wrong."})
+        res.status(500).json({message: "Something4 went wrong."})
     }
 
 }

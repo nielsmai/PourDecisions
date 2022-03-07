@@ -3,6 +3,7 @@ import './viewAccount.css'
 import './arrow.png'
 export default function ViewAccount() {
 
+    const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
 
     return (
         <>
@@ -19,7 +20,7 @@ export default function ViewAccount() {
                             <p ><b>Username</b></p>
                         </th>
                         <td >
-                            <p class="dark" ><b>user1</b></p>
+                            <p class="dark" ><b>{window.localStorage.getItem('loggedUsername')}</b></p>
                         </td>
                     </tr>
 
