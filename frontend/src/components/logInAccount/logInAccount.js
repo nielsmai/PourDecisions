@@ -99,10 +99,6 @@ export default function LogInAccount() {
                         {/* Add the correct link here */}
                         <a href="http://localhost:3000/">sign up</a>
                     </div>
-
-                    
-
-
                 </div>
 
             </div>

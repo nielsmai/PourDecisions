@@ -12,12 +12,14 @@ import Home from "./components/home/home"
 import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
+import LogOutAccount from './components/logOutAccount/logOutAccount';
 
 function App() { 
   return (
     //ChangePasswordAccount()
     //DrinksPage()
     ViewAccount()
+   
     // <div className="wrapper">
     //   <Router>
     //       <Navbar />
@@ -27,6 +29,7 @@ function App() {
     //       <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
     //       <Route path="/drinks/test" element = {<IngredientsList/>}/>
     //       <Route path="/LogInAccount" element={<LogInAccount/>} />
+    //       <Route path="/LogOutAccount" element={<LogOutAccount/>} />
     //     </Routes>
     //   </Router>
     // </div>
