@@ -9,10 +9,13 @@ export default class Navbar extends Component {
                 <div>
                 <ul>
                     <li>
-                        <Link to="/">PourDecisions</Link>
+                        <Link to="/">Home</Link>
                     </li>
                     <li className="navbar-item">
-                        <Link to="/drinks">Drinks</Link>
+                        <Link to="/drinks/create">Drinks</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link to="/account/login">Log In</Link>
                     </li>
                     <li>
                         <Link to="/loginaccount">Log In</Link>
