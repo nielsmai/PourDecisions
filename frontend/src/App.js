@@ -1,6 +1,6 @@
 import './App.css';
 //import CreateDrink from "./components/createDrink/createDrink.js";
-import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount.js"
+// import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount.js"
 import DrinksPage from "./components/viewDrinks/viewDrinks.js"
 import ViewAccount from "./components/viewAccount/viewAccount.js"
 //import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -13,26 +13,28 @@ import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
 import LogOutAccount from './components/logOutAccount/logOutAccount';
+import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount"
 
 function App() { 
   return (
-    //ChangePasswordAccount()
+    // ChangePasswordAccount()
     //DrinksPage()
-    ViewAccount()
+    // ViewAccount()
    
-    // <div className="wrapper">
-    //   <Router>
-    //       <Navbar />
-    //      <Routes>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/drinks" element={<CreateDrink />} />
-    //       <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
-    //       <Route path="/drinks/test" element = {<IngredientsList/>}/>
-    //       <Route path="/LogInAccount" element={<LogInAccount/>} />
-    //       <Route path="/LogOutAccount" element={<LogOutAccount/>} />
-    //     </Routes>
-    //   </Router>
-    // </div>
+    <div className="wrapper">
+      <Router>
+          <Navbar />
+         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/drinks" element={<CreateDrink />} />
+          <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
+          <Route path="/drinks/test" element = {<IngredientsList/>}/>
+          <Route path="/LogInAccount" element={<LogInAccount/>} />
+          <Route path="/LogOutAccount" element={<LogOutAccount/>} />
+          <Route path="/ChangePasswordAccount" element={<ChangePasswordAccount/>} />
+        </Routes>
+      </Router>
+    </div>
     );
 }
 

@@ -48,7 +48,8 @@ router.get('/:username', (req, res) => {
     
 }) 
 
-router.put('/:username/update', (req, res) => {
+// router.put('/:username/update', (req, res) => {
+router.put('/update', (req, res) => {
     updatePassword(req, res)
 })
 

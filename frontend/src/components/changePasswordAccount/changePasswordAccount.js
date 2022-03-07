@@ -7,8 +7,21 @@ import ReactDOM from "react-dom";
 import axios, { Axios } from "axios"
 
 
+// Connect to MongoDB
+var CONNECTION_URL;
+if (process.env.NODE_ENV === "production"){
+    CONNECTION_URL = process.env.ATLAS_URI;
+}else{
+    CONNECTION_URL = "http://localhost:5000/";
+}
+var AXIOS = axios.create({
+    baseURL: CONNECTION_URL
+})
+
 export default function ChangePasswordAccount() {
 
+    const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
+    const [userEmail, setUserEmail] = useState("");
     const [userOldPass, setUserOldPassword] = useState("");
     const [userNewPass, setUserNewPassword] = useState("");
     const [userConfirmedPassword, setUserConfirmedPassword] = useState("");
@@ -24,13 +37,30 @@ export default function ChangePasswordAccount() {
     const handleSubmit = (event) => {
         //Prevent the page form reloading
         event.preventDefault();
+
+        const GetUsername = async () => {
+
+            let res = await AXIOS.get('/profile', {
+                //need inputs?
+            })
+            .then(response => {
+                setUserUsername(res.username);
+                setUserEmail(res.email);
+            })
+            .catch(e => {
+                console.log(e)
+            })
+            GetUsername()
+        }
+
         //Check password change
         const PostData = async () => {
 
-            let res = await AXIOS.put('users/:username/update', { //CHANGE THE URL HERE FOR THE USERNAME GENRE
+            let res = await AXIOS.put('users/update', { //CHANGE THE URL HERE FOR THE USERNAME GENRE
                 //NEED USERNAME!!!!!!!!!! 
+                username: userUsername,
                 oldpassword: userOldPass,
-                newpassword: userNewPass
+                newpassword: userNewPass,
                 confirmPassword: userConfirmedPassword
             })
             .then(response => {
@@ -67,7 +97,7 @@ export default function ChangePasswordAccount() {
                                 <p ><b>Username</b></p>
                             </th>
                             <td >
-                                <p class="dark" ><b>user1</b></p> 
+                                <p class="dark"><b>{window.localStorage.getItem('loggedUsername')}</b></p> 
                             </td>
                         </tr>
 
@@ -92,14 +122,14 @@ export default function ChangePasswordAccount() {
                             </td>
                         </tr>
 
-                        <tr>
+                        {/* <tr>
                             <th>
                                 <p ><b>Email</b></p>
                             </th>
                             <td >
                                 <p class="dark" ><b>email@gmail.com</b></p>
                             </td>
-                        </tr>
+                        </tr> */}
                     </table>
                 </div>
 

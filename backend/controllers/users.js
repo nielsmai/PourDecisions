@@ -98,8 +98,8 @@ module.exports.updatePassword = async (req, res) => {
     
     try {
         // given username and old password
-        const username = req.params.username
-        var { password, newPassword, confirmNewPassword } = req.body
+        // const username = req.params.username
+        var { username, password, newPassword, confirmNewPassword } = req.body
       
         // check for empty/not matching passwords
         if (password == "" || password == undefined) {
