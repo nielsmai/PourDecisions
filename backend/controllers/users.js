@@ -116,7 +116,8 @@ module.exports.updatePassword = async (req, res) => {
         }
         else {
             // find user by username
-            let userQuery = await User.findOne({username: username})
+            // let userQuery = await User.findOne({username: username})
+            let userQuery = await User.findOne(username)
             // if user exists
             if (userQuery) {
                 // compare passwords

@@ -21,7 +21,7 @@ var AXIOS = axios.create({
 export default function ChangePasswordAccount() {
 
     const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
-    const [userEmail, setUserEmail] = useState("");
+    // const [userEmail, setUserEmail] = useState("");
     const [userOldPass, setUserOldPassword] = useState("");
     const [userNewPass, setUserNewPassword] = useState("");
     const [userConfirmedPassword, setUserConfirmedPassword] = useState("");
@@ -38,20 +38,20 @@ export default function ChangePasswordAccount() {
         //Prevent the page form reloading
         event.preventDefault();
 
-        const GetUsername = async () => {
+        // const GetUsername = async () => {
 
-            let res = await AXIOS.get('/profile', {
-                //need inputs?
-            })
-            .then(response => {
-                setUserUsername(res.username);
-                setUserEmail(res.email);
-            })
-            .catch(e => {
-                console.log(e)
-            })
-            GetUsername()
-        }
+        //     let res = await AXIOS.get('/profile', {
+        //         //need inputs?
+        //     })
+        //     .then(response => {
+        //         setUserUsername(res.username);
+        //         setUserEmail(res.email);
+        //     })
+        //     .catch(e => {
+        //         console.log(e)
+        //     })
+        //     GetUsername()
+        // }
 
         //Check password change
         const PostData = async () => {
@@ -59,9 +59,9 @@ export default function ChangePasswordAccount() {
             let res = await AXIOS.put('users/update', { //CHANGE THE URL HERE FOR THE USERNAME GENRE
                 //NEED USERNAME!!!!!!!!!! 
                 username: userUsername,
-                oldpassword: userOldPass,
-                newpassword: userNewPass,
-                confirmPassword: userConfirmedPassword
+                password: userOldPass,
+                newPassword: userNewPass,
+                confirmNewPassword: userConfirmedPassword
             })
             .then(response => {
                 setIsSubmitted(true);
