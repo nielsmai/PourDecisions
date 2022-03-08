@@ -2,21 +2,74 @@ import React, { Component, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+var CONNECTION_URL;
+if (process.env.NODE_ENV === "production"){
+    CONNECTION_URL = process.env.ATLAS_URI;
+}else{
+    CONNECTION_URL = "http://localhost:5000/";
+}
+var AXIOS = axios.create({
+    baseURL: CONNECTION_URL
+})
+
 export default function CreateDrink() {
 
-    const [name, setDrink] = useState("");
-    const [pub, setPublic] = useState(false);
-    const [rating, setRating] = useState(0);
-
+    const [pub, setPublic] = useState(false)
+    const [rating, setRating] = useState(0)
     const[ingredientData, setIngredientData] = useState([])
 
+    const [drink, setDrink] = useState({
+        name: "",
+        author: "",
+        recipe: {
+            ingredients: [
+                {
+                    ingredientName: "",
+                    ingredientType: ""
+                }
+            ],
+            garnish: "",
+            instruction: ""
+        }
+    })
+
     const getData = async () => {
-        const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        const response = await AXIOS.get('/drinks/ingredients/all')
         
         console.log(response.data)
         
         setIngredientData(response.data)
-            
+    }
+
+    const [ingredient, setIngredient] = useState({
+        ingredientName:"",
+        ingredientType:""
+    })
+    const ingredients = []
+
+    const addIngredient = (e) => {
+        e.preventDefault()
+        setDrink({
+            ... drink,
+            recipe :{
+                ingredients: [{
+                    ingredients
+                }]
+            }
+        })
+        console.log(drink)
+        console.log(ingredient.ingredientName)
+        ingredients.push(ingredient)
+        console.log(ingredients)
+    }
+
+    const onChangeIN = (e) => {
+        
+        setIngredient((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+
     }
 
     return (
@@ -26,7 +79,7 @@ export default function CreateDrink() {
                 <Link to="/drinks/ingredients">Add a missing ingredient</Link>
             </div>
         </nav>
-        <div>
+        {/* <div>
             <h3>Ingredient list</h3>
             <button onClick={getData}>Show ingredients</button>
             {
@@ -42,19 +95,20 @@ export default function CreateDrink() {
                     </div>
                 );
                 })}
-        </div>
+        </div> */}
 
         <h2>Create Drink</h2>
         <h3>Step 1.</h3>
         <h3>Add the ingredients that are in your drink</h3>
 
-        <form>
-
+        <form onSubmit={ addIngredient } >
             <input type="text"
-                name="ingredient"
-                placeholder='Ingredient'></input>
+                name="ingredientName"
+                placeholder='Ingredient'
+                value={ingredient.ingredientName}
+                onChange={onChangeIN}></input>
             <br></br><br></br>
-            <input type="submit" value="Submit"></input>
+            <button onClick={addIngredient}>Add Ingredient</button>
         </form>
 
         <h3>Step 2.</h3>
@@ -126,7 +180,7 @@ export function CreateIngredient() {
         console.log(ingredientName)
         console.log(ingredientType)
         
-        axios.post('http://localhost:5000/drinks/add/ingredient', formData)
+        AXIOS.post('/drinks/add/ingredient', formData)
             .then(res => console.log(res.data))
     }
 
@@ -154,7 +208,7 @@ export function IngredientsList() {
     const[ingredientData, setIngredientData] = useState([])
 
     const getData = async () => {
-        const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        const response = await AXIOS.get('/drinks/ingredients/all')
         
         console.log(response.data)
         
