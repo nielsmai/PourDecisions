@@ -1,6 +1,8 @@
 import './viewAccount.css'
 //import './martini.png'
 import './arrow.png'
+import React, { useState, useEffect } from 'react';
+
 export default function ViewAccount() {
 
     const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
