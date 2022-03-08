@@ -16,9 +16,9 @@ router.post('/register', (req,res) => {
     createUser(req, res);
 });
 
-router.post('/registerAdmin', (req,res) => {
-    createAdmin(req, res);
-});
+// router.post('/registerAdmin', (req,res) => {
+//     createAdmin(req, res);
+// });
 
 // add forwardAuth 
 router.post('/login', (req, res, next) => {

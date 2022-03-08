@@ -403,7 +403,8 @@ When('the user inputs the old password {string}, inputs the new password {string
         const newPassword = string2
         const confirmNewPassword = string3
 
-        let res = await AXIOS.put('/users/'+ this.currentUser + '/update', {
+        let res = await AXIOS.put('/users/update', {
+            username: this.currentUser,
             password: password,
             newPassword: newPassword,
             confirmNewPassword: confirmNewPassword
