@@ -97,7 +97,7 @@ export default function LogInAccount() {
                     </div>
 
                     <div className="signUp">
-                        <Link to="/users/register">Sign up</Link>
+                        <Link to="/account/register">Sign up</Link>
                     </div>
                 </div>
 

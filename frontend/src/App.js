@@ -24,8 +24,8 @@ function App() {
           <Route path="/drinks/test" element = {<IngredientsList/>}/>
           <Route path="/account/login" element={<LogInAccount/>} />
           <Route path="/setup" element={<CreateAdmin/>} />
-          <Route path="/LogOutAccount" element={<LogOutAccount/>} />
-          <Route path="/users/register" element = {<CreateAccount/>} />
+          <Route path="/account/logout" element={<LogOutAccount/>} />
+          <Route path="/account/register" element = {<CreateAccount/>} />
         </Routes>
       </Router>
     </div>
