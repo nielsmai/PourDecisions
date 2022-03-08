@@ -38,6 +38,7 @@ export default function LogInAccount() {
             .then(response => {
                 window.localStorage.setItem('loggedIn', true)
                 setIsSubmitted(true);
+                window.localStorage.setItem('loggedUsername', loginUsername)
             })
             .catch(e => {
                 console.log(e)
