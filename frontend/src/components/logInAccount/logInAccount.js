@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import axios from "axios"
+import { Link } from 'react-router-dom';
 
 // Connect to MongoDB
 var CONNECTION_URL;
@@ -37,6 +38,7 @@ export default function LogInAccount() {
             .then(response => {
                 window.localStorage.setItem('loggedIn', true)
                 setIsSubmitted(true);
+                window.localStorage.setItem('loggedUsername', loginUsername)
             })
             .catch(e => {
                 console.log(e)
@@ -96,8 +98,7 @@ export default function LogInAccount() {
                     </div>
 
                     <div className="signUp">
-                        {/* Add the correct link here */}
-                        <a href="http://localhost:3000/">sign up</a>
+                        <Link to="/account/register">Sign up</Link>
                     </div>
                 </div>
 
@@ -115,6 +116,7 @@ export default function LogInAccount() {
         {isSubmitted ? window.location.href = "http://localhost:3000" : renderForm}
       </div>
     </div>
+    
     // <div>
     //     <h1>TEST</h1>
     // </div>

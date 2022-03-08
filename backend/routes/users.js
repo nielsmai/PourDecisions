@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
+const { getAllUsers, createUser, createAdmin, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
@@ -15,6 +15,10 @@ router.get('/', (req,res) => {
 router.post('/register', (req,res) => {
     createUser(req, res);
 });
+
+// router.post('/registerAdmin', (req,res) => {
+//     createAdmin(req, res);
+// });
 
 // add forwardAuth 
 router.post('/login', (req, res, next) => {
@@ -44,7 +48,8 @@ router.get('/:username', (req, res) => {
     
 }) 
 
-router.put('/:username/update', (req, res) => {
+// router.put('/:username/update', (req, res) => {
+router.put('/update', (req, res) => {
     updatePassword(req, res)
 })
 
