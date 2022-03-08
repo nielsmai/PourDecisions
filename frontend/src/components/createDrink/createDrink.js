@@ -52,13 +52,7 @@ export default function CreateDrink() {
 
             <input type="text"
                 name="ingredient"
-                placeholder='ingredient'></input>
-            <select name="ingredientType">
-            <option value="none">Nothing</option>
-            <option value ="guava">Guava</option>
-            <option value ="lychee">Lychee</option>
-            <option value ="papaya">Papaya</option>
-            </select>
+                placeholder='Ingredient'></input>
             <br></br><br></br>
             <input type="submit" value="Submit"></input>
         </form>
@@ -72,27 +66,29 @@ export default function CreateDrink() {
                 placeholder="Drink Name">
                 </input>
             <br></br>
-            <input type="garnish"
+        <input type="text"
                 name="garnish"
                 placeholder="Garnish"></input>
                 <br></br>
-            <input type="instructions"
+        <input type="text"
                 name="instructionList"
-                placeholder='Instructions'></input>
+                placeholder='Instructions'
+                width='100%'
+                size='100%'></input>
                 <br></br>
-            <input type="checkbox" 
+        <input type="checkbox" 
                 name="pub"
                 >
                 </input>
             
             <label for="public">Public</label>
             <br></br>
-            <label value="tagsLabel">Tags</label>
+            <label value="tagsLabel">Tag: </label>
             <select name="tags">
-            <option value="none">Nothing</option>
-            <option value ="guava">Guava</option>
-            <option value ="lychee">Lychee</option>
-            <option value ="papaya">Papaya</option>
+            <option value="CUSTOM">CUSTOM</option>
+            <option value ="ALCOHOLIC">ALCOHOLIC</option>
+            <option value ="MOCKTAIL">MOCKTAIL</option>
+            <option value ="CLASSIC">CLASSIC</option>
             </select>
             <br></br><br></br>
 

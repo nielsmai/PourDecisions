@@ -12,10 +12,14 @@ import Home from "./components/home/home"
 import Navbar from './components/navbar/navbar';
 import { CreateIngredient } from './components/createDrink/createDrink';
 import LogInAccount from './components/logInAccount/logInAccount';
+import CreateAdmin from './components/createAdmin/createAdmin';
 import LogOutAccount from './components/logOutAccount/logOutAccount';
-import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount"
+import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount";
+import { CreateAccount } from './components/createAccount/createAccount';
+
 
 function App() { 
+  
   return (
     // ChangePasswordAccount()
     //DrinksPage()
@@ -23,15 +27,17 @@ function App() {
    
     <div className="wrapper">
       <Router>
-          <Navbar />
-         <Routes>
+        <Navbar />
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/drinks" element={<CreateDrink />} />
+          <Route path="/drinks/create" element={<CreateDrink />} />
           <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
           <Route path="/drinks/test" element = {<IngredientsList/>}/>
-          <Route path="/LogInAccount" element={<LogInAccount/>} />
-          <Route path="/LogOutAccount" element={<LogOutAccount/>} />
-          <Route path="/ChangePasswordAccount" element={<ChangePasswordAccount/>} />
+          <Route path="/account/update" element={<ChangePasswordAccount/>} />
+          <Route path="/account/login" element={<LogInAccount/>} />
+          <Route path="/setup" element={<CreateAdmin/>} />
+          <Route path="/account/logout" element={<LogOutAccount/>} />
+          <Route path="/account/register" element = {<CreateAccount/>} />
         </Routes>
       </Router>
     </div>
