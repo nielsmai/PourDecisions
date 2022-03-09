@@ -13,7 +13,7 @@ export default function CreateDrink() {
 
     const getData = async () => {
         // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
-        const response = await AXIOS.get('/drink/ingredients/all')
+        const response = await AXIOS.get('/drinks/ingredients/all')
         
         console.log(response.data)
         
