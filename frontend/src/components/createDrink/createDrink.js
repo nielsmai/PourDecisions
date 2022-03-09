@@ -13,6 +13,7 @@ export default function CreateDrink() {
 
     const getData = async () => {
         // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        console.log(process.env.NODE_ENV)
         console.log(process.env.REACT_APP_API_HOST)
         const response = await AXIOS.get('/drinks/ingredients/all')
         
