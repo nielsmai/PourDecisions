@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import axios from "axios"
+// import axios from "axios"
+import AXIOS from "../../axios.config"
 import './createAccount.css'
 
 export function CreateAccount() {
@@ -29,8 +30,10 @@ export function CreateAccount() {
         console.log(password)
         
         console.log(formData)
-        axios.post('http://localhost:5000/users/register', formData)
-        .then(res => console.log(res.data))
+        // axios.post('http://localhost:5000/users/register', formData)
+        // .then(res => console.log(res.data))
+        AXIOS.post('/users/register', formData)
+        .then( res => console.log(res.data))
 
     }
 
