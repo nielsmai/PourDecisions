@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import axios from "axios"
+// import axios from "axios"
+import AXIOS from "../../axios.config"
 
-// Connect to MongoDB
-var CONNECTION_URL;
-if (process.env.NODE_ENV === "production"){
-    CONNECTION_URL = process.env.ATLAS_URI;
-}else{
-    CONNECTION_URL = "http://localhost:5000/";
-}
-var AXIOS = axios.create({
-    baseURL: CONNECTION_URL
-})
+// // Connect to MongoDB
+// var CONNECTION_URL;
+// if (process.env.NODE_ENV === "production"){
+//     CONNECTION_URL = process.env.ATLAS_URI;
+// }else{
+//     CONNECTION_URL = "http://localhost:5000/";
+// }
+// var AXIOS = axios.create({
+//     baseURL: CONNECTION_URL
+// })
 
 
 
@@ -22,6 +23,7 @@ export default function LogOutAccount() {
         event.preventDefault();
         //Check login
         try{
+            AXIOS.get('/users/logout')
             window.localStorage.setItem('loggedIn', false)
             console.log("Successful logout")
             setIsSubmitted(true);
@@ -69,7 +71,7 @@ export default function LogOutAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? window.location.href = "http://localhost:3000" : renderForm}
+        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST || "http://localhost:3000" : renderForm}
       </div>
     </div>
     // <div>

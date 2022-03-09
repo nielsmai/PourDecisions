@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import AXIOS from '../../axios.config'
 import { Link } from 'react-router-dom';
 
 export default function CreateDrink() {
@@ -11,7 +12,8 @@ export default function CreateDrink() {
     const[ingredientData, setIngredientData] = useState([])
 
     const getData = async () => {
-        const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        const response = await AXIOS.get('/drink/ingredients/all')
         
         console.log(response.data)
         
@@ -126,8 +128,10 @@ export function CreateIngredient() {
         console.log(ingredientName)
         console.log(ingredientType)
         
-        axios.post('http://localhost:5000/drinks/add/ingredient', formData)
-            .then(res => console.log(res.data))
+        // axios.post('http://localhost:5000/drinks/add/ingredient', formData)
+        //     .then(res => console.log(res.data))
+        AXIOS.post('/drinks/add/ingredient', formData)
+        .then(res => console.log(res.data))
     }
 
     return (
@@ -154,7 +158,8 @@ export function IngredientsList() {
     const[ingredientData, setIngredientData] = useState([])
 
     const getData = async () => {
-        const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+        const response = await AXIOS.get('/drinks/ingredients/all')
         
         console.log(response.data)
         
