@@ -30,6 +30,7 @@ export function CreateAccount() {
         console.log(password)
         
         console.log(formData)
+
         // axios.post('http://localhost:5000/users/register', formData)
         // .then(res => console.log(res.data))
         AXIOS.post('/users/register', formData)
