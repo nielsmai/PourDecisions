@@ -23,6 +23,7 @@ const {
     removeDrink,
     getAllIngredients,
     getIngredientByName
+
 } = require('../controllers/drinks');
 
 const router = express.Router();
@@ -117,10 +118,9 @@ router.get('/ingredients/all', function(req, res){
     getAllIngredients(req, res)
 })
 
-router.get('ingredients/:ingredientName/name', function(req,res){
-    getIngredientByName(req,res)
-})
-
+// router.get('ingredients/:ingredientName/name', function(req,res){
+//     getIngredientByName(req,res)
+// })
 
 
 module.exports = router;

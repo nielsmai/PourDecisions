@@ -65,12 +65,41 @@ module.exports.createUser = async (req, res) => {
     }
 }
 
+// module.exports.createAdmin = async (req, res) => {
+    
+//     try {
+//         const { username, password, email } = req.body;  
+
+//         if (username == undefined || username == "") {
+//             res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-USER"})
+//         }
+//         else if (password == undefined || password == "") {
+//             res.status(400).json({message: "ACCOUNT-CREATE-EMPTY-PASS"})
+//         }else{
+//             let newUser = await User.findOne({username:username});
+
+//             if (newUser) {
+//                 // add more stuff if this works
+//                 res.status(400).json({message: "CREDENTIALS-ALREADY-TAKEN"})
+//             } else {
+//                 newUser = new User({username, password, email});
+//                 newUser.isAdmin = true
+//                 await newUser.save()
+//                 res.status(200).json({message: "ADMIN-CREATED"})
+//             }
+//         }
+
+//     } catch (err) {
+//         res.status(500).json({message: err.message})
+//     }
+// }
+
 module.exports.updatePassword = async (req, res) => {
     
     try {
         // given username and old password
-        const username = req.params.username
-        var { password, newPassword, confirmNewPassword } = req.body
+        // const username = req.params.username
+        var { username, password, newPassword, confirmNewPassword } = req.body
       
         // check for empty/not matching passwords
         if (password == "" || password == undefined) {
@@ -123,7 +152,7 @@ module.exports.updatePassword = async (req, res) => {
 
 
     } catch (err) {
-        res.status(500).json({message: "Something went wrong."})
+        res.status(500).json({message: "Something4 went wrong."})
     }
 
 }

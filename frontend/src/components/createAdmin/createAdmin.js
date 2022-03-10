@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
+import AXIOS from '../../axios.config'
 import { Navigate } from 'react-router-dom';
 
 export default class CreateAdmin extends Component {
@@ -25,7 +26,13 @@ export default class CreateAdmin extends Component {
             const email = this.state.email
             const password = this.state.password
 
-            axios.post('http://localhost:5000/users/register',{
+
+            // axios.post('http://localhost:5000/users/register',{
+            //     username : username,
+            //     password : password,
+            //     email: email
+            // }).then(()=>this.setState({redirect: true}))  
+            AXIOS.post('/users/register',{
                 username : username,
                 password : password,
                 email: email
