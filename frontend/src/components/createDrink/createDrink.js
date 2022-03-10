@@ -1,16 +1,7 @@
 import React, { Component, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import AXIOS from '../../axios.config'
 import { Link } from 'react-router-dom';
-
-var CONNECTION_URL;
-if (process.env.NODE_ENV === "production"){
-    CONNECTION_URL = process.env.ATLAS_URI;
-}else{
-    CONNECTION_URL = "http://localhost:5000/";
-}
-var AXIOS = axios.create({
-    baseURL: CONNECTION_URL
-})
 
 export default function CreateDrink() {
     const [drink, setDrink] = useState({
@@ -31,6 +22,7 @@ export default function CreateDrink() {
     const [ingredientList, setIngredientList] = useState([])
 
     const [ingredient, setIngredient] = useState("")
+
 
     const [garnish, setGarnish] = useState({
         list:""
@@ -106,7 +98,7 @@ export default function CreateDrink() {
     
     const addDrink = (e) => {
         e.preventDefault()
-        
+    
         
         const garnishList = garnish.list.split(',')
 
@@ -232,8 +224,11 @@ export function CreateIngredient() {
         console.log(ingredientName)
         console.log(ingredientType)
         
+
+        // axios.post('http://localhost:5000/drinks/add/ingredient', formData)
+        //     .then(res => console.log(res.data))
         AXIOS.post('/drinks/add/ingredient', formData)
-            .then(res => console.log(res.data))
+        .then(res => console.log(res.data))
     }
 
     return (
@@ -260,6 +255,9 @@ export function IngredientsList() {
     const[ingredientData, setIngredientData] = useState([])
 
     const getData = async () => {
+
+        // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
+
         const response = await AXIOS.get('/drinks/ingredients/all')
         
         console.log(response.data)

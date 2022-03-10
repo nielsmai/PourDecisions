@@ -4,20 +4,34 @@ import './arrow.png'
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import axios, { Axios } from "axios"
+// import axios, { Axios } from "axios"
+import AXIOS from "../../axios.config"
 
 
-// Connect to MongoDB
-var CONNECTION_URL;
-if (process.env.NODE_ENV === "production"){
-    CONNECTION_URL = process.env.ATLAS_URI;
-}else{
-    CONNECTION_URL = "http://localhost:5000/";
-}
-var AXIOS = axios.create({
-    baseURL: CONNECTION_URL
-})
+// // Connect to MongoDB
+// var CONNECTION_URL;
+// if (process.env.NODE_ENV === "production"){
+//     CONNECTION_URL = process.env.ATLAS_URI;
+// }else{
+//     CONNECTION_URL = "http://localhost:5000/";
+// }
+// var AXIOS = axios.create({
+//     baseURL: CONNECTION_URL
+// })
 
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+// const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || process.env.API_HOST + ':' + process.env.API_PORT;
+// const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT;
+
+// const AXIOS = axios.create({
+//     baseURL: backendUrl,
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': frontendUrl
+//     }
+// });
 export default function ChangePasswordAccount() {
 
     const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
@@ -56,7 +70,7 @@ export default function ChangePasswordAccount() {
         //Check password change
         const PostData = async () => {
 
-            let res = await AXIOS.put('users/update', {
+            let res = await AXIOS.put('/users/update', {
                 username: userUsername,
                 password: userOldPass,
                 newPassword: userNewPass,

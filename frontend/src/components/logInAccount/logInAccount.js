@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
-import axios from "axios"
+// import axios from "axios"
+import AXIOS from "../../axios.config"
 import { Link } from 'react-router-dom';
 
-// Connect to MongoDB
-var CONNECTION_URL;
-if (process.env.NODE_ENV === "production"){
-    CONNECTION_URL = process.env.ATLAS_URI;
-}else{
-    CONNECTION_URL = "http://localhost:5000/";
-}
-var AXIOS = axios.create({
-    baseURL: CONNECTION_URL
-})
+// // Connect to MongoDB
+// var CONNECTION_URL;
+// if (process.env.NODE_ENV === "production"){
+//     CONNECTION_URL = process.env.ATLAS_URI;
+// }else{
+//     CONNECTION_URL = "http://localhost:5000/";
+// }
+// var AXIOS = axios.create({
+//     baseURL: CONNECTION_URL
+// })
 
 
 
@@ -31,7 +32,7 @@ export default function LogInAccount() {
         event.preventDefault();
         //Check login
         const PostData = async () => {
-            let res = await AXIOS.post('users/login', {
+            let res = await AXIOS.post('/users/login', {
                 username: loginUsername,
                 password: loginPassword
             })
@@ -113,7 +114,7 @@ export default function LogInAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? window.location.href = "http://localhost:3000" : renderForm}
+        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST || "http://localhost:3000" : renderForm}
       </div>
     </div>
     

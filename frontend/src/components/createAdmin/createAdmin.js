@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
+import AXIOS from '../../axios.config'
 import { Navigate } from 'react-router-dom';
-
-var CONNECTION_URL;
-if (process.env.NODE_ENV === "production"){
-    CONNECTION_URL = process.env.ATLAS_URI;
-}else{
-    CONNECTION_URL = "http://localhost:5000/";
-}
-var AXIOS = axios.create({
-    baseURL: CONNECTION_URL
-})
 
 export default class CreateAdmin extends Component {
     constructor(props) {
@@ -35,6 +26,12 @@ export default class CreateAdmin extends Component {
             const email = this.state.email
             const password = this.state.password
 
+
+            // axios.post('http://localhost:5000/users/register',{
+            //     username : username,
+            //     password : password,
+            //     email: email
+            // }).then(()=>this.setState({redirect: true}))  
             AXIOS.post('/users/register',{
                 username : username,
                 password : password,
