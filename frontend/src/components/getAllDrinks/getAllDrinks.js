@@ -1,7 +1,34 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import './getAlldrinks.css'
 
+import React, { useState, useEffect } from 'react';
+import ReactDOM from "react-dom";
+// import axios from "axios"
+import AXIOS from "../../axios.config"
+import { Link } from 'react-router-dom';
+
+
 export default function getAllDrinks() {
+
+    var drinks = [];
+
+    const handleSubmit = (event) => {
+        //Prevent the page form reloading
+        event.preventDefault();
+        //Check login
+        const PostData = async () => {
+            let res = await AXIOS.get('/drinks/', {
+                
+            })
+            .then(response => {
+               drinks = res
+            })
+            .catch(e => {
+                console.log(e)
+            })
+        }
+        PostData()
+    }
 
     return (
 
@@ -35,8 +62,8 @@ export default function getAllDrinks() {
 
          <div>
 
-        <table>
-            <tr>
+        <table onSearch={handleSubmit}>
+            {/* <tr>
                 <th scope='col'>Ratings</th>
                 <th scope='col' >Name</th>
                 <th scope='col' >Ingredients</th>
@@ -50,7 +77,9 @@ export default function getAllDrinks() {
                 <td >Ingredients: Bourbon, Lemon juice, Syrup</td>
                 <td >Alcoholic</td>
                 <a class = "buttonOther" href="http://localhost:3000"> View Details </a>
-             </tr>
+             </tr> */}
+
+             {/* <ul>drinks</ul> */}
 
         </table>
         </div>
