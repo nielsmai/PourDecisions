@@ -1,76 +1,44 @@
-# Getting Started with Create React App
+# PourDecisions - a service to manage, create, and discover drinks
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PourDecisions is an online service that contains a database of adult beverages (i.e., cocktails and mocktails). Users can add their own custom drink recipes to the database and these recipes can be rated by other users or favourited. Users can also use the app to determine what drinks they can currently make in their household by inputting ingredients they have and the app will return drink recipes that can be made with the inputted ingredients. Users would need to login to see their favourites and recipes they’ve created, otherwise they can access the website/app as a guest without being able to use those features or rate recipes.
 
-## Available Scripts
+# Team Members
+| Name | Role | GitHub Username |
+| ---- | ---- | --------------- |
+|Emilia Solaberrieta| Product Owner | emisolabe |
+| Julie Chen | Scrum Master | ju-liechen |
+| James Chau | Software Developer | brimless |
+| Samuel Lin | Software Developer | S-Lin-17 |
+| Niels Mainville | Software Developer | ballofsunshine |
+| Anika Kabir | Software Developer | AnikaKabir01 | 
+| Jericho Adalin | Software Developer | jericho-ad |
+| Vy-Kha Huynh | Software Developer | vy-Khahuynh |
+| John Park | Software Developer | johnpark3002 |
+| Loc Tran | Software Developer | wetspider |
 
-In the project directory, you can run:
+## Documentation
+The product backlog can be found here: [ProductBacklog.pdf](https://github.com/ballofsunshine/PourDecisions/files/8020155/ProductBacklog.pdf) <br />
+Additional documentation (such as domain model, architecture model, and UI mockup) can be found on: https://github.com/ballofsunshine/PourDecisions/wiki
 
-### `npm start`
+## Links
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The client can be found on: https://pour-decisions-app.herokuapp.com
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Development
 
-### `npm test`
+## Server side
+### Start the backend
+`cd backend` <br/>
+`npm run dev`
+### Test features
+`npm test` <br/> or <br/>
+`npm run test-failure` <br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The first one displays interactively the results of the test while the second one simply output "all tests passed!" on success, and nothing on failure.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-
-### Some notes for now
-Use `nodemon server` to run server on port (currently set to 5000).
-Technically could use `node server.js` as well.
+## Client side
+### Start the frontend
+`cd frontend` <br/>
+`npm start`
+### Test frontend
+`npm test`

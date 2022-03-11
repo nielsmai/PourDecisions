@@ -1,7 +1,6 @@
 const axios = require('axios');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
-const e = require('express');
 
 // idk, i'll use this for now
 require('dotenv').config({path:__dirname+'/./../../../.env'});
@@ -59,6 +58,7 @@ When('the user {string} with password {string} is logged into their account', as
         })
 
         this.confirmMsg = res.data.message
+        this.currentUser = username
 
     } catch (err) {
         // console.log("from given logged in: ", err.response.data.message)
@@ -70,7 +70,6 @@ When('the user {string} with password {string} is logged into their account', as
 
 Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actionsj
-  
 
     try {
         const table = dataTable.rows()
@@ -193,10 +192,8 @@ Then('the account shall have username {string} and password {string}', async fun
              username: username,
              password: password
          })
-       this.confirmMsg = {
-           message: res.data.message,
-           username: username
-       } 
+        this.confirmMsg = res.data.message,
+        this.currentUser = username
 
     } catch (err) {
         this.errorMsg = err.response.data.message
@@ -206,8 +203,8 @@ Then('the account shall have username {string} and password {string}', async fun
 
 Then('I should be logged in as user {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
-    assert.equal(this.confirmMsg.message, "LOGIN-SUCCESSFUL")
-    assert.equal(this.confirmMsg.username, string)
+    assert.equal(this.confirmMsg, "LOGIN-SUCCESSFUL")
+    assert.equal(this.currentUser, string)
 });
 
 Then('no new account shall be created', function () {
@@ -274,11 +271,15 @@ Then('the new drink {string} is added to the system', function (string) {
 
 When('the user logs in using {string} and {string}', async function (string, string2) {
     try {
+        const username = string
+        const password = string2
+
         let res = await AXIOS.post("/users/login", {
-            username: string,
-            password: string2
+            username: username,
+            password: password
         })
         this.confirmMsg = res.data.message
+        this.currentUser = username
     } catch (err) {
         this.errorMsg = err.response.data.message
     }
@@ -290,12 +291,14 @@ Then('the user shall be logged in', function () {
   // assert.notEqual(null, sessionStorage.getItem('status'));
   // return 'pending';
      assert.equal(this.confirmMsg, "LOGIN-SUCCESSFUL")
+    assert(this.currentUser != "")
 });
 
 Then('the user is not logged in', function () {
   // Write code here that turns the phrase above into concrete actions
   // assert.equal(null, sessionStorage.getItem('status'));
     assert(this.errorMsg != "")
+    assert(this.currentUser == "")
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -305,6 +308,7 @@ When('the user logs out', async function () {
   // Write code here that turns the phrase above into concrete actions
     let res = await AXIOS.get('/users/logout')
     this.confirmMsg = res.data.message 
+    this.currentUser = ""
 });
 
 Then('the user is logged out of the system with a confirmation message {string}', function (string) {
@@ -312,6 +316,7 @@ Then('the user is logged out of the system with a confirmation message {string}'
   // assert.equal(null, sessionStorage.getItem('status'));
   // assert.equal(string, confirmMsg);
     assert.equal(this.confirmMsg, string)
+    assert(this.currentUser == "")
 });
 
 
@@ -321,7 +326,7 @@ Then('the user is logged out of the system with a confirmation message {string}'
 
 When('the user {string} provides the drink name {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/' + string2 + '/name', {
+    let res = await AXIOS.get('/drinks/' + string2.replaceAll(' ', '_') + '/name', {
     })
     if (res.data.length === 0) {
       this.errorMsg = "RECIPE-NOT-FOUND"
@@ -391,93 +396,155 @@ Then('the list of drinks shall be {string}', function (string) {
 ///////////////// UPDATE ACCOUNT ////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-When('the user inputs the old password {string}, inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
+When('the user inputs the old password {string}, inputs the new password {string} and confirms the new password {string}', async function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    try {
+        const password = string
+        const newPassword = string2
+        const confirmNewPassword = string3
+
+        let res = await AXIOS.put('/users/update', {
+            username: this.currentUser,
+            password: password,
+            newPassword: newPassword,
+            confirmNewPassword: confirmNewPassword
+        })
+        this.confirmMsg = res.data.message
+
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
-When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
-            // Write code here that turns the phrase above into concrete actions
-    return 'pending';
-});
+// When('the user inputs the wrong old password {string},inputs the new password {string} and confirms the new password {string}', function (string, string2, string3) {
+    
+
+// });
 
 Then('the user\'s new password is now {string} and a confirmation message {string} is raised', function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert.equal(this.confirmMsg, string2)
 });
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// UPDATE DRINK //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-Given('the user {string} with password {string} is an admin', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+// Given('the user {string} with password {string} is an admin', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+    
+// });
+
+// When('the user {string} favourites the drink {string}', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
+
+When('the user changes the {string}\'s status to {string}', async function (string, string2) {
+    try {
+        const name = string.replaceAll(' ', '_')
+        const public_status = string2 
+
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/status', {
+            public_status: public_status
+        })
+        this.confirmMsg = res.data.message
+            
+       
+    } catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
-When('the user {string} favourites the drink {string}', function (string, string2) {
+When('the user modifies the drink {string} by adding a new ingredient {string}', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    try {
+        const name = string.replaceAll(' ', '_')
+        const ingredientName = string2
+
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/ingredient', {
+            ingredientName: ingredientName
+        })
+
+        this.confirmMsg = res.data.message
+
+    } catch (err) {
+        this.errorMsg = (err.response.data.message)
+    }
 });
 
-When('the user changes the recipe\'s status', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
-When('the user modifies the drink {string} by adding a new ingredient {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
-Then('the drink {string} shall be in the user {string}\'s catalogue', function (string, string2) {      
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+// Then('the drink {string} shall be in the user {string}\'s catalogue', function (string, string2) {      
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
 
 Then('the new ingredient {string} shall be added to drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert(this.confirmMsg != "")
 });
 
-Then('there shall be {string} less drink recipe in the system', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+// Then('there shall be {string} less drink recipe in the system', function (string) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
+
+// Then('the new ingredients list {string} shall be displayed', function (string) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
+
+When('the admin {string} deletes the drink {string}', async function (string, string2) {
+    try{
+        const admin = string
+        const name = string2.replaceAll(' ', '_')
+
+         // would need to query the user's isAdmin normally
+        const isAdmin = Boolean(admin.includes("admin"))
+
+        let res = await AXIOS.delete('/drinks/'+name+'/delete', {
+            data:{
+                isAdmin: isAdmin 
+            }
+        })
+
+        this.confirmMsg = res.data.message
+
+    }catch (err) {
+        console.log(this.errorMsg)
+    }
 });
 
-Then('the new ingredients list {string} shall be displayed', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+When('the user modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {
+    try{
+        const name = string.replaceAll(" ", "_")
+        const ingredientName = string2
 
-When('the admin {string} deletes the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/remove/ingredient', {
+            ingredientName: ingredientName
+        })
 
-When('the user modifies the drink {string} by removing the ingredient {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+        this.confirmMsg = res.data.message
+
+
+    }catch (err) {
+        this.errorMsg = err.response.data.message
+    }
 });
 
 Then('the ingredient {string} shall be removed from the drink {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+    assert(this.confirmMsg != "")
 });
 
-Then('the drink {string} shall have {string} more like', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+// Then('the drink {string} shall have {string} more like', function (string, string2) {
+//   // Write code here that turns the phrase above into concrete actions
+//   return 'pending';
+// });
+
+Then('a confirmation message {string} shall be raised', function (string) {
+    assert.equal(this.confirmMsg, string)
 });
 
-Then('the recipe status shall be {string} and a confirmation message {string} shall be raised', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
-Then('the new ingredient {string} shall not be added to drink {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('the new ingredient {string} shall not be added to drink {string}', function (string, string2) {
+    assert(this.errorMsg != "")
 });
 
 /////////////////////////////////////////////////////////////////////////////
@@ -520,7 +587,6 @@ When('the user {string} requests to view drinks by their rating', async function
 });
 
 Then('the list of drinks is displayed in descending order of their rating', function () {
-  // console.log("12314", this.listDrinks)
   assert.ok(!!this.listDrinks.reduce((n,rating) =>  n != false && rating <= n && rating ))
 });
 

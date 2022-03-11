@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/ballofsunshine/PourDecisions#readme",
   "dependencies": {
-    "mongoose": "^6.2.1"
+    "express": "^4.17.3",
+    "mongoose": "^6.2.1",
+    "react-router-dom": "^6.2.1"
   }
 }

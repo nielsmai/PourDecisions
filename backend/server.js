@@ -76,9 +76,13 @@ app.use('/drinks', drinksRouter);
 if (process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-    app.get('*', (_req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
-    });
+    // this is not necessary
+    //app.get('*', (_req, res) => {
+    //    res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
+    //});
+    app.get('/', (_req, res) => {
+        res.send("API running.");
+    })
 } else {
     app.get('/', (_req, res) => {
         res.send("API running.");

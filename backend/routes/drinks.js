@@ -16,7 +16,13 @@ const {
     getDrinkByName,
     getDrinkByUser,
     getDrinkByTag,
-    getDrinkByIngredients
+    getDrinkByIngredients,
+    changeStatus,
+    addIngredient,
+    removeIngredient,
+    removeDrink,
+    getAllIngredients,
+    getIngredientByName
 
 } = require('../controllers/drinks');
 
@@ -84,6 +90,22 @@ router.get('/filter/ingredients', function(req,res){
     getDrinkByIngredients(req,res)
 })
 
+router.put('/:username/:name/update/status', function(req, res) {
+   changeStatus(req, res) 
+})
+
+router.put('/:username/:name/update/ingredient', function(req, res) {
+    addIngredient(req,res)
+})
+
+router.put('/:username/:name/remove/ingredient', function (req, res) {
+    removeIngredient(req,res)
+})
+
+router.delete('/:name/delete', function (req, res) {
+    removeDrink(req, res)
+})
+
 router.delete('/ingredients', (req, res) => {
     deleteAllIngredients(req, res);
 })
@@ -91,4 +113,14 @@ router.delete('/ingredients', (req, res) => {
 router.delete('/recipes', (req, res) => {
     deleteAllRecipes(req, res);
 })
+
+router.get('/ingredients/all', function(req, res){
+    getAllIngredients(req, res)
+})
+
+// router.get('ingredients/:ingredientName/name', function(req,res){
+//     getIngredientByName(req,res)
+// })
+
+
 module.exports = router;
