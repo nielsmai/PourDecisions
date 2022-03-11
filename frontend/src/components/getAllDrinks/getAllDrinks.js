@@ -8,7 +8,7 @@ import AXIOS from "../../axios.config"
 import { Link } from 'react-router-dom';
 
 
-export default function getAllDrinks() {
+export default function GetAllDrinks() {
 
     var drinks = [];
 
