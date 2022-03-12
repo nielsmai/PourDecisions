@@ -8,27 +8,42 @@ import AXIOS from "../../axios.config"
 import { Link } from 'react-router-dom';
 
 
-export default function getAllDrinks() {
+export default function GetAllDrinks() {
 
-    var drinks = [];
+    // var drinks = [];
 
-    const handleSubmit = (event) => {
-        //Prevent the page form reloading
-        event.preventDefault();
-        //Check login
-        const PostData = async () => {
-            let res = await AXIOS.get('/drinks/', {
+    // const handleSubmit = (event) => {
+    //     //Prevent the page form reloading
+    //     event.preventDefault();
+        
+    //     const result = async () => {
+    //         let result = await AXIOS.get('/drinks/', {
                 
-            })
-            .then(response => {
-               drinks = res
-            })
-            .catch(e => {
-                console.log(e)
-            })
+    //         })
+    //         .then(response => {
+    //             setDrinks= response.data;
+    //         })
+    //         .catch(e => {
+    //             console.log(e)
+    //         })
+    //     }
+    //     result()
+    // }
+
+   
+
+        const [drinks, setDrinks] = useState([]);
+
+        const getData = async () => {
+
+            const response = await AXIOS.get('/drinks/')
+            
+            console.log(response.data)
+            
+            setDrinks(response.data)
+                
         }
-        PostData()
-    }
+    
 
     return (
 
@@ -42,7 +57,7 @@ export default function getAllDrinks() {
                 placeholder="Search Drinks"
                 name="s" 
             />
-            <a class = "button" href="http://localhost:3000">Search</a>
+            <a class = "button" href="http://localhost:3000/drinks/">Search</a>
             </form>
         </div>
 
@@ -62,7 +77,7 @@ export default function getAllDrinks() {
 
          <div>
 
-        <table onSearch={handleSubmit}>
+        <table >
             {/* <tr>
                 <th scope='col'>Ratings</th>
                 <th scope='col' >Name</th>
@@ -79,12 +94,33 @@ export default function getAllDrinks() {
                 <a class = "buttonOther" href="http://localhost:3000"> View Details </a>
              </tr> */}
 
-             {/* <ul>drinks</ul> */}
-
         </table>
         </div>
+
+        <>
+        <div>
+            <h3>Drinks</h3>
+            <button onClick={getData}>View Drinks</button>
+            {
+                drinks && drinks.map((drinks, index) =>
+                {
+                    const drinkName = drinks.name
+                    const drinkRating = drinks.rating
+                    const drinkTag= drinks.tag
+                
+                
+                return (
+                    <div key={index}>
+                        <h2> {drinkName}</h2>
+                        <h5>{drinkRating} ratings     [{drinkTag}]</h5>
+
+                    </div>
+                );
+                })}
+        </div>
+        </>
                
     </div>
-    );
+    )
 
 }
