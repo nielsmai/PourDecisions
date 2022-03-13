@@ -57,7 +57,7 @@ export default function GetAllDrinks() {
                 placeholder="Search Drinks"
                 name="s" 
             />
-            <a class = "button" href="http://localhost:3000/drinks/">Search</a>
+            <a class = "button">Search</a>
             </form>
         </div>
 
