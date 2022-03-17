@@ -1,0 +1,6 @@
+.resize {
+    width:500px; /* you can use % */
+    height: auto;
+    text-align: center;
+    padding-top: 20%;
+}
