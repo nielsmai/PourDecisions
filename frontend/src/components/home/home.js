@@ -1,6 +1,10 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 export default function Home() {
+
+    if(window.localStorage.length == 0) return <Navigate to="/setup" replace={true}/>
+    
     return (
         <div className="Home">
             <body>Have a bunch of ingredients, but no idea what dirnks to make with them?</body>

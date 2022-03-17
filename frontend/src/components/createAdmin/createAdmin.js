@@ -25,13 +25,7 @@ export default class CreateAdmin extends Component {
             const username = 'admin'
             const email = this.state.email
             const password = this.state.password
-
-
-            // axios.post('http://localhost:5000/users/register',{
-            //     username : username,
-            //     password : password,
-            //     email: email
-            // }).then(()=>this.setState({redirect: true}))  
+             
             AXIOS.post('/users/register',{
                 username : username,
                 password : password,

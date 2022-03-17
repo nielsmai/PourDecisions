@@ -19,12 +19,7 @@ import { CreateAccount } from './components/createAccount/createAccount';
 
 
 function App() { 
-  
   return (
-    // ChangePasswordAccount()
-    //DrinksPage()
-    // ViewAccount()
-   
     <div className="wrapper">
       <Router>
         <Navbar />
