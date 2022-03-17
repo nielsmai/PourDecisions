@@ -16,7 +16,7 @@ export default function Home() {
             <div class="b">
             <ul>
             <li>
-            Mix
+            Mix!
             <span></span><span></span><span></span><span></span>
             </li>
             </ul>
