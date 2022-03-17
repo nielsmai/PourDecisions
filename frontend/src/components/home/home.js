@@ -2,7 +2,7 @@ import React from 'react';
 import './home.css'
 // import "@fontsource/montserrat"
 
-import logo from './logo.png'
+import logo from '../../images/logo.png'
 
 export default function Home() {
     return (
