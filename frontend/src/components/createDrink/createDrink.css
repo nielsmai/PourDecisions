@@ -1,0 +1,30 @@
+.ingredient {
+    color:black
+}
+
+#create {
+    margin-left: 2%
+}
+
+#stepOne {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#stepTwo {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#stepThree {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.stepBox {
+    background-color: #efeade;
+    padding: 5%;
+    border-radius: 12px;
+    outline-color: #beb8aa;
+    outline-style:auto;
+}

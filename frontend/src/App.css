@@ -171,3 +171,24 @@ button[type=submit] {
   border-radius: 5px; 
   color: white;
 }
+
+.navbar-item-c {
+  display:inline-block;
+  float:right
+}
+
+.navbar-item-r {
+  float:right
+}
+
+.navbar-item-l {
+  float:left
+}
+
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color:#f7f3e7;
+}
