@@ -72,7 +72,7 @@ export default function LogOutAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST || "http://localhost:3000" : renderForm}
+        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT || "http://localhost:3000" : renderForm}
       </div>
     </div>
     // <div>

@@ -1,0 +1,41 @@
+.button {
+    background-color: #7E003E;
+    border: none;
+    color: #F8F3E7;
+    padding: 15px 20px;
+    text-align: right;
+    text-decoration: none;
+   font-size: 20px;
+   border-radius:10px;
+  position: absolute;
+  left: 54%;
+}
+
+table{
+    padding: 15px 20px;
+    top: 40;
+    font-size: 20px;
+    text-align: left;
+    position: absolute;
+    left: 4%;
+}
+
+td, th {
+    padding: 15px;
+    text-align: left;
+    height: 20px;
+  }
+
+  .buttonOther{
+    background-color: #7E003E;
+    border: none;
+    color: #F8F3E7;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    border-radius:10px;
+    position: absolute;
+    left: 105%;
+  }
+  

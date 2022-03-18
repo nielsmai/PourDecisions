@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+.center {
+    text-align: center;
+    }
+.mix {
+    background-color: #7e003f;
+    color: #F8F3E7;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 50px;
+    font-family: 'Montserrat', sans-serif;
+
+    /* width: 25%; */
+    
+    border-radius: 12px;
+    }
+.text{
+    color: #613133;
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+}
+.resizeLogo {
+    padding-top: 5%;
+    width:700px; /* you can use % */
+    height: auto;
+}
+
+/* Button Effect */
+/* Original: https://codepen.io/comehope/pen/eKqZjy */
+.b {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+} */
+
+li {
+    --c: #7e003f;
+    margin:0 auto;
+    color: var(--c);
+    list-style-type: none;
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin: 1em;
+}
+
+li span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: var(--c);
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+li:hover {
+    color: #F8F3E7;
+}
+
+li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+li span:nth-child(1) {
+    --n: 1;
+}
+
+li span:nth-child(2) {
+    --n: 2;
+}
+
+li span:nth-child(3) {
+    --n: 3;
+}
+
+li span:nth-child(4) {
+    --n: 4;
+}

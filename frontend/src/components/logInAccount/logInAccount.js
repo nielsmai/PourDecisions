@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 // import axios from "axios"
 import AXIOS from "../../axios.config"
 import { Link } from 'react-router-dom';
+import logo from '../../images/logo.png'
+import "./logInAccount.css"
 
 // // Connect to MongoDB
 // var CONNECTION_URL;
@@ -63,8 +65,8 @@ export default function LogInAccount() {
             <div>
             <div className="boxLogInAccount">
             <div className="row">
-            <div className="columnLeft">
-                <h1>Put Image Here</h1>
+            <div className="columnLeft div">
+                <img src={logo} alt="Logo" class="resize"></img>
             </div>
             <div className="columnRight">
                 <div>
@@ -114,7 +116,7 @@ export default function LogInAccount() {
     return (
         <div className="app">
       <div className="login-form">
-        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST || "http://localhost:3000" : renderForm}
+        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT || "http://localhost:3000" : renderForm}
       </div>
     </div>
     

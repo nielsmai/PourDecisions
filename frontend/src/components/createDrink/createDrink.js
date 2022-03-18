@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 // import axios from 'axios';
 import AXIOS from '../../axios.config'
 import { Link } from 'react-router-dom';
+import './createDrink.css';
 
 export default function CreateDrink() {
     const [drink, setDrink] = useState({
@@ -30,21 +31,23 @@ export default function CreateDrink() {
 
     const addIngredient = (e) => {
         e.preventDefault()
-        setIngredientList([
-            ...ingredientList,
-            {
-                ingredientName: ingredient,
-                ingredientType: "OTHER"
-            }
-        ])
+        if (ingredient.length != 0) {
+            setIngredientList([
+                ...ingredientList,
+                {
+                    ingredientName: ingredient,
+                    ingredientType: "OTHER"
+                }
+            ])
 
-        setDrink({
-            ... drink,
-            recipe :{
-                ingredients: ingredientList
-            }
-        })
+            setDrink({
+                ... drink,
+                recipe :{
+                    ingredients: ingredientList
+                }
+            })
         setIngredient('')
+        }
     }
 
     // const onChangeIngredientName = (e) => {
@@ -98,7 +101,9 @@ export default function CreateDrink() {
     
     const addDrink = (e) => {
         e.preventDefault()
-    
+        var div2 = document.getElementById("stepTwo")
+        var div3 = document.getElementById("stepThree")
+
         
         const garnishList = garnish.list.split(',')
 
@@ -111,88 +116,119 @@ export default function CreateDrink() {
         })
 
         AXIOS.post('/drinks/add', drink)
-        .then(res => console.log(res.data))
+        .then(res => {
+            console.log(res.data);
+            if (res.status == 201) {
+                div2.style.display = "none";
+                div3.style.display = "block"
+            }})
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data)
+            }
+        })
 
         console.log(drink)
     }
 
+    const stepTwo = () => {
+        var div1 = document.getElementById("stepOne")
+        var div2 = document.getElementById("stepTwo")
+    
+        
+
+        if (ingredientList.length != 0) {
+            div1.style.display = "none"
+            div2.style.display = "block"
+        }
+    }
+
     return (
         <>
-        <nav>
-            <div>
-                <Link to="/drinks/ingredients">Add a missing ingredient</Link>
+        <div>
+            <h2 id="create">Create</h2>
+            <div id="stepOne">
+                <h3>Step 1.</h3>
+                <h3>Add the ingredients that are in your drink</h3>
+                <div className="stepBox">
+                <form>
+                    <input type="text"
+                        name="ingredient"
+                        placeholder='Ingredient'
+                        value={ingredient}
+                        onChange={e => setIngredient(e.target.value)}></input>
+                    <br></br><br></br>
+                    <button onClick={addIngredient}>Add Ingredient</button>
+                </form>
+
+                <ul>
+                    {ingredientList.map(item => (
+                        <li className='ingredient'>{item.ingredientName}</li>
+                    ))}
+                </ul>
+
+                <button onClick={stepTwo}>Step 2</button>
+                </div>
             </div>
-        </nav>
-
-        <h2>Create Drink</h2>
-        <h3>Step 1.</h3>
-        <h3>Add the ingredients that are in your drink</h3>
-
-        <form>
-            <input type="text"
-                name="ingredient"
-                placeholder='Ingredient'
-                value={ingredient}
-                onChange={e => setIngredient(e.target.value)}></input>
-            <br></br><br></br>
-            <button onClick={addIngredient}>Add Ingredient</button>
-        </form>
-
-        <ul>
-            {ingredientList.map(item => (
-                <li>{item.ingredientName}</li>
-            ))}
-        </ul>
-
-        <h3>Step 2.</h3>
-        <h3>Write the recipe, and make sure to include tags!</h3>
-
-        <form>
-        <input type="text"
-                name="name"
-                placeholder="Drink Name"
-                onChange={onChangeDrinkName}
-                ></input>
-            <br></br>
-
-        <input type="text"
-                name="list"
-                value={garnish.list}
-                onChange={onChangeRecipeGarnish}
-                placeholder="Garnish"></input>
-                <br></br>
-
-        <input type="text"
-                name="instructions"
-                placeholder='Instructions'
-                onChange={onChangeRecipeInstructions}
-                width='100%'
-                size='100%'></input>
-
-        <input type="text"
-                name="author"
-                placeholder="Drink Author"
-                onChange={onChangeDrinkAuthor}
-                ></input>                <br></br>
-        <input type="checkbox" 
-                name="pub"
-                >
-                </input>
             
-            <label for="public">Public</label>
-            <br></br>
-            <label value="tagsLabel">Tag: </label>
-            <select name="tags">
-            <option value="CUSTOM">CUSTOM</option>
-            <option value ="ALCOHOLIC">ALCOHOLIC</option>
-            <option value ="MOCKTAIL">MOCKTAIL</option>
-            <option value ="CLASSIC">CLASSIC</option>
-            </select>
-            <br></br><br></br>
+            <div id="stepTwo" style={{display: "none"}}>
+                <h3>Step 2.</h3>
+                <h3>Write the recipe, and make sure to include tags!</h3>
 
-            <input type="button" onClick={ addDrink }value="Add Drink"></input>
-        </form>
+                <div className='stepBox'>
+                <form>
+                <input type="text"
+                        name="name"
+                        placeholder="Drink Name"
+                        onChange={onChangeDrinkName}
+                        ></input>
+                    <br></br>
 
+                <input type="text"
+                        name="list"
+                        value={garnish.list}
+                        onChange={onChangeRecipeGarnish}
+                        placeholder="Garnish"></input>
+                        <br></br>
+
+                <input type="text"
+                        name="instructions"
+                        placeholder='Instructions'
+                        onChange={onChangeRecipeInstructions}
+                        width='100%'
+                        size='100%'></input>
+
+                <input type="text"
+                        name="author"
+                        placeholder="Drink Author"
+                        onChange={onChangeDrinkAuthor}
+                        ></input>                <br></br>
+                <input type="checkbox" 
+                        name="pub"
+                        >
+                        </input>
+                    
+                    <label for="public">Public</label>
+                    <br></br>
+                    <label value="tagsLabel">Tag: </label>
+                    <select name="tags">
+                    <option value="CUSTOM">CUSTOM</option>
+                    <option value ="ALCOHOLIC">ALCOHOLIC</option>
+                    <option value ="MOCKTAIL">MOCKTAIL</option>
+                    <option value ="CLASSIC">CLASSIC</option>
+                    </select>
+                    <br></br><br></br>
+
+                    <input type="button" onClick={ addDrink }value="Add Drink"></input>
+                </form>
+                </div>
+            </div>
+            <div id="stepThree" style={{display: "none"}}>
+                <h1>your drink was made
+
+                </h1>
+            </div>
+        </div>
         </>
     )
 }
