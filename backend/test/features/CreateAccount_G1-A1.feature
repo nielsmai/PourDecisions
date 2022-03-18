@@ -14,7 +14,7 @@ Scenario: Create a user account with a unique username and password.
 
 Examples:
 | username | password |
-| Fiona    | psd22123123    |
+| Fiona    | psd22123123 |
 
 Scenario: Create a user account with a unique username and unique password.
 

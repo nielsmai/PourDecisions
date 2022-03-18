@@ -19,17 +19,12 @@ import { CreateAccount } from './components/createAccount/createAccount';
 import GetAllDrinks from './components/getAllDrinks/getAllDrinks';
 
 function App() { 
-  
   return (
-    // ChangePasswordAccount()
-    //DrinksPage()
-    // ViewAccount()
-   
     <div className="wrapper">
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/drinks/create" element={<CreateDrink />} />
           <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
           <Route path="/drinks/test" element = {<IngredientsList/>}/>

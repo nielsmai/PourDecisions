@@ -25,6 +25,7 @@ export default function LogOutAccount() {
         try{
             AXIOS.get('/users/logout')
             window.localStorage.setItem('loggedIn', false)
+            window.localStorage.removeItem('loggedUsername')
             console.log("Successful logout")
             setIsSubmitted(true);
         }
