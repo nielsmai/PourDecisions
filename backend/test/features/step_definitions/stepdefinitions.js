@@ -68,6 +68,29 @@ When('the user {string} with password {string} is logged into their account', as
     // return 'pending'
 });
 
+When('the admin {string} with password {string} is logged into their account', async function (string, string2) {
+  // Write code here that turns the phrase above into concrete actions
+    const username = string;
+    const password = string2;
+
+    try {
+        // login user
+        let res = await AXIOS.post('/users/login', {
+            username: username,
+            password: password
+        })
+
+        this.confirmMsg = res.data.message
+        this.currentUser = username
+
+    } catch (err) {
+        // console.log("from given logged in: ", err.response.data.message)
+        this.errorMsg = err.response.data.message
+    }
+
+    // return 'pending'
+});
+
 Given('the following drinks exist in the system:', async function (dataTable) {
   // Write code here that turns the phrase above into concrete actionsj
 
@@ -456,7 +479,40 @@ When('the user changes the {string}\'s status to {string}', async function (stri
     }
 });
 
+When('the admin changes the {string}\'s status to {string}', async function (string, string2) {
+  try {
+      const name = string.replaceAll(' ', '_')
+      const public_status = string2 
+
+      let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/status', {
+          public_status: public_status
+      })
+      this.confirmMsg = res.data.message
+          
+     
+  } catch (err) {
+      this.errorMsg = err.response.data.message
+  }
+});
+
 When('the user modifies the drink {string} by adding a new ingredient {string}', async function (string, string2) {
+  // Write code here that turns the phrase above into concrete actions
+    try {
+        const name = string.replaceAll(' ', '_')
+        const ingredientName = string2
+
+        let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/ingredient', {
+            ingredientName: ingredientName
+        })
+
+        this.confirmMsg = res.data.message
+
+    } catch (err) {
+        this.errorMsg = (err.response.data.message)
+    }
+});
+
+When('the admin modifies the drink {string} by adding a new ingredient {string}', async function (string, string2) {
   // Write code here that turns the phrase above into concrete actions
     try {
         const name = string.replaceAll(' ', '_')
@@ -528,6 +584,23 @@ When('the user modifies the drink {string} by removing the ingredient {string}',
     }catch (err) {
         this.errorMsg = err.response.data.message
     }
+});
+
+When('the admin modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {
+  try{
+      const name = string.replaceAll(" ", "_")
+      const ingredientName = string2
+
+      let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/remove/ingredient', {
+          ingredientName: ingredientName
+      })
+
+      this.confirmMsg = res.data.message
+
+
+  }catch (err) {
+      this.errorMsg = err.response.data.message
+  }
 });
 
 Then('the ingredient {string} shall be removed from the drink {string}', function (string, string2) {
