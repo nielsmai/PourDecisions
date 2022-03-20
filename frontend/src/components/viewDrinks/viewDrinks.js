@@ -92,23 +92,8 @@ function ViewDrinks() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //Check password change
         const PostData = async () => {
 
-        //     let res = await AXIOS.get('/users/update', {
-        //         username: userUsername,
-        //         password: userOldPass,
-        //         newPassword: userNewPass,
-        //         confirmNewPassword: userConfirmedPassword
-        //     })
-        //     .then(response => {
-        //         setIsSubmitted(true);
-        //     })
-        //     .catch(e => {
-        //         console.log(e.response.data.message)
-        //     })
-        // }
-        // PostData()
     
     }
 
@@ -199,5 +184,5 @@ function ViewDrinks() {
 
     </div>
     );
-
-} export default ViewDrinks
+                        }
+} export default ViewDrinks 
