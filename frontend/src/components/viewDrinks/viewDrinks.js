@@ -1,15 +1,109 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import './viewDrinks.css';
+import Popup from './components/editDrinkPopup.js';
+import AXIOS from "../../axios.config"
 
-function viewDrinks() {
+function ViewDrinks() {
+
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [ingredientList, setIngredientList] = useState([])
+    const [ingredient, setIngredient] = useState("")
+    const [garnish, setGarnish] = useState({
+        list:""
+    })
+    const [instructions, setInstructions] = useState("");
+
+    const [drink, setDrink] = useState({
+        name: "",
+        author: "",
+        recipe: {
+            ingredients: [
+                {
+                    ingredientName: "",
+                    ingredientType: ""
+                }
+            ],
+            garnish: "",
+            instructions: ""
+        }
+    })
+    const addIngredient = (e) => {
+        e.preventDefault()
+        setIngredientList([
+            ...ingredientList,
+            {
+                ingredientName: ingredient,
+                ingredientType: "OTHER"
+            }
+        ])
+
+        setDrink({
+            ... drink,
+            recipe :{
+                ingredients: ingredientList
+            }
+        })
+        setIngredient('')
+    }
+    const onChangeRecipeGarnish = (e) => {
+        setGarnish({
+            ...garnish,
+            [e.target.name]: e.target.value
+        })
+
+        const garnishList = garnish.list.split(',')
+
+        setDrink({
+            ... drink,
+            recipe :{
+                ingredients: ingredientList,
+                garnish: garnishList
+            }
+        })
+    }
+    const onChangeRecipeInstructions = (e) => {
+        setDrink({
+            ...drink,
+            recipe: {
+                ...drink.recipe,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+    const onChangeDrinkName = (e) => {
+        setDrink({
+            ...drink,
+            [e.target.name]: e.target.value,
+        })
+
+    }
+
+    const [currentDrink, setCurrentDrink] = useState([]);
+
+    const getData = async () => {
+
+        const response = await AXIOS.get('drinks/:username')
+        
+        console.log(response.data)
+        
+        setCurrentDrink(response.data)
+            
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const PostData = async () => {
+
+    
+    }
 
     return (
-
-    <div>
+    <div className="viewDrinks">
         <div class="viewDrinksContainer">
             <div class="rowViewDrinks">
                 <div class="columnLeftViewDrinks">
                     <div class="pageTitle">
-                        <h1>Easy Whiskey Sour</h1>
+                        <h1>{ drink.name }</h1>
                     </div>
                 </div>
                 <div class="columnRightViewDrinks">
@@ -26,27 +120,21 @@ function viewDrinks() {
             <div class="ingredientsList">
                 <h2>Ingredients:</h2>
                 <p class="ingredients">
-                    2 ounces (4 tablespoons) bourbon whiskey*
-                    <br />1 ounce (2 tablespoons) fresh lemon juice
-                    <br />3/4 ounce (1 1/2 tablespoons) pure maple syrup (or simple syrup)
+                    {drink.ingredientList}
                 </p>
             </div>
             
             <div class="garnishList">
                 <h2>Garnish:</h2>
-                <p class="garnish">
-                    Orange peel and a cocktail cherry
-                    <br />Ice, for serving
+                <p>
+                    { drink.garnishList }
                 </p>
             </div>
 
             <div class="instructionsList">
                 <h2>Instructions:</h2>
                 <p>
-                    Add the bourbon whiskey, lemon juice, and syrup to a cocktail
-                    <br />shaker. Fill with a handful of ice and shake until very cold.
-                    <br />Strain the drink into a lowball or Old Fashioned glass. Serve with
-                    <br />ice, an orange peel, and a cocktail cherry.
+                    { drink.instructions }
                 </p>
             </div>
         </div>
@@ -55,7 +143,46 @@ function viewDrinks() {
             <button type="button" class="addToFavouritesConfirm">Add To Favourites!</button>
         </div>
 
+        <div class="editDrink">
+            <button onClick={() => setButtonPopup(true)}>Edit this drink</button>
+        </div> 
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <form onSubmit={handleSubmit}>
+                <h3>Edit Recipe</h3>
+                <label>Name:
+                    <input type="text" name="drinkName" placeholder="Please input new drink name" onChange={onChangeDrinkName}/>
+                    <input type="button" onClick={onChangeDrinkName} value="Confirm Change"></input>
+                </label>
+
+                <br></br>
+
+                <label>Ingredients:
+                    <ul>
+                        {ingredientList.map(item => (
+                            <li>{item.ingredientName}</li>
+                        ))}
+                    </ul>
+                </label>
+
+                <br></br>
+
+                <label>Garnish:
+                    <input type="text" name="garnish" placeholder="List the garnishes" onChange={onChangeRecipeGarnish}/>
+                    <input type="button" onClick={onChangeRecipeGarnish} value="Confirm Change"></input>
+                </label>
+
+                <br></br>
+
+                <label>Instructions:
+                    <input type="text" name="instructions" placeholder="List the instructions" onChange={onChangeRecipeInstructions}/>
+                    <input type="button" onClick={onChangeRecipeInstructions} value="Confirm Change"></input>
+                </label>
+
+
+            </form>
+        </Popup> 
+
     </div>
     );
-
-} export default viewDrinks
+                        }
+} export default ViewDrinks 
