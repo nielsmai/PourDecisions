@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//import './viewCustomDrink.css'
 
 export default function ViewCustomDrink() {
 
@@ -16,6 +17,12 @@ export default function ViewCustomDrink() {
                     <tr>
                         <td>Ingredients</td>
                         <td><button class='modify'>Delete</button></td>
+                        <td>                        
+                            <form align="center">
+                                <input type="checkbox" id="visibility" name="visbility" value="public"></input>
+                                <label for="visibility">Public</label>
+                            </form>
+                        </td>
                     </tr>
                     </table>
                 </td>
