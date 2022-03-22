@@ -1,20 +1,7 @@
-// const axios = require('axios');
 const { AXIOS } = require('../support/axios.config');
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 
-// // idk, i'll use this for now
-// require('dotenv').config({path:__dirname+'/./../../../.env'});
-// const backendUrl = process.env.DEV_API_HOST + ':' + process.env.DEV_API_PORT || process.env.API_HOST + ':' + process.env.API_PORT;
-// const frontendUrl = process.env.DEV_CLIENT_HOST + ':' + process.env.DEV_CLIENT_PORT || process.env.CLIENT_HOST + ':' + process.env.CLIENT_PORT;
-
-// const AXIOS = axios.create({
-//     baseURL: backendUrl,
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Access-Control-Allow-Origin': frontendUrl
-//     }
-// });
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// Global STEPS //////////////////////////////////////////////
