@@ -467,12 +467,14 @@ When('the user changes the {string}\'s status to {string}', async function (stri
     }
 });
 
-When('the admin changes the {string}\'s status to {string}', async function (string, string2) {
+When('the admin changes the {string}\'s status by {string} to {string}', async function (string, string2, string3) {
   try {
       const name = string.replaceAll(' ', '_')
-      const public_status = string2 
+      const public_status = string3 
+      const author = string2
 
       let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/status', {
+          author: author,
           public_status: public_status
       })
       this.confirmMsg = res.data.message
@@ -500,13 +502,15 @@ When('the user modifies the drink {string} by adding a new ingredient {string}',
     }
 });
 
-When('the admin modifies the drink {string} by adding a new ingredient {string}', async function (string, string2) {
+When('the admin modifies the drink {string} by {string} by adding a new ingredient {string}', async function (string, string2, string3) {
   // Write code here that turns the phrase above into concrete actions
     try {
         const name = string.replaceAll(' ', '_')
-        const ingredientName = string2
+        const ingredientName = string3
+        const author = string2
 
         let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/update/ingredient', {
+            author: author,
             ingredientName: ingredientName
         })
 
@@ -536,17 +540,19 @@ Then('the new ingredient {string} shall be added to drink {string}', function (s
 //   return 'pending';
 // });
 
-When('the admin {string} deletes the drink {string}', async function (string, string2) {
+When('the admin {string} deletes the drink {string} by {string}', async function (string, string2, string3) {
     try{
         const admin = string
         const name = string2.replaceAll(' ', '_')
+        const author = string3
 
          // would need to query the user's isAdmin normally
         const isAdmin = Boolean(admin.includes("admin"))
 
         let res = await AXIOS.delete('/drinks/'+name+'/delete', {
             data:{
-                isAdmin: isAdmin 
+                isAdmin: isAdmin,
+                author: author
             }
         })
 
@@ -574,12 +580,14 @@ When('the user modifies the drink {string} by removing the ingredient {string}',
     }
 });
 
-When('the admin modifies the drink {string} by removing the ingredient {string}', async function (string, string2) {
+When('the admin modifies the drink {string} by {string} by removing the ingredient {string}', async function (string, string2, string3) {
   try{
       const name = string.replaceAll(" ", "_")
-      const ingredientName = string2
+      const ingredientName = string3
+      const author = string2
 
       let res = await AXIOS.put('/drinks/' + this.currentUser + '/' + name + '/remove/ingredient', {
+          author: author,
           ingredientName: ingredientName
       })
 
