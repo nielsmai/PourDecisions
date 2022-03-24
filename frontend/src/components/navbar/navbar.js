@@ -59,9 +59,9 @@ export default class Navbar extends Component {
                     <li className="navbar-item-l">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    {/* <li className="navbar-item-c">
                         <Link to="/drinks/create">Drinks</Link>
-                    </li>
+                    </li> */}
                     <li className="navbar-item-r">
                         <Link to="/account/login">Login</Link>
 
