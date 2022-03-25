@@ -16,10 +16,6 @@ router.post('/register', (req,res) => {
     createUser(req, res);
 });
 
-// router.post('/registerAdmin', (req,res) => {
-//     createAdmin(req, res);
-// });
-
 // add forwardAuth 
 router.post('/login', (req, res, next) => {
     login(req,res,next);
@@ -34,21 +30,11 @@ router.get('/logout', (req, res) => {
     logout(req, res)
 })
 
-// for testing
-router.get('/profile', (req, res, next) => {
-    if (req.user) {
-        return res.json({ user: req.user})
-    } else { 
-        return res.json({ user: null })
-    }
-})
-
 router.get('/:username', (req, res) => {
     getUserByUsername(req,res)
     
 }) 
 
-// router.put('/:username/update', (req, res) => {
 router.put('/update', (req, res) => {
     updatePassword(req, res)
 })

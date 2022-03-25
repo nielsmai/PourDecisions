@@ -1,6 +1,7 @@
 table.drinks{
     overflow-y:scroll; 
-   height:100px; 
+   height:300px; 
+   width:300px; 
    display:block;  
    border:1px solid red;  
    margin-top:50px;    
