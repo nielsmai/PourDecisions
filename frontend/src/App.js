@@ -17,26 +17,28 @@ import LogOutAccount from './components/logOutAccount/logOutAccount';
 import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount";
 import { CreateAccount } from './components/createAccount/createAccount';
 import GetAllDrinks from './components/getAllDrinks/getAllDrinks';
+import ViewCustomDrink from './components/viewCustomDrink/viewCustomDrink'
 
 function App() { 
-  return (
-    <div className="wrapper">
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/drinks/create" element={<CreateDrink />} />
-          <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
-          <Route path="/drinks/test" element = {<IngredientsList/>}/>
-          <Route path="/account/update" element={<ChangePasswordAccount/>} />
-          <Route path="/account/login" element={<LogInAccount/>} />
-          <Route path="/setup" element={<CreateAdmin/>} />
-          <Route path="/account/logout" element={<LogOutAccount/>} />
-          <Route path="/account/register" element = {<CreateAccount/>} />
-          <Route path="/drinks/" element = {<GetAllDrinks/>} />
-        </Routes>
-      </Router>
-    </div>
+    return (
+        <div className="wrapper">
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/drinks/create" element={<CreateDrink />} />
+                <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
+                <Route path="/drinks/test" element = {<IngredientsList/>}/>
+                <Route path="/account/update" element={<ChangePasswordAccount/>} />
+                <Route path="/account/login" element={<LogInAccount/>} />
+                <Route path="/setup" element={<CreateAdmin/>} />
+                <Route path="/account/logout" element={<LogOutAccount/>} />
+                <Route path="/account/register" element = {<CreateAccount/>} />
+                <Route path="/drinks/" element = {<GetAllDrinks/>} />
+                <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
+            </Routes>
+        </Router>
+        </div>
     );
 }
 

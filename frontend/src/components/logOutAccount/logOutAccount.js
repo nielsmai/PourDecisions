@@ -17,6 +17,10 @@ import AXIOS from "../../axios.config"
 
 
 export default function LogOutAccount() {
+    //React States
+    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
+    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
+    
     //Handle form submission
     const handleSubmit = (event) => {
         //Prevent the page form reloading
@@ -33,9 +37,6 @@ export default function LogOutAccount() {
             console.log(e)
         }
     }
-    //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
-    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
     //Code for error message
     const renderErrorMessage = (name) =>

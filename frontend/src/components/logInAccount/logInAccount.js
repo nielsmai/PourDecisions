@@ -118,7 +118,8 @@ export default function LogInAccount() {
     return (
         <div className="app">
             <div className="login-form">
-            {isSubmitted ? 
+            // really sketch way to prevent double login
+            {isSubmitted || localStorage.getItem('loggedIn') ? 
                 window.location.href = 
                 (process.env.REACT_APP_CLIENT_HOST ?
                     process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 

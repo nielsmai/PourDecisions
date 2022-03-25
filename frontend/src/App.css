@@ -8,6 +8,11 @@ body {
   background-color: #f7f3e7;
 }
 
+a {
+    color: #614A48;
+    text-decoration: none;
+}
+
 /*logInAccount CSS  */
 .boxLogInAccount {
   background-color: #f4ebe1;
