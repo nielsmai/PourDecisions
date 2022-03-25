@@ -23,6 +23,11 @@ export default function LogInAccount() {
     const [token, setToken] = useState();
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+    //React States
+    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
+    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
+
     //Handle User Login
     const errors = {
         name: "Invalid username",
@@ -49,9 +54,6 @@ export default function LogInAccount() {
         }
         PostData()
     }
-    //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
-    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
     //Code for error message
     const renderErrorMessage = (name) =>
@@ -115,10 +117,15 @@ export default function LogInAccount() {
 
     return (
         <div className="app">
-      <div className="login-form">
-        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT || "http://localhost:3000" : renderForm}
-      </div>
-    </div>
+            <div className="login-form">
+            {isSubmitted ? 
+                window.location.href = 
+                (process.env.REACT_APP_CLIENT_HOST ?
+                    process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                    : "http://localhost:3000")
+                : renderForm}
+            </div>
+        </div>
     
     // <div>
     //     <h1>TEST</h1>
