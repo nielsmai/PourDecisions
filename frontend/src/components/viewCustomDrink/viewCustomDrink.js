@@ -1,7 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './viewCustomDrink.css'
+import AXIOS from '../../axios.config'
 
 export default function ViewCustomDrink() {
+
+    const [listOfDrinks, setListOfDrinks] = useState([]);
+
+    const getDrinks = () => {
+        const user = localStorage.getItem('loggedUsername')
+        AXIOS.get("/drinks/" + user)
+        .then( res => {
+            setListOfDrinks(res.data)
+        })
+    } 
+
+    useEffect( () => {
+        if (localStorage.getItem('loggedIn') == null){
+            window.location.href = 
+            (process.env.REACT_APP_CLIENT_HOST ?
+                process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                : "http://localhost:3000")
+        } 
+        getDrinks()
+
+    }, []) 
 
     return (
         // <div id="drink">
@@ -44,7 +66,7 @@ export default function ViewCustomDrink() {
 
         <tr> 
         <td className="ingredients" colSpan={3}>
-        Ingredients:   
+        Ingredients:  
         </td> 
         </tr>
         

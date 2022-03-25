@@ -33,6 +33,17 @@ export default function LogInAccount() {
         name: "Invalid username",
         pass: "Invalid password"
     };
+    
+    // Avoids double login
+    useEffect(() => {
+        // setting loggedIn to false does not work because weird behaviours
+        if (localStorage.getItem('loggedIn ') !== null){
+            window.location.href = 
+            (process.env.REACT_APP_CLIENT_HOST ?
+                process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                : "http://localhost:3000")
+        }
+    }, [])
     //Handle form submission
     const handleSubmit = (event) => {
         //Prevent the page form reloading
@@ -118,13 +129,13 @@ export default function LogInAccount() {
     return (
         <div className="app">
             <div className="login-form">
-            // really sketch way to prevent double login
-            {isSubmitted || localStorage.getItem('loggedIn') ? 
+            {isSubmitted ? 
                 window.location.href = 
                 (process.env.REACT_APP_CLIENT_HOST ?
                     process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
                     : "http://localhost:3000")
-                : renderForm}
+                : renderForm
+            }
             </div>
         </div>
     
