@@ -440,3 +440,22 @@ module.exports.getAllIngredients = async (req, res) => {
 //     }
 // }
 
+module.exports.adminUpdateDrink = async (req, res) => {
+
+    const { isAdmin, oldName, newName, author, recipe, tag, public_status, rating } = req.body;
+    
+    try { 
+        if(isAdmin) {
+            let drink = await Drink.findOneAndUpdate({author:author, name:oldName},
+            { name: newName, tag: tag, public_status: public_status, author: author, rating: rating, recipe: recipe}, 
+            { new : true }) //returns the updated drink
+            if (drink) res.status(200).json({message: "DRINK-UPDATED-SUCCESSFULLY"}) //drink returns updated drink not a boolean so??
+            else res.status(400).json({message: "DRINK-DOES-NOT-EXIST"})
+        }
+        else {
+            res.status(400).json({message: "NOT-ADMIN"})
+        }
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}

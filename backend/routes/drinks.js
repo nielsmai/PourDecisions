@@ -22,6 +22,7 @@ const {
     removeIngredient,
     removeDrink,
     getAllIngredients,
+    adminUpdateDrink
     // getIngredientByName
 
 } = require('../controllers/drinks');
@@ -115,6 +116,10 @@ router.delete('/recipes', (req, res) => {
 
 router.get('/ingredients/all', function(req, res){
     getAllIngredients(req, res)
+})
+
+router.put('/adminUpdate', function(req, res) {
+    adminUpdateDrink(req, res);
 })
 
 // router.get('ingredients/:ingredientName/name', function(req,res){
