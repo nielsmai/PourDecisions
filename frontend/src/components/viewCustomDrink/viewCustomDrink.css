@@ -1,8 +1,9 @@
 #myDrinks {
-    display:flex;
+    display:block;
     justify-content: center;
     height: 69vh;
     margin-top: 5px;
+    font-family: "Montserrat";
 }
 
 #drinkList {
@@ -11,13 +12,14 @@
     margin-right: auto;
     padding:0;
     max-height: 100%;
-    overflow:auto;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 #drinkList li {
     border: 3px solid #78003c;
     background-color: #E3DED3;
     width: 95%;
-    height: 200px;
+    height: 160px;
     margin: 2%;
     padding: 0px;
 }
@@ -43,6 +45,7 @@
     float: left;
     text-align: left;
     font-size: 150%;
+    font-weight: bold;
     min-width: 20%;
     max-width: 60%;
     word-wrap: break-word;
@@ -54,6 +57,7 @@
     float:left;
     text-align: left;
     font-size: 69%;
+    font-weight:normal;
     padding-left: 5%;
 }
 
@@ -66,7 +70,54 @@
 
 .ingredients {
     vertical-align: bottom;
-    font-size: 90%;
+    font-weight: normal;
     word-wrap: break-word;
 }
 
+#search {
+    display:flex;
+    justify-content: center;
+    margin: 9vh 0 4vh auto;
+    width: 100%;
+}
+
+#search input {
+    width: 69%;
+    border: 3px solid #78003c;
+    outline: none;
+    font-size: 125%;
+    font-family: "Montserrat";
+}
+
+#sort {
+    display:flex;
+    justify-content: center;
+}
+
+#sort .mimickButton {
+    margin-right: 5%;
+    background-color:#AB6682;
+    color: #EBE7DB;
+    font-weight:bolder;
+    border-radius:4px;
+    overflow:auto;
+    float:left;
+}
+
+#sort .mimickButton:hover {
+    background:#CD6682;
+}
+
+#sort label span {
+    text-align: center;
+    display: block;
+    padding: 10px 30px 10px 30px;
+} 
+
+#sort .mimickButton input:checked + span {
+    background-color:#78003C;
+}
+
+#sort .mimickButton input {
+    display: none;
+}

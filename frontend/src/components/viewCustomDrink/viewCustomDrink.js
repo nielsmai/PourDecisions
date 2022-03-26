@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 export default function ViewCustomDrink() {
 
     const [listOfDrinks, setListOfDrinks] = useState([])
+    // const [filteredDrinks, setFilteredDrinks] = useState(listOfDrinks)
+    const [searchInput, setSearchInput] = useState("")
+    const [checkboxes, setCheckboxes] = useState([false, false, false, false, false])
+
 
     const getDrinks = () => {
         const user = localStorage.getItem('loggedUsername')
@@ -38,13 +42,57 @@ export default function ViewCustomDrink() {
         )
     }
 
+    const Sort = () => {
+
+        const checkboxNames = ['Alcoholic', 'Mocktail', 'Custom', 'Newest', 'Popularity']
+    
+        const handleSort = (e, i) => {
+            const {checked} = e.target 
+            setCheckboxes(
+                checkboxes.map((_, idx) => idx === i ? checked : false)
+            )
+        }
+
+        return(
+            <>
+                {checkboxes.map((selected, i) => (
+                    <div className='mimickButton'>
+                    <label>
+                    <input 
+                    key={i}
+                    type='checkbox'
+                    checked={selected}
+                    onChange={e => handleSort(e, i)}
+                    />
+                    <span>{checkboxNames[i]} </span>
+                    </label>
+                    </div>
+                ))}
+            </>
+        )
+    }
+
+
     return (
         <div id="myDrinks">
+            <div id="search">
+                <input 
+                    type='text' 
+                    placeholder='Search drink by name...' 
+                    onChange={(e) => {setSearchInput(e.target.value)}}
+                />
+            </div>
+            <div id="sort">
+                <Sort/>
+            </div>
             <ul id="drinkList">
 
-                {listOfDrinks.map( drink => (
+                {/* search by name */}
+                {listOfDrinks.filter(drink => drink.name.toLowerCase().includes(searchInput.toLowerCase()))
+                    .map( drink => ( 
+
                     <Link to={"/account/drinks/" + drink.name.replace(/ /g, '_')}>
-                    <li>
+                    <li key={drink._id}>
                         <table className="drinkInfo">
                        
                         <tr>
