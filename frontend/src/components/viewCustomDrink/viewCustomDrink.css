@@ -111,7 +111,12 @@
 #sort label span {
     text-align: center;
     display: block;
-    padding: 10px 30px 10px 30px;
+   -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;   padding: 10px 30px 10px 30px;
 } 
 
 #sort .mimickButton input:checked + span {

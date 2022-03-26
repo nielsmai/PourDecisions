@@ -57,15 +57,15 @@ export default function ViewCustomDrink() {
             <>
                 {checkboxes.map((selected, i) => (
                     <div className='mimickButton'>
-                    <label>
-                    <input 
-                    key={i}
-                    type='checkbox'
-                    checked={selected}
-                    onChange={e => handleSort(e, i)}
-                    />
-                    <span>{checkboxNames[i]} </span>
-                    </label>
+                        <label>
+                            <input 
+                            key={i}
+                            type='checkbox'
+                            checked={selected}
+                            onChange={e => handleSort(e, i)}
+                            />
+                            <span>{checkboxNames[i]} </span>
+                        </label>
                     </div>
                 ))}
             </>

@@ -11,16 +11,16 @@ export default class Navbar extends Component {
                 <nav>
                 <div>
                 <ul>
-                    <li className="navbar-item-l">
+                    <li id="name" className="navbar-item-l no-border">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-r">
+                    <li className="navbar-item-r no-border">
                         <Link to="/account/logout">Logout</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/tests">Test</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
                 </ul>
@@ -35,25 +35,25 @@ export default class Navbar extends Component {
                 <nav>
                 <div>
                 <ul className="navbar">
-                    <li className="navbar-item-l">
+                    <li id="name" className="navbar-item-l no-border">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-r">
+                    <li className="navbar-item-r no-border">
                         <Link to="/account/logout">Logout</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/account/drinks">My Drinks</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/create">Create</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/">Search</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/">Mix</Link>
                     </li>
                 </ul>
@@ -67,21 +67,21 @@ export default class Navbar extends Component {
             <nav>
                 <div>
                 <ul className="navbar">
-                    <li className="navbar-item-l">
+                    <li id="name" className="navbar-item-l no-border">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-r">
+                    <li className="navbar-item-r no-border">
                         <Link to="/account/login">Login</Link>
 
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/">Search</Link>
                     </li>
                     {/*CHANGE TO VIEW ALL DRINKS*/}
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/">Mix</Link>
                     </li>
                 </ul>
