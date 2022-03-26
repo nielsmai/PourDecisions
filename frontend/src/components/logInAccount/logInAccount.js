@@ -37,7 +37,7 @@ export default function LogInAccount() {
     // Avoids double login
     useEffect(() => {
         // setting loggedIn to false does not work because weird behaviours
-        if (localStorage.getItem('loggedIn ') !== null){
+        if (localStorage.getItem('loggedIn') !== null){
             window.location.href = 
             (process.env.REACT_APP_CLIENT_HOST ?
                 process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 

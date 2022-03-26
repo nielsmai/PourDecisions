@@ -18,6 +18,7 @@ import ChangePasswordAccount from "./components/changePasswordAccount/changePass
 import { CreateAccount } from './components/createAccount/createAccount';
 import GetAllDrinks from './components/getAllDrinks/getAllDrinks';
 import ViewCustomDrink from './components/viewCustomDrink/viewCustomDrink'
+import ViewDrinks from './components/viewDrinks/viewDrinks'
 
 function App() { 
     return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/account/register" element = {<CreateAccount/>} />
                 <Route path="/drinks/" element = {<GetAllDrinks/>} />
                 <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
+                <Route path="/account/drinks/name" element = {<ViewDrinks/>} />
             </Routes>
         </Router>
         </div>

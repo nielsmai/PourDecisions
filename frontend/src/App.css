@@ -1,11 +1,14 @@
 .App {
   text-align: center;
   color: #7e003f;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family:'Franklin Gothic Medium' , 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
-  background-color: #f7f3e7;
+    margin:0;
+    padding:0;
+    /* background-color: #f7f3e7; */
+    background-color: #EBE7DB;
 }
 
 a {
@@ -177,23 +180,24 @@ button[type=submit] {
   color: white;
 }
 
-.navbar-item-c {
-  display:inline-block;
-  float:right
-}
+/* .navbar-item-c { */
+/*   /1* display:inline-block; *1/ */
+/*   float:right */
+/* } */
 
-.navbar-item-r {
-  float:right
-}
+/* .navbar-item-r { */
+/*   float:right */
+/* } */
 
-.navbar-item-l {
-  float:left
-}
+/* .navbar-item-l { */
+/*   float:left */
+/* } */
 
-.navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color:#f7f3e7;
-}
+/* .navbar { */
+/*   list-style-type: none; */
+/*   margin: 0; */
+/*   padding: 0; */
+/*   overflow: hidden; */
+/*   /1* background-color:#f7f3e7; *1/ */
+/*   background-color:#EBE7DB; */
+/* } */
