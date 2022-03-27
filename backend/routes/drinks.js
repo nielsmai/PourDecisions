@@ -23,7 +23,9 @@ const {
     removeDrink,
     getAllIngredients,
     getDrinkByUserAndName,
-    getDrinkById
+    getDrinkById,
+    incrementRating,
+    decrementRating
     // getIngredientByName
 
 } = require('../controllers/drinks');
@@ -37,6 +39,14 @@ router.get('/', (req, res) => {
 
 router.get('/id/:id', (req, res) => {
     getDrinkById(req, res)
+})
+
+router.put('/drink/like', (req, res) => {
+    incrementRating(req, res)
+})
+
+router.put('/drink/unlike', (req, res) => {
+    decrementRating(req, res)
 })
 
 // route to add new drinks (post)

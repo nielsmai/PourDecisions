@@ -1,6 +1,7 @@
 const express = require('express');
 
 const User = require('../models/user.model');
+const { Drink } = require('../models/drink.model');
 
 const router = express.Router();
 module.exports = router;
@@ -156,6 +157,51 @@ module.exports.updatePassword = async (req, res) => {
     }
 
 }
+
+module.exports.addFavourite = async (req, res) => {
+    try {
+        const username = req.params.username
+        const drinkId = req.body.drinkId
+        
+        const drink = await Drink.findById(drinkId)
+
+        const update = await User.findOneAndUpdate({ username: username },
+            {
+                "$addToSet": {
+                    favourites: drink
+                }
+            }
+        )
+        if (update) res.status(200).json({message: "DRINK-ADDED-TO-FAVOURITES"})
+        else res.status(400).json({message: "DRINK-NOT-ADDED-TO-FAVOURITES"})
+
+    } catch (error) {
+        res.status(500).json({message: "Something went wrong."})
+    }
+}
+
+module.exports.removeFavourite = async (req, res) => {
+    try {
+        const username = req.params.username
+        const drinkId = req.body.drinkId
+        
+        const drink = await Drink.findById(drinkId)
+
+        const update = await User.findOneAndUpdate({ username: username },
+            {
+                "$pull": {
+                    favourites: drink
+                }
+            }
+        )
+        if (update) res.status(200).json({message: "DRINK-REMOVED-TO-FAVOURITES"})
+        else res.status(400).json({message: "DRINK-NOT-REMOVED-TO-FAVOURITES"})
+
+    } catch (error) {
+        res.status(500).json({message: "Something went wrong."})
+    }
+}
+
 
 module.exports.deleteAll = async (req, res) => {
     try {

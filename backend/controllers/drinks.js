@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Drink = require('../models/drink.model');
+const { Drink } = require('../models/drink.model');
 const { Recipe } = require('../models/recipe.model');
 const { Ingredient } = require('../models/ingredient.model');
 
@@ -394,6 +394,50 @@ module.exports.removeDrink = async (req, res) => {
             res.status(400).json({message: "NOT-ADMIN"})
         }
     } catch (err) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+module.exports.decrementRating = async (req, res) => {
+    try {
+        const drinkId = req.body.drinkId
+        let decrement = await Drink.findOneAndUpdate(
+            {
+                "$and": [
+                    {_id : drinkId},
+                    {rating: {$gte: 1}}
+
+                ]
+            }
+            , {
+                "$inc": {
+                    rating: -1
+            }
+        }) 
+        if (decrement) res.status(200).json({message: "DRINK-UNLIKED"})
+        else res.status(400).json({message: "DRINK-NOT-UNLIKED"})
+
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+module.exports.incrementRating = async (req, res) => {
+    try {
+        const drinkId = req.body.drinkId
+        let increment = await Drink.findOneAndUpdate(
+            {
+                _id: drinkId
+            }
+            , {
+                "$inc": {
+                    rating: 1
+            }
+        }) 
+        if (increment) res.status(200).json({message: "DRINK-LIKED"})
+        else res.status(400).json({message: "DRINK-NOT-LIKED"})
+
+    } catch (error) {
         res.status(500).json({message: error.message})
     }
 }
