@@ -12,6 +12,7 @@ import ChangePasswordAccount from "./components/changePasswordAccount/changePass
 import { CreateAccount } from './components/createAccount/createAccount';
 import GetAllDrinks from './components/getAllDrinks/getAllDrinks';
 import AXIOS from ".//axios.config"
+import IngredientSearch from './components/ingredientSearch/ingredientSearch';
 
 function App() { 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/account/logout" element={<LogOutAccount/>} />
           <Route path="/account/register" element = {<CreateAccount/>} />
           <Route path="/drinks/" element = {<GetAllDrinks/>} />
+          <Route path="/drinks/mix" element = {<IngredientSearch/>} />
         </Routes>
       </Router>
     </div>
@@ -57,6 +59,7 @@ function App() {
           <Route path="/account/logout" element={<LogOutAccount/>} />
           <Route path="/account/register" element = {<CreateAccount/>} />
           <Route path="/drinks/" element = {<GetAllDrinks/>} />
+          <Route path="/drinks/mix" element = {<IngredientSearch/>} />
         </Routes>
       </Router>
     </div>

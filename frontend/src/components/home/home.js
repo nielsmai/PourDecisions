@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './home.css'
 // import "@fontsource/montserrat"
 import AXIOS from "../../axios.config"
@@ -24,15 +23,7 @@ export default function Home() {
             <body>Don't worry and let us make your pour decisions.</body>
             <body>Click on mix to begin!</body>
             <br></br>
-            {/* <button type="button" class="mix">Mix!</button> */}
-            <div class="b">
-            <ul>
-            <li>
-            Mix!
-            <span></span><span></span><span></span><span></span>
-            </li>
-            </ul>
-            </div>
+            <Link to={"drinks/mix"}><button class="mix" >Mix</button></Link>
         </div>
     );
 }
