@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-.App {
-  text-align: center;
-  color: #7e003f;
+* {
+  /* text-align: center; */
+  /* color: #7e003f; */
   /* font-family:'Franklin Gothic Medium' , 'Arial Narrow', Arial, sans-serif; */
   font-family: "Montserrat", sans-serif;
 }

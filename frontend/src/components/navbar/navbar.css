@@ -1,0 +1,38 @@
+.navbar-item-c {
+  float:right;
+  margin-right:0;
+  margin-left:0;
+}
+
+.navbar-item-r {
+  float:right;
+  margin-right:0;
+  margin-left: 5vw;
+}
+
+.navbar-item-l {
+  float:left
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:#EBE7DB;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.no-border {
+    border:0px;
+}
+
+#name {
+    font-size: 166%;
+    margin-top: 4px;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+#name a {
+    color: #78003c;
+}

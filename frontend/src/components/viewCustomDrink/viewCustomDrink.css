@@ -3,7 +3,6 @@
     justify-content: center;
     height: 69vh;
     margin-top: 5px;
-    font-family: "Montserrat";
 }
 
 #drinkList {
@@ -86,7 +85,6 @@
     border: 3px solid #78003c;
     outline: none;
     font-size: 125%;
-    font-family: "Montserrat";
 }
 
 #sort {
