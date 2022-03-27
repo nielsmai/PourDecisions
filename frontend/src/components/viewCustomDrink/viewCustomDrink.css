@@ -89,11 +89,12 @@
 
 #sort {
     display:flex;
-    justify-content: center;
+    justify-content: right;
+    margin-right: 6.2%;
 }
 
 #sort .mimickButton {
-    margin-right: 5%;
+    margin-right: 2%;
     background-color:#AB6682;
     color: #EBE7DB;
     font-weight:bolder;

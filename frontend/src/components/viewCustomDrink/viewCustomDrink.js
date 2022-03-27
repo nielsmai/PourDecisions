@@ -8,7 +8,7 @@ export default function ViewCustomDrink() {
     const [listOfDrinks, setListOfDrinks] = useState([])
     // const [filteredDrinks, setFilteredDrinks] = useState(listOfDrinks)
     const [searchInput, setSearchInput] = useState("")
-    const [checkboxes, setCheckboxes] = useState([false, false, false, false, false])
+    const [checkboxes, setCheckboxes] = useState([false, false])
 
 
     const getDrinks = () => {
@@ -18,6 +18,53 @@ export default function ViewCustomDrink() {
             setListOfDrinks(res.data)
         })
     } 
+    
+    const sortDrinks = () => {
+        // sort by newest
+        if (checkboxes[0]) {
+            const copy = [...listOfDrinks]
+            const sortByDate = (a, b) => {
+                if ( a.createdAt < b.createdAt ){
+                    return 1
+                }
+                if (a.createdAt > b.createdAt ){
+                    return -1 
+                }
+                else return 0
+            }
+            return copy.sort(sortByDate)
+
+        }
+        // sort by popularity
+        else if (checkboxes[1]) {
+            const copy = [...listOfDrinks]
+            const sortByPopularity = (a, b) => {
+                if ( a.rating < b.rating ){
+                    return 1
+                }
+                if (a.rating > b.rating ){
+                    return -1 
+                }
+                else return 0
+            }
+            return copy.sort(sortByPopularity)
+
+        }
+        // no sort
+        else {
+            return listOfDrinks
+        }
+    } 
+
+    const capitalizeFirstLetter = (str) => {
+        const words = str.split(" ")
+        for (let i = 0; i < words.length; i++) {
+            words[i] = words[i].toLowerCase()[0].toUpperCase() + words[i].substr(1);
+        }
+
+        return words.join(" ")
+        
+    }
 
     useEffect( () => {
         if (localStorage.getItem('loggedIn') === null){
@@ -30,9 +77,9 @@ export default function ViewCustomDrink() {
 
     }, []) 
 
-    const getIngredientName = (ingredient) => {
+    const getIngredientName = (ingredient) => { 
         var ingredientList = 
-            ingredient.map( ing => ing.ingredientName)
+            ingredient.map( ing => capitalizeFirstLetter(ing.ingredientName))
             .toString().replace(/,/g, ', ')
 
         return(
@@ -44,7 +91,9 @@ export default function ViewCustomDrink() {
 
     const Sort = () => {
 
-        const checkboxNames = ['Alcoholic', 'Mocktail', 'Custom', 'Newest', 'Popularity']
+        // because other tags are a mess right now
+        // const checkboxNames = ['Alcoholic', 'Mocktail', 'Custom', 'Newest', 'Popularity']
+        const checkboxNames = ['Newest', 'Popularity']
     
         const handleSort = (e, i) => {
             const {checked} = e.target 
@@ -88,7 +137,7 @@ export default function ViewCustomDrink() {
             <ul id="drinkList">
 
                 {/* search by name */}
-                {listOfDrinks.filter(drink => drink.name.toLowerCase().includes(searchInput.toLowerCase()))
+                {sortDrinks().filter(drink => drink.name.toLowerCase().includes(searchInput.toLowerCase()))
                     .map( drink => ( 
 
                     <Link to={"/account/drinks/" + drink.name.replace(/ /g, '_')}>
@@ -97,7 +146,7 @@ export default function ViewCustomDrink() {
                        
                         <tr>
                         <td className="name">
-                            {drink.name}
+                            {capitalizeFirstLetter(drink.name)}
                         </td>
                         <td className="rating">
                             {drink.rating + " likes"} 
