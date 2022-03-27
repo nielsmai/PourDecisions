@@ -18,6 +18,15 @@ module.exports.getAllDrinks = async (req, res) => {
     }
 }
 
+module.exports.getDrinkById = async (req, res) => {
+    try {
+        const drink = await Drink.findById(req.params.id);
+        res.status(200).json(drink);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
 module.exports.createDrink = async (req, res) => {
     // const drink = req.body;  
     const { name, author, recipe, tag, public_status, rating } = req.body;
@@ -114,6 +123,19 @@ module.exports.getDrinkByName = async (req,res) => {
         const paramName = req.params.name
         const name = paramName.replace(/_/g,' ')
         const drinks = await Drink.find({$and: [{name: new RegExp(name,'i')}, {public_status : true}]})
+            res.status(200).json(drinks);
+        
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
+module.exports.getDrinkByUserAndName = async (req, res) => {
+    try {
+        const paramName = req.params.name
+        const username = req.params.username
+        const name = paramName.replace(/_/g,' ')
+        const drinks = await Drink.findOne({$and: [{name: name}, {author: username }]})
             res.status(200).json(drinks);
         
     } catch (err) {
@@ -429,14 +451,4 @@ module.exports.getAllIngredients = async (req, res) => {
 }
 
 
-// module.exports.getIngredientByName = async (req,res) => {
-//     try {
-//         const name = req.params.ingredientName.replaceAll('_',' ')
-//         const ingredients = await Ingredient.find({$and: [{ingredientName: new RegExp(name,'i')}]})
-//             res.status(200).json(ingredients);
-        
-//     } catch (err) {
-//         res.status(500).json({message: err.message})
-//     }
-// }
 

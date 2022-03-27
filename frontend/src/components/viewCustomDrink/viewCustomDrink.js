@@ -140,7 +140,7 @@ export default function ViewCustomDrink() {
                 {sortDrinks().filter(drink => drink.name.toLowerCase().includes(searchInput.toLowerCase()))
                     .map( drink => ( 
 
-                    <Link to={"/account/drinks/" + drink.name.replace(/ /g, '_')}>
+                    <Link to={"/account/drinks/id/" + drink._id}>
                     <li key={drink._id}>
                         <table className="drinkInfo">
                        
