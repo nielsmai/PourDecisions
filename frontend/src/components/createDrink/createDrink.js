@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import axios from 'axios';
 import AXIOS from '../../axios.config'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './createDrink.css';
 
 export default function CreateDrink() {
@@ -164,6 +164,14 @@ export default function CreateDrink() {
         }
     }
 
+    var seconds = 3
+
+    function redirectpage() {
+        window.location="/"
+    }
+
+    //const redirect = setTimeout(redirectpage(), 3000)
+
     if (window.localStorage.getItem('loggedUsername') === "admin") {
         return (
             <>
@@ -251,6 +259,7 @@ export default function CreateDrink() {
                     <h1> Congratulations! Your drink was made. You can now find it on the View tab.
                         
                     </h1>
+                    <Link to="/">Return to Home</Link>
                 </div>
             </div>
             </>
@@ -334,6 +343,7 @@ export default function CreateDrink() {
                     <h1> Congratulations! Your drink was made. You can now find it on the View tab.
                         
                     </h1>
+                    <Link to="/">Return to Home</Link>
                 </div>
             </div>
             </>
@@ -415,8 +425,8 @@ export default function CreateDrink() {
                 </div>
                 <div id="stepThree" style={{display: "none"}}>
                     <h1> Congratulations! Your drink was made. You can now find it on the View tab.
-                        
                     </h1>
+                    <Link to="/">Return to Home</Link>
                 </div>
             </div>
             </>
