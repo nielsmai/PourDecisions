@@ -90,30 +90,83 @@
     margin-bottom: 3vh;
 }
 
-#buttons {
-    width:100%;
-    margin-top: 6vh;
-}
-#buttons .drink-buttons{
-    display: block; 
-    margin:0 auto;
-    margin-bottom: 4vh;
-    padding: 10px;
-    border-radius: 12px;
-    border: 3px solid #90305E;
-    background-color: #90305E;
-    color: #EBE7DB;
-    font-weight: bolder;
-    font-size: 25px;
-}
+/* #buttons { */
+/*     width:100%; */
+/*     margin-top: 6vh; */
+/* } */
+/* #buttons .drink-buttons{ */
+/*     display: block; */ 
+/*     margin:0 auto; */
+/*     margin-bottom: 4vh; */
+/*     padding: 10px; */
+/*     border-radius: 12px; */
+/*     border: 3px solid #90305E; */
+/*     background-color: #90305E; */
+/*     color: #EBE7DB; */
+/*     font-weight: bolder; */
+/*     font-size: 25px; */
+/* } */
 
 #buttons .drink-buttons:hover {
     background:#CD6682;
     border: 3px solid #CD6682;
 }
 
-#buttons .drink-buttons:disabled, .drink-buttons[disabled] {
-    background:#78003C; 
-    border: 3px solid #78003c;
+/* #buttons .drink-buttons:disabled, .drink-buttons[disabled] { */
+/*     background:#78003C; */ 
+/*     border: 3px solid #78003c; */
+/* } */
+
+#buttons {
+    display: flex; 
+    width: 100%;
+    margin-top: 6vh;
+    justify-content: center;
+
 }
 
+#buttons ul{
+    list-style-type: none;
+    padding: 0;
+    min-width: 16%;
+    overflow: hidden;
+}
+
+#buttons li {
+    list-style-type: none;
+    padding: 0px;
+    margin-bottom: 3vh;
+}
+
+#buttons .mimick-button {
+    margin-right: 2%;
+    background-color:#90305E;
+    color: #EBE7DB;
+    font-size: 20px;
+    font-weight:bolder;
+    border-radius: 12px;
+}
+
+#buttons .mimick-button:hover {
+    background:#CD6682;
+}
+
+#buttons label span {
+    text-align: center;
+    display: block;
+   -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;   padding: 10px 30px 10px 30px;
+} 
+
+#buttons .mimick-button input:checked + span {
+    background-color:#78003C;
+    border-radius:12px;
+}
+
+#buttons .mimick-button input {
+    display: none;
+}

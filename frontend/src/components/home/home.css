@@ -41,7 +41,7 @@
     padding: 0;
 } */
 
-li {
+.b li {
     --c: #7e003f;
     margin:0 auto;
     color: var(--c);
@@ -64,7 +64,7 @@ li {
     margin: 1em;
 }
 
-li span {
+.b li span {
     position: absolute;
     width: 25%;
     height: 100%;
@@ -77,26 +77,26 @@ li span {
     z-index: -1;
 }
 
-li:hover {
+.b li:hover {
     color: #F8F3E7;
 }
 
-li:hover span {
+.b li:hover span {
     transform: translateY(0) scale(2);
 }
 
-li span:nth-child(1) {
+.b li span:nth-child(1) {
     --n: 1;
 }
 
-li span:nth-child(2) {
+.b li span:nth-child(2) {
     --n: 2;
 }
 
-li span:nth-child(3) {
+.b li span:nth-child(3) {
     --n: 3;
 }
 
-li span:nth-child(4) {
+.b li span:nth-child(4) {
     --n: 4;
 }

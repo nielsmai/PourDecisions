@@ -104,10 +104,9 @@ export default function ViewCustomDrink() {
         return(
             <>
                 {checkboxes.map((selected, i) => (
-                    <div className='mimickButton'>
+                    <div key={i} className='mimickButton'>
                         <label>
                             <input 
-                            key={i}
                             type='checkbox'
                             checked={selected}
                             onChange={e => handleSort(e, i)}
@@ -142,7 +141,7 @@ export default function ViewCustomDrink() {
                     <Link to={"/account/drinks/id/" + drink._id}>
                     <li key={drink._id}>
                         <table className="drinkInfo">
-                       
+                        <tbody>
                         <tr>
                         <td className="name">
                             {capitalizeFirstLetter(drink.name)}
@@ -160,7 +159,7 @@ export default function ViewCustomDrink() {
                             Ingredients: {getIngredientName(drink.recipe.ingredients)}
                         </td> 
                         </tr>
-                        
+                        </tbody>
                         </table>
                     </li>    
 

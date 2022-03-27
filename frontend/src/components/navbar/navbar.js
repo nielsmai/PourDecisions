@@ -9,18 +9,18 @@ export default class Navbar extends Component {
         {
             return (
                 <nav>
-                <div>
-                <ul>
-                    <li id="name" className="navbar-item-l no-border">
+                <div id="nav">
+                <ul className="navbar">
+                    <li id="name" className="navbar-item-l no-border ">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-r no-border">
+                    <li className="navbar-item-r no-border ">
                         <Link to="/account/logout">Logout</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/tests">Test</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
                 </ul>
@@ -33,24 +33,24 @@ export default class Navbar extends Component {
         {
             return (
                 <nav>
-                <div>
+                <div id="nav">
                 <ul className="navbar">
-                    <li id="name" className="navbar-item-l no-border">
+                    <li id="name" className="navbar-item-l no-border ">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-r no-border">
+                    <li className="navbar-item-r no-border ">
                         <Link to="/account/logout">Logout</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/account/drinks">My Drinks</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/create">Create</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/">Search</Link>
                     </li>
-                    <li className="navbar-item-c no-border">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
                     <li className="navbar-item-c no-border">
@@ -65,7 +65,7 @@ export default class Navbar extends Component {
         else {
             return (
             <nav>
-                <div>
+                <div id="nav">
                 <ul className="navbar">
                     <li id="name" className="navbar-item-l no-border">
                         <Link to="/">PourDecisions</Link>

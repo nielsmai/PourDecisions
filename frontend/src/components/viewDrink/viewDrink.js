@@ -15,7 +15,7 @@ export default function ViewDrink() {
     useEffect( () => {
         const timer = setTimeout(() => {
             setLoad(true)
-        }, 500)
+        }, 150)
         return () => clearTimeout(timer)
     }, [])
 
@@ -25,6 +25,9 @@ export default function ViewDrink() {
         .then(res => {
             if (userType !== "guest"){
                 setDrink(res.data)
+                if (user == res.data.author) {
+                    setUserType("author")
+                }
                 AXIOS.get("/users/" + user)
                 .then(res => 
                     setFavourites(res.data.favourites)
@@ -41,7 +44,7 @@ export default function ViewDrink() {
         else if (localStorage.getItem('loggedUsername') == 'admin') {
             setUserType("admin") 
         }
-        else {
+        else{
             setUserType("user")
         }
         loadStates()
@@ -67,32 +70,35 @@ export default function ViewDrink() {
         return words.join(" ")
     }
 
-
-    const favouriteDrink = () => {
-    
-        // TODO CHANGE BUTTONS TO CHECKBOXES
-        // <input type='checkbox' onchange='handleChange(this);/>'
-        // function handleChange(checkbox) {
-        // if(checkbox.checked == true){
-        //     document.getElementById("submit").removeAttribute("disabled");
-        // }else{
-        //     document.getElementById("submit").setAttribute("disabled", "disabled");
-       // }
-        // }
-
-
-        AXIOS.put('/users/' + localStorage.getItem('loggedUsername') + '/favourite/add')
-        .then( () => {
-            AXIOS.put('/drinks/drink/like', {
+    const handleButtonChange = () => {
+        if (alreadyFavourited) {
+            AXIOS.put('/users/' + localStorage.getItem('loggedUsername') + '/favourite/remove', {
                 drinkId: drinkId
             })
             .then( () => {
-                loadStates()
-            }
-            )
-        })
-
-
+                AXIOS.put('/drinks/drink/unlike', {
+                    drinkId: drinkId
+                })
+                .then( () => {
+                    setAlreadyFavourited(!alreadyFavourited)
+                    window.location.reload(false)
+                })
+            })
+        }
+        else {
+            AXIOS.put('/users/' + localStorage.getItem('loggedUsername') + '/favourite/add', {
+                drinkId: drinkId 
+            })
+            .then( () => {
+                AXIOS.put('/drinks/drink/like', {
+                    drinkId: drinkId
+                })
+                .then( () => {
+                    setAlreadyFavourited(!alreadyFavourited)
+                    window.location.reload(false)
+                })
+            })
+        }
     }
  
     return load 
@@ -108,7 +114,7 @@ export default function ViewDrink() {
             <span className="body-header">Ingredients:</span>
             <ul className="body-text ingredient ingredient-list">
             { drink.recipe.ingredients.map( ing => 
-                <li className='ingredient'>
+                <li key={ing._id} className='ingredient'>
                     {capitalizeFirstLetter(ing.ingredientName)}
                 </li> 
             )} 
@@ -116,8 +122,8 @@ export default function ViewDrink() {
             <span className="body-header">Garnish:</span>
             <ul className="body-text ingredient ingredient-list">
             {drink.recipe.garnish.length !== 0
-                ? drink.recipe.garnish.map( garn => 
-                <li className='ingredient'>
+                ? drink.recipe.garnish.map( (garn, i) => 
+                <li key={i} className='ingredient'>
                     {capitalizeFirstLetter(garn)}
                 </li>
                 )
@@ -151,10 +157,31 @@ export default function ViewDrink() {
                 ? 
                     <></>
                 : 
+                userType == "admin" || userType == "author"
+                ?
                 <div id="buttons">
-                    <button id="favourite-button" className="drink-buttons" disabled={alreadyFavourited}>Favourite this drink!</button>
-                    <button id="edit-button" className="drink-buttons">Edit your drink!</button>
+                <ul>
+                <li>
+                <div id="favourite-button" className="mimick-button">
+                    <label>
+                    <input type="checkbox" checked={alreadyFavourited} onChange={()=>handleButtonChange()}/>
+                    <span>Favourite this drink!</span>
+                    </label>
                 </div>
+                </li>
+                <li>
+                <div id="edit-button" className="mimick-button">
+                    <label>
+                    <input type="submit" onClick={() => alert("edit")}/>
+                    <span>Edit this drink!</span>
+                    </label>
+                </div>
+                </li>
+                </ul>
+
+                </div>
+                :
+                <div><h1>HEllo</h1></div>
             }
         </div>
         </div>

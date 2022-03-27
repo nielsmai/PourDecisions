@@ -21,6 +21,10 @@
     height: 160px;
     margin: 2%;
     padding: 0px;
+    list-style-type: none;
+    border-radius: 0.5em;
+    font-weight: bolder;
+    position: relative;
 }
 
 .drinkInfo {
