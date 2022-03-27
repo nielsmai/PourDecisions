@@ -9,20 +9,29 @@ export default function ViewDrink() {
     const [drink, setDrink] = useState({})
     const [userType, setUserType] = useState("")
     const [load, setLoad] = useState(false)
+    const [favourites, setFavourites] = useState([])
+    const [alreadyFavourited, setAlreadyFavourited] = useState(false)
     
     useEffect( () => {
         const timer = setTimeout(() => {
             setLoad(true)
-        }, 150)
+        }, 500)
         return () => clearTimeout(timer)
     }, [])
 
-    const getDrink = () => {
+    const loadStates = () => {
         const user = localStorage.getItem('loggedUsername')
         AXIOS.get("/drinks/id/" + drinkId)
         .then(res => {
-            if (res.data.author !== user) setUserType("guest")
-            setDrink(res.data)
+            if (userType !== "guest"){
+                setDrink(res.data)
+                AXIOS.get("/users/" + user)
+                .then(res => 
+                    setFavourites(res.data.favourites)
+                )
+            } else {
+                setDrink(res.data)
+            }
         })
     } 
     useEffect( () => {
@@ -35,10 +44,19 @@ export default function ViewDrink() {
         else {
             setUserType("user")
         }
-        getDrink()
-            // <p className="body-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-
+        loadStates()
     }, []) 
+
+    const alreadyInFavourites = () => {
+
+        setAlreadyFavourited(
+            favourites.some( e => e.name == drink.name && e.author == drink.author)
+        ) 
+    }
+
+    useEffect ( () => {
+        alreadyInFavourites()
+    })
 
     const capitalizeFirstLetter = (str) => {
         const words = str.split(" ")
@@ -47,6 +65,34 @@ export default function ViewDrink() {
         }
 
         return words.join(" ")
+    }
+
+
+    const favouriteDrink = () => {
+    
+        // TODO CHANGE BUTTONS TO CHECKBOXES
+        // <input type='checkbox' onchange='handleChange(this);/>'
+        // function handleChange(checkbox) {
+        // if(checkbox.checked == true){
+        //     document.getElementById("submit").removeAttribute("disabled");
+        // }else{
+        //     document.getElementById("submit").setAttribute("disabled", "disabled");
+       // }
+        // }
+
+
+        AXIOS.put('/users/' + localStorage.getItem('loggedUsername') + '/favourite/add')
+        .then( () => {
+            AXIOS.put('/drinks/drink/like', {
+                drinkId: drinkId
+            })
+            .then( () => {
+                loadStates()
+            }
+            )
+        })
+
+
     }
  
     return load 
@@ -103,13 +149,11 @@ export default function ViewDrink() {
         <div id="buttons">
             {userType == "guest" 
                 ? 
-                <div id="buttons">
-                    <button className="drink-buttons">Favourite this drink!</button>
-                </div>
+                    <></>
                 : 
                 <div id="buttons">
-                    <button className="drink-buttons" onClick={()=>console.log("hello")}>Favourite this drink!</button>
-                    <button className="drink-buttons">Edit your drink!</button>
+                    <button id="favourite-button" className="drink-buttons" disabled={alreadyFavourited}>Favourite this drink!</button>
+                    <button id="edit-button" className="drink-buttons">Edit your drink!</button>
                 </div>
             }
         </div>

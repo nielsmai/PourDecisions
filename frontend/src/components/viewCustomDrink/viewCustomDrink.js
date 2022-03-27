@@ -63,7 +63,6 @@ export default function ViewCustomDrink() {
         }
 
         return words.join(" ")
-        
     }
 
     useEffect( () => {

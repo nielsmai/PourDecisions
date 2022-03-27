@@ -114,5 +114,6 @@
 
 #buttons .drink-buttons:disabled, .drink-buttons[disabled] {
     background:#78003C; 
+    border: 3px solid #78003c;
 }
 
