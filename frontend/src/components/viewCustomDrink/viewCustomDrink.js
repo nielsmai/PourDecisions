@@ -35,15 +35,48 @@ import AXIOS from "../../axios.config"
 
 
 export default function ViewCustomDrink() {
+    // const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
+    // const [drinkName, setDrinkName] = useState("");
     const [isChecked, setIsChecked] = useState(false);
-    const [userUsername, setUserUsername] = useState(window.localStorage.getItem('loggedUsername'));
-    const [drinkName, setDrinkName] = useState("");
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [drink, setDrink] = useState({
+        name: "",
+        author: "",
+        recipe: {
+            ingredients: [
+                {
+                    ingredientName: "",
+                    ingredientType: ""
+                }
+            ],
+            garnish: "",
+            instructions: ""
+        },
+        public_status: ""
+    })
 
-    const handleOnChange = () => {
+    const [currentDrink, setCurrentDrink] = useState([]);
+
+    const getData = async () => {
+
+        const response = await AXIOS.get('drinks/:username')
+        
+        console.log(response.data)
+        
+        setCurrentDrink(response.data)
+
+        var json = JSON.parse(response.data);
+        var visibility = json.public_status;
+        setIsChecked(visibility);
+
+    }
+
+    const handleOnChange = (event) => {
+        //event.preventDefault();
         setIsChecked(!isChecked);
         const PostData = async () => {
 
-            let res = await AXIOS.put('/'+userUsername+'/'+drinkName+'/update/status', {
+            let res = await AXIOS.put('/:username/:name/update/status', {
                 // username: userUsername,
                 // password: userOldPass,
                 // newPassword: userNewPass,
