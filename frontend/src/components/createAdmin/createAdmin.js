@@ -65,18 +65,18 @@ export default class CreateAdmin extends Component {
                     </div>
                     <div className="columnRight">
                         <div>
-                        <h1 className="loginTitle">Create Admin</h1>
+                        <h1 className="loginTitle libre">Create Admin</h1>
                         <div>
                             <div>
-                            <h4 className="username">Username</h4>
+                            <h4 className="username poppins">Username</h4>
                             </div>
                             <div>
-                            <h4 className="username">admin</h4>
+                            <h4 className="username poppins">admin</h4>
                             </div>
                         </div>
                         <div className="formBottom">
                             <div>
-                            <h4 className="password">Email</h4>
+                            <h4 className="password poppins">Email</h4>
                             </div>
                             <input type="text" name="pass" required placeholder="email" onChange={(e)=> this.setEmail(e)}
                             />
@@ -84,7 +84,7 @@ export default class CreateAdmin extends Component {
                         </div>
                         <div className="formBottom">
                             <div>
-                            <h4 className="password">Password</h4>
+                            <h4 className="password poppins">Password</h4>
                             </div>
                             <input type="text" name="pass" required placeholder="password" onChange={(e)=> this.setPassword(e)}
                             />
@@ -92,7 +92,7 @@ export default class CreateAdmin extends Component {
                         </div>
                         
                         <div className="loginButton">
-                            <button type="submit" className="loginConfirm">Create</button>
+                            <button type="submit montserrat" className="loginConfirm">Create</button>
                         </div>
                         </div>
                     </div>
