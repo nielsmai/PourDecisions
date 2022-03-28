@@ -70,38 +70,38 @@ export default function LogInAccount() {
             </div>
             <div className="columnRight">
                 <div>
-                    <h1 className="loginTitle">Login</h1>
+                    <h1 className="loginTitle libre">Login</h1>
                     <div>
                             <div>
-                             <h4 className="username">Username</h4>
+                             <h4 className="username poppins">username</h4>
                             </div>
                             <input type="text" name="name" required
-                                placeholder="username"
+                                // placeholder="username"
                                 onChange={ (e) => setLoginUsername(e.target.value)}
                             />
                             {renderErrorMessage("name")}
                     </div>
                     <div className="formBottom">
                         <div>
-                            <h4 className="password">Password</h4>
+                            <h4 className="password poppins">password</h4>
                         </div>
                         <input type="text" name="pass" required
-                            placeholder="password"
+                            // placeholder="password"
                             onChange={(e) => setLoginPassword(e.target.value)}
                         />
                         {renderErrorMessage("pass")}
                     </div>
 
                     <div className="loginButton">
-                        <button type="submit" className="loginConfirm">Login</button>
+                        <button type="submit" className="loginConfirm montserrat">Login</button>
                     </div>
 
-                    <div className="forgetAccount">
+                    <div className="forgetAccount poppins">
                         <label><b>Don't have an account?</b></label>
                     </div>
 
-                    <div className="signUp">
-                        <Link to="/account/register">Sign up</Link>
+                    <div className="signUp poppins">
+                        <Link to="/account/register">sign up</Link>
                     </div>
                 </div>
 
