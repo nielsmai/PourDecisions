@@ -49,16 +49,18 @@ export default function GetAllDrinks() {
 
     <div>
         <div class="searchBar" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '20vh'}}>
-           
-            <form action="/" method="get">
+           <div class="container">
+            <form action="/" method="get" class="formSearch">
             <input
                 type="text"
                 id="header-search"
                 placeholder="Search Drinks"
                 name="s" 
             />
-            <a class = "button">Search</a>
+            {/* <a class = "button">Search</a> */}
             </form>
+            <button class="buttonSearch">Search</button>
+            </div>
         </div>
 
         {/* <div class="filters" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '0vh'}}>
@@ -99,8 +101,10 @@ export default function GetAllDrinks() {
 
         <>
         <div>
-            <h3>Drinks</h3>
-            <button onClick={getData}>View Drinks</button>
+            <div class="buttonContainer">
+            <h3 class="drinkTitle">Drinks</h3>
+            <button onClick={getData} class="buttonView">View Drinks</button>
+            </div>
             {
                 drinks && drinks.map((drinks, index) =>
                 {
