@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 .button {
     background-color: #7E003E;
     border: none;
@@ -9,6 +10,18 @@
    border-radius:10px;
   position: absolute;
   left: 54%;
+}
+
+.fil{
+  color: #F8F3E7;
+  background-color: #B46B89;
+  border: none;
+  border-radius: 12px;
+  font-size: 21px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px;
+  padding: 5px 15px;
+
 }
 
 table{

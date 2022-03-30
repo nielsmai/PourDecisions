@@ -146,7 +146,7 @@ export default function CreateDrink() {
     return (
         <>
         <div>
-            <h2 id="montserrat create">Create</h2>
+            <h2 classname="createTitle">Create</h2>
             <div id="stepOne">
                 <h3 classname="montserrat">Step 1.</h3>
                 <h3 classname="montserrat">Add the ingredients that are in your drink</h3>

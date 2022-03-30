@@ -68,11 +68,11 @@ export default function GetAllDrinks() {
         </div> */}
 
         <div class="filters" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh'}}>
-            <button type="button" class="filters">Alcoholic</button>
-            <button type="button" class="filters">Mocktail</button>
-            <button type="button" class="filters">Custom</button>
-            <button type="button" class="filters">Newest</button>
-            <button type="button" class="filters">Popularity</button>
+            <button type="button" class="fil filters">Alcoholic</button>
+            <button type="button" class="fil filters">Mocktail</button>
+            <button type="button" class="fil filters">Custom</button>
+            <button type="button" class="fil filters">Newest</button>
+            <button type="button" class="fil filters">Popularity</button>
         </div>  
 
          <div>

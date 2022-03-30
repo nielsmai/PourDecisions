@@ -7,7 +7,7 @@
 }
 
 #create {
-    margin-left: 2%
+    margin-left: 2%;
 }
 
 #stepOne {
@@ -24,7 +24,10 @@
     margin-left: 2%;
     margin-right: 2%;
 }
-
+.createTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+}
 .stepBox {
     background-color: #efeade;
     padding: 5%;
