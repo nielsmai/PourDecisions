@@ -110,10 +110,11 @@ export default function GetAllDrinks() {
                 
                 
                 return (
-                    <div key={index}>
-                        <h2> {drinkName}</h2>
-                        <h5>{drinkRating} ratings     [{drinkTag}]</h5>
-
+                    <div key={index} class="drinkListPad">
+                        <div class="drinkListBox">
+                        <h2 class="drinkListTitle"> {drinkName}</h2>
+                        <h5 class="drinkList">{drinkRating} ratings     [{drinkTag}]</h5>
+                        </div>
                     </div>
                 );
                 })}
