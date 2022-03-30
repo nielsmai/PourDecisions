@@ -3,7 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .ingredient {
-    color:black
+    color: #7E003F;
+    background-color: #b46b894d;
+    border-radius: 12px;
 }
 
 #create {
@@ -24,10 +26,29 @@
     margin-left: 2%;
     margin-right: 2%;
 }
+.fil{
+    color: #F8F3E7;
+    background-color: #B46B89;
+    border: none;
+    border-radius: 12px;
+    font-size: 21px;
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px;
+    padding: 5px 15px;
+  }
 .createTitle {
     font-family: 'Montserrat', sans-serif;
     font-size: 48px;
-    color: #664e4c
+    color: #7E003F;
+    test-align: justify;
+}
+.createSubTitle{
+    color: #7E003F;
+    font-size: 38px;
+    text-align: justify;
+}
+.test{
+    font-size: 20px;
 }
 .stepBox {
     background-color: #efeade;
@@ -35,6 +56,10 @@
     border-radius: 12px;
     outline-color: #beb8aa;
     outline-style:auto;
+}
+.tags{
+    color:#7E003F;
+    font-size: 24;
 }
 .montserrat{
     font-family: 'Montserrat', sans-serif;

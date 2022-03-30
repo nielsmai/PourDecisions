@@ -146,10 +146,10 @@ export default function CreateDrink() {
     return (
         <>
         <div>
-            <h2 classname="createTitle">Create</h2>
+            <h2 class="createTitle">Create</h2>
             <div id="stepOne">
-                <h3 classname="montserrat">Step 1.</h3>
-                <h3 classname="montserrat">Add the ingredients that are in your drink</h3>
+                <h3 class="createSubTitle">Step 1.</h3>
+                <h3 class="createSubTitle">Add the ingredients that are in your drink</h3>
                 <div className="stepBox">
                 <form>
                     <input type="text"
@@ -158,7 +158,7 @@ export default function CreateDrink() {
                         value={ingredient}
                         onChange={e => setIngredient(e.target.value)}></input>
                     <br></br><br></br>
-                    <button onClick={addIngredient}>Add Ingredient</button>
+                    <button onClick={addIngredient} class="fil">Add Ingredient</button>
                 </form>
 
                 <ul>
@@ -167,13 +167,13 @@ export default function CreateDrink() {
                     ))}
                 </ul>
 
-                <button onClick={stepTwo}>Step 2</button>
+                <button onClick={stepTwo} class="fil">Step 2</button>
                 </div>
             </div>
             
             <div id="stepTwo" style={{display: "none"}}>
-                <h3>Step 2.</h3>
-                <h3>Write the recipe, and make sure to include tags!</h3>
+                <h3 class="createSubTitle">Step 2.</h3>
+                <h3 class="createSubTitle">Write the recipe, and make sure to include tags!</h3>
 
                 <div className='stepBox'>
                 <form>
@@ -197,7 +197,7 @@ export default function CreateDrink() {
                         onChange={onChangeRecipeInstructions}
                         width='100%'
                         size='100%'></input>
-
+                <br></br>
                 <input type="text"
                         name="author"
                         placeholder="Drink Author"
@@ -208,10 +208,10 @@ export default function CreateDrink() {
                         >
                         </input>
                     
-                    <label for="public">Public</label>
+                    <label for="public" class="fil">Public</label>
                     <br></br>
-                    <label value="tagsLabel">Tag: </label>
-                    <select name="tags">
+                    <label value="tagsLabel" class="tags montserrat">Tag: </label>
+                    <select name="tags" class="fil">
                     <option value="CUSTOM">CUSTOM</option>
                     <option value ="ALCOHOLIC">ALCOHOLIC</option>
                     <option value ="MOCKTAIL">MOCKTAIL</option>
@@ -219,12 +219,12 @@ export default function CreateDrink() {
                     </select>
                     <br></br><br></br>
 
-                    <input type="button" onClick={ addDrink }value="Add Drink"></input>
+                    <input type="button" class="fil" onClick={ addDrink }value="Create!"></input>
                 </form>
                 </div>
             </div>
             <div id="stepThree" style={{display: "none"}}>
-                <h1>your drink was made
+                <h1 class="createSubTitle">your drink was made
 
                 </h1>
             </div>
