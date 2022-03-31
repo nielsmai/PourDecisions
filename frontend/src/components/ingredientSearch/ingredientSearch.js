@@ -6,15 +6,30 @@ export default class ingredientSearch extends Component {
         super(props)
 
         this.addIngredients = this.addIngredients.bind(this)
+        this.search = this.search.bind(this)
+        this.delete = this.delete.bind(this)
 
         this.state={
             ingredients: [],
             ingredientsOpts: new Set(),
-            drinks: []
+            drinks: [],
+            current: []
         }
     }
 
-    addIngredients = (e) => this.setState({ingredients: [...this.state.ingredients,e.target.value]})
+    addIngredients = (e) => {
+
+        this.setState({ingredients: [...this.state.ingredients,e.target.value]})
+
+        let temp = [...this.state.ingredientsOpts]
+
+        if (temp.length === 1) temp = []
+    
+        else temp.splice(temp.indexOf(e.target.value),1)
+
+        this.setState({ingredientsOpts : new Set(temp)})
+        
+    } 
 
     componentDidMount(){
         AXIOS.get('/drinks/').then(res => {
@@ -27,27 +42,68 @@ export default class ingredientSearch extends Component {
 
                for (let ingredient of ingredients)
                {
-                   let temp = this.state.ingredientsOpts.add(ingredient.ingredientName.toLowerCase())
+                   let temp = this.state.ingredientsOpts.add(ingredient.ingredientName)
                    this.setState({ingredientsOpts : temp })     
                }
            }
             
         })
-        // .then ( () => console.log(this.state.ingredientsOpts))
     }
+    search(){
+        AXIOS.get('/drinks/filter/ingredients',{ params :{ingredients : this.state.ingredients} 
+            
+        }).then(res => {
+            console.log(res.data)
+            this.setState({current : res.data})
+        }).then( console.log(this.state.current))
+    }
+
+    delete = (name) =>
+     {
+        let temp = [...this.state.ingredients]
+
+        if (temp.length === 1) temp = []
+    
+        else temp.splice(temp.indexOf(name),1)
+
+        this.setState({ingredients : temp})
+
+        let replenish = [...this.state.ingredientsOpts]
+
+        replenish.push(name)
+
+        this.setState({ingredientsOpts : new Set(replenish)})
+     }
 
     render() {
         return (
+         
           <div>
-          {console.log(this.state.ingredientsOpts)}
+          <div>
+            <label>Mix<br></br>Select the ingredients you've got at home,
+            to see what drinks you can make!</label>
+          </div>
+          <br></br>
+
+          <div>
+            {/* {console.log(this.state.ingredientsOpts)} */}
+            <label>Selected</label>
+            <ul>
+                {this.state.ingredients.map(ingredient => (
+                    <li>
+                        <label>{ingredient}</label>
+                        <button onClick={() => this.delete(ingredient)}>X</button>
+                    </li>
+                ))}
+            </ul>
             <select onChange={this.addIngredients}>
                 {[...this.state.ingredientsOpts].map(ingredients => (
                     <option key={ingredients} value={ingredients}>{ingredients}</option>
                 ))}
             </select>
-            <label>
-                {this.state.ingredients}
-            </label>
+            {/* {console.log(this.state.ingredients)} */}
+            <button onClick={() => this.search}>Mix</button>
+          </div>
           </div>  
         )
     }
