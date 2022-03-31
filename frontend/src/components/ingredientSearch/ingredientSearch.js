@@ -106,8 +106,6 @@ export default class ingredientSearch extends Component {
                             <li key={drink._id}>
                                 <table>
                                 <tbody>
-                            <li key={drink.name}>
-                                <table>
                                     <tr>
                                         <td>
                                             {drink.name}
