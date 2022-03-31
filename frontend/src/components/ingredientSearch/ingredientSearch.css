@@ -1,0 +1,51 @@
+#mainblock {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+#mainblockTitle {
+    font-size: 25px;
+    color: #73003F;
+    margin: 0 auto;
+}
+#mainblockPrompt {
+    font-size: 40px;
+    color:#73003F;
+}
+
+#mixbutton {
+    margin-top: 1%;
+    width: 100px;
+    height: 36px;
+    border: solid 2px;
+    background-color:rgba(180, 107, 137, 0.36);
+    border-color: #73003F;
+    border-radius: 10px;
+    vertical-align: bottom;
+}
+
+#subblock {
+    border: solid 1px #BEB8AA;
+    border-radius: 10px;
+    background-color: #EFEADE;
+    padding: 5%;
+}
+
+ul.horizontal {
+    padding-left: 0px;
+    text-align: center;
+}
+
+ul.horizontal > li {
+    display: inline-block;
+}
+
+#dropdown {
+    border: solid 2px #73003F;
+    border-radius: 10px;
+    height: 60px;
+    background-color: transparent;
+    margin-left: 10%;
+    margin-right: 10%;
+}

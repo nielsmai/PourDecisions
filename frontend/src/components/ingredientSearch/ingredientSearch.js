@@ -1,5 +1,6 @@
 import { Component } from "react";
 import AXIOS from '../../axios.config'
+import './ingredientSearch.css'
 
 export default class ingredientSearch extends Component {
     constructor(props) {
@@ -77,59 +78,64 @@ export default class ingredientSearch extends Component {
         return (
 
             <div>
-                <div>
-                    <label>Mix<br></br>Select the ingredients you've got at home,
-                        to see what drinks you can make!</label>
-                </div>
-                <br></br>
-
-                <div>
-                    {/* {console.log(this.state.ingredientsOpts)} */}
-                    <label>Selected</label>
-                    <ul>
-                        {this.state.ingredients.map(ingredient => (
-                            <li key={ingredient}>
-                                <label>{ingredient}</label>
-                                <button onClick={() => this.delete(ingredient)}>X</button>
-                            </li>
-                        ))}
-                    </ul>
-                    <select onChange={this.addIngredients}>
-                        {[...this.state.ingredientsOpts].map(ingredients => (
-                            <option key={ingredients} value={ingredients}>{ingredients}</option>
-                        ))}
-                    </select>
-                    {/* {console.log(this.state.ingredients)} */}
-                    <button onClick={this.search}>Mix</button>
-
-                    <ul>
-                        {this.state.current.map(drink => (
-
-                            <li key={drink._id}>
-                                <table>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {drink.name}
-                                        </td>
-                                        <td>
-                                            {drink.tag}
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                                
-                            </li>
-                        ))}
-                    </ul>
 
 
+                <div id="mainblock">
+
+                    <div>
+                        <p id="mainblockPrompt" class="w">
+                            Mix 
+                            <br></br>
+                            Select the ingredients you've got at home, to see what drinks you can make!
+                        </p>
+                    </div>
+                    <div id="subblock">
+                        <label id="mainblockTitle">Selected</label>
+                        <div>
+                            <ul class="horizontal">
+                                {this.state.ingredients.map(ingredient => (
+                                    <li key={ingredient}>
+                                        <label>{ingredient}</label>
+                                        <button onClick={() => this.delete(ingredient)}>X</button>
+                                    </li>
+                                ))}
+                            </ul>
+                            <select defaultValue={"Ingredient"} id="dropdown" 
+                                    onChange={this.addIngredients}>
+                                {[...this.state.ingredientsOpts].map(ingredients => (
+                                    <option key={ingredients} value={ingredients}>{ingredients}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <button id="mixbutton" onClick={this.search}>Mix</button>
+
+                        <ul class="horizontal">
+                            {this.state.current.map(drink => (
+                                <li key={drink._id}>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {drink.name}
+                                                </td>
+                                                <td>
+                                                    {drink.tag}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         )
