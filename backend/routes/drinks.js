@@ -22,6 +22,10 @@ const {
     removeIngredient,
     removeDrink,
     getAllIngredients,
+    getDrinkByUserAndName,
+    getDrinkById,
+    incrementRating,
+    decrementRating
     // getIngredientByName
 
 } = require('../controllers/drinks');
@@ -31,6 +35,18 @@ const router = express.Router();
 // this is supposed to get info once we go to root
 router.get('/', (req, res) => {
     getAllDrinks(req, res);
+})
+
+router.get('/id/:id', (req, res) => {
+    getDrinkById(req, res)
+})
+
+router.put('/drink/like', (req, res) => {
+    incrementRating(req, res)
+})
+
+router.put('/drink/unlike', (req, res) => {
+    decrementRating(req, res)
 })
 
 // route to add new drinks (post)
@@ -79,6 +95,10 @@ router.get('/:username', function(req,res){
 
 router.get('/:name/name', function(req,res){
     getDrinkByName(req,res)
+})
+
+router.get('/:username/:name', function(req,res){
+    getDrinkByUserAndName(req,res)
 })
 
 router.get('/tag/:tag', function(req,res){
