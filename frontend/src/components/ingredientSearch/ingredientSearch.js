@@ -88,7 +88,7 @@ export default class ingredientSearch extends Component {
                     <label>Selected</label>
                     <ul>
                         {this.state.ingredients.map(ingredient => (
-                            <li>
+                            <li key={ingredient}>
                                 <label>{ingredient}</label>
                                 <button onClick={() => this.delete(ingredient)}>X</button>
                             </li>
