@@ -105,7 +105,7 @@ export default class ingredientSearch extends Component {
                     <ul>
                         {this.state.current.map(drink => (
 
-                            <li key={drink.name}>
+                            <li key={drink._id}>
                                 <table>
                                     <tr>
                                         <td>
