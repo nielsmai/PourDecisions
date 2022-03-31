@@ -8,31 +8,46 @@ export default class ingredientSearch extends Component {
         this.addIngredients = this.addIngredients.bind(this)
 
         this.state={
-            ingredients: new Set(),
+            ingredients: [],
+            ingredientsOpts: new Set(),
             drinks: []
         }
     }
 
-    addIngredients = (e) => this.setState([this.state.ingredients,e.target.value])
+    addIngredients = (e) => this.setState({ingredients: [...this.state.ingredients,e.target.value]})
 
     componentDidMount(){
         AXIOS.get('/drinks/').then(res => {
             this.setState({drinks : res.data})
+        }).then ( () => {
+           
+           for(let drink of this.state.drinks) 
+           {
+               let ingredients = drink.recipe.ingredients
+
+               for (let ingredient of ingredients)
+               {
+                   let temp = this.state.ingredientsOpts.add(ingredient.ingredientName.toLowerCase())
+                   this.setState({ingredientsOpts : temp })     
+               }
+           }
+            
         })
-        console.log(this.state.drinks)
-        this.setState({ingredients : new Set(this.state.drinks.map(drink => drink.recipe.ingredients))})
-        console.log(this.state.ingredients)
+        // .then ( () => console.log(this.state.ingredientsOpts))
     }
 
     render() {
         return (
           <div>
+          {console.log(this.state.ingredientsOpts)}
             <select onChange={this.addIngredients}>
-                {[this.state.ingredients].map(ingredients => (
-                    <option key={ingredients.name} value={ingredients.name}>{ingredients.name}</option>
+                {[...this.state.ingredientsOpts].map(ingredients => (
+                    <option key={ingredients} value={ingredients}>{ingredients}</option>
                 ))}
             </select>
-
+            <label>
+                {this.state.ingredients}
+            </label>
           </div>  
         )
     }
