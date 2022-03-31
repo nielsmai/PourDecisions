@@ -9,7 +9,7 @@ module.exports.login = function (req, res, next) {
             
             req.logIn(user, (err) => {
                 if (err) {
-                    res.status(500).json({message: "LOGIN-INVALID"})
+                    res.status(400).json({message: "LOGIN-INVALID"})
                 } else {
                     res.status(200).json({message: "LOGIN-SUCCESSFUL"})
                 }

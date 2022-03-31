@@ -48,6 +48,7 @@ export default class ingredientSearch extends Component {
         })
     }
     search() {
+        console.log("=========SEARCHING========")
         AXIOS.get('/drinks/filter/ingredients', {
             params: { ingredients: this.state.ingredients }
 
@@ -84,11 +85,10 @@ export default class ingredientSearch extends Component {
                 <br></br>
 
                 <div>
-                    {/* {console.log(this.state.ingredientsOpts)} */}
                     <label>Selected</label>
                     <ul>
                         {this.state.ingredients.map(ingredient => (
-                            <li>
+                            <li key={ingredient}>
                                 <label>{ingredient}</label>
                                 <button onClick={() => this.delete(ingredient)}>X</button>
                             </li>
@@ -101,13 +101,13 @@ export default class ingredientSearch extends Component {
                     </select>
                     {/* {console.log(this.state.ingredients)} */}
                     <button onClick={this.search}>Mix</button>
-
                     <ul>
                         {this.state.current.map(drink => (
-
                             <li key={drink._id}>
                                 <table>
                                 <tbody>
+                            <li key={drink.name}>
+                                <table>
                                     <tr>
                                         <td>
                                             {drink.name}
@@ -128,8 +128,6 @@ export default class ingredientSearch extends Component {
                             </li>
                         ))}
                     </ul>
-
-
                 </div>
             </div>
         )
