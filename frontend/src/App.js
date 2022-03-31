@@ -11,6 +11,9 @@ import LogOutAccount from './components/logOutAccount/logOutAccount';
 import ChangePasswordAccount from "./components/changePasswordAccount/changePasswordAccount";
 import { CreateAccount } from './components/createAccount/createAccount';
 import GetAllDrinks from './components/getAllDrinks/getAllDrinks';
+import ViewCustomDrink from './components/viewCustomDrink/viewCustomDrink'
+import ViewDrinks from './components/viewDrinks/viewDrinks'
+import ViewDrink from './components/viewDrink/viewDrink'
 import AXIOS from ".//axios.config"
 import IngredientSearch from './components/ingredientSearch/ingredientSearch';
 
@@ -39,6 +42,8 @@ function App() {
           <Route path="/account/register" element = {<CreateAccount/>} />
           <Route path="/drinks/" element = {<GetAllDrinks/>} />
           <Route path="/drinks/mix" element = {<IngredientSearch/>} />
+          <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
+          <Route path="/account/drinks/id/:drinkId" element = {<ViewDrink/>} />
         </Routes>
       </Router>
     </div>
@@ -60,6 +65,8 @@ function App() {
           <Route path="/account/register" element = {<CreateAccount/>} />
           <Route path="/drinks/" element = {<GetAllDrinks/>} />
           <Route path="/drinks/mix" element = {<IngredientSearch/>} />
+          <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
+          <Route path="/account/drinks/id/:drinkId" element = {<ViewDrink/>} />
         </Routes>
       </Router>
     </div>
