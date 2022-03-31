@@ -100,13 +100,14 @@ export default class ingredientSearch extends Component {
                         ))}
                     </select>
                     {/* {console.log(this.state.ingredients)} */}
-                    <button onClick={() => this.search}>Mix</button>
+                    <button onClick={this.search}>Mix</button>
 
                     <ul>
                         {this.state.current.map(drink => (
 
                             <li key={drink._id}>
                                 <table>
+                                <tbody>
                                     <tr>
                                         <td>
                                             {drink.name}
@@ -121,7 +122,9 @@ export default class ingredientSearch extends Component {
                                             Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
                                         </td>
                                     </tr>
+                                </tbody>
                                 </table>
+                                
                             </li>
                         ))}
                     </ul>
