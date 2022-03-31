@@ -446,10 +446,21 @@ module.exports.adminUpdateDrink = async (req, res) => {
     
     try { 
         if(isAdmin) {
+
+            if(newName == undefined || newName == "") {
+                res.status(400).json({message: "CREATE-DRINK-NAME-EMPTY"})
+            }
+            else if (author == undefined || author == ""){
+                res.status(400).json({message: "CREATE-DRINK-AUTHOR-EMPTY"})
+            }
+            else if (recipe.ingredients == []){
+                res.status(400).json({message: "CREATE-DRINK-INGREDIENTS-EMPTY"})
+            }
+
             let drink = await Drink.findOneAndUpdate({author:author, name:oldName},
             { name: newName, tag: tag, public_status: public_status, author: author, rating: rating, recipe: recipe}, 
             { new : true }) //returns the updated drink
-            if (drink) res.status(200).json({message: "DRINK-UPDATED-SUCCESSFULLY"}) //drink returns updated drink not a boolean so??
+            if (drink) res.status(200).json({message: "DRINK-UPDATED-SUCCESSFULLY"})
             else res.status(400).json({message: "DRINK-DOES-NOT-EXIST"})
         }
         else {
