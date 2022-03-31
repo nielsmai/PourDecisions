@@ -99,12 +99,13 @@ export default class ingredientSearch extends Component {
                             <option key={ingredients} value={ingredients}>{ingredients}</option>
                         ))}
                     </select>
-                    
-                    <button onClick={() => this.search}>Mix</button>
-
+                    {/* {console.log(this.state.ingredients)} */}
+                    <button onClick={this.search}>Mix</button>
                     <ul>
                         {this.state.current.map(drink => (
-
+                            <li key={drink._id}>
+                                <table>
+                                <tbody>
                             <li key={drink.name}>
                                 <table>
                                     <tr>
@@ -118,10 +119,12 @@ export default class ingredientSearch extends Component {
 
                                     <tr>
                                         <td>
-                                            Ingredients : {this.state.drinks.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
+                                            Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
                                         </td>
                                     </tr>
+                                </tbody>
                                 </table>
+                                
                             </li>
                         ))}
                     </ul>
