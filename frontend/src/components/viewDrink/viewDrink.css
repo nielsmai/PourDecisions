@@ -1,3 +1,7 @@
+#drink-info {
+    filter: blur(0px);
+    pointer-events: auto;
+}
 #top-bar {
     display: inline-block;
     width: 100%;
@@ -170,3 +174,25 @@
 #buttons .mimick-button input {
     display: none;
 }
+
+#edit-popup {
+    background-color: #EBE7DB;
+    border: 1px solid #78003c;
+    border-radius: 12px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 30%;
+    width: 60%;
+    height: 50%; 
+    z-index: 9999;
+    padding: 2%;
+}
+
+#edit-popup #popup-title {
+    border: 1px black solid;
+    text-align: center;
+} 
+

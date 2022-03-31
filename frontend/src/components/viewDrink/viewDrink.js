@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './viewDrink.css'
 import AXIOS from '../../axios.config'
 import { Link, useParams } from 'react-router-dom'
+import { set } from 'mongoose'
 
 export default function ViewDrink() {
     let { drinkId } = useParams()
@@ -11,6 +12,7 @@ export default function ViewDrink() {
     const [load, setLoad] = useState(false)
     const [favourites, setFavourites] = useState([])
     const [alreadyFavourited, setAlreadyFavourited] = useState(false)
+    const [editing, setEditing] = useState(false)
     
     useEffect( () => {
         const timer = setTimeout(() => {
@@ -100,9 +102,73 @@ export default function ViewDrink() {
             })
         }
     }
- 
+
+    const handleEditSubmit = () => {
+
+    }
+
+    const toggleEditing = () => {
+        // if currently editing
+        if (editing) {
+            // set it back to unblur
+            document.getElementById("drink-info").style.filter = "blur(0px)"   
+            document.getElementById("drink-info").style.pointerEvents = "auto" 
+        }
+        // if not editing
+        else {
+            // then set to blur
+            document.getElementById("drink-info").style.filter = "blur(8px)"   
+            document.getElementById("drink-info").style.pointerEvents = "none" 
+        }
+        setEditing(!editing)
+    }
+
+    const getIngredientsString = (drink) => {
+        var ingredients = []
+        drink.recipe.ingredients.map( ing => 
+            ingredients.push(capitalizeFirstLetter(ing.ingredientName))
+        ) 
+        return ingredients.join(", ")
+    }
+    const getGarnishString = (drink) => {
+        var ingredients = []
+        drink.recipe.garnish.map( ing => 
+            ingredients.push(capitalizeFirstLetter(ing))
+        ) 
+        return ingredients.join(", ")
+    }
+    const EditPopup = () => {
+        return (
+            <div id="edit-popup">
+            
+                <div id="popup-title">
+                <span>Edit drink</span> 
+                <button id="close-button" onClick={() => toggleEditing()}>X</button>
+                </div>
+
+                <div id="popup-edit-entry">
+                <label for="drinkName">Drink name</label>
+                <input name="drinkName" type="text" placeholder={drink.name}/>
+
+                <label for="ingredients">Ingredients</label>
+                <input name="ingredients" type="text" placeholder={getIngredientsString(drink)}/>
+
+                <label for="garnish">Garnish</label>
+                <input name="garnish" type="text" placeholder={getGarnishString(drink)}/>
+
+                <label for="instructions">Instructions</label>
+                <input name="instructions" type="text" placeholder={drink.recipe.instruction}/>
+                </div>
+
+                <button onClick={() => toggleEditing()}> unclick </button>
+
+            </div>
+        )
+    } 
+    
     return load 
         ? (
+        <div id="view-drink">
         <div id="drink-info">
         <div id="top-bar">
             <span id="drink-name" className="top-bar-element left">{drink.name}</span>
@@ -172,18 +238,19 @@ export default function ViewDrink() {
                 <li>
                 <div id="edit-button" className="mimick-button">
                     <label>
-                    <input type="submit" onClick={() => alert("edit")}/>
+                    <input type="submit" onClick={() => toggleEditing()}/>
                     <span>Edit this drink!</span>
                     </label>
                 </div>
                 </li>
                 </ul>
-
-                </div>
+                </div>  
                 :
-                <div><h1>HEllo</h1></div>
+                <></>
             }
+        </div>      
         </div>
+        {editing ? <EditPopup/> : <></>} 
         </div>
     ) 
     : 
