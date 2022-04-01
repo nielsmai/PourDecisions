@@ -20,7 +20,6 @@ export default function ViewCustomDrink() {
     } 
     
     const sortDrinks = () => {
-        console.log(checkboxes)
         // sort by newest
         if (checkboxes[0]) {
             const copy = [...listOfDrinks]

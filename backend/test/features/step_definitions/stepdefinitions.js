@@ -334,7 +334,6 @@ When('the user {string} provides a list of tags {string}', async function (strin
   try {
     let res = await AXIOS.get('/drinks/filter/tag/' + string2, {
     })
-      console.log(this.errorMsg)
   this.listDrinks = res.data
   } catch (error) {
   }
@@ -370,7 +369,6 @@ Then('the drink with name {string}, likes {string} shall be returned', function 
 
 Then('the list of drinks shall be {string}', function (string) {
   var resultList = string.split(",");
-    if (this.listDrinks == null) console.log("expected: ", resultList)
   this.listDrinks = this.listDrinks.map(drink => drink.name)
   assert.deepStrictEqual(this.listDrinks, resultList);
 });
