@@ -6,19 +6,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png'
 import "./logInAccount.css"
 
-// // Connect to MongoDB
-// var CONNECTION_URL;
-// if (process.env.NODE_ENV === "production"){
-//     CONNECTION_URL = process.env.ATLAS_URI;
-// }else{
-//     CONNECTION_URL = "http://localhost:5000/";
-// }
-// var AXIOS = axios.create({
-//     baseURL: CONNECTION_URL
-// })
-
-
-
 export default function LogInAccount() {
     const [token, setToken] = useState();
     const [loginUsername, setLoginUsername] = useState("");

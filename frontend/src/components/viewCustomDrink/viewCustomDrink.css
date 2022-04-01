@@ -21,11 +21,14 @@
     height: 160px;
     margin: 2%;
     padding: 0px;
+    list-style-type: none;
+    border-radius: 0.5em;
+    font-weight: bolder;
+    position: relative;
 }
 
 .drinkInfo {
     position:absolute;
-    /* border: 1px solid red; */
     height: 100%;
     width: 92%;
     margin-left: 0;
@@ -33,13 +36,11 @@
 }
 
 .drinkInfo .name, .rating, .tag, .ingredients {
-    /* border: 1px solid yellow; */
     vertical-align: top;
     color: #614A48;
 }
 
 .name {
-    /* display:inline-block; */
     display:inline;
     float: left;
     text-align: left;
@@ -51,7 +52,6 @@
 }
 
 .rating {
-    /* display: inline-block; */
     display: inline;
     float:left;
     text-align: left;
