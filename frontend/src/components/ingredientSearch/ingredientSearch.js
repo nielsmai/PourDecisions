@@ -21,45 +21,55 @@ export default class ingredientSearch extends Component {
             mixed: false
         }
     }
-
     addIngredients = (e) => {
 
         this.setState({ ingredients: [...this.state.ingredients, e.target.value] })
 
-        let temp = [...this.state.ingredientsOpts]
+        // let temp = [...this.state.ingredientsOpts]
 
-        if (temp.length === 1) temp = []
+        // if (temp.length === 1) temp = []
 
-        else temp.splice(temp.indexOf(e.target.value), 1)
+        // else temp.splice(temp.indexOf(e.target.value), 1)
 
-        this.setState({ ingredientsOpts: new Set(temp) })
+        // this.setState({ ingredientsOpts: new Set(temp) })
 
+        var selections = document.getElementById("dropdown")
+
+        for (var i = 0; i < selections.options.length; i++) {
+            if (selections.options[i].value === e.target.value) {
+                console.log("disabling")
+                selections.options[i].disabled = true
+            }
+        }
     }
 
     componentDidMount() {
         AXIOS.get('/drinks/').then(res => {
             this.setState({ drinks: res.data })
         }).then(() => {
-
+            let temp = new Set()
             for (let drink of this.state.drinks) {
-                let ingredients = drink.recipe.ingredients
 
-                for (let ingredient of ingredients) {
-                    let temp = this.state.ingredientsOpts.add(ingredient.ingredientName)
-                    this.setState({ ingredientsOpts: temp })
-                }
+                if(drink.public_status === true)
+                    {let ingredients = drink.recipe.ingredients
+
+                    for (let ingredient of ingredients) {
+                        temp.add(ingredient.ingredientName)
+
+                    }}
             }
-
+            this.setState({ ingredientsOpts: temp })
         })
     }
-
     search() {
+        console.log(this.state.ingredients)
         AXIOS.get('/drinks/filter/ingredients/all', {
             params: { ingredients: this.state.ingredients }
         }).then(res => {
-            console.log(res.data)
+            console.log(res)
             this.setState({ current: res.data })
         }).then(!this.state.mixed ? this.toggleMixed : null)
+        .then(document.getElementById("dropdown").selectedIndex = 0)
     }
 
     delete = (name) => {
@@ -71,18 +81,33 @@ export default class ingredientSearch extends Component {
 
         this.setState({ ingredients: temp })
 
-        let replenish = [...this.state.ingredientsOpts]
+        // let replenish = [...this.state.ingredientsOpts]
 
-        replenish.push(name)
+        // replenish.push(name)
 
-        this.setState({ ingredientsOpts: new Set(replenish) })
+        // this.setState({ ingredientsOpts: new Set(replenish) })
+
+        var list = document.getElementById("dropdown").options
+        for (let option of list) {
+            if (option.value === name) option.disabled = false
+        }
+        list.selectedIndex = 0;
     }
 
     clear = () => {
-        let temp = [...this.state.ingredientsOpts, ...this.state.ingredients]
-        this.setState({ ingredientsOpts: new Set(temp) })
+        // let temp = [...this.state.ingredientsOpts, ...this.state.ingredients]
+        // this.setState({ ingredientsOpts: new Set(temp) })
+        var list = document.getElementById("dropdown").options
+        for (let selected of this.state.ingredients) {
+            for (let option of list) {
+                if (option.value === selected) option.disabled = false
+            }
+        }
+        list.selectedIndex = 0;
+
         this.setState({ ingredients: [] })
         if (this.state.mixed) this.setState({ mixed: !this.state.mixed })
+        
     }
 
     toggleMixed = () => this.setState({ mixed: !this.state.mixed })
@@ -112,8 +137,9 @@ export default class ingredientSearch extends Component {
                             </ul>
                         </div>
                         <select id="dropdown"
-                            onChange={this.addIngredients}>
-                            <option value="" disabled selected hidden>
+                            onChange={this.addIngredients}
+                            required>
+                            <option value="" disabled selected>
                                 Select your ingredients
                             </option>
                             {[...this.state.ingredientsOpts].map(ingredients => (
@@ -122,11 +148,10 @@ export default class ingredientSearch extends Component {
                         </select>
                         <button id="mixbutton" onClick={this.search}>Mix</button>
                         <button id="mixbutton" onClick={this.clear}>Clear</button>
-                        {this.state.mixed ? <div id="drinkselect" >
+                        {this.state.mixed && this.state.current.length > 0 ? <div id="drinkselect" >
                             <ul id="drinklist" class="horizontal">
                                 {this.state.current.map(drink => (
-
-                                    <Link to={"/account/drinks/id/" + drink._id}>
+                                    <Link key={drink._id} to={"/account/drinks/id/" + drink._id}>
                                         <li key={drink._id} id="drinkitem">
                                             <div id="drinkinfo">
                                                 <div>

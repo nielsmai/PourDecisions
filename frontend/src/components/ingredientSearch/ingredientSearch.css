@@ -39,11 +39,8 @@
     background-color: #EFEADE;
     padding: 5%;
     padding-top: 2%;
+    padding-bottom: 3%;
     text-align: center;
-
-    min-height: 300px;
-    height: auto !important;
-    height: 300px;
 }
 
 ul.horizontal {
@@ -99,12 +96,10 @@ ul.horizontal > li {
 
 #selection{
     margin: 3% 0% 3% 0%;
-    padding: 3%;
-    display:flex;
-    flex-direction: column;
-    min-height: 290px;
-    height: auto !important;
-    height: 290px;
+    padding: 2%;
+    min-height: 275px;
+    height:auto !important;
+    height:275px;
     overflow-y: auto;
     background-color: #e4ded2;
     border: solid 3px #BEB8AA;
@@ -114,17 +109,14 @@ ul.horizontal > li {
 #ingredientselect{
     padding: 10px;
     height: 100%;
-    min-height: 255px;
-    height: auto !important;
-    height: 255px;
     overflow-y: auto;
 }
 
 #drinkselect{
     margin-top: 1%;
-    min-height: 600px;
-    height: 600px !important;
-    max-height: 600px;
+    min-height: 500px;
+    height: 500px !important;
+    max-height: 500px;
     border: solid 1px red;
     overflow-y: auto;
 }
@@ -191,9 +183,15 @@ ul.horizontal > li {
     grid-row: 1;
 }
 
+#drinkinfo {
+    padding-top: 2px;
+}
+
 #hidden {
+    padding-top: 20px;
     display: none;
     font-size: 40px;
+    text-align: center;
 }
 #drinkitem:hover {
     background-color: #73003F;
