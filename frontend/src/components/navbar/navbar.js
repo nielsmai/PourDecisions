@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './navbar.css';
 
 export default class Navbar extends Component {
     render() {
-
+        
         if (window.localStorage.getItem('loggedUsername') === "admin")
         {
             return (
                 <nav>
-                <Link to="/">PourDecisions</Link>
-                <div>
-                <ul>
-                    <li>
-                    <li className="navbar-item">
+                <div id="nav">
+                <ul className="navbar">
+                    <li id="name" className="navbar-item-l no-border ">
+                        <Link to="/">PourDecisions</Link>
+                    </li>
+                    <li className="navbar-item-r no-border ">
+                        <Link to="/account/logout">Logout</Link>
+                    </li>
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/tests">Test</Link>
                     </li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className="navbar-item">
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/create">Drinks</Link>
-                    </li>
-                    <li className="navbar-item">
-                        <Link to="/account/logout">Logout</Link>
                     </li>
                 </ul>
                 </div>
@@ -33,17 +33,28 @@ export default class Navbar extends Component {
         {
             return (
                 <nav>
-                <Link to="/">PourDecisions</Link>
-                <div>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
+                <div id="nav">
+                <ul className="navbar">
+                    <li id="name" className="navbar-item-l no-border ">
+                        <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item">
+                    <li className="navbar-item-r no-border ">
+                        <Link to="/account/logout">Logout</Link>
+                    </li>
+                    <li className="navbar-item-c no-border ">
+                        <Link to="/account/drinks">My Drinks</Link>
+                    </li>
+                    <li className="navbar-item-c no-border ">
+                        <Link to="/drinks/create">Create</Link>
+                    </li>
+                    <li className="navbar-item-c no-border ">
+                        <Link to="/drinks/">Search</Link>
+                    </li>
+                    <li className="navbar-item-c no-border ">
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
-                    <li className="navbar-item">
-                        <Link to="/account/logout">Logout</Link>
+                    <li className="navbar-item-c no-border">
+                        <Link to="/drinks/mix">Mix</Link>
                     </li>
                 </ul>
                 </div>
@@ -54,29 +65,24 @@ export default class Navbar extends Component {
         else {
             return (
             <nav>
-                <div>
+                <div id="nav">
                 <ul className="navbar">
-                    <li className="navbar-item-l">
+                    <li id="name" className="navbar-item-l no-border">
                         <Link to="/">PourDecisions</Link>
                     </li>
-                    <li className="navbar-item-c">
-                        <Link to="/drinks/create">Drinks</Link>
-                    </li>
-                    <li className="navbar-item-r">
+                    <li className="navbar-item-r no-border">
                         <Link to="/account/login">Login</Link>
 
                     </li>
-                    <li className="navbar-item-c">
-                        <Link to="/drinks/create">Create</Link>
-                    </li>
-                    <li className="navbar-item-c">
+                    <li className="navbar-item-c no-border">
                         <Link to="/drinks/">Search</Link>
                     </li>
-                    <li className="navbar-item-c">
-                        <Link to="/drinks/">Drinks</Link>
+                    {/*CHANGE TO VIEW ALL DRINKS*/}
+                    <li className="navbar-item-c no-border">
+                        <Link to="/drinks/create">Drinks</Link>
                     </li>
-                    <li className="navbar-item-c">
-                        <Link to="/drinks/">Mix</Link>
+                    <li className="navbar-item-c no-border">
+                        <Link to="/drinks/mix">Mix</Link>
                     </li>
                 </ul>
                 <br></br>

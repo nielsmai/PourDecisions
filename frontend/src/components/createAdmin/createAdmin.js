@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import axios from 'axios'
 import AXIOS from '../../axios.config'
 import { Navigate } from 'react-router-dom';
 

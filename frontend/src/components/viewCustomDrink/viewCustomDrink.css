@@ -1,18 +1,127 @@
-table.drinks{
-    overflow-y:scroll; 
-   height:300px; 
-   width:300px; 
-   display:block;  
-   border:1px solid red;  
-   margin-top:50px;    
-   }th{
-   width:75px; 
-    position:fixed; 
-   background:white;    
-   }th:nth-of-type(2){
-    left:75px;   
-   }td{
-   width:75px;    
-   }tr.individual{
-     height:80px; 
-   }
+#myDrinks {
+    display:block;
+    justify-content: center;
+    height: 69vh;
+    margin-top: 5px;
+}
+
+#drinkList {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding:0;
+    max-height: 100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
+#drinkList li {
+    border: 3px solid #78003c;
+    background-color: #E3DED3;
+    width: 95%;
+    height: 160px;
+    margin: 2%;
+    padding: 0px;
+    list-style-type: none;
+    border-radius: 0.5em;
+    font-weight: bolder;
+    position: relative;
+}
+
+.drinkInfo {
+    position:absolute;
+    height: 100%;
+    width: 92%;
+    margin-left: 0;
+    padding:0;
+}
+
+.drinkInfo .name, .rating, .tag, .ingredients {
+    vertical-align: top;
+    color: #614A48;
+}
+
+.name {
+    display:inline;
+    float: left;
+    text-align: left;
+    font-size: 150%;
+    font-weight: bold;
+    min-width: 20%;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.rating {
+    display: inline;
+    float:left;
+    text-align: left;
+    font-size: 69%;
+    font-weight:normal;
+    padding-left: 5%;
+}
+
+.tag {
+    float: right;
+    text-align: right;
+    font-size: 80%;
+    width: 20%;
+}
+
+.ingredients {
+    vertical-align: bottom;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+
+#search {
+    display:flex;
+    justify-content: center;
+    margin: 9vh 0 4vh auto;
+    width: 100%;
+}
+
+#search input {
+    width: 69%;
+    border: 3px solid #78003c;
+    outline: none;
+    font-size: 125%;
+}
+
+#sort {
+    display:flex;
+    justify-content: right;
+    margin-right: 6.2%;
+}
+
+#sort .mimickButton {
+    margin-right: 2%;
+    background-color:#AB6682;
+    color: #EBE7DB;
+    font-weight:bolder;
+    border-radius:4px;
+    overflow:auto;
+    float:left;
+}
+
+#sort .mimickButton:hover {
+    background:#CD6682;
+}
+
+#sort label span {
+    text-align: center;
+    display: block;
+   -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;   padding: 10px 30px 10px 30px;
+} 
+
+#sort .mimickButton input:checked + span {
+    background-color:#78003C;
+}
+
+#sort .mimickButton input {
+    display: none;
+}

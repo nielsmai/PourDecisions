@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Drink = require('../models/drink.model');
+const { Drink } = require('../models/drink.model');
 const { Recipe } = require('../models/recipe.model');
 const { Ingredient } = require('../models/ingredient.model');
 
@@ -13,6 +13,15 @@ module.exports.getAllDrinks = async (req, res) => {
     try {
         const drinks = await Drink.find();
         res.status(200).json(drinks);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+module.exports.getDrinkById = async (req, res) => {
+    try {
+        const drink = await Drink.findById(req.params.id);
+        res.status(200).json(drink);
     } catch (err) {
         res.status(404).json({ message: err.message });
     }
@@ -121,10 +130,23 @@ module.exports.getDrinkByName = async (req,res) => {
     }
 }
 
+module.exports.getDrinkByUserAndName = async (req, res) => {
+    try {
+        const paramName = req.params.name
+        const username = req.params.username
+        const name = paramName.replace(/_/g,' ')
+        const drinks = await Drink.findOne({$and: [{name: name}, {author: username }]})
+            res.status(200).json(drinks);
+        
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+}
+
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const tag = req.params.tag
-        const drinks = await Drink.find({$and: [{tag: tag}, {public_status : true}]})
+        const {tag} = req.params
+        const drinks = await Drink.find({$and:[{tag:tag},{public_status: true}]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
@@ -376,6 +398,50 @@ module.exports.removeDrink = async (req, res) => {
     }
 }
 
+module.exports.decrementRating = async (req, res) => {
+    try {
+        const drinkId = req.body.drinkId
+        let decrement = await Drink.findOneAndUpdate(
+            {
+                "$and": [
+                    {_id : drinkId},
+                    {rating: {$gte: 1}}
+
+                ]
+            }
+            , {
+                "$inc": {
+                    rating: -1
+            }
+        }) 
+        if (decrement) res.status(200).json({message: "DRINK-UNLIKED"})
+        else res.status(400).json({message: "DRINK-NOT-UNLIKED"})
+
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+module.exports.incrementRating = async (req, res) => {
+    try {
+        const drinkId = req.body.drinkId
+        let increment = await Drink.findOneAndUpdate(
+            {
+                _id: drinkId
+            }
+            , {
+                "$inc": {
+                    rating: 1
+            }
+        }) 
+        if (increment) res.status(200).json({message: "DRINK-LIKED"})
+        else res.status(400).json({message: "DRINK-NOT-LIKED"})
+
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 // // temporary for testing 
 module.exports.deleteAllDrinks = async (req, res) => {
     try {
@@ -428,17 +494,37 @@ module.exports.getAllIngredients = async (req, res) => {
     }
 }
 
+module.exports.changeRecipe = async (req, res) => {
+    try {
+        const {id} = req.params
+        const {name, ingredients, garnish, instruction, public_status} = req.body
 
-// module.exports.getIngredientByName = async (req,res) => {
-//     try {
-//         const name = req.params.ingredientName.replaceAll('_',' ')
-//         const ingredients = await Ingredient.find({$and: [{ingredientName: new RegExp(name,'i')}]})
-//             res.status(200).json(ingredients);
-        
-//     } catch (err) {
-//         res.status(500).json({message: err.message})
-//     }
-// }
+        const update = await Drink.findOneAndUpdate(
+            {
+                _id:id
+            }
+            ,
+            {
+               
+                name: name,
+                ingredients: ingredients,
+                garnish: garnish,
+                instruction: instruction,
+                public_status: public_status
+                
+            }
+            ,
+            {overwrite:true}
+        )
+        if (update) res.status(200).json({ message: "DRINK-UPDATED"}) 
+        else res.status(400).json({ message: "DRINK-NOT-UPDATED" })
+
+    } catch (err){
+        res.status(400).json({ message: err.message  })
+
+    }
+}
+
 
 module.exports.adminUpdateDrink = async (req, res) => {
 
