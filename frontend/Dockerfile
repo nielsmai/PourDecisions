@@ -5,7 +5,7 @@ WORKDIR /usr/src/app/frontend
 
 COPY package*.json /usr/src/app/frontend/
 
-RUN npm install
+RUN sudo npm install
 
 COPY . /usr/src/app/frontend/
 
