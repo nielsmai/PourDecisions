@@ -1,0 +1,136 @@
+#mainblock {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+}
+#mainblockTitle {
+    font-size: 25px;
+    color: #73003F;
+}
+#mainblockPrompt {
+    font-size: 40px;
+    color:#73003F;
+}
+
+#mixbutton {
+    margin-top: 1%;
+    margin-left: 1%;
+    width: 100px;
+    height: 50px;
+    border: solid 3px;
+    background-color:rgba(180, 107, 137, 0.36);
+    border-color: #73003F;
+    border-radius: 10px;
+    vertical-align: bottom;
+    color: #73003F;
+}
+#mixbutton:hover{
+    background-color: #73003F;
+    color: white;
+}
+#subblock {
+    border: solid 1px #BEB8AA;
+    border-radius: 10px;
+    background-color: #EFEADE;
+    padding: 7%;
+    padding-top: 4%;
+    text-align: center;
+    min-height: 500px;
+    height: auto !important;
+    height: 500px;
+}
+
+ul.horizontal {
+    margin-top: 0%;
+    padding-top: 0%;
+    padding-left: 1%;
+    padding-right: 1%;
+    text-align: left;
+    overflow: auto;
+}
+
+ul.horizontal > li {
+    display: inline-block;
+    margin-left: 0%;
+    margin-right: 0.5%;
+}
+
+#dropdown {
+    border: solid 3px #73003F;
+    border-radius: 10px;
+    height: 50px;
+    background-color: transparent;
+    margin-left: 0%;
+    width: 300px;
+}
+
+#lingredient{
+    border-color: transparent;
+    width: fit-content;
+    height: 50px;
+}
+#delete{
+    background-color: transparent;
+    border-color: transparent;
+    color: #73003F;
+    font-size: 25px;
+    vertical-align: middle;
+}
+#delete:hover{
+    font-weight: bold;
+}
+
+#ingOptName{
+    padding: 10px;
+    border: solid 2px #73003F;
+    border-radius: 12px;
+    background-color:rgba(180, 107, 137, 0.36);
+}
+
+#selection{
+    padding: 1%;
+    margin: 3% 0% 3% 0%;
+    display:block;
+    min-height: 300px;
+    height: auto !important;
+    height: 300px;
+    max-height: 300px; 
+    overflow-y: auto;
+    background-color: #e4ded2;
+    border: solid 3px #BEB8AA;
+    border-radius: 12px;
+}
+
+#selectionlist{
+    overflow-y: auto;
+    
+}
+
+#drinkselect{
+    margin-top: 1%;
+    min-height: 600px;
+    height: 600px !important;
+    max-height: 600px;
+    border: solid 1px red;
+    overflow-y: auto;
+}
+
+#drinklist{
+    padding-left: 1%;
+}
+
+#drinklist li{
+    width: 98%;
+    height: 100px;
+    margin-bottom: 0%;
+    text-align: left;
+}
+
+#drinkname {
+    font-size: large;
+}
+
+#drinklist li > div {
+    padding-left: 1%;
+}
