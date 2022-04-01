@@ -125,6 +125,7 @@ ul.horizontal > li {
     height: 100px;
     margin-bottom: 0%;
     text-align: left;
+    background-color:rgba(180, 107, 137, 0.36);
 }
 
 #drinkname {
@@ -133,4 +134,12 @@ ul.horizontal > li {
 
 #drinklist li > div {
     padding-left: 1%;
+}
+
+#drinkselect {
+    margin-top: 3%;
+    padding: 1%;
+    background-color: #e4ded2;
+    border: solid 3px #BEB8AA;
+    border-radius: 12px;
 }
