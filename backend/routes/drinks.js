@@ -138,7 +138,7 @@ router.get('/ingredients/all', function(req, res){
     getAllIngredients(req, res)
 })
 
-router.put('/id/:id'), function (req, res) {
+router.put('/id/:id/update'), function (req, res) {
    changeRecipe(req, res) 
 }
 

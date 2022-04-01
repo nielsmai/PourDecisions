@@ -39,16 +39,22 @@ export default function ViewDrink() {
         })
     } 
     useEffect( () => {
+        let unmounted = false
         if (localStorage.getItem('loggedIn') === null){
+            if (!unmounted)
             setUserType("guest")
         }
         else if (localStorage.getItem('loggedUsername') == 'admin') {
+            if (!unmounted)
             setUserType("admin") 
         }
         else{
+            if (!unmounted)
             setUserType("user")
         }
+        if (!unmounted)
         loadStates()
+        return () => {unmounted = true}
     }, []) 
 
     const alreadyInFavourites = () => {
@@ -63,9 +69,9 @@ export default function ViewDrink() {
     })
 
     const capitalizeFirstLetter = (str) => {
-        const words = str.split(" ").join('').split(' ')
+        const words = str.split(" ").filter(word => word)
         for (let i = 0; i < words.length; i++) {
-            words[i] = words[i].toLowerCase()[0].toUpperCase() + words[i].substr(1);
+            words[i] = words[i].toLowerCase()[0].toUpperCase() + words[i].substr(1).toLowerCase();
         }
 
         return words.join(" ")
@@ -112,7 +118,7 @@ export default function ViewDrink() {
         // if not editing
         else {
             // then set to blur
-            document.getElementById("drink-info").style.filter = "blur(8px)"   
+            document.getElementById("drink-info").style.filter = "blur(6px)"   
             document.getElementById("drink-info").style.pointerEvents = "none" 
         }
         setEditing(!editing)
@@ -154,18 +160,21 @@ export default function ViewDrink() {
                 )  
             ))
 
-            // parse
+            // parse garnishList
+            garnishList.split(', ').map( name => {
+                garnish.push(name)
+            })
 
+            AXIOS.put('/drinks/id/' + drink._id + '/update', {
+                name: name,
+                ingredients: ingredients,
+                garnish: garnish,
+                instruction: instructions,
+                public_status: public_status
+            })
+            .then(res => res.data)
+            .then( () => toggleEditing())
 
-
-            console.log(name)
-            console.log(ingredients)
-            console.log(garnish)
-            console.log(instructions)
-            console.log(public_status)
-            console.log(drink._id)
-
-            toggleEditing()
         }
 
     } 
@@ -182,13 +191,13 @@ export default function ViewDrink() {
             
                 <div id="popup-edit-entry">
                 <label htmlFor="drink-name">Drink name</label>
-                <input className="input" id="drink-name-box" name="drink-name" type="text" placeholder={drink.name}/>
+                <input className="input" id="drink-name-box" name="drink-name" type="text" placeholder={capitalizeFirstLetter(drink.name)}/>
 
                 <label htmlFor="ingredients">Ingredients</label>
-                <input className="input" id="ingredients-box" name="ingredients" type="text" placeholder={getIngredientsString(drink)}/>
+                <input className="input" id="ingredients-box" name="ingredients" type="text" placeholder={capitalizeFirstLetter(getIngredientsString(drink))}/>
 
                 <label htmlFor="garnish">Garnish</label>
-                <input className="input" id="garnish-box" name="garnish" type="text" placeholder={getGarnishString(drink)}/>
+                <input className="input" id="garnish-box" name="garnish" type="text" placeholder={capitalizeFirstLetter(getGarnishString(drink))}/>
 
                 <label htmlFor="instructions">Instructions</label>
                 <textarea className='input instructions' id='instructions-box' name='instructions' spellCheck={false} placeholder={drink.recipe.instruction}></textarea>

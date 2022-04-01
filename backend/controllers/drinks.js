@@ -505,14 +505,16 @@ module.exports.changeRecipe = async (req, res) => {
             }
             ,
             {
-                "$set":{
-                    name: name,
-                    ingredients: ingredients,
-                    garnish: garnish,
-                    instruction: instruction,
-                    public_status: public_status
-                }
+               
+                name: name,
+                ingredients: ingredients,
+                garnish: garnish,
+                instruction: instruction,
+                public_status: public_status
+                
             }
+            ,
+            {overwrite:true}
         )
         if (update) res.status(200).json({ message: "DRINK-UPDATED"}) 
         else res.status(400).json({ message: "DRINK-NOT-UPDATED" })
