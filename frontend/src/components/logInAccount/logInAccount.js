@@ -21,6 +21,7 @@ import "./logInAccount.css"
 
 export default function LogInAccount() {
     const [token, setToken] = useState();
+    const [errorMessage, setErrorMessages] = useState("");
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     //Handle User Login
@@ -45,19 +46,15 @@ export default function LogInAccount() {
             })
             .catch(e => {
                 console.log(e)
+                setErrorMessages("Invalid username or password");
             })
         }
         PostData()
     }
     //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
     const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
-    //Code for error message
-    const renderErrorMessage = (name) =>
-        name == errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
-        );
+
     //Code for Login Form
     const renderForm = (
         <div className="login">
@@ -79,7 +76,6 @@ export default function LogInAccount() {
                                 // placeholder="username"
                                 onChange={ (e) => setLoginUsername(e.target.value)}
                             />
-                            {renderErrorMessage("name")}
                     </div>
                     <div className="formBottom">
                         <div>
@@ -89,11 +85,11 @@ export default function LogInAccount() {
                             // placeholder="password"
                             onChange={(e) => setLoginPassword(e.target.value)}
                         />
-                        {renderErrorMessage("pass")}
                     </div>
-
                     <div className="loginButton">
                         <button type="submit" className="loginConfirm montserrat">Login</button>
+                        <br></br>
+                        {errorMessage && <div className="error poppins"> {errorMessage} </div>}
                     </div>
 
                     <div className="forgetAccount poppins">
