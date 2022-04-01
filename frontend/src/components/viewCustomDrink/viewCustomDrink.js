@@ -20,6 +20,7 @@ export default function ViewCustomDrink() {
     } 
     
     const sortDrinks = () => {
+        console.log(checkboxes)
         // sort by newest
         if (checkboxes[0]) {
             const copy = [...listOfDrinks]
@@ -137,7 +138,6 @@ export default function ViewCustomDrink() {
                 {/* search by name */}
                 {sortDrinks().filter(drink => drink.name.toLowerCase().includes(searchInput.toLowerCase()))
                     .map( drink => ( 
-
                     <Link to={"/account/drinks/id/" + drink._id}>
                     <li key={drink._id}>
                         <table className="drinkInfo">

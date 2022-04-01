@@ -103,10 +103,6 @@ export default function ViewDrink() {
         }
     }
 
-    const handleEditSubmit = () => {
-
-    }
-
     const toggleEditing = () => {
         // if currently editing
         if (editing) {
