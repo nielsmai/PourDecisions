@@ -271,7 +271,18 @@ export default function ViewDrink() {
                 </ul>
                 </div>  
                 :
-                <></>
+                <div id="buttons">
+                <ul>
+                <li>
+                <div id="favourite-button" className="mimick-button">
+                    <label>
+                    <input type="checkbox" checked={alreadyFavourited} onChange={()=>handleButtonChange()}/>
+                    <span>Favourite this drink!</span>
+                    </label>
+                </div>
+                </li>
+                </ul>
+                </div>  
             }
         </div>      
         </div>

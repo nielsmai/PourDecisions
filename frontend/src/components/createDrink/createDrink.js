@@ -38,7 +38,7 @@ export default function CreateDrink() {
             setIngredientList([
                 ...ingredientList,
                 {
-                    ingredientName: ingredient,
+                    ingredientName: ingredient.toUpperCase(),
                     ingredientType: "OTHER"
                 }
             ])
@@ -73,8 +73,6 @@ export default function CreateDrink() {
     const onChangeRecipeInstructions = (e) => {
 
         const garnishList = garnish.list.split(',')
-        console.log(garnish)
-        console.log(garnishList)
 
         setDrink({
             ...drink,
@@ -117,7 +115,6 @@ export default function CreateDrink() {
     }
 
     const onChangeTag = (e) => {
-        console.log(e)
         setDrink({
             ...drink,
             [e.target.name]: e.target.value
@@ -130,7 +127,6 @@ export default function CreateDrink() {
         var div3 = document.getElementById("stepThree")
 
         const garnishList = garnish.list.split(',')
-        console.log(garnishList)
 
         setDrink({
             ... drink,
@@ -142,7 +138,6 @@ export default function CreateDrink() {
 
         AXIOS.post('/drinks/add', drink)
         .then(res => {
-            console.log(res.data);
             if (res.status === 201) {
                 div2.style.display = "none";
                 div3.style.display = "block"
@@ -449,13 +444,6 @@ export function CreateIngredient() {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        console.log("Form submitted")
-        console.log(ingredientName)
-        console.log(ingredientType)
-        
-
-        // axios.post('http://localhost:5000/drinks/add/ingredient', formData)
-        //     .then(res => console.log(res.data))
         AXIOS.post('/drinks/add/ingredient', formData)
         .then(res => console.log(res.data))
     }
@@ -488,8 +476,6 @@ export function IngredientsList() {
         // const response = await axios.get('http://localhost:5000/drinks/ingredients/all')
 
         const response = await AXIOS.get('/drinks/ingredients/all')
-        
-        console.log(response.data)
         
         setIngredientData(response.data)
             

@@ -3,20 +3,32 @@
 }
 
 #create {
+    font-size: xx-large;
+    color: 
+    #7e003f;
     margin-left: 2%;
 }
 
 #stepOne {
+    font-size: x-large;
+    color: #7e003f;
+    text-align: left;
     margin-left: 2%;
     margin-right: 2%;
 }
 
 #stepTwo {
+    font-size: x-large;
+    color: #7e003f;
+    text-align: left;
     margin-left: 2%;
     margin-right: 2%;
 }
 
 #stepThree {
+    font-size: large;
+    color: #7e003f;
+    text-align: left;
     margin-left: 2%;
     margin-right: 2%;
 }
@@ -31,6 +43,7 @@
 }
 
 .stepText {
+    font-size:large;
     width: 97% !important;
     border-color:linen !important;
     background-color: linen !important;
@@ -39,10 +52,11 @@
 
 .stepText:focus {
     outline: none !important;
-    border-color: brown !important;
+    border-color: #7e003f !important;
 }
 
 .stepText2 {
+    font-size: large;
     width: 97% !important;
     border-color:linen
      !important;
@@ -52,15 +66,16 @@
 
 .stepText2:focus {
     outline: none !important;
-    border-color: brown !important;
+    border-color: #7e003f !important;
 }
 
 .drinkButton {
+    font-size: large;
 display: flex;
   padding:5px 15px; 
   background-color: thistle;
-  border-color: brown;
-  color: brown;
+  border-color: #7e003f;
+  color: #7e003f;
   border-radius: 6px;
   border-width: 2px;
   margin: auto;
@@ -72,8 +87,5 @@ display: flex;
 }
 
 .ingredient {
-    border-color: none;
-    border:none;
-    display: flex;
-    text-align: left;
+    padding: 2px;   
 }
