@@ -49,16 +49,18 @@ export default function GetAllDrinks() {
 
     <div>
         <div class="searchBar" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '20vh'}}>
-           
-            <form action="/" method="get">
+           <div class="container">
+            <form action="/" method="get" class="formSearch">
             <input
                 type="text"
                 id="header-search"
                 placeholder="Search Drinks"
                 name="s" 
             />
-            <a class = "button">Search</a>
+            {/* <a class = "button">Search</a> */}
             </form>
+            <button class="buttonSearch">Search</button>
+            </div>
         </div>
 
         {/* <div class="filters" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '0vh'}}>
@@ -68,11 +70,11 @@ export default function GetAllDrinks() {
         </div> */}
 
         <div class="filters" style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '10vh'}}>
-            <button type="button" class="filters">Alcoholic</button>
-            <button type="button" class="filters">Mocktail</button>
-            <button type="button" class="filters">Custom</button>
-            <button type="button" class="filters">Newest</button>
-            <button type="button" class="filters">Popularity</button>
+            <button type="button" class="fil filters">Alcoholic</button>
+            <button type="button" class="fil filters">Mocktail</button>
+            <button type="button" class="fil filters">Custom</button>
+            <button type="button" class="fil filters">Newest</button>
+            <button type="button" class="fil filters">Popularity</button>
         </div>  
 
          <div>
@@ -99,8 +101,10 @@ export default function GetAllDrinks() {
 
         <>
         <div>
-            <h3>Drinks</h3>
-            <button onClick={getData}>View Drinks</button>
+            <div class="buttonContainer">
+            <h3 class="drinkTitle">Drinks</h3>
+            <button onClick={getData} class="buttonView">View Drinks</button>
+            </div>
             {
                 drinks && drinks.map((drinks, index) =>
                 {
@@ -110,10 +114,11 @@ export default function GetAllDrinks() {
                 
                 
                 return (
-                    <div key={index}>
-                        <h2> {drinkName}</h2>
-                        <h5>{drinkRating} ratings     [{drinkTag}]</h5>
-
+                    <div key={index} class="drinkListPad">
+                        <div class="drinkListBox">
+                        <h2 class="drinkListTitle"> {drinkName}</h2>
+                        <h5 class="drinkList">{drinkRating} ratings     [{drinkTag}]</h5>
+                        </div>
                     </div>
                 );
                 })}

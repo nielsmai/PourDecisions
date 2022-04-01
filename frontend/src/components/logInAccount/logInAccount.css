@@ -1,6 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
 .resize {
     width:500px; /* you can use % */
     height: auto;
     text-align: center;
     padding-top: 20%;
 }
+.montserrat{
+    font-family: 'Montserrat', sans-serif;
+}
+.poppins{
+    font-family: 'Poppins', sans-serif;
+}
+.libre{
+    font-family: 'Libre Caslon Text', serif;
+}
+.error{
+    text-align: left;
+}
+.password{
+    color: #613133;
+    font-size: 24px;
+}
+input[type=password] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+  }
+
+  input[type=password]:focus {
+    border: 3px solid #555;
+  }
+
+  textarea[type=password] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+    width: 80%;
+    resize: none;
+  }
+
+  textarea[type=password]:focus {
+    border: 3px solid #555;
+  }
+
+  input[type=button]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
