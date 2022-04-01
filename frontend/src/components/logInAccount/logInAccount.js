@@ -13,7 +13,6 @@ export default function LogInAccount() {
     const [loginPassword, setLoginPassword] = useState("");
 
     //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
     const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
     //Handle User Login
@@ -54,10 +53,6 @@ export default function LogInAccount() {
         }
         PostData()
     }
-
-    //React States
-    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
-
 
     //Code for Login Form
     const renderForm = (
