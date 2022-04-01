@@ -257,5 +257,27 @@
     margin: 2% auto 0 auto;
 }
 
+#delete-popup #delete-confirm {
+    background-color:#AB6682;
+    color: #ffffff;
+    font-weight:bolder;
+    font-size: 100%;
+    border-radius:2px;
+    border: 3px solid #AB6682;
+    padding: 5px;
+    display: flex;
+    margin: 2% auto 0 auto;
+}
 
+#delete-popup #delete-deny {
+    background-color:#AB6682;
+    color: #ffffff;
+    font-weight:bolder;
+    font-size: 100%;
+    border-radius:2px;
+    border: 3px solid #AB6682;
+    padding: 5px;
+    display: flex;
+    margin: 2% auto 0 auto;
+}
 

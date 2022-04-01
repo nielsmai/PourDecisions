@@ -190,6 +190,47 @@ export default function ViewDrink() {
             </div>
         )
     } 
+
+    const deleteDrink = () => {
+
+        var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
+        var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
+        var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
+        var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
+        var public_status = document.querySelector("#public-status-box").checked
+
+        AXIOS.delete('/drinks/' + name + '/delete', {
+        })
+        .then( () => {
+            window.location.reload(false)
+        })
+
+        // Making sure all of the drink features are deleted (should display null)
+        console.log(name)
+        console.log(ingredients)
+        console.log(garnish)
+        console.log(instructions)
+        console.log(public_status)
+
+        toggleEditing()
+    }
+
+    const confirmDeletePopup = () => {
+        return (
+            <div id="delete-popup">
+                <div id="popup-title">
+                <h2>Are you sure you want to delete this drink?</h2> 
+                </div>
+
+                <div>
+                <button id="delete-confirm" onClick={() => deleteDrink()}> Yes </button>
+                </div>
+                <div>
+                <button id="delete-deny" onClick={() => toggleEditing()}> No </button>
+                </div>
+            </div>
+        )
+    }
     
     return load 
         ? (
@@ -268,10 +309,19 @@ export default function ViewDrink() {
                     </label>
                 </div>
                 </li>
+                <li>
+                <div id="delete-button" className="mimick-button">
+                    <label>
+                    <input type="submit" onClick={() => confirmDeletePopup()}/>
+                    <span>Delete this drink!</span>
+                    </label>
+                </div>
+                </li>
                 </ul>
                 </div>  
                 :
                 <></>
+                
             }
         </div>      
         </div>

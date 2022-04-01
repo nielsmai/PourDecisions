@@ -145,9 +145,7 @@ function ViewDrinks() {
         </div>
 
         <div class="deleteDrinkButton">
-            {userInfo.isAdmin == true ?? (
             <button type="button" class="deleteDrinkConfirm">Delete drink</button>
-        )}
         </div>
 
         <div class="editDrink">
