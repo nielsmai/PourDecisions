@@ -81,7 +81,7 @@ export default function LogInAccount() {
                         <div>
                             <h4 className="password poppins">password</h4>
                         </div>
-                        <input type="text" name="pass" required
+                        <input type="password" name="pass" required
                             // placeholder="password"
                             onChange={(e) => setLoginPassword(e.target.value)}
                         />
