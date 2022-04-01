@@ -1,5 +1,6 @@
 import { Component } from "react";
 import AXIOS from '../../axios.config'
+import './ingredientSearch.css'
 
 export default class ingredientSearch extends Component {
     constructor(props) {
@@ -8,12 +9,15 @@ export default class ingredientSearch extends Component {
         this.addIngredients = this.addIngredients.bind(this)
         this.search = this.search.bind(this)
         this.delete = this.delete.bind(this)
+        this.clear = this.clear.bind(this)
+        this.toggleMixed = this.toggleMixed.bind(this)
 
         this.state = {
             ingredients: [],
             ingredientsOpts: new Set(),
             drinks: [],
-            current: []
+            current: [],
+            mixed: false
         }
     }
 
@@ -53,7 +57,7 @@ export default class ingredientSearch extends Component {
         }).then(res => {
             console.log(res.data)
             this.setState({ current: res.data })
-        }).then(console.log(this.state.current))
+        }).then(this.toggleMixed)
     }
 
     delete = (name) => {
@@ -72,61 +76,70 @@ export default class ingredientSearch extends Component {
         this.setState({ ingredientsOpts: new Set(replenish) })
     }
 
+    clear = () => {
+        let temp = [...this.state.ingredientsOpts, ...this.state.ingredients]
+        this.setState({ ingredientsOpts: new Set(temp) })
+        this.setState({ ingredients: [] })
+        if (this.state.mixed) this.setState({ mixed: !this.state.mixed })
+    }
+
+    toggleMixed = () => this.setState({ mixed: !this.state.mixed })
+
     render() {
         return (
 
             <div>
-                <div>
-                    <label>Mix<br></br>Select the ingredients you've got at home,
-                        to see what drinks you can make!</label>
-                </div>
-                <br></br>
-
-                <div>
-                    <label>Selected</label>
-                    <ul>
-                        {this.state.ingredients.map(ingredient => (
-                            <li key={ingredient}>
-                                <label>{ingredient}</label>
-                                <button onClick={() => this.delete(ingredient)}>X</button>
-                            </li>
-                        ))}
-                    </ul>
-                    <select onChange={this.addIngredients}>
-                        {[...this.state.ingredientsOpts].map(ingredients => (
-                            <option key={ingredients} value={ingredients}>{ingredients}</option>
-                        ))}
-                    </select>
-                    {/* {console.log(this.state.ingredients)} */}
-                    <button onClick={this.search}>Mix</button>
-                    <ul>
-                        {this.state.current.map(drink => (
-                            <li key={drink._id}>
-                                <table>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            {drink.name}
-                                        </td>
-                                        <td>
-                                            {drink.tag}
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                                
-                            </li>
-                        ))}
-                    </ul>
+                <div id="mainblock">
+                    <div>
+                        <p id="mainblockPrompt" class="w">
+                            Mix
+                            <br></br>
+                            Select the ingredients you've got at home, to see what drinks you can make!
+                        </p>
+                    </div>
+                    <div id="subblock">
+                        <label id="mainblockTitle">Selected</label>
+                        <div id="selection">
+                            <div id="selectionlist">
+                                <ul class="horizontal">
+                                    {this.state.ingredients.map(ingredient => (
+                                        <li key={ingredient} id="lingredient">
+                                            <label id="ingOptName">{ingredient}</label>
+                                            <button onClick={() => this.delete(ingredient)} id="delete">X</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                        <select id="dropdown"
+                            onChange={this.addIngredients}>
+                            <option value="" disabled selected hidden>
+                                Select your ingredients
+                            </option>
+                            {[...this.state.ingredientsOpts].map(ingredients => (
+                                <option key={ingredients} value={ingredients}>{ingredients}</option>
+                            ))}
+                        </select>
+                        <button id="mixbutton" onClick={this.search}>Mix</button>
+                        <button id="mixbutton" onClick={this.clear}>Clear</button>
+                        {this.state.mixed ? <div id="drinkselect" >
+                            <ul id="drinklist" class="horizontal">
+                                {this.state.current.map(drink => (
+                                    <li key={drink._id}>
+                                        <div>
+                                            <label id="drinkname">{drink.name}</label>
+                                        </div>
+                                        <div>
+                                            <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div> : <></>}
+                    </div>
                 </div>
             </div>
         )
     }
-
 }
+
