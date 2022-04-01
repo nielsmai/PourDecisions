@@ -54,7 +54,7 @@ export default class Navbar extends Component {
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
                     <li className="navbar-item-c no-border">
-                        <Link to="/drinks/">Mix</Link>
+                        <Link to="/drinks/mix">Mix</Link>
                     </li>
                 </ul>
                 </div>
@@ -82,7 +82,7 @@ export default class Navbar extends Component {
                         <Link to="/drinks/create">Drinks</Link>
                     </li>
                     <li className="navbar-item-c no-border">
-                        <Link to="/drinks/">Mix</Link>
+                        <Link to="/drinks/mix">Mix</Link>
                     </li>
                 </ul>
                 <br></br>

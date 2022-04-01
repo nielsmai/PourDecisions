@@ -190,7 +190,7 @@ export default function ViewDrink() {
         <div id="view-drink">
         <div id="drink-info">
         <div id="top-bar">
-            <span id="drink-name" className="top-bar-element left">{drink.name}</span>
+            <span id="drink-name" className="top-bar-element left">{capitalizeFirstLetter(drink.name)}</span>
             <span id="drink-rating" className="top-bar-element left">{drink.rating + " likes"}</span>
             <span id="drink-tag" className="top-bar-element right">{drink.tag}</span>
             <span id="drink-author" className="top-bar-element left">{"made by " + drink.author}</span>
