@@ -104,7 +104,7 @@ Given('the following drinks exist in the system:', async function (dataTable) {
             // create recipe from ingredients 
             var res = await AXIOS.post('/drinks/add/recipe', {
                 ingredients: ingredients,
-                instructions: "placeholder"
+                instruction: "placeholder"
             })
             recipe = res.data
 
@@ -227,7 +227,7 @@ When('the user {string} creates a new drink recipe with the name {string} and th
         // create recipe from ingredients 
         let res = await AXIOS.post('/drinks/add/recipe', {
             ingredients: ingredients,
-            instructions: "placeholder"
+            instruction: "placeholder"
         })
         recipe = res.data 
 
@@ -321,7 +321,7 @@ When('the user {string} provides the drink name {string}', async function (strin
 
 When('the user {string} provides a list of ingredients {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/filter/ingredients', {
+    let res = await AXIOS.get('/drinks/filter/ingredients/all', {
         params:{
             ingredients: string2.split(',')
         }
@@ -332,8 +332,9 @@ When('the user {string} provides a list of ingredients {string}', async function
 
 When('the user {string} provides a list of tags {string}', async function (string, string2) {
   try {
-    let res = await AXIOS.get('/drinks/tag/' + string2, {
+    let res = await AXIOS.get('/drinks/filter/tag/' + string2, {
     })
+      console.log(this.errorMsg)
   this.listDrinks = res.data
   } catch (error) {
   }
@@ -369,6 +370,7 @@ Then('the drink with name {string}, likes {string} shall be returned', function 
 
 Then('the list of drinks shall be {string}', function (string) {
   var resultList = string.split(",");
+    if (this.listDrinks == null) console.log("expected: ", resultList)
   this.listDrinks = this.listDrinks.map(drink => drink.name)
   assert.deepStrictEqual(this.listDrinks, resultList);
 });

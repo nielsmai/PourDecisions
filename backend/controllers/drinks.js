@@ -145,8 +145,8 @@ module.exports.getDrinkByUserAndName = async (req, res) => {
 
 module.exports.getDrinkByTag = async (req,res) => {
     try {
-        const tag = req.params.tag
-        const drinks = await Drink.find({$and: [{tag: tag}, {public_status : true}]})
+        const {tag} = req.params
+        const drinks = await Drink.find({$and:[{tag:tag},{public_status: true}]});
         res.status(200).json(drinks);
     } catch (err) {
         res.status(404).json({message: err.message})
