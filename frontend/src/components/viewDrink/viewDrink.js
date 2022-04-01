@@ -26,7 +26,7 @@ export default function ViewDrink() {
         .then(res => {
             if (userType !== "guest"){
                 setDrink(res.data)
-                if (user == res.data.author) {
+                if (user == res.data.author && user !== "admin") {
                     setUserType("author")
                 }
                 AXIOS.get("/users/" + user)
