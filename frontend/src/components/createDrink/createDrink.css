@@ -1,11 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-
 .ingredient {
-    color: #7E003F;
-    background-color: #b46b894d;
-    border-radius: 12px;
+    color:black
 }
 
 #create {
@@ -26,47 +20,60 @@
     margin-left: 2%;
     margin-right: 2%;
 }
-.fil{
-    color: #F8F3E7;
-    background-color: #B46B89;
-    border: none;
-    border-radius: 12px;
-    font-size: 21px;
-    font-family: 'Montserrat', sans-serif;
-    margin: 10px;
-    padding: 5px 15px;
-  }
-.createTitle {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
-    color: #7E003F;
-    test-align: justify;
-}
-.createSubTitle{
-    color: #7E003F;
-    font-size: 38px;
-    text-align: justify;
-}
-.test{
-    font-size: 20px;
-}
+
 .stepBox {
     background-color: #efeade;
     padding: 5%;
     border-radius: 12px;
     outline-color: #beb8aa;
     outline-style:auto;
+    margin-bottom: 2%;
 }
-.tags{
-    color:#7E003F;
-    font-size: 24;
+
+.stepText {
+    width: 97% !important;
+    border-color:linen !important;
+    background-color: linen !important;
+    border-radius: 12px !important;
 }
-.montserrat{
-    font-family: 'Montserrat', sans-serif;
+
+.stepText:focus {
+    outline: none !important;
+    border-color: brown !important;
 }
-.poppins{
-    font-family: 'Poppins', sans-serif;
+
+.stepText2 {
+    width: 97% !important;
+    border-color:linen
+     !important;
+    background-color: linen !important;
+    border-radius: 12px !important;
 }
-.libre{
-    font-family: 'Libre Caslon Text', serif;
+
+.stepText2:focus {
+    outline: none !important;
+    border-color: brown !important;
+}
+
+.drinkButton {
+display: flex;
+  padding:5px 15px; 
+  background-color: thistle;
+  border-color: brown;
+  color: brown;
+  border-radius: 6px;
+  border-width: 2px;
+  margin: auto;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+}
+
+.ingredientList {
+}
+
+.ingredient {
+    border-color: none;
+    border:none;
+    display: flex;
+    text-align: left;
 }

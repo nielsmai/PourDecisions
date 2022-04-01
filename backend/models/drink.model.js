@@ -41,4 +41,7 @@ var drinkSchema = new Schema({
 var Drink = mongoose.model('Drink', drinkSchema);
 
 // export { Drink, Recipe, Ingredient }; 
-module.exports = Drink;
+module.exports = {
+    Drink,
+    drinkSchema
+};

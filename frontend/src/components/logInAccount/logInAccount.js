@@ -6,29 +6,32 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png'
 import "./logInAccount.css"
 
-// // Connect to MongoDB
-// var CONNECTION_URL;
-// if (process.env.NODE_ENV === "production"){
-//     CONNECTION_URL = process.env.ATLAS_URI;
-// }else{
-//     CONNECTION_URL = "http://localhost:5000/";
-// }
-// var AXIOS = axios.create({
-//     baseURL: CONNECTION_URL
-// })
-
-
-
 export default function LogInAccount() {
     const [token, setToken] = useState();
     const [errorMessage, setErrorMessages] = useState("");
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+    //React States
+    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
+    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
+
     //Handle User Login
     const errors = {
         name: "Invalid username",
         pass: "Invalid password"
     };
+    
+    // Avoids double login
+    useEffect(() => {
+        // setting loggedIn to false does not work because weird behaviours
+        if (localStorage.getItem('loggedIn') !== null){
+            window.location.href = 
+            (process.env.REACT_APP_CLIENT_HOST ?
+                process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                : "http://localhost:3000")
+        }
+    }, [])
     //Handle form submission
     const handleSubmit = (event) => {
         //Prevent the page form reloading
@@ -51,6 +54,7 @@ export default function LogInAccount() {
         }
         PostData()
     }
+
     //React States
     const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
@@ -111,10 +115,16 @@ export default function LogInAccount() {
 
     return (
         <div className="app">
-      <div className="login-form">
-        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT || "http://localhost:3000" : renderForm}
-      </div>
-    </div>
+            <div className="login-form">
+            {isSubmitted ? 
+                window.location.href = 
+                (process.env.REACT_APP_CLIENT_HOST ?
+                    process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                    : "http://localhost:3000")
+                : renderForm
+            }
+            </div>
+        </div>
     
     // <div>
     //     <h1>TEST</h1>

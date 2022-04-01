@@ -20,6 +20,10 @@ import "./logOutAccount.css"
 
 
 export default function LogOutAccount() {
+    //React States
+    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
+    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
+    
     //Handle form submission
     const handleSubmit = (event) => {
         //Prevent the page form reloading
@@ -27,7 +31,7 @@ export default function LogOutAccount() {
         //Check login
         try{
             AXIOS.get('/users/logout')
-            window.localStorage.setItem('loggedIn', false)
+            window.localStorage.removeItem('loggedIn')
             window.localStorage.removeItem('loggedUsername')
             console.log("Successful logout")
             setIsSubmitted(true);
@@ -36,9 +40,6 @@ export default function LogOutAccount() {
             console.log(e)
         }
     }
-    //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
-    const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
     //Code for error message
     const renderErrorMessage = (name) =>
@@ -74,10 +75,15 @@ export default function LogOutAccount() {
 
     return (
         <div className="app">
-      <div className="login-form">
-        {isSubmitted ? window.location.href = process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT || "http://localhost:3000" : renderForm}
-      </div>
-    </div>
+            <div className="login-form">
+                {isSubmitted ? 
+                    window.location.href = 
+                    (process.env.REACT_APP_CLIENT_HOST ?
+                        process.env.REACT_APP_CLIENT_HOST + ":" + process.env.REACT_APP_CLIENT_PORT 
+                        : "http://localhost:3000")
+                    : renderForm}
+            </div>
+        </div>
     // <div>
     //     <h1>TEST</h1>
     // </div>
