@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom"
 import AXIOS from '../../axios.config'
 import './ingredientSearch.css'
 
@@ -52,12 +53,13 @@ export default class ingredientSearch extends Component {
         })
     }
 
-    search(){
-        AXIOS.get('/drinks/filter/ingredients/all',{ params :{ingredients : this.state.ingredients} 
+    search() {
+        AXIOS.get('/drinks/filter/ingredients/all', {
+            params: { ingredients: this.state.ingredients }
         }).then(res => {
             console.log(res.data)
             this.setState({ current: res.data })
-        }).then(this.toggleMixed)
+        }).then(!this.state.mixed ? this.toggleMixed : null)
     }
 
     delete = (name) => {
@@ -91,25 +93,23 @@ export default class ingredientSearch extends Component {
             <div>
                 <div id="mainblock">
                     <div>
-                        <p id="mainblockPrompt" class="w">
-                            <p id="big">MIX</p>
-                            Select the ingredients you've got at home, 
+                        <p id="mainblockPrompt">
+                            <label id="big">MIX</label><br></br>
+                            Select the ingredients you've got at home,
                             <br></br>to see what drinks you can make!
                         </p>
                     </div>
                     <div id="subblock">
                         <label id="mainblockTitle">Selected</label>
                         <div id="selection">
-                            <div id="selectionlist">
-                                <ul class="horizontal">
-                                    {this.state.ingredients.map(ingredient => (
-                                        <li key={ingredient} id="lingredient">
-                                            <label id="ingOptName">{ingredient}</label>
-                                            <button onClick={() => this.delete(ingredient)} id="delete">X</button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <ul class="horizontal" id="ingredientselect">
+                                {this.state.ingredients.map(ingredient => (
+                                    <li key={ingredient} id="lingredient">
+                                        <label id="ingOptName">{ingredient}</label>
+                                        <button onClick={() => this.delete(ingredient)} id="delete">X</button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                         <select id="dropdown"
                             onChange={this.addIngredients}>
@@ -125,14 +125,17 @@ export default class ingredientSearch extends Component {
                         {this.state.mixed ? <div id="drinkselect" >
                             <ul id="drinklist" class="horizontal">
                                 {this.state.current.map(drink => (
-                                    <li key={drink._id}>
-                                        <div>
-                                            <label id="drinkname">{drink.name}</label>
-                                        </div>
-                                        <div>
-                                            <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
-                                        </div>
-                                    </li>
+
+                                    <Link to={"/account/drinks/id/" + drink._id}>
+                                        <li key={drink._id} id="drinkitem">
+                                            <div>
+                                                <label id="drinkname">{drink.name}</label>
+                                            </div>
+                                            <div>
+                                                <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
+                                            </div>
+                                        </li>
+                                    </Link>
                                 ))}
                             </ul>
                         </div> : <></>}

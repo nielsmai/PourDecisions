@@ -26,21 +26,24 @@
     border-radius: 10px;
     vertical-align: bottom;
     color: #73003F;
+    font-size: 22px;
 }
 #mixbutton:hover{
     background-color: #73003F;
     color: white;
+    
 }
 #subblock {
     border: solid 1px #BEB8AA;
     border-radius: 10px;
     background-color: #EFEADE;
-    padding: 7%;
-    padding-top: 3%;
+    padding: 5%;
+    padding-top: 2%;
     text-align: center;
-    min-height: 400px;
+
+    min-height: 300px;
     height: auto !important;
-    height: 400px;
+    height: 300px;
 }
 
 ul.horizontal {
@@ -65,12 +68,15 @@ ul.horizontal > li {
     background-color: transparent;
     margin-left: 0%;
     width: 300px;
+    font-size: 22px;
 }
 
 #lingredient{
+    position: relative;
     border-color: transparent;
     width: fit-content;
-    height: 50px;
+    font-size: 20px;
+    height: 100%;
 }
 #delete{
     background-color: transparent;
@@ -87,25 +93,31 @@ ul.horizontal > li {
     border: solid 2px #73003F;
     border-radius: 12px;
     background-color:rgba(180, 107, 137, 0.36);
+    color: rgba(115,0,63,0.7);
+    font-weight: bolder;
 }
 
 #selection{
-    padding: 2%;
     margin: 3% 0% 3% 0%;
-    display:block;
-    min-height: 300px;
+    padding: 3%;
+    display:flex;
+    flex-direction: column;
+    min-height: 290px;
     height: auto !important;
-    height: 300px;
-    max-height: 300px; 
+    height: 290px;
     overflow-y: auto;
     background-color: #e4ded2;
     border: solid 3px #BEB8AA;
     border-radius: 12px;
 }
 
-#selectionlist{
+#ingredientselect{
+    padding: 10px;
+    height: 100%;
+    min-height: 255px;
+    height: auto !important;
+    height: 255px;
     overflow-y: auto;
-    
 }
 
 #drinkselect{
@@ -118,13 +130,13 @@ ul.horizontal > li {
 }
 
 #drinklist{
-    padding-left: 1%;
+    padding: 2%;
 }
 
 #drinklist li{
-    width: 98%;
+    width: 97%;
     height: 100px;
-    margin-bottom: 0%;
+    margin-bottom: 2%;
     text-align: left;
     background-color:rgba(180, 107, 137, 0.36);
     border: solid 3px #73003F;
@@ -132,7 +144,17 @@ ul.horizontal > li {
 }
 
 #drinkname {
-    font-size: large;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#drinkingredients {
+    vertical-align: bottom;
+    font-size: 25px;
+}
+
+#drinkitem {
+    list-style-type: none;
 }
 
 #drinklist li > div {
@@ -145,9 +167,16 @@ ul.horizontal > li {
     background-color: #e4ded2;
     border: solid 3px #BEB8AA;
     border-radius: 12px;
+    list-style: none;
+    
 }
 
 #big {
     margin-bottom: 0%;
     font-size: 50px;
+}
+
+#drinkitem {
+    padding: 1%;
+    color: #664E4C;
 }
