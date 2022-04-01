@@ -10,12 +10,14 @@ export default class ingredientSearch extends Component {
         this.search = this.search.bind(this)
         this.delete = this.delete.bind(this)
         this.clear = this.clear.bind(this)
+        this.toggleMixed = this.toggleMixed.bind(this)
 
         this.state = {
             ingredients: [],
             ingredientsOpts: new Set(),
             drinks: [],
-            current: []
+            current: [],
+            mixed: false
         }
     }
 
@@ -56,7 +58,7 @@ export default class ingredientSearch extends Component {
         }).then(res => {
             console.log(res.data)
             this.setState({ current: res.data })
-        }).then(console.log(this.state.current))
+        }).then(this.toggleMixed)
     }
 
     delete = (name) => {
@@ -79,7 +81,10 @@ export default class ingredientSearch extends Component {
         let temp = [...this.state.ingredientsOpts, ...this.state.ingredients]
         this.setState({ ingredientsOpts: new Set(temp) })
         this.setState({ ingredients: [] })
+        if (this.state.mixed) this.setState({mixed : !this.state.mixed})
     }
+
+    toggleMixed = () => this.setState({mixed : !this.state.mixed})
 
     render() {
         return (
@@ -120,10 +125,12 @@ export default class ingredientSearch extends Component {
                                 <option key={ingredients} value={ingredients}>{ingredients}</option>
                             ))}
                         </select>
-                        
+
                         <button id="mixbutton" onClick={this.search}>Mix</button>
                         <button id="mixbutton" onClick={this.clear}>Clear</button>
-                        <div id="drinkselect" >
+
+
+                        {this.state.mixed ? <div id="drinkselect" >
                             <ul id="drinklist"class="horizontal">
                                 {this.state.current.map(drink => (
                                     <li key={drink._id}>
@@ -136,7 +143,7 @@ export default class ingredientSearch extends Component {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </div> : <></>}
                     </div>
                 </div>
             </div>
