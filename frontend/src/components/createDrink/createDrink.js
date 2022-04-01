@@ -38,7 +38,7 @@ export default function CreateDrink() {
             setIngredientList([
                 ...ingredientList,
                 {
-                    ingredientName: ingredient,
+                    ingredientName: ingredient.toUpperCase(),
                     ingredientType: "OTHER"
                 }
             ])

@@ -1,0 +1,126 @@
+.pageTitle {
+    text-align: left;
+    color: #664e4c;
+  }
+  
+  .rowViewDrinks {
+    display: flex;
+    margin-top: 2%;
+    margin-left: 10%;
+  }
+  
+  .columnLeftViewDrinks {
+    margin-right: 10%;
+  }
+  
+  .columnRightViewDrinks {
+    
+  }
+  
+  .likeCount {
+    color: #664e4c;
+  }
+  
+  .ingredientsList {
+    text-align: left;
+    margin-left: 10%;
+    color: #664e4c;
+  }
+  
+  .garnishList {
+    text-align: left;
+    margin-left: 10%;
+    color: #664e4c;
+  }
+  
+  .instructionsList {
+    text-align: left;
+    margin-left: 10%;
+    color: #664e4c;
+  }
+  
+  .addToFavouritesConfirm {
+    background-color: #7e003f;
+    color: #e1c3d2;
+    border: none;
+    padding: 15px 32px;
+    font-size: 16px;
+    width: 12%;
+    border-radius: 12px;
+    margin-top: 2%;
+  }
+
+  .editButton {
+    background-color: #7e003f;
+    color: #e1c3d2;
+    border: none;
+    padding: 15px 32px;
+    font-size: 16px;
+    width: 12%;
+    border-radius: 12px;
+    margin-top: 2%;
+  }
+  
+  .viewDrinksContainer {
+    margin-left: 10%;
+    margin-right: 20%;
+  }
+  
+  .drinksTag {
+    text-align: right;
+    color: #993362 !important;
+    border-radius: 12px !important;
+  }
+  
+  .alcoholicTag {
+    display: inline;
+    background-color: #e0c1c5;
+    border: 5px solid #993362;
+    border-radius: 12px;
+  }
+  
+  button[type=submit] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #7e003f;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    color: white;
+  }
+
+  input[type=text] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+  }
+
+  input[type=text]:focus {
+    border: 3px solid #555;
+  }
+
+  textarea[type=text] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+    width: 80%;
+    resize: none;
+  }
+
+  textarea[type=text]:focus {
+    border: 3px solid #555;
+  }
+
+  input[type=button]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  h3{
+    text-align: center;
+  }
