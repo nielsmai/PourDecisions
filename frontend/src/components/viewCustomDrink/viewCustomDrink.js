@@ -13,7 +13,7 @@ export default function ViewCustomDrink() {
 
     const getDrinks = () => {
         const user = localStorage.getItem('loggedUsername')
-        AXIOS.get("/drinks/" + user)
+        AXIOS.get("/drinks/" + user + '/custom')
         .then( res => {
             setListOfDrinks(res.data)
         })

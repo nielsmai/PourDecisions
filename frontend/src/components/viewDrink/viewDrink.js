@@ -208,7 +208,7 @@ export default function ViewDrink() {
                 <textarea className='input instructions' id='instructions-box' name='instructions' spellCheck={false} placeholder={drink.recipe.instruction}></textarea>
 
                 <label>
-                Public Status
+                Public
                 <input type="checkbox" id="public-status-box" checked={publicStatus} onChange={() => setPublicStatus(!publicStatus)}/> 
                 </label>
 
