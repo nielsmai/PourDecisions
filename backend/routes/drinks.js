@@ -25,7 +25,8 @@ const {
     getDrinkByUserAndName,
     getDrinkById,
     incrementRating,
-    decrementRating
+    decrementRating,
+    changeRecipe
     // getIngredientByName
 
 } = require('../controllers/drinks');
@@ -136,6 +137,10 @@ router.delete('/recipes', (req, res) => {
 router.get('/ingredients/all', function(req, res){
     getAllIngredients(req, res)
 })
+
+router.put('/id/:id'), function (req, res) {
+   changeRecipe(req, res) 
+}
 
 // router.get('ingredients/:ingredientName/name', function(req,res){
 //     getIngredientByName(req,res)

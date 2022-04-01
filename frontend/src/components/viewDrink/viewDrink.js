@@ -134,21 +134,39 @@ export default function ViewDrink() {
     }
 
     const submitEdit = () => {
-        var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
-        var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
-        var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
-        var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
-        var public_status = document.querySelector("#public-status-box").checked
 
         // TODO add the call here whenever its done
+        if (userType == "admin" || userType == "author"){
+            var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
+            var ingredientsString = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
+            var garnishList = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
+            var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
+            var public_status = document.querySelector("#public-status-box").checked
+            var ingredients = []
+            var garnish = []
 
-        console.log(name)
-        console.log(ingredients)
-        console.log(garnish)
-        console.log(instructions)
-        console.log(public_status)
+            // parse ingredientsString
+            ingredientsString.split(', ').map( name => (
+                ingredients.push(
+                    {
+                        ingredientName: name
+                    }
+                )  
+            ))
 
-        toggleEditing()
+            // parse
+
+
+
+            console.log(name)
+            console.log(ingredients)
+            console.log(garnish)
+            console.log(instructions)
+            console.log(public_status)
+            console.log(drink._id)
+
+            toggleEditing()
+        }
 
     } 
 
@@ -271,7 +289,18 @@ export default function ViewDrink() {
                 </ul>
                 </div>  
                 :
-                <></>
+                <div id="buttons">
+                <ul>
+                <li>
+                <div id="favourite-button" className="mimick-button">
+                    <label>
+                    <input type="checkbox" checked={alreadyFavourited} onChange={()=>handleButtonChange()}/>
+                    <span>Favourite this drink!</span>
+                    </label>
+                </div>
+                </li>
+                </ul>
+                </div>  
             }
         </div>      
         </div>
