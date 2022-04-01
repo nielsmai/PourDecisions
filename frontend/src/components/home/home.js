@@ -1,14 +1,20 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './home.css'
 // import "@fontsource/montserrat"
-
+import AXIOS from "../../axios.config"
 import logo from '../../images/logoCrop.png'
-
 
 export default function Home() {
 
-    if(window.localStorage.length == 0) return <Navigate to="/setup" replace={true}/>
+    // const [hasUsers] = useState(false)
+
+    // useEffect(() => {
+    //     AXIOS.get('/users/').then(res => {
+    //         hasUsers(res.data.length > 0)
+    //     })
+    // }, [hasUsers])
+
+    // if(!hasUsers) return <Navigate to="/setup" replace={true}/>
     
     return (
         <div className="Home" class="center text">
@@ -20,7 +26,7 @@ export default function Home() {
         <br/>
             <span>Click on mix to begin!</span>
             <br></br>
-            {/* <button type="button" class="mix">Mix!</button> */}
+            <Link to={"drinks/mix"}><button class="mix" >Mix</button></Link>
             <div className="b">
             <ul>
             <li>
