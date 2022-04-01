@@ -20,3 +20,37 @@
 .error{
     text-align: left;
 }
+.password{
+    color: #613133;
+    font-size: 24px;
+}
+input[type=password] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+  }
+
+  input[type=password]:focus {
+    border: 3px solid #555;
+  }
+
+  textarea[type=password] {
+    display: flex;
+    padding:5px 15px; 
+    background-color: #F7f3eb;
+    border-radius: 5px;
+    border: 3px solid #ccc;
+    width: 80%;
+    resize: none;
+  }
+
+  textarea[type=password]:focus {
+    border: 3px solid #555;
+  }
+
+  input[type=button]{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
