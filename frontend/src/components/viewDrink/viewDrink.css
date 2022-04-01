@@ -87,6 +87,7 @@
     letter-spacing: unset;
     line-height: 1em;
     height:1.2em;
+    display: block;
 }
 
 #body .ingredient-list {
