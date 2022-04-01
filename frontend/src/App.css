@@ -1,11 +1,21 @@
-.App {
-  text-align: center;
-  color: #7e003f;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+* {
+  /* text-align: center; */
+  /* color: #7e003f; */
+  /* font-family:'Franklin Gothic Medium' , 'Arial Narrow', Arial, sans-serif; */
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  background-color: #f7f3e7;
+    margin:0;
+    padding:0;
+    /* background-color: #f7f3e7; */
+    background-color: #EBE7DB;
+}
+
+a {
+    color: #614A48;
+    text-decoration: none;
 }
 
 /*logInAccount CSS  */
@@ -106,10 +116,6 @@ input[type="password"] {
   margin-right: 10%;
 }
 
-.columnRightViewDrinks {
-  
-}
-
 .likeCount {
   color: #664e4c;
 }
@@ -170,25 +176,4 @@ button[type=submit] {
   -webkit-border-radius: 5px;
   border-radius: 5px; 
   color: white;
-}
-
-.navbar-item-c {
-  display:inline-block;
-  float:right
-}
-
-.navbar-item-r {
-  float:right
-}
-
-.navbar-item-l {
-  float:left
-}
-
-.navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color:#f7f3e7;
 }
