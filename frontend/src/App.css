@@ -116,10 +116,6 @@ input[type="password"] {
   margin-right: 10%;
 }
 
-.columnRightViewDrinks {
-  
-}
-
 .likeCount {
   color: #664e4c;
 }
@@ -181,25 +177,3 @@ button[type=submit] {
   border-radius: 5px; 
   color: white;
 }
-
-/* .navbar-item-c { */
-/*   /1* display:inline-block; *1/ */
-/*   float:right */
-/* } */
-
-/* .navbar-item-r { */
-/*   float:right */
-/* } */
-
-/* .navbar-item-l { */
-/*   float:left */
-/* } */
-
-/* .navbar { */
-/*   list-style-type: none; */
-/*   margin: 0; */
-/*   padding: 0; */
-/*   overflow: hidden; */
-/*   /1* background-color:#f7f3e7; *1/ */
-/*   background-color:#EBE7DB; */
-/* } */

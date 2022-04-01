@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './viewDrink.css'
 import AXIOS from '../../axios.config'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 export default function ViewDrink() {
     let { drinkId } = useParams()
@@ -11,6 +11,7 @@ export default function ViewDrink() {
     const [load, setLoad] = useState(false)
     const [favourites, setFavourites] = useState([])
     const [alreadyFavourited, setAlreadyFavourited] = useState(false)
+    const [editing, setEditing] = useState(false)
     
     useEffect( () => {
         const timer = setTimeout(() => {
@@ -100,12 +101,102 @@ export default function ViewDrink() {
             })
         }
     }
- 
+
+    const toggleEditing = () => {
+        // if currently editing
+        if (editing) {
+            // set it back to unblur
+            document.getElementById("drink-info").style.filter = "blur(0px)"   
+            document.getElementById("drink-info").style.pointerEvents = "auto" 
+        }
+        // if not editing
+        else {
+            // then set to blur
+            document.getElementById("drink-info").style.filter = "blur(8px)"   
+            document.getElementById("drink-info").style.pointerEvents = "none" 
+        }
+        setEditing(!editing)
+    }
+
+    const getIngredientsString = (drink) => {
+        var ingredients = []
+        drink.recipe.ingredients.map( ing => 
+            ingredients.push(capitalizeFirstLetter(ing.ingredientName))
+        ) 
+        return ingredients.join(", ")
+    }
+    const getGarnishString = (drink) => {
+        var ingredients = []
+        drink.recipe.garnish.map( ing => 
+            ingredients.push(capitalizeFirstLetter(ing))
+        ) 
+        return ingredients.join(", ")
+    }
+
+    const submitEdit = () => {
+        var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
+        var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
+        var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
+        var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
+        var public_status = document.querySelector("#public-status-box").checked
+
+        // TODO add the call here whenever its done
+
+        console.log(name)
+        console.log(ingredients)
+        console.log(garnish)
+        console.log(instructions)
+        console.log(public_status)
+
+        toggleEditing()
+
+    } 
+
+    const EditPopup = () => {
+        const [publicStatus, setPublicStatus] = useState(drink.public_status)
+        return (
+            <div id="edit-popup">
+            
+                <div id="popup-title">
+                <h2>Edit drink</h2> 
+                <button id="close-button" onClick={() => toggleEditing()}>X</button>
+                </div>
+            
+                <div id="popup-edit-entry">
+                <label htmlFor="drink-name">Drink name</label>
+                <input className="input" id="drink-name-box" name="drink-name" type="text" placeholder={drink.name}/>
+
+                <label htmlFor="ingredients">Ingredients</label>
+                <input className="input" id="ingredients-box" name="ingredients" type="text" placeholder={getIngredientsString(drink)}/>
+
+                <label htmlFor="garnish">Garnish</label>
+                <input className="input" id="garnish-box" name="garnish" type="text" placeholder={getGarnishString(drink)}/>
+
+                <label htmlFor="instructions">Instructions</label>
+                <textarea className='input instructions' id='instructions-box' name='instructions' spellCheck={false} placeholder={drink.recipe.instruction}></textarea>
+
+                <label>
+                Public Status
+                <input type="checkbox" id="public-status-box" checked={publicStatus} onChange={() => setPublicStatus(!publicStatus)}/> 
+                </label>
+
+
+                </div>
+
+                <div>
+                <button id="popup-submit" onClick={() => submitEdit()}> Submit </button>
+                </div>
+
+            </div>
+        )
+    } 
+    
     return load 
         ? (
+        <div id="view-drink">
         <div id="drink-info">
         <div id="top-bar">
-            <span id="drink-name" className="top-bar-element left">{drink.name}</span>
+            <span id="drink-name" className="top-bar-element left">{capitalizeFirstLetter(drink.name)}</span>
             <span id="drink-rating" className="top-bar-element left">{drink.rating + " likes"}</span>
             <span id="drink-tag" className="top-bar-element right">{drink.tag}</span>
             <span id="drink-author" className="top-bar-element left">{"made by " + drink.author}</span>
@@ -135,9 +226,9 @@ export default function ViewDrink() {
             } 
             </ul>
             <span className="body-header">Instructions:</span>
-            {drink.recipe.instructions == undefined
-                || drink.recipe.instructions == null
-                || drink.recipe.instructions == ""
+            {drink.recipe.instruction == undefined
+                || drink.recipe.instruction == null
+                || drink.recipe.instruction == ""
             ? 
             <p className="body-text">
                 <small>
@@ -147,7 +238,7 @@ export default function ViewDrink() {
             :
             <p className="body-text">
                 <small>
-                    {drink.recipe.instructions}
+                    {drink.recipe.instruction}
                 </small>
             </p>
             }
@@ -172,18 +263,19 @@ export default function ViewDrink() {
                 <li>
                 <div id="edit-button" className="mimick-button">
                     <label>
-                    <input type="submit" onClick={() => alert("edit")}/>
+                    <input type="submit" onClick={() => toggleEditing()}/>
                     <span>Edit this drink!</span>
                     </label>
                 </div>
                 </li>
                 </ul>
-
-                </div>
+                </div>  
                 :
-                <div><h1>HEllo</h1></div>
+                <></>
             }
+        </div>      
         </div>
+        {editing ? <EditPopup/> : <></>} 
         </div>
     ) 
     : 

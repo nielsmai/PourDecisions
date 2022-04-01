@@ -19,37 +19,17 @@ import IngredientSearch from './components/ingredientSearch/ingredientSearch';
 
 function App() { 
 
-  const hasUsers = useState(false)
+  const [hasUsers, setHasUsers] = useState(false)
 
   useEffect(() => {
       AXIOS.get('/users/').then(res => {
-          hasUsers(res.data.length > 0)
+          setHasUsers(res.data.length > 0)
       })
-  },[hasUsers])
+  },[])
 
-  if(!hasUsers) return (
-    <div className="wrapper">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/drinks/create" element={<CreateDrink />} />
-          <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
-          <Route path="/drinks/test" element = {<IngredientsList/>}/>
-          <Route path="/account/update" element={<ChangePasswordAccount/>} />
-          <Route path="/account/login" element={<LogInAccount/>} />
-          <Route path="/setup" element={<CreateAdmin/>} />
-          <Route path="/account/logout" element={<LogOutAccount/>} />
-          <Route path="/account/register" element = {<CreateAccount/>} />
-          <Route path="/drinks/" element = {<GetAllDrinks/>} />
-          <Route path="/drinks/mix" element = {<IngredientSearch/>} />
-          <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
-          <Route path="/account/drinks/id/:drinkId" element = {<ViewDrink/>} />
-        </Routes>
-      </Router>
-    </div>
-    );  
-  else {
-    return (
+  return (
+      hasUsers ?
+
     <div className="wrapper">
       <Router>
         <Navbar />
@@ -70,8 +50,28 @@ function App() {
         </Routes>
       </Router>
     </div>
-    );
-  }
+    : 
+    <div className="wrapper">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/drinks/create" element={<CreateDrink />} />
+          <Route path="/drinks/ingredients" element = {<CreateIngredient/>} />
+          <Route path="/drinks/test" element = {<IngredientsList/>}/>
+          <Route path="/account/update" element={<ChangePasswordAccount/>} />
+          <Route path="/account/login" element={<LogInAccount/>} />
+          <Route path="/setup" element={<CreateAdmin/>} />
+          <Route path="/account/logout" element={<LogOutAccount/>} />
+          <Route path="/account/register" element = {<CreateAccount/>} />
+          <Route path="/drinks/" element = {<GetAllDrinks/>} />
+          <Route path="/drinks/mix" element = {<IngredientSearch/>} />
+          <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
+          <Route path="/account/drinks/id/:drinkId" element = {<ViewDrink/>} />
+        </Routes>
+      </Router>
+    </div>
+    )
   
 }
 

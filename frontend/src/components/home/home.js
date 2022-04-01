@@ -26,7 +26,16 @@ export default function Home() {
         <br/>
             <span>Click on mix to begin!</span>
             <br></br>
-            <Link to={"drinks/mix"}><button class="mix" >Mix</button></Link>
+            <div className="b">
+            <ul>
+            <Link to={"drinks/mix"}>
+            <li>
+            Mix!
+            <span></span><span></span><span></span><span></span>
+            </li>
+            </Link>
+            </ul>
+            </div>
         </div>
     );
 }

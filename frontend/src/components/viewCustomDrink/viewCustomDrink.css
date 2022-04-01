@@ -29,7 +29,6 @@
 
 .drinkInfo {
     position:absolute;
-    /* border: 1px solid red; */
     height: 100%;
     width: 92%;
     margin-left: 0;
@@ -37,13 +36,11 @@
 }
 
 .drinkInfo .name, .rating, .tag, .ingredients {
-    /* border: 1px solid yellow; */
     vertical-align: top;
     color: #614A48;
 }
 
 .name {
-    /* display:inline-block; */
     display:inline;
     float: left;
     text-align: left;
@@ -55,7 +52,6 @@
 }
 
 .rating {
-    /* display: inline-block; */
     display: inline;
     float:left;
     text-align: left;

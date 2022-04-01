@@ -101,11 +101,11 @@ router.get('/:username/:name', function(req,res){
     getDrinkByUserAndName(req,res)
 })
 
-router.get('/tag/:tag', function(req,res){
-    getDrinkByTag(req,res)
+router.get('/filter/tag/:tag', function(req,res){
+    getDrinkByTag(req, res)
 })
 
-router.get('/filter/ingredients', function(req,res){
+router.get('/filter/ingredients/all', function(req,res){
     getDrinkByIngredients(req,res)
 })
 
