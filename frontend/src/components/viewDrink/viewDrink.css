@@ -185,14 +185,64 @@
     left: 0;
     right: 0;
     top: 30%;
-    width: 60%;
+    width: 50%;
     height: 50%; 
     z-index: 9999;
     padding: 2%;
+    padding-top: 1%;
+    color: #614A48;
+    font-weight: bold;
 }
 
-#edit-popup #popup-title {
-    border: 1px black solid;
-    text-align: center;
+#edit-popup #popup-title{
+    position: relative;
+    margin-bottom: 1%;
 } 
+
+#edit-popup #popup-title h2{
+    margin: 0;
+    text-align:center;
+}
+
+#edit-popup #close-button {
+    position: absolute; 
+    right: 0;
+    top: 0;
+    background:transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#edit-popup #popup-edit-entry {
+    margin-top: 3%;
+} 
+
+#edit-popup #popup-edit-entry .input{
+    margin-top: 1%;
+    margin-bottom: 2%;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    padding: 2%;
+    outline: none;
+    border: none;
+} 
+
+#edit-popup #popup-edit-entry .instructions{
+    border-width: 2px;
+    border-radius: 8px;
+    resize: none;
+    background-color: white;
+    -moz-appearance: none !important;
+    font-family: "Montserrat";
+    font-size: 80%;
+    color: #614A48;
+}
+
+#edit-popup #popup-submit {
+    float: right;
+}
+
 

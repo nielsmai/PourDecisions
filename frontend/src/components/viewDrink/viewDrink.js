@@ -137,30 +137,53 @@ export default function ViewDrink() {
         ) 
         return ingredients.join(", ")
     }
+
+    const submitEdit = () => {
+        var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
+        var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
+        var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
+        var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
+        
+        // for now
+        var public_status = drink.public_status
+
+        // TODO add public status whenever that's done as well
+        // TODO add the call here whenever its done
+
+        console.log(name)
+        console.log(ingredients)
+        console.log(garnish)
+        console.log(instructions)
+        console.log(public_status)
+
+        toggleEditing()
+
+    } 
+
     const EditPopup = () => {
         return (
             <div id="edit-popup">
             
                 <div id="popup-title">
-                <span>Edit drink</span> 
+                <h2>Edit drink</h2> 
                 <button id="close-button" onClick={() => toggleEditing()}>X</button>
                 </div>
-
+            
                 <div id="popup-edit-entry">
-                <label for="drinkName">Drink name</label>
-                <input name="drinkName" type="text" placeholder={drink.name}/>
+                <label htmlFor="drink-name">Drink name</label>
+                <input className="input" id="drink-name-box" name="drink-name" type="text" placeholder={drink.name}/>
 
-                <label for="ingredients">Ingredients</label>
-                <input name="ingredients" type="text" placeholder={getIngredientsString(drink)}/>
+                <label htmlFor="ingredients">Ingredients</label>
+                <input className="input" id="ingredients-box" name="ingredients" type="text" placeholder={getIngredientsString(drink)}/>
 
-                <label for="garnish">Garnish</label>
-                <input name="garnish" type="text" placeholder={getGarnishString(drink)}/>
+                <label htmlFor="garnish">Garnish</label>
+                <input className="input" id="garnish-box" name="garnish" type="text" placeholder={getGarnishString(drink)}/>
 
-                <label for="instructions">Instructions</label>
-                <input name="instructions" type="text" placeholder={drink.recipe.instruction}/>
+                <label htmlFor="instructions">Instructions</label>
+                <textarea className='input instructions' id='instructions-box' name='instructions' spellCheck={false} placeholder={drink.recipe.instruction}></textarea>
                 </div>
 
-                <button onClick={() => toggleEditing()}> unclick </button>
+                <button id="popup-submit" onClick={() => submitEdit()}> unclick </button>
 
             </div>
         )
@@ -201,9 +224,9 @@ export default function ViewDrink() {
             } 
             </ul>
             <span className="body-header">Instructions:</span>
-            {drink.recipe.instructions == undefined
-                || drink.recipe.instructions == null
-                || drink.recipe.instructions == ""
+            {drink.recipe.instruction == undefined
+                || drink.recipe.instruction == null
+                || drink.recipe.instruction == ""
             ? 
             <p className="body-text">
                 <small>
@@ -213,7 +236,7 @@ export default function ViewDrink() {
             :
             <p className="body-text">
                 <small>
-                    {drink.recipe.instructions}
+                    {drink.recipe.instruction}
                 </small>
             </p>
             }
