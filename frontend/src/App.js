@@ -43,7 +43,8 @@ function App() {
           <Route path="/setup" element={<CreateAdmin/>} />
           <Route path="/account/logout" element={<LogOutAccount/>} />
           <Route path="/account/register" element = {<CreateAccount/>} />
-          <Route path="/drinks/" element = {<GetAllDrinks/>} />
+          <Route path="/drinks/" element = {<ViewDrinks/>} />
+          <Route path="/drinks/t" element = {<GetAllDrinks/>} />
           <Route path="/drinks/mix" element = {<IngredientSearch/>} />
           <Route path="/account/drinks" element = {<ViewCustomDrink/>} />
           <Route path="/account/drinks/id/:drinkId" element = {<ViewDrink/>} />
