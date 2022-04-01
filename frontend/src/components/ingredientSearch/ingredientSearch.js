@@ -113,33 +113,26 @@ export default class ingredientSearch extends Component {
 
                         <select id="dropdown"
                             onChange={this.addIngredients}>
-                            <option value={"Ingredient"} disabled hidden>
-                                Pick your ingredients
+                            <option value="" disabled selected hidden>
+                                Select your ingredients
                             </option>
                             {[...this.state.ingredientsOpts].map(ingredients => (
                                 <option key={ingredients} value={ingredients}>{ingredients}</option>
                             ))}
                         </select>
+                        
                         <button id="mixbutton" onClick={this.search}>Mix</button>
                         <button id="mixbutton" onClick={this.clear}>Clear</button>
-                        <div id="drinkselect" class="horizontal">
-                            <ul id="drinklist">
+                        <div id="drinkselect" >
+                            <ul id="drinklist"class="horizontal">
                                 {this.state.current.map(drink => (
                                     <li key={drink._id}>
-                                        <table className="drinkInfo">
-                                            <tbody>
-                                                <tr>
-                                                    <td className="name">
-                                                        {drink.name}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="ingredients" colSpan={3}>
-                                                        Ingredients : {drink.recipe.ingredients.map(i => i.name).toString().replace(/,/g, ', ')}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div>
+                                            <label id="drinkname">{drink.name}</label>
+                                        </div>
+                                        <div>
+                                            <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g,', ')}</label>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>

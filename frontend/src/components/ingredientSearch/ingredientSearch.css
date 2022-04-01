@@ -108,11 +108,21 @@ ul.horizontal > li {
     overflow-y: auto;
 }
 
+#drinklist{
+    padding-left: 1%;
+}
+
 #drinklist li{
-    margin-right: 0.5%;
-    width: 48%;
+    width: 98%;
     height: 100px;
     margin-bottom: 0%;
     text-align: left;
 }
 
+#drinkname {
+    font-size: large;
+}
+
+#drinklist li > div {
+    padding-left: 1%;
+}
