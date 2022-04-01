@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 // import axios from "axios"
 import AXIOS from "../../axios.config"
+import logo from '../../images/logo.png'
+import "./logOutAccount.css"
+
 
 // // Connect to MongoDB
 // var CONNECTION_URL;
@@ -50,14 +53,14 @@ export default function LogOutAccount() {
             <div className="boxLogInAccount">
             <div className="row">
             <div className="columnLeft">
-                <h1>Put Image Here</h1>
+                <img src={logo} alt="Logo" class="resize"></img>
             </div>
             <div className="columnRight">
                 <div>
-                    <h1 className="loginTitle">Logout</h1>
+                    <h1 className="loginTitle libre">Logout</h1>
 
                     <div className="loginButton">
-                        <button type="submit" className="loginConfirm">Logout</button>
+                        <button type="submit" className="loginConfirm montserrat">Logout</button>
                     </div>
                 </div>
 
