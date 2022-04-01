@@ -81,19 +81,16 @@ export default class ingredientSearch extends Component {
         let temp = [...this.state.ingredientsOpts, ...this.state.ingredients]
         this.setState({ ingredientsOpts: new Set(temp) })
         this.setState({ ingredients: [] })
-        if (this.state.mixed) this.setState({mixed : !this.state.mixed})
+        if (this.state.mixed) this.setState({ mixed: !this.state.mixed })
     }
 
-    toggleMixed = () => this.setState({mixed : !this.state.mixed})
+    toggleMixed = () => this.setState({ mixed: !this.state.mixed })
 
     render() {
         return (
 
             <div>
-
-
                 <div id="mainblock">
-
                     <div>
                         <p id="mainblockPrompt" class="w">
                             Mix
@@ -115,7 +112,6 @@ export default class ingredientSearch extends Component {
                                 </ul>
                             </div>
                         </div>
-
                         <select id="dropdown"
                             onChange={this.addIngredients}>
                             <option value="" disabled selected hidden>
@@ -125,20 +121,17 @@ export default class ingredientSearch extends Component {
                                 <option key={ingredients} value={ingredients}>{ingredients}</option>
                             ))}
                         </select>
-
                         <button id="mixbutton" onClick={this.search}>Mix</button>
                         <button id="mixbutton" onClick={this.clear}>Clear</button>
-
-
                         {this.state.mixed ? <div id="drinkselect" >
-                            <ul id="drinklist"class="horizontal">
+                            <ul id="drinklist" class="horizontal">
                                 {this.state.current.map(drink => (
                                     <li key={drink._id}>
                                         <div>
                                             <label id="drinkname">{drink.name}</label>
                                         </div>
                                         <div>
-                                            <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g,', ')}</label>
+                                            <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
                                         </div>
                                     </li>
                                 ))}
@@ -149,5 +142,4 @@ export default class ingredientSearch extends Component {
             </div>
         )
     }
-
 }
