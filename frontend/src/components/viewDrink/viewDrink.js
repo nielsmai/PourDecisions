@@ -309,19 +309,26 @@ export default function ViewDrink() {
                     </label>
                 </div>
                 </li>
-                <li>
-                <div id="delete-button" className="mimick-button">
-                    <label>
-                    <input type="submit" onClick={() => confirmDeletePopup()}/>
-                    <span>Delete this drink!</span>
-                    </label>
-                </div>
-                </li>
+
+                {userType == "admin"
+                    ?
+                    <li>
+                    <div id="delete-button" className="mimick-button">
+                        <label>
+                        <input type="submit" onClick={() => confirmDeletePopup()}/>
+                        <span>Delete this drink!</span>
+                        </label>
+                    </div>
+                    </li>
+                    :
+                    <></>
+                }
+                
                 </ul>
                 </div>  
                 :
                 <></>
-                
+    
             }
         </div>      
         </div>

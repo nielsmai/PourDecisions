@@ -265,8 +265,6 @@
     border-radius:2px;
     border: 3px solid #AB6682;
     padding: 5px;
-    display: flex;
-    margin: 2% auto 0 auto;
 }
 
 #delete-popup #delete-deny {
@@ -277,7 +275,5 @@
     border-radius:2px;
     border: 3px solid #AB6682;
     padding: 5px;
-    display: flex;
-    margin: 2% auto 0 auto;
 }
 
