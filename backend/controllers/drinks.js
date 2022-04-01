@@ -496,27 +496,27 @@ module.exports.getAllIngredients = async (req, res) => {
 
 module.exports.changeRecipe = async (req, res) => {
     try {
-        const {id} = req.params
-        const {name, ingredients, garnish, instruction, public_status} = req.body
+        const {author, drinkId} = req.params
+        const {name, recipe, public_status} = req.body
 
         const update = await Drink.findOneAndUpdate(
             {
-                _id:id
+                _id: drinkId
             }
             ,
             {
-               
-                name: name,
-                ingredients: ingredients,
-                garnish: garnish,
-                instruction: instruction,
-                public_status: public_status
+                "$set":{
+                    name: name,
+                    author: author,
+                    recipe: recipe,
+                    public_status: public_status
+                }
                 
             }
             ,
-            {overwrite:true}
+            {"new":true}
         )
-        if (update) res.status(200).json({ message: "DRINK-UPDATED"}) 
+        if (update) res.status(200).json({ message: "DRINK-UPDATED" }) 
         else res.status(400).json({ message: "DRINK-NOT-UPDATED" })
 
     } catch (err){
@@ -525,39 +525,3 @@ module.exports.changeRecipe = async (req, res) => {
     }
 }
 
-
-module.exports.adminUpdateDrink = async (req, res) => {
-
-    const { isAdmin, oldName, newName, author, recipe, tag, public_status, rating } = req.body;
-    // const { isAdmin, oldName, newName, author, ingredientList, garnish, instruction, tag, public_status, rating } = req.body;
-    
-    try { 
-        if(isAdmin) {
-
-            if(newName == undefined || newName == "") {
-                res.status(400).json({message: "CREATE-DRINK-NAME-EMPTY"})
-            }
-            else if (author == undefined || author == ""){
-                res.status(400).json({message: "CREATE-DRINK-AUTHOR-EMPTY"})
-            }
-            else if (recipe.ingredients == []){
-                res.status(400).json({message: "CREATE-DRINK-INGREDIENTS-EMPTY"})
-            }
-
-            //here i will create recipe
-            // const newRecipe = new Recipe({ingredients : ingredientList, garnish: garnish, instruction: instruction});
-
-            let drink = await Drink.findOneAndUpdate({author:author, name:oldName},
-            // { name: newName, tag: tag, public_status: public_status, author: author, rating: rating, recipe: newRecipe}, 
-            { name: newName, tag: tag, public_status: public_status, author: author, rating: rating, recipe: recipe},
-            { new : true }) //returns the updated drink
-            if (drink) res.status(200).json({message: "DRINK-UPDATED-SUCCESSFULLY"})
-            else res.status(400).json({message: "DRINK-DOES-NOT-EXIST"})
-        }
-        else {
-            res.status(400).json({message: "NOT-ADMIN"})
-        }
-    } catch (err) {
-        res.status(404).json({ message: err.message });
-    }
-}

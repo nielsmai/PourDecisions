@@ -165,15 +165,20 @@ export default function ViewDrink() {
                 garnish.push(name)
             })
 
-            AXIOS.put('/drinks/id/' + drink._id + '/update', {
-                name: name,
+            // create a recipe
+            var recipe = {
                 ingredients: ingredients,
                 garnish: garnish,
-                instruction: instructions,
+                instruction: instructions
+            }
+
+            AXIOS.put('/drinks/update/' + drink.author + '/' + drinkId, {
+                name: name,
+                recipe: recipe,
                 public_status: public_status
             })
-            .then(res => res.data)
             .then( () => toggleEditing())
+            .then( () => window.location.reload(false))
 
         }
 
@@ -227,6 +232,12 @@ export default function ViewDrink() {
             <span id="drink-rating" className="top-bar-element left">{drink.rating + " likes"}</span>
             <span id="drink-tag" className="top-bar-element right">{drink.tag}</span>
             <span id="drink-author" className="top-bar-element left">{"made by " + drink.author}</span>
+            <span id="drink-status" className="top-bar-element left">
+            {drink.public_status 
+                ? <label style={{color: "#328453"}}>PUBLIC</label>
+                : <label style={{color: "#892e59"}}>PRIVATE</label>
+            }
+            </span>
         </div> 
         <div id="body">
             <span className="body-header">Ingredients:</span>
