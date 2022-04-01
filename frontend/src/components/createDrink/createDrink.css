@@ -3,7 +3,7 @@
 }
 
 #create {
-    margin-left: 2%
+    margin-left: 2%;
 }
 
 #stepOne {
@@ -27,4 +27,53 @@
     border-radius: 12px;
     outline-color: #beb8aa;
     outline-style:auto;
+    margin-bottom: 2%;
+}
+
+.stepText {
+    width: 97% !important;
+    border-color:linen !important;
+    background-color: linen !important;
+    border-radius: 12px !important;
+}
+
+.stepText:focus {
+    outline: none !important;
+    border-color: brown !important;
+}
+
+.stepText2 {
+    width: 97% !important;
+    border-color:linen
+     !important;
+    background-color: linen !important;
+    border-radius: 12px !important;
+}
+
+.stepText2:focus {
+    outline: none !important;
+    border-color: brown !important;
+}
+
+.drinkButton {
+display: flex;
+  padding:5px 15px; 
+  background-color: thistle;
+  border-color: brown;
+  color: brown;
+  border-radius: 6px;
+  border-width: 2px;
+  margin: auto;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+}
+
+.ingredientList {
+}
+
+.ingredient {
+    border-color: none;
+    border:none;
+    display: flex;
+    text-align: left;
 }
