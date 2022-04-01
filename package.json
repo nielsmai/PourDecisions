@@ -24,6 +24,7 @@
   "dependencies": {
     "express": "^4.17.3",
     "mongoose": "^6.2.1",
+    "npm": "^8.6.0",
     "react-router-dom": "^6.2.1"
   }
 }

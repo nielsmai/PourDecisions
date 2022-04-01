@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 .center {
     text-align: center;
     }
@@ -18,7 +20,15 @@
 .text{
     color: #613133;
     font-size: 24px;
+}
+.montserrat{
     font-family: 'Montserrat', sans-serif;
+}
+.poppins{
+    font-family: 'Poppins', sans-serif;
+}
+.libre{
+    font-family: 'Libre Caslon Text', serif;
 }
 .resizeLogo {
     padding-top: 5%;
@@ -41,19 +51,19 @@
     padding: 0;
 } */
 
-li {
+.b li {
     --c: #7e003f;
     margin:0 auto;
     color: var(--c);
     list-style-type: none;
     border: 0.3em solid var(--c);
     border-radius: 0.5em;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: bolder;
     font-family: 'Montserrat', sans-serif;
     width: 12em;
     height: 3em;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 0.1em;
     text-align: center;
     line-height: 3em;
@@ -64,7 +74,7 @@ li {
     margin: 1em;
 }
 
-li span {
+.b li span {
     position: absolute;
     width: 25%;
     height: 100%;
@@ -77,26 +87,26 @@ li span {
     z-index: -1;
 }
 
-li:hover {
+.b li:hover {
     color: #F8F3E7;
 }
 
-li:hover span {
+.b li:hover span {
     transform: translateY(0) scale(2);
 }
 
-li span:nth-child(1) {
+.b li span:nth-child(1) {
     --n: 1;
 }
 
-li span:nth-child(2) {
+.b li span:nth-child(2) {
     --n: 2;
 }
 
-li span:nth-child(3) {
+.b li span:nth-child(3) {
     --n: 3;
 }
 
-li span:nth-child(4) {
+.b li span:nth-child(4) {
     --n: 4;
 }

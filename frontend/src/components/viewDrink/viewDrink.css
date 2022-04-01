@@ -1,0 +1,261 @@
+#drink-info {
+    filter: blur(0px);
+    pointer-events: auto;
+}
+#top-bar {
+    display: inline-block;
+    width: 100%;
+    margin: 5vh 0 5vh 0;
+    font-size: 269%;
+    font-weight: bolder;
+    color: #614A48;
+}
+
+#top-bar .top-bar-element {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+#top-bar #drink-name {
+    margin-left: 19vw;
+}
+
+#top-bar #drink-rating {
+    margin-left: 5vw;
+}
+
+#top-bar #drink-tag {
+    padding: 10px;
+    border: 2px solid #78003c;
+    border-radius: 12px;
+    background-color:#AB6682;
+    color: #EBE7DB;
+    margin-right: 19vw;
+    font-size: 60%;
+    
+}
+
+#top-bar #drink-author {
+    margin-top: 3vh;
+    margin-left: 19vw;
+    font-size: 75%;
+    font-weight:normal;
+    
+    clear: left;
+}
+
+#body {
+    color: #614A48;
+    font-size: 200%;
+    margin-left: 21vw;
+}
+
+#body .body-header {
+    display: inline-block;
+    font-weight: bolder;
+    margin-top: 0vh;
+}
+
+#body .body-text{
+    margin-top:0; 
+    font-size: 90%;
+    max-width: 60%;
+}
+
+#body .ingredient{
+    margin:0;
+    padding:0;
+    /* border:1px solid black; */
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    list-style-type:none;
+    list-style-position: inside;
+    color: #614A48;
+    font-weight: normal;
+    font-size: 95%;
+    letter-spacing: unset;
+    line-height: 1em;
+    height:1.2em;
+    display: block;
+}
+
+#body .ingredient-list {
+    height: 100%;
+    margin-bottom: 3vh;
+}
+
+/* #buttons { */
+/*     width:100%; */
+/*     margin-top: 6vh; */
+/* } */
+/* #buttons .drink-buttons{ */
+/*     display: block; */ 
+/*     margin:0 auto; */
+/*     margin-bottom: 4vh; */
+/*     padding: 10px; */
+/*     border-radius: 12px; */
+/*     border: 3px solid #90305E; */
+/*     background-color: #90305E; */
+/*     color: #EBE7DB; */
+/*     font-weight: bolder; */
+/*     font-size: 25px; */
+/* } */
+
+#buttons .drink-buttons:hover {
+    background:#CD6682;
+    border: 3px solid #CD6682;
+}
+
+/* #buttons .drink-buttons:disabled, .drink-buttons[disabled] { */
+/*     background:#78003C; */ 
+/*     border: 3px solid #78003c; */
+/* } */
+
+#buttons {
+    display: flex; 
+    width: 100%;
+    margin-top: 6vh;
+    justify-content: center;
+
+}
+
+#buttons ul{
+    list-style-type: none;
+    padding: 0;
+    min-width: 16%;
+    overflow: hidden;
+}
+
+#buttons li {
+    list-style-type: none;
+    padding: 0px;
+    margin-bottom: 3vh;
+}
+
+#buttons .mimick-button {
+    margin-right: 2%;
+    background-color:#90305E;
+    color: #EBE7DB;
+    font-size: 20px;
+    font-weight:bolder;
+    border-radius: 12px;
+}
+
+#buttons .mimick-button:hover {
+    background:#CD6682;
+}
+
+#buttons label span {
+    text-align: center;
+    display: block;
+   -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;   padding: 10px 30px 10px 30px;
+} 
+
+#buttons .mimick-button input:checked + span {
+    background-color:#78003C;
+    border-radius:12px;
+}
+
+#buttons .mimick-button input {
+    display: none;
+}
+
+#edit-popup {
+    background-color: #EBE7DB;
+    border: 1px solid #78003c;
+    border-radius: 12px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 30%;
+    width: 50%;
+    z-index: 9999;
+    padding: 2%;
+    padding-top: 1%;
+    color: #614A48;
+    font-weight: bold;
+}
+
+#edit-popup #popup-title{
+    position: relative;
+    margin-bottom: 1%;
+} 
+
+#edit-popup #popup-title h2{
+    margin: 0;
+    text-align:center;
+}
+
+#edit-popup #close-button {
+    position: absolute; 
+    right: 0;
+    top: 0;
+    background:transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#edit-popup #popup-edit-entry {
+    margin-top: 3%;
+} 
+
+#edit-popup #popup-edit-entry .input{
+    margin-top: 1%;
+    margin-bottom: 2%;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    padding: 2%;
+    outline: none;
+    border: none;
+} 
+
+#edit-popup #popup-edit-entry .instructions{
+    border-width: 2px;
+    border-radius: 8px;
+    resize: none;
+    background-color: #EEEEEE;
+    -moz-appearance: none !important;
+    font-family: "Montserrat";
+    font-size: 80%;
+    color: #614A48;
+}
+
+#edit-popup #popup-edit-entry #public-status-box{
+    margin-left:1%;
+}
+
+#edit-popup #popup-submit {
+    background-color:#AB6682;
+    color: #EBE7DB;
+    font-weight:bolder;
+    font-size: 110%;
+    border-radius:4px;
+    border: 3px solid #AB6682;
+    padding: 5px;
+    display: flex;
+    margin: 2% auto 0 auto;
+}
+
+
+

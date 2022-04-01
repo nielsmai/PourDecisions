@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, createAdmin, deleteAll, getUserByUsername, updatePassword } = require('../controllers/users');
+const { getAllUsers, createUser, createAdmin, deleteAll, getUserByUsername, updatePassword, addFavourite, removeFavourite } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
@@ -37,6 +37,14 @@ router.get('/:username', (req, res) => {
 
 router.put('/update', (req, res) => {
     updatePassword(req, res)
+})
+
+router.put('/:username/favourite/add', (req, res) => {
+    addFavourite(req, res)
+})
+
+router.put('/:username/favourite/remove', (req, res) => {
+    removeFavourite(req, res)
 })
 
 router.delete('/', (req, res) => {

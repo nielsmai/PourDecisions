@@ -51,10 +51,9 @@ export default class ingredientSearch extends Component {
 
         })
     }
-    search() {
-        AXIOS.get('/drinks/filter/ingredients', {
-            params: { ingredients: this.state.ingredients }
 
+    search(){
+        AXIOS.get('/drinks/filter/ingredients/all',{ params :{ingredients : this.state.ingredients} 
         }).then(res => {
             console.log(res.data)
             this.setState({ current: res.data })
@@ -143,3 +142,4 @@ export default class ingredientSearch extends Component {
         )
     }
 }
+
