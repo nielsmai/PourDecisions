@@ -128,11 +128,16 @@ export default class ingredientSearch extends Component {
 
                                     <Link to={"/account/drinks/id/" + drink._id}>
                                         <li key={drink._id} id="drinkitem">
-                                            <div>
-                                                <label id="drinkname">{drink.name}</label>
+                                            <div id="drinkinfo">
+                                                <div>
+                                                    <label id="drinkname">{drink.name}</label>
+                                                </div>
+                                                <div>
+                                                    <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <label id="drinkingredients">{drink.recipe.ingredients.map(i => i.ingredientName).toString().replace(/,/g, ', ')}</label>
+                                            <div id="hidden">
+                                                <label>Click for the recipe!</label>
                                             </div>
                                         </li>
                                     </Link>

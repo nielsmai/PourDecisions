@@ -179,4 +179,28 @@ ul.horizontal > li {
 #drinkitem {
     padding: 1%;
     color: #664E4C;
+    display: grid;
+}
+
+#drinkinfo:hover{
+    color:transparent
+}
+
+#drinkinfo, #hidden {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#hidden {
+    display: none;
+    font-size: 40px;
+}
+#drinkitem:hover {
+    background-color: #73003F;
+    color:#73003F;
+}
+
+#drinkitem:hover > #hidden{
+    display: block;
+    color: white;
 }
