@@ -92,9 +92,9 @@ export default class ingredientSearch extends Component {
                 <div id="mainblock">
                     <div>
                         <p id="mainblockPrompt" class="w">
-                            Mix
-                            <br></br>
-                            Select the ingredients you've got at home, to see what drinks you can make!
+                            <p id="big">MIX</p>
+                            Select the ingredients you've got at home, 
+                            <br></br>to see what drinks you can make!
                         </p>
                     </div>
                     <div id="subblock">

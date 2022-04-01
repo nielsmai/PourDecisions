@@ -5,12 +5,14 @@
     margin-top: 2%;
 }
 #mainblockTitle {
-    font-size: 25px;
+    font-size: 36px;
     color: #73003F;
+    font-weight: bold;
 }
 #mainblockPrompt {
     font-size: 40px;
     color:#73003F;
+    font-weight: bold;
 }
 
 #mixbutton {
@@ -34,11 +36,11 @@
     border-radius: 10px;
     background-color: #EFEADE;
     padding: 7%;
-    padding-top: 4%;
+    padding-top: 3%;
     text-align: center;
-    min-height: 500px;
+    min-height: 400px;
     height: auto !important;
-    height: 500px;
+    height: 400px;
 }
 
 ul.horizontal {
@@ -75,7 +77,6 @@ ul.horizontal > li {
     border-color: transparent;
     color: #73003F;
     font-size: 25px;
-    vertical-align: middle;
 }
 #delete:hover{
     font-weight: bold;
@@ -89,7 +90,7 @@ ul.horizontal > li {
 }
 
 #selection{
-    padding: 1%;
+    padding: 2%;
     margin: 3% 0% 3% 0%;
     display:block;
     min-height: 300px;
@@ -126,6 +127,8 @@ ul.horizontal > li {
     margin-bottom: 0%;
     text-align: left;
     background-color:rgba(180, 107, 137, 0.36);
+    border: solid 3px #73003F;
+    border-radius: 12px; 
 }
 
 #drinkname {
@@ -142,4 +145,9 @@ ul.horizontal > li {
     background-color: #e4ded2;
     border: solid 3px #BEB8AA;
     border-radius: 12px;
+}
+
+#big {
+    margin-bottom: 0%;
+    font-size: 50px;
 }
