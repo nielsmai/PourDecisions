@@ -164,14 +164,6 @@ export default function CreateDrink() {
         }
     }
 
-    var seconds = 3
-
-    function redirectpage() {
-        window.location="/"
-    }
-
-    //const redirect = setTimeout(redirectpage(), 3000)
-
     if (window.localStorage.getItem('loggedUsername') === "admin") {
         return (
             <>

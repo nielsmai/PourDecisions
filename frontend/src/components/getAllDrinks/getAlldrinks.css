@@ -1,14 +1,78 @@
-.button {
-    background-color: #7E003E;
-    border: none;
-    color: #F8F3E7;
-    padding: 15px 20px;
-    text-align: right;
-    text-decoration: none;
-   font-size: 20px;
-   border-radius:10px;
-  position: absolute;
-  left: 54%;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+.buttonView {
+  color: #F8F3E7;
+  background-color: #7e003f;
+  border: none;
+  border-radius: 12px;
+  font-size: 21px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px;
+  padding: 5px 15px;
+  position: relative;
+}
+.drinkTitle{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42px;
+  padding: 0px 15px;
+  color: #664e4c
+}
+.buttonContainer{
+  text-align: center;
+}
+/* .formSearch{
+  background-color: #EFEADE;
+  border: 0.1em solid #7E003E;
+  border-radius: 12px;
+} */
+.inputSearch{
+  background-color: #EFEADE;
+  border: 0.1em solid #7E003E;
+  border-radius: 12px;-color: #EFEADE;
+}
+.buttonSearch {
+  background-color: #EFEADE;
+  border: 0.1em solid #7E003E;
+  color: #7E003E;
+  border-radius: 12px;
+  /* padding: 15px 20px; */
+  /* text-align: right; */
+  /* text-decoration: none; */
+ font-size: 20px;
+ border-radius:10px;
+/* position: absolute; */
+left: 54%;
+}
+.container{
+  display:  flex;
+}
+.fil{
+  color: #F8F3E7;
+  background-color: #B46B89;
+  border: none;
+  border-radius: 12px;
+  font-size: 21px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px;
+  padding: 5px 15px;
+
+}
+.drinkList{
+  color: #664E4C;
+}
+.drinkListTitle{
+  color: #664E4C;
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+.drinkListBox{
+  background-color: #EFEADE;
+  border: 0.1em solid #7E003E;
+  border-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.drinkListPad{
+  padding: 10px;
 }
 
 table{
