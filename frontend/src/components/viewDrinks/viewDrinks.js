@@ -93,9 +93,10 @@ function ViewDrinks() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const PostData = async () => {
-
     
     }
+
+    
 
     return (
     <div className="viewDrinks">
@@ -141,6 +142,12 @@ function ViewDrinks() {
 
         <div class="addToFavouritesButton">
             <button type="button" class="addToFavouritesConfirm">Add To Favourites!</button>
+        </div>
+
+        <div class="deleteDrinkButton">
+            {userInfo.isAdmin == true ?? (
+            <button type="button" class="deleteDrinkConfirm">Delete drink</button>
+        )}
         </div>
 
         <div class="editDrink">
