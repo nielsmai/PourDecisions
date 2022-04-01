@@ -138,11 +138,8 @@ export default function ViewDrink() {
         var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
         var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
         var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
-        
-        // for now
-        var public_status = drink.public_status
+        var public_status = document.querySelector("#public-status-box").checked
 
-        // TODO add public status whenever that's done as well
         // TODO add the call here whenever its done
 
         console.log(name)
@@ -156,6 +153,7 @@ export default function ViewDrink() {
     } 
 
     const EditPopup = () => {
+        const [publicStatus, setPublicStatus] = useState(drink.public_status)
         return (
             <div id="edit-popup">
             
@@ -176,9 +174,18 @@ export default function ViewDrink() {
 
                 <label htmlFor="instructions">Instructions</label>
                 <textarea className='input instructions' id='instructions-box' name='instructions' spellCheck={false} placeholder={drink.recipe.instruction}></textarea>
+
+                <label>
+                Public Status
+                <input type="checkbox" id="public-status-box" checked={publicStatus} onChange={() => setPublicStatus(!publicStatus)}/> 
+                </label>
+
+
                 </div>
 
-                <button id="popup-submit" onClick={() => submitEdit()}> unclick </button>
+                <div>
+                <button id="popup-submit" onClick={() => submitEdit()}> Submit </button>
+                </div>
 
             </div>
         )
