@@ -1,193 +1,159 @@
-import { useState } from 'react';
-import './viewDrinks.css';
-import Popup from './components/editDrinkPopup.js';
-import AXIOS from "../../axios.config"
+import React, { useEffect, useState } from 'react';
+import AXIOS from '../../axios.config'
+import './viewDrinks.css'
+import { Link } from 'react-router-dom';
 
-function ViewDrinks() {
+export default function ViewDrinks() {
 
-    const [buttonPopup, setButtonPopup] = useState(false);
-    const [ingredientList, setIngredientList] = useState([])
-    const [ingredient, setIngredient] = useState("")
-    const [garnish, setGarnish] = useState({
-        list:""
-    })
-    const [instructions, setInstructions] = useState("");
+    const [listOfDrinks, setListOfDrinks] = useState([]);
+    const [searchInput, setSearchInput] = useState("")
+    const [checkboxes, setCheckboxes] = useState([false, false, false, false])
 
-    const [drink, setDrink] = useState({
-        name: "",
-        author: "",
-        recipe: {
-            ingredients: [
-                {
-                    ingredientName: "",
-                    ingredientType: ""
-                }
-            ],
-            garnish: "",
-            instructions: ""
+    const getDrinks = () => {
+        AXIOS.get("/drinks/")
+        .then(res => { setListOfDrinks(res.data) })
+    }
+
+    const sortDrinks = () => {
+        // alcoholic
+        if (checkboxes[0]) {
+            const copy = listOfDrinks.filter(drink => drink.tag === "ALCOHOLIC")
+            return copy
         }
-    })
-    const addIngredient = (e) => {
-        e.preventDefault()
-        setIngredientList([
-            ...ingredientList,
-            {
-                ingredientName: ingredient,
-                ingredientType: "OTHER"
+        // mocktail
+        else if (checkboxes[1]) {
+            const copy = listOfDrinks.filter(drink => drink.tag === "MOCKTAIL")
+            return copy
+        }
+        // newest
+        if (checkboxes[2]) {
+            const copy = [...listOfDrinks]
+            const sortByDate = (a, b) => {
+                if ( a.createdAt < b.createdAt ){
+                    return 1
+                }
+                if (a.createdAt > b.createdAt ){
+                    return -1
+                }
+                else return 0
             }
-        ])
+            return copy.sort(sortByDate)
 
-        setDrink({
-            ... drink,
-            recipe :{
-                ingredients: ingredientList
+        }
+        // popularity
+        else if (checkboxes[3]) {
+            const copy = [...listOfDrinks]
+            const sortByPopularity = (a, b) => {
+                if ( a.rating < b.rating ){
+                    return 1
+                }
+                if (a.rating > b.rating ){
+                    return -1
+                }
+                else return 0
             }
-        })
-        setIngredient('')
-    }
-    const onChangeRecipeGarnish = (e) => {
-        setGarnish({
-            ...garnish,
-            [e.target.name]: e.target.value
-        })
-
-        const garnishList = garnish.list.split(',')
-
-        setDrink({
-            ... drink,
-            recipe :{
-                ingredients: ingredientList,
-                garnish: garnishList
-            }
-        })
-    }
-    const onChangeRecipeInstructions = (e) => {
-        setDrink({
-            ...drink,
-            recipe: {
-                ...drink.recipe,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
-    const onChangeDrinkName = (e) => {
-        setDrink({
-            ...drink,
-            [e.target.name]: e.target.value,
-        })
-
+            return copy.sort(sortByPopularity)
+        }
+        else {
+            return listOfDrinks
+        }
     }
 
-    const [currentDrink, setCurrentDrink] = useState([]);
+    const capitalizeFirstLetter = (str) => {
+        const words = str.split(" ").join('').split(' ')
+        for (let i = 0; i < words.length; i++) {
+            words[i] = words[i].toLowerCase()[0].toUpperCase() + words[i].substr(1);
+        }
 
-    const getData = async () => {
-
-        const response = await AXIOS.get('drinks/:username')
-        
-        console.log(response.data)
-        
-        setCurrentDrink(response.data)
-            
+        return words.join(" ")
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const PostData = async () => {
-    
+    const getIngredientName = (ingredient) => {
+        var ingredientList =
+            ingredient.map( ing => capitalizeFirstLetter(ing.ingredientName))
+            .toString().replace(/,/g, ', ')
+
+        return(
+            <>
+                {ingredientList}
+            </>
+        )
     }
 
-    
+    useEffect( () => {
+        getDrinks()
+    }, [])
+
+    const Sort = () => {
+        const checkboxNames = ['Alcoholic', 'Mocktail', 'Newest', 'Popularity']
+
+        const handleSort = (e, i) => {
+            const {checked} = e.target
+            setCheckboxes(
+                checkboxes.map((_, idx) => idx === i ? checked : false)
+            )
+        }
+
+        return(
+            <>
+                {checkboxes.map((selected, i) => (
+                    <div key={i} className='mimickButton'>
+                        <label>
+                            <input
+                            type='checkbox'
+                            checked={selected}
+                            onChange={e => handleSort(e, i)}
+                            />
+                            <span>{checkboxNames[i]} </span>
+                        </label>
+                    </div>
+                ))}
+            </>
+        )
+    }
 
     return (
-    <div className="viewDrinks">
-        <div class="viewDrinksContainer">
-            <div class="rowViewDrinks">
-                <div class="columnLeftViewDrinks">
-                    <div class="pageTitle">
-                        <h1>{ drink.name }</h1>
-                    </div>
-                </div>
-                <div class="columnRightViewDrinks">
-                    <div class="likeCount">
-                        <h1>58 Likes</h1>
-                    </div>
-                </div>
+        <div id="myDrinks">
+            <div id="search">
+                <input
+                    type='text'
+                    placeholder='Search drink by name...'
+                    onChange={(e) => {setSearchInput(e.target.value)}}
+                />
             </div>
 
-            <div class="drinksTag">
-                <h3 class="alcoholicTag">Alcoholic</h3>
+            <div id="sort">
+                <Sort/>
             </div>
 
-            <div class="ingredientsList">
-                <h2>Ingredients:</h2>
-                <p class="ingredients">
-                    {drink.ingredientList}
-                </p>
-            </div>
-            
-            <div class="garnishList">
-                <h2>Garnish:</h2>
-                <p>
-                    { drink.garnishList }
-                </p>
-            </div>
+            <ul id="drinkList">
+                {sortDrinks().filter(drink => drink.name.toLowerCase()
+                .includes(searchInput.toLowerCase())).map(drink => (
+                    <Link to={"/account/drinks/id/" + drink._id}>
+                    <li key={drink._id}>
+                        <table className="drinkInfo">
+                        <tbody>
+                        <tr>
+                        <td className="name">
+                            {drink.name}
+                        </td>
+                        <td className="rating">
+                            {drink.rating + " likes"}
+                        </td>
+                        <td className="tag">
+                            {drink.tag}
+                        </td>
+                        </tr>
 
-            <div class="instructionsList">
-                <h2>Instructions:</h2>
-                <p>
-                    { drink.instructions }
-                </p>
-            </div>
+                        <td className="ingredients" colSpan={3}>
+                            Ingredients: {getIngredientName(drink.recipe.ingredients)}
+                        </td>
+                        </tbody>
+                        </table>
+                    </li>
+                    </Link>
+                ))}
+            </ul>
         </div>
-
-        <div class="addToFavouritesButton">
-            <button type="button" class="addToFavouritesConfirm">Add To Favourites!</button>
-        </div>
-
-        <div class="deleteDrinkButton">
-            <button type="button" class="deleteDrinkConfirm">Delete drink</button>
-        </div>
-
-        <div class="editDrink">
-            <button onClick={() => setButtonPopup(true)}>Edit this drink</button>
-        </div> 
-        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <form onSubmit={handleSubmit}>
-                <h3>Edit Recipe</h3>
-                <label>Name:
-                    <input type="text" name="drinkName" placeholder="Please input new drink name" onChange={onChangeDrinkName}/>
-                    <input type="button" onClick={onChangeDrinkName} value="Confirm Change"></input>
-                </label>
-
-                <br></br>
-
-                <label>Ingredients:
-                    <ul>
-                        {ingredientList.map(item => (
-                            <li>{item.ingredientName}</li>
-                        ))}
-                    </ul>
-                </label>
-
-                <br></br>
-
-                <label>Garnish:
-                    <input type="text" name="garnish" placeholder="List the garnishes" onChange={onChangeRecipeGarnish}/>
-                    <input type="button" onClick={onChangeRecipeGarnish} value="Confirm Change"></input>
-                </label>
-
-                <br></br>
-
-                <label>Instructions:
-                    <input type="text" name="instructions" placeholder="List the instructions" onChange={onChangeRecipeInstructions}/>
-                    <input type="button" onClick={onChangeRecipeInstructions} value="Confirm Change"></input>
-                </label>
-
-
-            </form>
-        </Popup> 
-
-    </div>
-    );
-                        }
-} export default ViewDrinks 
+    )
+}

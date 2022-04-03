@@ -11,6 +11,7 @@ export function CreateAccount() {
         email: '',
         password: ''
     })
+    const [errorMessage, setErrorMessages] = useState("");
 
     const { username, email, password } = formData
 
@@ -34,7 +35,14 @@ export function CreateAccount() {
         // axios.post('http://localhost:5000/users/register', formData)
         // .then(res => console.log(res.data))
         AXIOS.post('/users/register', formData)
-        .then( res => console.log(res.data))
+        .then( res => {
+            console.log(res.data)
+            setErrorMessages("Account created successfully");
+        })
+        .catch(err => {
+            console.log(e)
+            setErrorMessages("Unable to create account");
+        })
 
     }
 
@@ -56,6 +64,7 @@ export function CreateAccount() {
                 <input type='password' id='accountPassword' name='password' value= { password } placeholder='Enter password'
                 onChange={ onChange } />
                 <button type='submit'>Create</button>
+                {errorMessage && <div className="error poppins"> {errorMessage} </div>}
             </form>
         </section>
         <br></br>

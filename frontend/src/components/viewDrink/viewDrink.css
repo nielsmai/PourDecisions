@@ -5,7 +5,7 @@
 #top-bar {
     display: inline-block;
     width: 100%;
-    margin: 5vh 0 5vh 0;
+    margin: 5vh 0 3vh 0;
     font-size: 269%;
     font-weight: bolder;
     color: #614A48;
@@ -51,6 +51,14 @@
     font-size: 75%;
     font-weight:normal;
     
+    clear: left;
+}
+
+#top-bar #drink-status {
+    margin-top: 2vh;
+    margin-left: 19vw;
+    font-size: 50%;
+    font-weight:bold;
     clear: left;
 }
 
@@ -125,7 +133,7 @@
 #buttons {
     display: flex; 
     width: 100%;
-    margin-top: 6vh;
+    margin-top: 5vh;
     justify-content: center;
 
 }

@@ -8,11 +8,11 @@ import "./logInAccount.css"
 
 export default function LogInAccount() {
     const [token, setToken] = useState();
+    const [errorMessage, setErrorMessages] = useState("");
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
     //React States
-    const [errorMessages, setErrorMessages] = useState({}); //Store error msg + field name
     const [isSubmitted, setIsSubmitted] = useState(false); //bool to indicate successfull submission
 
     //Handle User Login
@@ -48,16 +48,12 @@ export default function LogInAccount() {
             })
             .catch(e => {
                 console.log(e)
+                setErrorMessages("Invalid username or password");
             })
         }
         PostData()
     }
 
-    //Code for error message
-    const renderErrorMessage = (name) =>
-        name == errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
-        );
     //Code for Login Form
     const renderForm = (
         <div className="login">
@@ -70,38 +66,37 @@ export default function LogInAccount() {
             </div>
             <div className="columnRight">
                 <div>
-                    <h1 className="loginTitle">Login</h1>
+                    <h1 className="loginTitle libre">Login</h1>
                     <div>
                             <div>
-                             <h4 className="username">Username</h4>
+                             <h4 className="password poppins">username</h4>
                             </div>
                             <input type="text" name="name" required
-                                placeholder="username"
+                                // placeholder="username"
                                 onChange={ (e) => setLoginUsername(e.target.value)}
                             />
-                            {renderErrorMessage("name")}
                     </div>
                     <div className="formBottom">
                         <div>
-                            <h4 className="password">Password</h4>
+                            <h4 className="password poppins">password</h4>
                         </div>
-                        <input type="text" name="pass" required
-                            placeholder="password"
+                        <input type="password" name="pass" required
+                            // placeholder="password"
                             onChange={(e) => setLoginPassword(e.target.value)}
                         />
-                        {renderErrorMessage("pass")}
                     </div>
-
                     <div className="loginButton">
-                        <button type="submit" className="loginConfirm">Login</button>
+                        <button type="submit" className="loginConfirm montserrat">Login</button>
+                        <br></br>
+                        {errorMessage && <div className="error poppins"> {errorMessage} </div>}
                     </div>
 
-                    <div className="forgetAccount">
+                    <div className="forgetAccount poppins">
                         <label><b>Don't have an account?</b></label>
                     </div>
 
-                    <div className="signUp">
-                        <Link to="/account/register">Sign up</Link>
+                    <div className="signUp poppins">
+                        <Link to="/account/register">sign up</Link>
                     </div>
                 </div>
 

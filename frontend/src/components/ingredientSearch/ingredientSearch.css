@@ -1,0 +1,204 @@
+#mainblock {
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+}
+#mainblockTitle {
+    font-size: 36px;
+    color: #73003F;
+    font-weight: bold;
+}
+#mainblockPrompt {
+    font-size: 40px;
+    color:#73003F;
+    font-weight: bold;
+}
+
+#mixbutton {
+    margin-top: 1%;
+    margin-left: 1%;
+    width: 100px;
+    height: 50px;
+    border: solid 3px;
+    background-color:rgba(180, 107, 137, 0.36);
+    border-color: #73003F;
+    border-radius: 10px;
+    vertical-align: bottom;
+    color: #73003F;
+    font-size: 22px;
+}
+#mixbutton:hover{
+    background-color: #73003F;
+    color: white;
+    
+}
+#subblock {
+    border: solid 1px #BEB8AA;
+    border-radius: 10px;
+    background-color: #EFEADE;
+    padding: 5%;
+    padding-top: 2%;
+    padding-bottom: 3%;
+    text-align: center;
+}
+
+ul.horizontal {
+    margin-top: 0%;
+    padding-top: 0%;
+    padding-left: 1%;
+    padding-right: 1%;
+    text-align: left;
+    overflow: auto;
+}
+
+ul.horizontal > li {
+    display: inline-block;
+    margin-left: 0%;
+    margin-right: 0.5%;
+}
+
+#dropdown {
+    border: solid 3px #73003F;
+    border-radius: 10px;
+    height: 50px;
+    background-color: transparent;
+    margin-left: 0%;
+    width: 300px;
+    font-size: 22px;
+}
+
+#lingredient{
+    position: relative;
+    border-color: transparent;
+    width: fit-content;
+    font-size: 20px;
+    height: 100%;
+}
+#delete{
+    background-color: transparent;
+    border-color: transparent;
+    color: #73003F;
+    font-size: 25px;
+}
+#delete:hover{
+    font-weight: bold;
+}
+
+#ingOptName{
+    padding: 10px;
+    border: solid 2px #73003F;
+    border-radius: 12px;
+    background-color:rgba(180, 107, 137, 0.36);
+    color: rgba(115,0,63,0.7);
+    font-weight: bolder;
+}
+
+#selection{
+    margin: 3% 0% 3% 0%;
+    padding: 2%;
+    min-height: 275px;
+    height:auto !important;
+    height:275px;
+    overflow-y: auto;
+    background-color: #e4ded2;
+    border: solid 3px #BEB8AA;
+    border-radius: 12px;
+}
+
+#ingredientselect{
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#drinkselect{
+    margin-top: 1%;
+    min-height: 500px;
+    height: 500px !important;
+    max-height: 500px;
+    border: solid 1px red;
+    overflow-y: auto;
+}
+
+#drinklist{
+    padding: 2%;
+}
+
+#drinklist li{
+    width: 97%;
+    height: 100px;
+    margin-bottom: 2%;
+    text-align: left;
+    background-color:rgba(180, 107, 137, 0.36);
+    border: solid 3px #73003F;
+    border-radius: 12px; 
+}
+
+#drinkname {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#drinkingredients {
+    vertical-align: bottom;
+    font-size: 25px;
+}
+
+#drinkitem {
+    list-style-type: none;
+}
+
+#drinklist li > div {
+    padding-left: 1%;
+}
+
+#drinkselect {
+    margin-top: 3%;
+    padding: 1%;
+    background-color: #e4ded2;
+    border: solid 3px #BEB8AA;
+    border-radius: 12px;
+    list-style: none;
+    
+}
+
+#big {
+    margin-bottom: 0%;
+    font-size: 50px;
+}
+
+#drinkitem {
+    padding: 1%;
+    color: #664E4C;
+    display: grid;
+}
+
+#drinkinfo:hover{
+    color:transparent
+}
+
+#drinkinfo, #hidden {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#drinkinfo {
+    padding-top: 2px;
+}
+
+#hidden {
+    padding-top: 20px;
+    display: none;
+    font-size: 40px;
+    text-align: center;
+}
+#drinkitem:hover {
+    background-color: #73003F;
+    color:#73003F;
+}
+
+#drinkitem:hover > #hidden{
+    display: block;
+    color: white;
+}
