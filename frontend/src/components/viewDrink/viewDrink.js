@@ -225,31 +225,10 @@ export default function ViewDrink() {
 
     const deleteDrink = () => {
 
-        var name = drink.name
+        var name = drink.name;
 
-        AXIOS.delete('/drinks/' + name + '/delete', {
-        })
-        .then( () => {
-            window.location.reload(false)
-        })
-        toggleEditing()
-    }
-
-    const confirmDeletePopup = () => {
-        return (
-            <div id="delete-popup">
-                <div id="popup-title">
-                <h2>Are you sure you want to delete this drink?</h2>
-                </div>
-
-                <div>
-                <button id="delete-confirm" onClick={() => deleteDrink()}> Yes </button>
-                </div>
-                <div>
-                <button id="delete-deny" onClick={() => toggleEditing()}> No </button>
-                </div>
-            </div>
-        )
+        AXIOS.delete('/drinks/' + name + '/delete')
+            .then(() => window.location.replace('/drinks/'));
     }
 
     return load
@@ -338,7 +317,7 @@ export default function ViewDrink() {
                 <li>
                 <div id="delete-button" className="mimick-button">
                     <label>
-                    <input type="submit" onClick={() => confirmDeletePopup()}/>
+                    <input type="submit" onClick={() => deleteDrink()}/>
                     <span>Delete this drink!</span>
                     </label>
                 </div>
