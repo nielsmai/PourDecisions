@@ -226,24 +226,12 @@ export default function ViewDrink() {
     const deleteDrink = () => {
 
         var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
-        var ingredients = document.getElementById("ingredients-box").value || document.getElementById("ingredients-box").getAttribute("placeholder")
-        var garnish = document.getElementById("garnish-box").value || document.getElementById("garnish-box").getAttribute("placeholder")
-        var instructions = document.getElementById("instructions-box").value || document.getElementById("instructions-box").getAttribute("placeholder")
-        var public_status = document.querySelector("#public-status-box").checked
 
         AXIOS.delete('/drinks/' + name + '/delete', {
         })
         .then( () => {
             window.location.reload(false)
         })
-
-        // Making sure all of the drink features are deleted (should display null)
-        console.log(name)
-        console.log(ingredients)
-        console.log(garnish)
-        console.log(instructions)
-        console.log(public_status)
-
         toggleEditing()
     }
 
