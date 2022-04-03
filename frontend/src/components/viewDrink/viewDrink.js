@@ -225,7 +225,7 @@ export default function ViewDrink() {
 
     const deleteDrink = () => {
 
-        var name = document.getElementById("drink-name-box").value || document.getElementById("drink-name-box").getAttribute("placeholder")
+        var name = drink.name
 
         AXIOS.delete('/drinks/' + name + '/delete', {
         })
