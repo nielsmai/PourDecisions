@@ -230,8 +230,10 @@ export default function ViewDrink() {
             author: drink.author
         }
 
-        AXIOS.delete('/drinks/' + drink.name + '/delete', {data})
+        if (userType == "admin"){
+            AXIOS.delete('/drinks/' + drink.name + '/delete', {data})
             .then(() => window.location.replace('/drinks'));
+        }
     }
 
     return load
