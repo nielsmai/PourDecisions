@@ -69,7 +69,7 @@ export default function LogInAccount() {
                     <h1 className="loginTitle libre">Login</h1>
                     <div>
                             <div>
-                             <h4 className="username poppins">username</h4>
+                             <h4 className="password poppins">username</h4>
                             </div>
                             <input type="text" name="name" required
                                 // placeholder="username"
