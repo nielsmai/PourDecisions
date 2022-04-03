@@ -225,10 +225,13 @@ export default function ViewDrink() {
 
     const deleteDrink = () => {
 
-        var name = drink.name;
+        const data = {
+            name: drink.name,
+            author: drink.author
+        }
 
-        AXIOS.delete('/drinks/' + name + '/delete')
-            .then(() => window.location.replace('/drinks/'));
+        AXIOS.delete('/drinks/' + drink.name + '/delete', {data})
+            .then(() => window.location.replace('/drinks'));
     }
 
     return load
