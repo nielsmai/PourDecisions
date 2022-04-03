@@ -494,5 +494,34 @@ module.exports.getAllIngredients = async (req, res) => {
     }
 }
 
+module.exports.changeRecipe = async (req, res) => {
+    try {
+        const {author, drinkId} = req.params
+        const {name, recipe, public_status} = req.body
 
+        const update = await Drink.findOneAndUpdate(
+            {
+                _id: drinkId
+            }
+            ,
+            {
+                "$set":{
+                    name: name,
+                    author: author,
+                    recipe: recipe,
+                    public_status: public_status
+                }
+                
+            }
+            ,
+            {"new":true}
+        )
+        if (update) res.status(200).json({ message: "DRINK-UPDATED" }) 
+        else res.status(400).json({ message: "DRINK-NOT-UPDATED" })
+
+    } catch (err){
+        res.status(400).json({ message: err.message  })
+
+    }
+}
 
