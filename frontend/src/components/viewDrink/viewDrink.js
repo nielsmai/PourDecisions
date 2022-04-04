@@ -12,7 +12,7 @@ export default function ViewDrink() {
     const [favourites, setFavourites] = useState([])
     const [alreadyFavourited, setAlreadyFavourited] = useState(false)
     const [editing, setEditing] = useState(false)
-    
+
     useEffect( () => {
         const timer = setTimeout(() => {
             setLoad(true)
@@ -26,18 +26,18 @@ export default function ViewDrink() {
         .then(res => {
             if (userType !== "guest"){
                 setDrink(res.data)
-                if (user == res.data.author) {
+                if (user == res.data.author && user !== "admin") {
                     setUserType("author")
                 }
                 AXIOS.get("/users/" + user)
-                .then(res => 
+                .then(res =>
                     setFavourites(res.data.favourites)
                 )
             } else {
                 setDrink(res.data)
             }
         })
-    } 
+    }
     useEffect( () => {
         let unmounted = false
         if (localStorage.getItem('loggedIn') === null){
@@ -46,7 +46,7 @@ export default function ViewDrink() {
         }
         else if (localStorage.getItem('loggedUsername') == 'admin') {
             if (!unmounted)
-            setUserType("admin") 
+            setUserType("admin")
         }
         else{
             if (!unmounted)
@@ -55,13 +55,13 @@ export default function ViewDrink() {
         if (!unmounted)
         loadStates()
         return () => {unmounted = true}
-    }, []) 
+    }, [])
 
     const alreadyInFavourites = () => {
 
         setAlreadyFavourited(
             favourites.some( e => e.name == drink.name && e.author == drink.author)
-        ) 
+        )
     }
 
     useEffect ( () => {
@@ -94,7 +94,7 @@ export default function ViewDrink() {
         }
         else {
             AXIOS.put('/users/' + localStorage.getItem('loggedUsername') + '/favourite/add', {
-                drinkId: drinkId 
+                drinkId: drinkId
             })
             .then( () => {
                 AXIOS.put('/drinks/drink/like', {
@@ -112,30 +112,30 @@ export default function ViewDrink() {
         // if currently editing
         if (editing) {
             // set it back to unblur
-            document.getElementById("drink-info").style.filter = "blur(0px)"   
-            document.getElementById("drink-info").style.pointerEvents = "auto" 
+            document.getElementById("drink-info").style.filter = "blur(0px)"
+            document.getElementById("drink-info").style.pointerEvents = "auto"
         }
         // if not editing
         else {
             // then set to blur
-            document.getElementById("drink-info").style.filter = "blur(6px)"   
-            document.getElementById("drink-info").style.pointerEvents = "none" 
+            document.getElementById("drink-info").style.filter = "blur(6px)"
+            document.getElementById("drink-info").style.pointerEvents = "none"
         }
         setEditing(!editing)
     }
 
     const getIngredientsString = (drink) => {
         var ingredients = []
-        drink.recipe.ingredients.map( ing => 
+        drink.recipe.ingredients.map( ing =>
             ingredients.push(capitalizeFirstLetter(ing.ingredientName))
-        ) 
+        )
         return ingredients.join(", ")
     }
     const getGarnishString = (drink) => {
         var ingredients = []
-        drink.recipe.garnish.map( ing => 
+        drink.recipe.garnish.map( ing =>
             ingredients.push(capitalizeFirstLetter(ing))
-        ) 
+        )
         return ingredients.join(", ")
     }
 
@@ -157,7 +157,7 @@ export default function ViewDrink() {
                     {
                         ingredientName: name
                     }
-                )  
+                )
             ))
 
             // parse garnishList
@@ -182,18 +182,18 @@ export default function ViewDrink() {
 
         }
 
-    } 
+    }
 
     const EditPopup = () => {
         const [publicStatus, setPublicStatus] = useState(drink.public_status)
         return (
             <div id="edit-popup">
-            
+
                 <div id="popup-title">
-                <h2>Edit drink</h2> 
+                <h2>Edit drink</h2>
                 <button id="close-button" onClick={() => toggleEditing()}>X</button>
                 </div>
-            
+
                 <div id="popup-edit-entry">
                 <label htmlFor="drink-name">Drink name</label>
                 <input className="input" id="drink-name-box" name="drink-name" type="text" placeholder={capitalizeFirstLetter(drink.name)}/>
@@ -209,7 +209,7 @@ export default function ViewDrink() {
 
                 <label>
                 Public
-                <input type="checkbox" id="public-status-box" checked={publicStatus} onChange={() => setPublicStatus(!publicStatus)}/> 
+                <input type="checkbox" id="public-status-box" checked={publicStatus} onChange={() => setPublicStatus(!publicStatus)}/>
                 </label>
 
 
@@ -221,9 +221,22 @@ export default function ViewDrink() {
 
             </div>
         )
-    } 
-    
-    return load 
+    }
+
+    const deleteDrink = () => {
+
+        const data = {
+            name: drink.name,
+            author: drink.author
+        }
+
+        if (userType == "admin"){
+            AXIOS.delete('/drinks/' + drink.name + '/delete', {data})
+            .then(() => window.location.replace('/drinks'));
+        }
+    }
+
+    return load
         ? (
         <div id="view-drink">
         <div id="drink-info">
@@ -233,25 +246,25 @@ export default function ViewDrink() {
             <span id="drink-tag" className="top-bar-element right">{drink.tag}</span>
             <span id="drink-author" className="top-bar-element left">{"made by " + drink.author}</span>
             <span id="drink-status" className="top-bar-element left">
-            {drink.public_status 
+            {drink.public_status
                 ? <label style={{color: "#328453"}}>PUBLIC</label>
                 : <label style={{color: "#892e59"}}>PRIVATE</label>
             }
             </span>
-        </div> 
+        </div>
         <div id="body">
             <span className="body-header">Ingredients:</span>
             <ul className="body-text ingredient ingredient-list">
-            { drink.recipe.ingredients.map( ing => 
+            { drink.recipe.ingredients.map( ing =>
                 <li key={ing._id} className='ingredient'>
                     {capitalizeFirstLetter(ing.ingredientName)}
-                </li> 
-            )} 
+                </li>
+            )}
             </ul>
             <span className="body-header">Garnish:</span>
             <ul className="body-text ingredient ingredient-list">
             {drink.recipe.garnish.length !== 0
-                ? drink.recipe.garnish.map( (garn, i) => 
+                ? drink.recipe.garnish.map( (garn, i) =>
                 <li key={i} className='ingredient'>
                     {capitalizeFirstLetter(garn)}
                 </li>
@@ -260,14 +273,14 @@ export default function ViewDrink() {
                 <small>
                     <i>No garnishes.</i>
                 </small>
-                
-            } 
+
+            }
             </ul>
             <span className="body-header">Instructions:</span>
             {drink.recipe.instruction == undefined
                 || drink.recipe.instruction == null
                 || drink.recipe.instruction == ""
-            ? 
+            ?
             <p className="body-text">
                 <small>
                     <i>No instructions left by author.</i>
@@ -282,10 +295,10 @@ export default function ViewDrink() {
             }
         </div>
         <div id="buttons">
-            {userType == "guest" 
-                ? 
+            {userType == "guest"
+                ?
                     <></>
-                : 
+                :
                 userType == "admin" || userType == "author"
                 ?
                 <div id="buttons">
@@ -306,8 +319,16 @@ export default function ViewDrink() {
                     </label>
                 </div>
                 </li>
+                <li>
+                <div id="delete-button" className="mimick-button">
+                    <label>
+                    <input type="submit" onClick={() => deleteDrink()}/>
+                    <span>Delete this drink!</span>
+                    </label>
+                </div>
+                </li>
                 </ul>
-                </div>  
+                </div>
                 :
                 <div id="buttons">
                 <ul>
@@ -320,15 +341,15 @@ export default function ViewDrink() {
                 </div>
                 </li>
                 </ul>
-                </div>  
+                </div>
             }
-        </div>      
         </div>
-        {editing ? <EditPopup/> : <></>} 
         </div>
-    ) 
-    : 
+        {editing ? <EditPopup/> : <></>}
+        </div>
+    )
+    :
         <div>
             {/* add loading screen here */}
         </div>
-} 
+}

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function ViewDrinks() {
 
-    const [listOfDrinks, setListOfDrinks] = useState([]); 
+    const [listOfDrinks, setListOfDrinks] = useState([]);
     const [searchInput, setSearchInput] = useState("")
     const [checkboxes, setCheckboxes] = useState([false, false, false, false])
 
@@ -25,7 +25,7 @@ export default function ViewDrinks() {
             const copy = listOfDrinks.filter(drink => drink.tag === "MOCKTAIL")
             return copy
         }
-        // newest 
+        // newest
         if (checkboxes[2]) {
             const copy = [...listOfDrinks]
             const sortByDate = (a, b) => {
@@ -33,7 +33,7 @@ export default function ViewDrinks() {
                     return 1
                 }
                 if (a.createdAt > b.createdAt ){
-                    return -1 
+                    return -1
                 }
                 else return 0
             }
@@ -48,7 +48,7 @@ export default function ViewDrinks() {
                     return 1
                 }
                 if (a.rating > b.rating ){
-                    return -1 
+                    return -1
                 }
                 else return 0
             }
@@ -68,8 +68,8 @@ export default function ViewDrinks() {
         return words.join(" ")
     }
 
-    const getIngredientName = (ingredient) => { 
-        var ingredientList = 
+    const getIngredientName = (ingredient) => {
+        var ingredientList =
             ingredient.map( ing => capitalizeFirstLetter(ing.ingredientName))
             .toString().replace(/,/g, ', ')
 
@@ -86,9 +86,9 @@ export default function ViewDrinks() {
 
     const Sort = () => {
         const checkboxNames = ['Alcoholic', 'Mocktail', 'Newest', 'Popularity']
-    
+
         const handleSort = (e, i) => {
-            const {checked} = e.target 
+            const {checked} = e.target
             setCheckboxes(
                 checkboxes.map((_, idx) => idx === i ? checked : false)
             )
@@ -99,7 +99,7 @@ export default function ViewDrinks() {
                 {checkboxes.map((selected, i) => (
                     <div key={i} className='mimickButton'>
                         <label>
-                            <input 
+                            <input
                             type='checkbox'
                             checked={selected}
                             onChange={e => handleSort(e, i)}
@@ -115,9 +115,9 @@ export default function ViewDrinks() {
     return (
         <div id="myDrinks">
             <div id="search">
-                <input 
-                    type='text' 
-                    placeholder='Search drink by name...' 
+                <input
+                    type='text'
+                    placeholder='Search drink by name...'
                     onChange={(e) => {setSearchInput(e.target.value)}}
                 />
             </div>
@@ -138,7 +138,7 @@ export default function ViewDrinks() {
                             {drink.name}
                         </td>
                         <td className="rating">
-                            {drink.rating + " likes"} 
+                            {drink.rating + " likes"}
                         </td>
                         <td className="tag">
                             {drink.tag}
@@ -147,7 +147,7 @@ export default function ViewDrinks() {
 
                         <td className="ingredients" colSpan={3}>
                             Ingredients: {getIngredientName(drink.recipe.ingredients)}
-                        </td> 
+                        </td>
                         </tbody>
                         </table>
                     </li>
