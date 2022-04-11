@@ -230,7 +230,7 @@ export default function ViewDrink() {
             author: drink.author
         }
 
-        if (userType == "admin"){
+        if (userType == "admin" || (userType == "user" && localStorage.getItem('loggedUsername').localeCompare(data.author)) ){
             AXIOS.delete('/drinks/' + drink.name + '/delete', {data})
             .then(() => window.location.replace('/drinks'));
         }

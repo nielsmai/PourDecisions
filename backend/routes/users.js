@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, createUser, createAdmin, deleteAll, getUserByUsername, updatePassword, addFavourite, removeFavourite } = require('../controllers/users');
+const { getAllUsers, createUser, createAdmin, deleteAll, deleteUser, getUserByUsername, updatePassword, addFavourite, removeFavourite } = require('../controllers/users');
 const { login } = require('../controllers/login');
 const { logout } = require('../controllers/logout');
 
@@ -47,8 +47,12 @@ router.put('/:username/favourite/remove', (req, res) => {
     removeFavourite(req, res)
 })
 
-router.delete('/', (req, res) => {
+router.delete('/deleteAll', (req, res) => {
     deleteAll(req,res)
+});
+
+router.delete('/deleteUser/:username', (req, res) => {
+    deleteUser(req, res)
 });
 
 module.exports = router;

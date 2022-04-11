@@ -213,5 +213,13 @@ module.exports.deleteAll = async (req, res) => {
     
 }
 
-
+module.exports.deleteUser = async (req, res) => {
+    try {
+        const username = req.params.username
+        const del = await User.deleteOne({ username: username});
+        res.status(200).json({del});
+    } catch (error){
+        res.status(400).json({message: error.message});
+    }
+}
 
