@@ -18,15 +18,15 @@ jobs:
     - name: Deploy backend # might not need to separate since we only have 1 server
       uses: akhileshns/heroku-deploy@v3.12.12   
       with:
-        heroku_api_key: '7bc2f733-0194-40b6-a241-c18ffbb0cc14'
-        heroku_app_name: 'pour-decisions-server'
-        heroku_email: 'minh-tuan.chau@mail.mcgill.ca'
+        heroku_api_key: secrets.HEROKU_API_KEY
+        heroku_app_name: secrets.HEROKU_APP_NAME
+        heroku_email: secrets.HEROKU_EMAIL
         appdir: 'backend' 
     - name: Deploy Frontend
       uses: akhileshns/heroku-deploy@v3.12.12  
       with:
-        heroku_api_key: '7bc2f733-0194-40b6-a241-c18ffbb0cc14'
-        heroku_app_name: 'pour-decisions-app'
-        heroku_email: 'minh-tuan.chau@mail.mcgill.ca'
+        heroku_api_key: secrets.HEROKU_API_KEY
+        heroku_app_name: secrets.HEROKU_API_KEY
+        heroku_email: secrets.HEROKU_API_KEY
         appdir: 'frontend'  
 
