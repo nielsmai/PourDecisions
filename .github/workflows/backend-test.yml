@@ -23,6 +23,15 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        #Secret Secret Shh
+    env: 
+      API_HOST: ${{ secrets.API_HOST}}
+      ATLAS_URI: ${{ secrets.ATLAS_URI }}
+      CLIENT_HOST: ${{ secrets.CLIENT_HOST }}
+      DEV_URI: ${{ secrets.DEV_URI }}
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
         
     steps:
     - uses: actions/checkout@v2
