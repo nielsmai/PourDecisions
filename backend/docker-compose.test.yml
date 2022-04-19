@@ -9,14 +9,14 @@ services:
       bash -c "npm run test-failure"
     environment:
       - PORT=5000
-      - ATLAS_URI=${{ secrets.ATLAS_URI }}
-      - DEV_URI=${{ secrets.DEV_URI }}
+      - ATLAS_URI=${ ATLAS_URI }
+      - DEV_URI=${ DEV_URI }
       - NODE_ENV=development
-      - API_HOST=${{ secrets.API_HOST }}
+      - API_HOST=${ API_HOST }
       - API_PORT=443
       - DEV_API_HOST=http://127.0.0.1
       - DEV_API_PORT=5000
-      - CLIENT_HOST=${{ secrets.CLIENT_HOST }}
+      - CLIENT_HOST=${ CLIENT_HOST }
       - CLIENT_PORT=443
       - DEV_CLIENT_HOST=http://127.0.0.1
       - DEV_CLIENT_PORT=3000
